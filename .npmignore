@@ -1,0 +1,10 @@
+.vscode/
+coverage/
+examples/
+lib/test/
+src/
+test/
+
+TODO.md
+tsconfig.json
+tslint.json

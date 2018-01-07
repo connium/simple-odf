@@ -1,0 +1,61 @@
+{
+  "name": "odf",
+  "version": "0.1.0",
+  "description": "Library for creating files in Open Document Format",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "prepublishOnly": "tsc",
+    "pretest": "npm run lint",
+    "test": "jest",
+    "watch-test": "jest --watch",
+    "coverage": "jest --coverage",
+    "jest": "jest",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/connium/node-odf.git"
+  },
+  "keywords": [
+    "open",
+    "document",
+    "format",
+    "odf",
+    "odt",
+    "office"
+  ],
+  "author": "Christoph Nölke",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/connium/node-odf/issues"
+  },
+  "homepage": "https://github.com/connium/node-odf#readme",
+  "engines": {
+    "node": "^8.9.4"
+  },
+  "dependencies": {
+    "xmldom": "^0.1.27"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.0.0",
+    "@types/node": "^8.5.2",
+    "@types/xmldom": "^0.1.29",
+    "jest": "^22.0.4",
+    "ts-jest": "^22.0.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.2"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "test/.*.*\\.spec\\.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "mapCoverage": true
+  }
+}
