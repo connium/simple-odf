@@ -1,5 +1,5 @@
 {
-  "name": "odf",
+  "name": "simple-odf",
   "version": "0.1.0",
   "description": "Library for creating files in Open Document Format",
   "main": "./lib/index.js",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/connium/node-odf.git"
+    "url": "git+https://github.com/connium/simple-odf.git"
   },
   "keywords": [
     "open",
@@ -29,9 +29,9 @@
   "author": "Christoph Nölke",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/connium/node-odf/issues"
+    "url": "https://github.com/connium/simple-odf/issues"
   },
-  "homepage": "https://github.com/connium/node-odf#readme",
+  "homepage": "https://github.com/connium/simple-odf#readme",
   "engines": {
     "node": "^8.9.4"
   },
