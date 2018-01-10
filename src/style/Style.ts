@@ -125,11 +125,7 @@ export class Style {
       return this.createAutomaticStylesElement(document);
     }
 
-    if (automaticStylesElements.length === 1) {
-      return automaticStylesElements[0];
-    }
-
-    throw new Error(`Unexpectedly found ${automaticStylesElements.length} automatic-styles elements.`);
+    return automaticStylesElements[0];
   }
 
   /**
