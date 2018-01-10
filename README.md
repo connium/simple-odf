@@ -1,8 +1,13 @@
-# node-odf
+simple-odf
+==========
 
-## What is node-odf?
+[![Dependencies](https://david-dm.org/connium/simple-odf.svg)](https://david-dm.org/connium/simple-odf)
+[![Known Vulnerabilities](https://snyk.io/test/github/connium/simple-odf/badge.svg)](https://snyk.io/test/github/connium/simple-odf)
+[![Version](https://img.shields.io/npm/v/simple-odf.svg)](https://www.npmjs.com/package/simple-odf)
 
-node-odf is an easy-to-use, high-level Node.js based API for creating documents in Open Document Format (ODF).
+## What is simple-odf?
+
+simple-odf is an easy-to-use, high-level Node.js based API for creating documents in Open Document Format (ODF).
 
 It is written in TypeScript and compiled to pure JavaScript.
 
