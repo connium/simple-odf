@@ -6,7 +6,7 @@ import { Style } from "../style/Style";
 
 /**
  * This class represents a paragraph.
- * If a text is given, this will be set as text content of the paragraph.
+ * If a text is specified, this will be set as text content of the paragraph.
  *
  * @since 0.1.0
  */
@@ -28,32 +28,22 @@ export class Paragraph extends OdfElement {
   }
 
   /**
-   * Sets the text content of this paragraph.
-   *
-   * @param {string} text The text content
-   * @since 0.1.0
-   */
-  public setTextContent(text: string): void {
-    this.text = text;
-  }
-
-  /**
    * Returns the text content of this paragraph.
    *
    * @returns {string | undefined} The text content of this paragraph
    * @since 0.1.0
    */
-  public getTextContent(): string | undefined {
+  public getText(): string | undefined {
     return this.text;
   }
 
   /**
-   * Appends the given text at the end of this paragraph.
+   * Appends the specified text to the end of this paragraph.
    *
    * @param {string} text The additional text content
    * @since 0.1.0
    */
-  public appendTextContent(text: string): void {
+  public appendText(text: string): void {
     if (this.text === undefined) {
       this.text = text;
       return;
@@ -63,11 +53,21 @@ export class Paragraph extends OdfElement {
   }
 
   /**
+   * Sets the text content of this paragraph.
+   *
+   * @param {string} text The text content
+   * @since 0.1.0
+   */
+  public setText(text: string): void {
+    this.text = text;
+  }
+
+  /**
    * Removes the text content of this paragraph.
    *
    * @since 0.1.0
    */
-  public removeTextContent(): void {
+  public removeText(): void {
     this.text = undefined;
   }
 
@@ -81,9 +81,19 @@ export class Paragraph extends OdfElement {
   }
 
   /**
-   * TODO
+   * Returns the horizontal alignment setting of this paragraph.
    *
-   * @param horizontalAlignment TODO
+   * @returns {HorizontalAlignment} The horizontal alignment setting
+   * @since 0.2.0
+   */
+  public getHorizontalAlignment(): HorizontalAlignment {
+    return this.style.getHorizontalAlignment();
+  }
+
+  /**
+   * Sets the horizontal alignment setting of this paragraph.
+   *
+   * @param {HorizontalAlignment} horizontalAlignment The horizontal alignment setting
    * @since 0.1.0
    */
   public setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): void {
@@ -105,7 +115,7 @@ export class Paragraph extends OdfElement {
     const paragraph = this.createElement(document);
 
     this.appendStyle(document, paragraph); // TODO test
-    this.appendText(document, paragraph);
+    this.appendTextContent(document, paragraph);
 
     parent.appendChild(paragraph);
 
@@ -113,7 +123,7 @@ export class Paragraph extends OdfElement {
   }
 
   /**
-   * Appends the style of the paragraph.
+   * Appends the style of the paragraph to the XML document.
    *
    * @param {Document} document The XML document
    * @param {Element} paragraph The paragraph the text belongs to
@@ -127,13 +137,13 @@ export class Paragraph extends OdfElement {
   }
 
   /**
-   * Appends the text of the paragraph.
+   * Appends the text of the paragraph to the paragraph element.
    * Newlines will be replaced with line breaks.
    *
    * @param {Document} document The XML document
    * @param {Element} paragraph The paragraph the text belongs to
    */
-  private appendText(document: Document, paragraph: Element): void {
+  private appendTextContent(document: Document, paragraph: Element): void {
     if (this.text === undefined) {
       return;
     }

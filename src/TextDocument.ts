@@ -5,10 +5,13 @@ import { DOMImplementation, XMLSerializer } from "xmldom";
 import { OdfAttributeName } from "./OdfAttributeName";
 import { OdfElement } from "./OdfElement";
 import { OdfElementName } from "./OdfElementName";
-import { Headline } from "./text/Headline";
+import { Heading } from "./text/Heading";
+import { List } from "./text/List";
 import { Paragraph } from "./text/Paragraph";
 
 export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
+
+const OFFICE_VERSION = "1.2";
 
 /**
  * This class represents an empty ODF text document.
@@ -20,20 +23,20 @@ export class TextDocument extends OdfElement {
   }
 
   /**
-   * Adds a headline at the end of the document.
+   * Adds a heading at the end of the document.
    * If a text is given, this will be set as text content of the paragraph.
    * If the heading level is omitted, it defaults to 1.
    *
-   * @param {string} [text] The optional text content of the headline
+   * @param {string} [text] The optional text content of the heading
    * @param {number} [headingLevel] The optional heading level
-   * @returns {Headline} The newly added headline
+   * @returns {Heading} The newly added heading
    * @since 0.1.0
    */
-  public addHeadline(text?: string, headingLevel?: number): Headline {
-    const headline = new Headline(text, headingLevel);
-    this.appendElement(headline);
+  public addHeading(text?: string, headingLevel?: number): Heading {
+    const heading = new Heading(text, headingLevel);
+    this.appendElement(heading);
 
-    return headline;
+    return heading;
   }
 
   /**
@@ -49,6 +52,19 @@ export class TextDocument extends OdfElement {
     this.appendElement(paragraph);
 
     return paragraph;
+  }
+
+  /**
+   * Adds a list at the end of the document.
+   *
+   * @returns {List} The newly added list
+   * @since 0.2.0
+   */
+  public addList(): List {
+    const list = new List();
+    this.appendElement(list);
+
+    return list;
   }
 
   /** @inheritDoc */
@@ -82,7 +98,7 @@ export class TextDocument extends OdfElement {
   /** @inheritDoc */
   protected toXML(document: Document, root: Element): void {
     root.setAttribute(OdfAttributeName.OfficeMimetype, "application/vnd.oasis.opendocument.text");
-    root.setAttribute(OdfAttributeName.OfficeVersion, "1.2");
+    root.setAttribute(OdfAttributeName.OfficeVersion, OFFICE_VERSION);
 
     const bodyElement = document.createElement(OdfElementName.OfficeBody);
     root.appendChild(bodyElement);

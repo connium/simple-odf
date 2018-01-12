@@ -48,6 +48,16 @@ export class Style {
   /**
    * TODO
    *
+   * @returns {HorizontalAlignment} TODO
+   * @since 0.2.0
+   */
+  public getHorizontalAlignment(): HorizontalAlignment {
+    return this.horizontalAlignment;
+  }
+
+  /**
+   * TODO
+   *
    * @param {HorizontalAlignment} horizontalAlignment TODO
    * @since 0.1.0
    */

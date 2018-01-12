@@ -1,32 +1,32 @@
-import { Headline } from "../../src/text/Headline";
+import { Heading } from "../../src/text/Heading";
 import { TextDocument } from "../../src/TextDocument";
 
-describe(Headline.name, () => {
+describe(Heading.name, () => {
   let document: TextDocument;
-  let headline: Headline;
+  let heading: Heading;
 
   beforeEach(() => {
     document = new TextDocument();
   });
 
-  it("insert an empty headline with default level 1", () => {
-    document.addHeadline();
+  it("insert an empty heading with default level 1", () => {
+    document.addHeading();
 
     const documentAsString = document.toString();
     expect(documentAsString).toMatch(/<text:h text:outline-level="1"\/>/);
     expect(documentAsString).not.toMatch(/xmlns:text/);
   });
 
-  it("insert a headline with given text and default level 1", () => {
-    document.addHeadline("heading");
+  it("insert a heading with given text and default level 1", () => {
+    document.addHeading("heading");
 
     const documentAsString = document.toString();
     expect(documentAsString).toMatch(/<text:h text:outline-level="1">heading<\/text:h>/);
     expect(documentAsString).toMatch(/xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"/);
   });
 
-  it("insert a headline with given text and given level", () => {
-    document.addHeadline("heading", 2);
+  it("insert a heading with given text and given level", () => {
+    document.addHeading("heading", 2);
 
     const documentAsString = document.toString();
     expect(documentAsString).toMatch(/<text:h text:outline-level="2">heading<\/text:h>/);
@@ -34,31 +34,31 @@ describe(Headline.name, () => {
 
   describe("#setHeadingLevel", () => {
     beforeEach(() => {
-      headline = document.addHeadline("Heading", 2);
+      heading = document.addHeading("Heading", 2);
     });
 
     it("change the current level to the given value", () => {
-      headline.setHeadingLevel(3);
-      const headingLevel = headline.getHeadingLevel();
+      heading.setHeadingLevel(3);
+      const headingLevel = heading.getHeadingLevel();
 
       expect(headingLevel).toBe(3);
     });
 
     it("change the current level to the default value, if the given value is invalid", () => {
-      headline.setHeadingLevel(-2);
-      const headingLevel = headline.getHeadingLevel();
+      heading.setHeadingLevel(-2);
+      const headingLevel = heading.getHeadingLevel();
 
-      expect(headingLevel).toBe(Headline.DEFAULT_LEVEL);
+      expect(headingLevel).toBe(Heading.DEFAULT_LEVEL);
     });
   });
 
   describe("#getHeadingLevel", () => {
     beforeEach(() => {
-      headline = document.addHeadline("heading", 2);
+      heading = document.addHeading("heading", 2);
     });
 
     it("return the current level", () => {
-      const headingLevel = headline.getHeadingLevel();
+      const headingLevel = heading.getHeadingLevel();
 
       expect(headingLevel).toBe(2);
     });

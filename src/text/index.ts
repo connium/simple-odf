@@ -1,2 +1,2 @@
-export { Headline } from "./Headline";
+export { Heading } from "./Heading";
 export { Paragraph } from "./Paragraph";
