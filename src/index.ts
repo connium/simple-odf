@@ -4,5 +4,7 @@ export { TextDocument } from "./TextDocument";
 export { HorizontalAlignment } from "./style/HorizontalAlignment";
 
 // text
-export { Headline } from "./text/Headline";
+export { Heading } from "./text/Heading";
+export { List } from "./text/List";
+export { ListItem } from "./text/ListItem";
 export { Paragraph } from "./text/Paragraph";

@@ -48,6 +48,16 @@ export class Style {
   /**
    * TODO
    *
+   * @returns {HorizontalAlignment} TODO
+   * @since 0.2.0
+   */
+  public getHorizontalAlignment(): HorizontalAlignment {
+    return this.horizontalAlignment;
+  }
+
+  /**
+   * TODO
+   *
    * @param {HorizontalAlignment} horizontalAlignment TODO
    * @since 0.1.0
    */
@@ -105,9 +115,7 @@ export class Style {
       paragraphPropertiesElement.setAttribute("fo:break-before", "page");
     }
 
-    if (paragraphPropertiesElement.hasAttributes() === true) {
-      styleElement.appendChild(paragraphPropertiesElement);
-    }
+    styleElement.appendChild(paragraphPropertiesElement);
   }
 
   /**
@@ -125,11 +133,7 @@ export class Style {
       return this.createAutomaticStylesElement(document);
     }
 
-    if (automaticStylesElements.length === 1) {
-      return automaticStylesElements[0];
-    }
-
-    throw new Error(`Unexpectedly found ${automaticStylesElements.length} automatic-styles elements.`);
+    return automaticStylesElements[0];
   }
 
   /**

@@ -3,8 +3,7 @@ import { promisify } from "util";
 import { HorizontalAlignment } from "../src/style/HorizontalAlignment";
 import { TextDocument, XML_DECLARATION } from "../src/TextDocument";
 
-const FILEPATH_1 = "./test.fodt";
-const FILEPATH_2 = "./test2.fodt";
+const FILEPATH = "./test.fodt";
 
 describe(TextDocument.name, () => {
   /* tslint:disable-next-line:max-line-length */
@@ -18,8 +17,7 @@ describe(TextDocument.name, () => {
   afterAll(async (done) => {
     const unlinkAsync = promisify(unlink);
 
-    await unlinkAsync(FILEPATH_1);
-    await unlinkAsync(FILEPATH_2);
+    await unlinkAsync(FILEPATH);
 
     done();
   });
@@ -33,29 +31,11 @@ describe(TextDocument.name, () => {
   it("write a flat document", async (done) => {
     const readFileAsync = promisify(readFile);
 
-    await document.saveFlat(FILEPATH_1);
+    await document.saveFlat(FILEPATH);
 
-    const fileContents = await readFileAsync(FILEPATH_1, "utf8");
+    const fileContents = await readFileAsync(FILEPATH, "utf8");
 
     expect(fileContents).toEqual(XML_DECLARATION + baseDocument);
-    done();
-  });
-
-  it("create a full blown document", async (done) => {
-    document.addHeadline("First headline");
-    document.addHeadline("Second headline", 2);
-
-    const para1 = document.addParagraph("The quick, brown fox jumps over a lazy dog.");
-    para1.appendTextContent("\nSome more text");
-    para1.setHorizontalAlignment(HorizontalAlignment.Center);
-
-    const headline20 = document.addHeadline("New chapter");
-    headline20.setPageBreak();
-
-    const headline30 = document.addHeadline("Another chapter");
-    headline30.setPageBreak();
-
-    await document.saveFlat(FILEPATH_2);
     done();
   });
 });
