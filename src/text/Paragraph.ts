@@ -114,7 +114,7 @@ export class Paragraph extends OdfElement {
   protected toXML(document: Document, parent: Element): void {
     const paragraph = this.createElement(document);
 
-    this.appendStyle(document, paragraph); // TODO test
+    this.appendStyle(document, paragraph);
     this.appendTextContent(document, paragraph);
 
     parent.appendChild(paragraph);

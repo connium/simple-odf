@@ -1,5 +1,6 @@
 import { Paragraph } from "../../src/text/Paragraph";
 import { TextDocument } from "../../src/TextDocument";
+import { HorizontalAlignment } from "../../src/style/HorizontalAlignment";
 
 describe(Paragraph.name, () => {
   let document: TextDocument;
@@ -82,11 +83,31 @@ describe(Paragraph.name, () => {
     it("set style-name attribute on paragraph if any style property was set", () => {
       paragraph.setPageBreak();
 
-      const documentAsString = document.toString();
-      expect(documentAsString).toMatch(/<text:p text:style-name="([a-z0-9]+)">some text<\/text:p>/);
+      expect(document.toString()).toMatch(/<text:p text:style-name="([a-z0-9]+)">some text<\/text:p>/);
     });
 
-    // TODO page break
-    // TODO get/set horizontal alignment
+    it("set the page break property to the paragraph style", () => {
+      paragraph.setPageBreak();
+
+      /* tslint:disable-next-line:max-line-length */
+      expect(document.toString()).toMatch(/<style:style style:family="paragraph" style:name="([a-z0-9]+)"><style:paragraph-properties fo:break-before="page"\/><\/style:style>/);
+    });
+
+    it("get the current horizontal alignment and not set a style if it is default", () => {
+      const alignment = paragraph.getHorizontalAlignment();
+
+      expect(alignment).toBe(HorizontalAlignment.Default);
+      expect(document.toString()).not.toMatch(/<style:style style:family="paragraph" style:name="([a-z0-9]+)">/);
+    });
+
+    it("set the horizontal alignment", () => {
+      const testAlignment = HorizontalAlignment.Center;
+
+      paragraph.setHorizontalAlignment(testAlignment);
+
+      expect(paragraph.getHorizontalAlignment()).toBe(testAlignment);
+      /* tslint:disable-next-line:max-line-length */
+      expect(document.toString()).toMatch(/<style:style style:family="paragraph" style:name="([a-z0-9]+)"><style:paragraph-properties fo:text-align="center"\/><\/style:style>/);
+    });
   });
 });

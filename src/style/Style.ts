@@ -115,9 +115,7 @@ export class Style {
       paragraphPropertiesElement.setAttribute("fo:break-before", "page");
     }
 
-    if (paragraphPropertiesElement.hasAttributes() === true) {
-      styleElement.appendChild(paragraphPropertiesElement);
-    }
+    styleElement.appendChild(paragraphPropertiesElement);
   }
 
   /**
