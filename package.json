@@ -1,7 +1,7 @@
 {
   "name": "simple-odf",
   "version": "0.1.0",
-  "description": "Library for creating files in Open Document Format",
+  "description": "Open Document Format made easy using pure JavaScript and Node.js",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
