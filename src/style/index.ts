@@ -1,1 +1,0 @@
-export { HorizontalAlignment } from "./HorizontalAlignment";
