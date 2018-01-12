@@ -1,55 +1,77 @@
-# node-odf
+# simple-odf
 
-## What is node-odf?
+Open Document Format made easy using pure JavaScript and Node.js
 
-node-odf is an easy-to-use, high-level Node.js based API for creating documents in Open Document Format (ODF).
+[![Dependencies](https://david-dm.org/connium/simple-odf.svg)](https://david-dm.org/connium/simple-odf)
+[![Known Vulnerabilities](https://snyk.io/test/github/connium/simple-odf/badge.svg)](https://snyk.io/test/github/connium/simple-odf)
+[![Version](https://img.shields.io/npm/v/simple-odf.svg)](https://www.npmjs.com/package/simple-odf)
 
-It is written in TypeScript and compiled to pure JavaScript.
+## Getting Started
 
-Till now, we support APIs to create text document, paragraph and headline. 
+Install simple-odf using [`npm`](https://www.npmjs.com/):
 
-## Cookbook
-
-### Text Document
-The following codes generates an empty text document:
-
-```javascript
-const document = new TextDocument();
-
-document.save('/home/homer/My_first_document.fodf');
+```
+npm install --save simple-odf
 ```
 
-### Paragraph
-The following code adds a new and empty paragraph to the end of the document.
+Create your first document.
 
 ```javascript
-document.addParagraph();
+const simpleOdf = require("simple-odf");
+
+const document = new simpleOdf.TextDocument();
+
+document.addHeadline("My First Document");
+
+const p1 = document.addParagraph("The quick, brown fox jumps over a lazy dog.");
+p1.appendTextContent("\nThe five boxing wizards jump quickly");
+
+document.addHeadline("Credits", 2);
+
+document.addParagraph("This was quite easy. Do you want to know why?");
+
+const list = document.addList();
+list.addItem("one-liner setup");
+list.addItem("just write like you would do in a full-blown editor");
+
+document.saveFlat("/home/homer/My_first_document.fodf");
 ```
 
-To add a paragraph with the corresponding text, the following code can be used:
+## Contributing
 
-```javascript
-document.addParagraph("The quick, brown fox jumps over a lazy dog.");
-```
+If you want to contribute to simple-odf, you are very welcome. Send issues and pull requests with your ideas.
 
-### Headline
-The following code adds a new and empty headline with headling level 1 to the end of the document.
+### Pull Requests
 
-```javascript
-document.addHeadline();
-```
+*Before* submitting a pull request, please make sure the following is done...
 
-To add a headline with the corresponding text and headling level 2, the following code can be used:
+1. Fork the repo and create your branch from `master`. A guide on how to fork a
+   repository: https://help.github.com/articles/fork-a-repo/
 
-```javascript
-document.addHeadline("Second order headline", 2);
-```
+   Open terminal and type:
 
-The following code gets the current heading level and changes it to level 3.
+   ```sh
+   git clone https://github.com/<your_username>/simple-odf
+   cd simple-odf
+   git checkout -b my_branch
+   ```
 
-```javascript
-const headingLevel = heading.getHeadingLevel();
-console.log("The headling level of heading is " + headingLevel + ".");
+2. simple-odf uses [npm](https://www.npmjs.com) for
+   running development scripts. If you haven't already done so, please
+   [install npm](https://docs.npmjs.com/).
 
-heading.setHeadingLevel(3);
-```
+3. Run `npm install`.
+
+   ```sh
+   npm install
+   ```
+
+4. If you've added code, add tests. You can use watch mode that continuously observes changed files to make your life easier.
+
+   ```sh
+   npm test -- --watch
+   ```
+
+### License
+
+By contributing to simple-odf, you agree that your contributions will be licensed under its MIT license.
