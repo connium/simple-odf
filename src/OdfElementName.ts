@@ -8,6 +8,7 @@ export enum OdfElementName {
   StyleTextProperties = "style:text-properties",
   StyleParagraphProperties = "style:paragraph-properties",
 
+  TextHyperlink = "text:a",
   TextHeading = "text:h",
   TextLineBreak = "text:line-break",
   TextList = "text:list",

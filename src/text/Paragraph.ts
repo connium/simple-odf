@@ -3,6 +3,8 @@ import { OdfElement } from "../OdfElement";
 import { OdfElementName } from "../OdfElementName";
 import { HorizontalAlignment } from "../style/HorizontalAlignment";
 import { Style } from "../style/Style";
+import { Hyperlink } from "./HyperLink";
+import { Text } from "./Text";
 
 /**
  * This class represents a paragraph.
@@ -11,7 +13,6 @@ import { Style } from "../style/Style";
  * @since 0.1.0
  */
 export class Paragraph extends OdfElement {
-  private text: string | undefined;
   private style: Style;
 
   /**
@@ -23,18 +24,24 @@ export class Paragraph extends OdfElement {
   public constructor(text?: string) {
     super();
 
-    this.text = text;
+    this.appendText(text || "");
+
     this.style = new Style();
   }
 
   /**
    * Returns the text content of this paragraph.
+   * Note: This will only return the text; other elements and markup will be omitted.
    *
-   * @returns {string | undefined} The text content of this paragraph
+   * @returns {string} The text content of this paragraph
    * @since 0.1.0
    */
-  public getText(): string | undefined {
-    return this.text;
+  public getText(): string {
+    return this.getElements()
+      .map((value: OdfElement) => {
+        return value instanceof Text ? value.getText() : "";
+      })
+      .join("");
   }
 
   /**
@@ -44,22 +51,27 @@ export class Paragraph extends OdfElement {
    * @since 0.1.0
    */
   public appendText(text: string): void {
-    if (this.text === undefined) {
-      this.text = text;
+    const elements = this.getElements();
+
+    if (elements.length > 0 && elements[elements.length - 1].constructor.name === Text.name) {
+      const lastElement = elements[elements.length - 1] as Text;
+      lastElement.setText(lastElement.getText() + text);
       return;
     }
 
-    this.text += text;
+    this.appendElement(new Text(text));
   }
 
   /**
    * Sets the text content of this paragraph.
+   * Note: This will replace any existing content of the paragraph.
    *
    * @param {string} text The text content
    * @since 0.1.0
    */
   public setText(text: string): void {
-    this.text = text;
+    this.removeText();
+    this.appendText(text || "");
   }
 
   /**
@@ -68,7 +80,22 @@ export class Paragraph extends OdfElement {
    * @since 0.1.0
    */
   public removeText(): void {
-    this.text = undefined;
+    const elements = this.getElements();
+
+    for (let i = elements.length - 1; i >= 0; i--) {
+      this.removeElement(i);
+    }
+  }
+
+  /**
+   * Appends the specified text as hyperlink to the end of this paragraph.
+   *
+   * @param {string} text The text content of the hyperlink
+   * @param {string} uri The URI of the hyperlink
+   * @since 0.3.0
+   */
+  public appendHyperlink(text: string, uri: string): void {
+    this.appendElement(new Hyperlink(text, uri));
   }
 
   /**
@@ -112,10 +139,11 @@ export class Paragraph extends OdfElement {
 
   /** @inheritDoc */
   protected toXML(document: Document, parent: Element): void {
+    (document.firstChild as Element).setAttribute("xmlns:text", "urn:oasis:names:tc:opendocument:xmlns:text:1.0");
+
     const paragraph = this.createElement(document);
 
     this.appendStyle(document, paragraph);
-    this.appendTextContent(document, paragraph);
 
     parent.appendChild(paragraph);
 
@@ -133,33 +161,6 @@ export class Paragraph extends OdfElement {
 
     if (this.style.isDefault() === false) {
       paragraph.setAttribute(OdfAttributeName.TextStyleName, this.style.getName());
-    }
-  }
-
-  /**
-   * Appends the text of the paragraph to the paragraph element.
-   * Newlines will be replaced with line breaks.
-   *
-   * @param {Document} document The XML document
-   * @param {Element} paragraph The paragraph the text belongs to
-   */
-  private appendTextContent(document: Document, paragraph: Element): void {
-    if (this.text === undefined) {
-      return;
-    }
-
-    (document.firstChild as Element).setAttribute("xmlns:text", "urn:oasis:names:tc:opendocument:xmlns:text:1.0");
-
-    const lines = this.text.split("\n");
-
-    for (let i = 0; i < lines.length; i++) {
-      if (i > 0) {
-        const lineBreak = document.createElement(OdfElementName.TextLineBreak);
-        paragraph.appendChild(lineBreak);
-      }
-
-      const textNode = document.createTextNode(lines[i]);
-      paragraph.appendChild(textNode);
     }
   }
 }

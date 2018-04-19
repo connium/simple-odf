@@ -1,6 +1,6 @@
+import { HorizontalAlignment } from "../../src/style/HorizontalAlignment";
 import { Paragraph } from "../../src/text/Paragraph";
 import { TextDocument } from "../../src/TextDocument";
-import { HorizontalAlignment } from "../../src/style/HorizontalAlignment";
 
 describe(Paragraph.name, () => {
   let document: TextDocument;
@@ -9,26 +9,34 @@ describe(Paragraph.name, () => {
     document = new TextDocument();
   });
 
+  it("add text namespace", () => {
+    document.addParagraph();
+
+    const documentAsString = document.toString();
+    expect(documentAsString).toMatch(/xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"/);
+  });
+
   it("insert an empty paragraph", () => {
     document.addParagraph();
 
     const documentAsString = document.toString();
     expect(documentAsString).toMatch(/<text:p\/>/);
-    expect(documentAsString).not.toMatch(/xmlns:text/);
   });
 
-  it("insert a paragraph with specified text and add text namespace", () => {
+  it("insert a paragraph with specified text", () => {
     document.addParagraph("some text");
 
     const documentAsString = document.toString();
     expect(documentAsString).toMatch(/<text:p>some text<\/text:p>/);
-    expect(documentAsString).toMatch(/xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"/);
   });
 
   it("return the text", () => {
     const paragraph = document.addParagraph("some text");
+    paragraph.appendText(" some\nmore   text");
+    paragraph.appendHyperlink(" link", "http://example.org/");
+    paragraph.appendText(" even more text");
 
-    expect(paragraph.getText()).toEqual("some text");
+    expect(paragraph.getText()).toEqual("some text some\nmore   text link even more text");
   });
 
   describe("#appendText", () => {
@@ -57,13 +65,12 @@ describe(Paragraph.name, () => {
     expect(documentAsString).toMatch(/<text:p>some other text<\/text:p>/);
   });
 
-  it("remove text from paragraph and not add text namespace", () => {
+  it("remove text from paragraph", () => {
     const paragraph = document.addParagraph("some text");
     paragraph.removeText();
 
     const documentAsString = document.toString();
     expect(documentAsString).toMatch(/<text:p\/>/);
-    expect(documentAsString).not.toMatch(/xmlns:text/);
   });
 
   it("replace newline with line break", () => {
@@ -71,6 +78,34 @@ describe(Paragraph.name, () => {
 
     const documentAsString = document.toString();
     expect(documentAsString).toMatch(/<text:p>some text<text:line-break\/>some more text<\/text:p>/);
+  });
+
+  describe("#appendHyperlink", () => {
+    it("add xlink namespace", () => {
+      const paragraph = document.addParagraph();
+      paragraph.appendHyperlink("some linked text", "http://example.org/");
+
+      const documentAsString = document.toString();
+      expect(documentAsString).toMatch(/xmlns:xlink="http:\/\/www.w3.org\/1999\/xlink"/);
+    });
+
+    it("append a linked text", () => {
+      const paragraph = document.addParagraph("some text");
+      paragraph.appendHyperlink(" some linked text", "http://example.org/");
+
+      const documentAsString = document.toString();
+      /* tslint:disable-next-line:max-line-length */
+      expect(documentAsString).toMatch(/<text:p>some text<text:a xlink:type="simple" xlink:href="http:\/\/example.org\/"> some linked text<\/text:a><\/text:p>/);
+    });
+
+    it("not create a hyperlink if text is empty", () => {
+      const paragraph = document.addParagraph("some text");
+      paragraph.appendHyperlink("", "http://example.org/");
+
+      const documentAsString = document.toString();
+      /* tslint:disable-next-line:max-line-length */
+      expect(documentAsString).toMatch(/<text:p>some text<\/text:p>/);
+    });
   });
 
   describe("style", () => {

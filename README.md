@@ -24,7 +24,8 @@ const document = new simpleOdf.TextDocument();
 document.addHeadline("My First Document");
 
 const p1 = document.addParagraph("The quick, brown fox jumps over a lazy dog.");
-p1.appendTextContent("\nThe five boxing wizards jump quickly");
+p1.appendTextContent("\nThe five boxing wizards jump quickly\n\n");
+p1.appendHyperlink("Visit me", "http://example.org/");
 
 document.addHeadline("Credits", 2);
 
