@@ -34,6 +34,10 @@ describe(TextDocument.name, () => {
     const heading30 = document.addHeading("Another chapter");
     heading30.setPageBreak();
 
+    const para2 = document.addParagraph("This is just an ");
+    para2.appendHyperlink("example", "http://example.org");
+    para2.appendText(".");
+
     await document.saveFlat(FILEPATH);
     done();
   });

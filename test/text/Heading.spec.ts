@@ -9,12 +9,18 @@ describe(Heading.name, () => {
     document = new TextDocument();
   });
 
+  it("add text namespace", () => {
+    document.addHeading();
+
+    const documentAsString = document.toString();
+    expect(documentAsString).toMatch(/xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"/);
+  });
+
   it("insert an empty heading with default level 1", () => {
     document.addHeading();
 
     const documentAsString = document.toString();
     expect(documentAsString).toMatch(/<text:h text:outline-level="1"\/>/);
-    expect(documentAsString).not.toMatch(/xmlns:text/);
   });
 
   it("insert a heading with given text and default level 1", () => {
@@ -22,7 +28,6 @@ describe(Heading.name, () => {
 
     const documentAsString = document.toString();
     expect(documentAsString).toMatch(/<text:h text:outline-level="1">heading<\/text:h>/);
-    expect(documentAsString).toMatch(/xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"/);
   });
 
   it("insert a heading with given text and given level", () => {
