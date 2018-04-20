@@ -1,3 +1,4 @@
+import { Image } from "../draw/Image";
 import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElement } from "../OdfElement";
 import { OdfElementName } from "../OdfElementName";
@@ -96,6 +97,17 @@ export class Paragraph extends OdfElement {
    */
   public appendHyperlink(text: string, uri: string): void {
     this.appendElement(new Hyperlink(text, uri));
+  }
+
+  /**
+   * Appends the image of the denoted path to the end of this paragraph.
+   * The current paragraph will be set as anchor for the image.
+   *
+   * @param {string} path The path to the image file
+   * @since 0.3.0
+   */
+  public appendImage(path: string): void {
+    this.appendElement(new Image(path));
   }
 
   /**

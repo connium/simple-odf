@@ -1,3 +1,4 @@
+import { join } from "path";
 import { HorizontalAlignment } from "../../src/style/HorizontalAlignment";
 import { Paragraph } from "../../src/text/Paragraph";
 import { TextDocument } from "../../src/TextDocument";
@@ -103,8 +104,33 @@ describe(Paragraph.name, () => {
       paragraph.appendHyperlink("", "http://example.org/");
 
       const documentAsString = document.toString();
-      /* tslint:disable-next-line:max-line-length */
       expect(documentAsString).toMatch(/<text:p>some text<\/text:p>/);
+    });
+  });
+
+  describe("#appendImage", () => {
+    let documentAsString: string;
+
+    beforeEach(() => {
+      const paragraph = document.addParagraph();
+      paragraph.appendImage(join(__dirname, "..", "data", "image.png"));
+
+      documentAsString = document.toString();
+    });
+
+    it("add draw namespace", () => {
+      expect(documentAsString).toMatch(/xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0"/);
+    });
+
+    it("append a draw frame with image and base64 encoded image", () => {
+      const regex = new RegExp("<draw:frame text:anchor-type=\"paragraph\">"
+        + "<draw:image>"
+        + "<office:binary-data>"
+        + ".*"
+        + "</office:binary-data>"
+        + "</draw:image>"
+        + "</draw:frame>");
+      expect(documentAsString).toMatch(regex);
     });
   });
 

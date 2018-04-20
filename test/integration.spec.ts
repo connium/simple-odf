@@ -1,4 +1,5 @@
 import { readFile, unlink } from "fs";
+import { join } from "path";
 import { promisify } from "util";
 import { HorizontalAlignment } from "../src/style/HorizontalAlignment";
 import { TextDocument, XML_DECLARATION } from "../src/TextDocument";
@@ -37,6 +38,8 @@ describe(TextDocument.name, () => {
     const para2 = document.addParagraph("This is just an ");
     para2.appendHyperlink("example", "http://example.org");
     para2.appendText(".");
+
+    document.addParagraph().appendImage(join(__dirname, "data", "image.png"));
 
     await document.saveFlat(FILEPATH);
     done();
