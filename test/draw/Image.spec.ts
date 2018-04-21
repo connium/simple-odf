@@ -10,7 +10,7 @@ describe(Image.name, () => {
 
   describe("#addImage", () => {
     beforeEach(() => {
-      document.addParagraph().addImage(join(__dirname, "..", "data", "image.png"));
+      document.addParagraph().addImage(join(__dirname, "..", "data", "ODF.png"));
     });
 
     it("add draw namespace", () => {

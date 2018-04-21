@@ -80,7 +80,7 @@ describe(Paragraph.name, () => {
 
   describe("#addImage", () => {
     it("append a draw frame with image and binary data", () => {
-      document.addParagraph().addImage(join(__dirname, "..", "data", "image.png"));
+      document.addParagraph().addImage(join(__dirname, "..", "data", "ODF.png"));
 
       const regex = new RegExp("<draw:frame text:anchor-type=\"paragraph\">"
         + "<draw:image>"
