@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **paragraph:** Add hyperlinks to a paragraph, closes [#5](https://github.com/connium/simple-odf/issues/5)
 
 ### Changed
-- **general:** Full rewrite of the public API
+- **general:** Full rewrite of the public API to use the terminology of the Open Document Format
 
 ## [0.2.0] (2018-01-12)
 ### Added
