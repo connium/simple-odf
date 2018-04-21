@@ -1,4 +1,3 @@
-import { Heading } from "../../src/text/Heading";
 import { Hyperlink } from "../../src/text/HyperLink";
 import { TextDocument } from "../../src/TextDocument";
 

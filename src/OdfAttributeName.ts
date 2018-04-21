@@ -5,6 +5,7 @@ export enum OdfAttributeName {
   StyleFamily = "style:family",
   StyleName = "style:name",
 
+  TextAnchorType = "text:anchor-type",
   TextOutlineLevel = "text:outline-level",
   TextStyleName = "text:style-name",
 

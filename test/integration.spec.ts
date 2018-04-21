@@ -1,8 +1,9 @@
-import { readFile, unlink } from "fs";
+import { unlink } from "fs";
+import { join } from "path";
 import { promisify } from "util";
 import { HorizontalAlignment } from "../src/style/HorizontalAlignment";
 import { Style } from "../src/style/Style";
-import { TextDocument, XML_DECLARATION } from "../src/TextDocument";
+import { TextDocument } from "../src/TextDocument";
 
 const FILEPATH = "./integration.fodt";
 
@@ -17,6 +18,8 @@ describe("integration", () => {
 
   it("create a full blown document", async (done) => {
     const document = new TextDocument();
+
+    document.addParagraph().addImage(join(__dirname, "data", "ODF.png"));
 
     document.addHeading("First heading");
     document.addHeading("Second heading", 2);

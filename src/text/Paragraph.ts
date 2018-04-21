@@ -1,3 +1,4 @@
+import { Image } from "../draw/Image";
 import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElement } from "../OdfElement";
 import { OdfElementName } from "../OdfElementName";
@@ -86,6 +87,21 @@ export class Paragraph extends OdfElement {
   }
 
   /**
+   * Appends the image of the denoted path to the end of this paragraph.
+   * The current paragraph will be set as anchor for the image.
+   *
+   * @param {string} path The path to the image file
+   * @returns {Image} The newly added image
+   * @since 0.3.0
+   */
+  public addImage(path: string): Image {
+    const image = new Image(path);
+    this.append(image);
+
+    return image;
+  }
+
+  /**
    * Sets the new style of this paragraph.
    *
    * @returns {Style | undefined} The new style or undefined use the default style
@@ -131,8 +147,6 @@ export class Paragraph extends OdfElement {
 
   /**
    * Removes the text content of this paragraph.
-   *
-   * @since 0.1.0
    */
   private removeText(): void {
     const elements = this.getAll();

@@ -1,5 +1,9 @@
 export enum OdfElementName {
+  DrawFrame = "draw:frame",
+  DrawImage = "draw:image",
+
   OfficeAutomaticStyles = "office:automatic-styles",
+  OfficeBinaryData = "office:binary-data",
   OfficeBody = "office:body",
   OfficeDocument = "office:document",
   OfficeText = "office:text",
