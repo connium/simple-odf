@@ -24,61 +24,46 @@ export class TextDocument extends OdfElement {
 
   /**
    * Adds a heading at the end of the document.
-   * If a text is given, this will be set as text content of the paragraph.
-   * If the heading level is omitted, it defaults to 1.
+   * If a text is given, this will be set as text content of the heading.
    *
-   * @param {string} [text] The optional text content of the heading
-   * @param {number} [headingLevel] The optional heading level
+   * @param {string} [text] The text content of the heading
+   * @param {number} [level=1] The heading level; defaults to 1 if omitted
    * @returns {Heading} The newly added heading
    * @since 0.1.0
    */
-  public addHeading(text?: string, headingLevel?: number): Heading {
-    const heading = new Heading(text, headingLevel);
-    this.appendElement(heading);
+  public addHeading(text?: string, level = 1): Heading {
+    const heading = new Heading(text, level);
+    this.append(heading);
 
     return heading;
   }
 
   /**
-   * Adds a paragraph at the end of the document.
-   * If a text is given, this will be set as text content of the paragraph.
-   *
-   * @param {string} [text] The optional text content of the paragraph
-   * @returns {Paragraph} The newly added paragraph
-   * @since 0.1.0
-   */
-  public addParagraph(text?: string): Paragraph {
-    const paragraph = new Paragraph(text);
-    this.appendElement(paragraph);
-
-    return paragraph;
-  }
-
-  /**
-   * Adds a list at the end of the document.
+   * Adds an empty list at the end of the document.
    *
    * @returns {List} The newly added list
    * @since 0.2.0
    */
   public addList(): List {
     const list = new List();
-    this.appendElement(list);
+    this.append(list);
 
     return list;
   }
 
-  /** @inheritDoc */
-  public toString(): string {
-    /* tslint:disable-next-line:max-line-length */
-    const document = new DOMImplementation().createDocument(
-      "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
-      OdfElementName.OfficeDocument,
-      null);
-    const root = document.firstChild;
+  /**
+   * Adds a paragraph at the end of the document.
+   * If a text is given, this will be set as text content of the paragraph.
+   *
+   * @param {string} [text] The text content of the paragraph
+   * @returns {Paragraph} The newly added paragraph
+   * @since 0.1.0
+   */
+  public addParagraph(text?: string): Paragraph {
+    const paragraph = new Paragraph(text);
+    this.append(paragraph);
 
-    this.toXML(document, root as Element);
-
-    return new XMLSerializer().serializeToString(document);
+    return paragraph;
   }
 
   /**
@@ -92,7 +77,26 @@ export class TextDocument extends OdfElement {
     const writeFileAsync = promisify(writeFile);
     const xml = this.toString();
 
-    return writeFileAsync(filePath, XML_DECLARATION + xml);
+    return writeFileAsync(filePath, xml);
+  }
+
+  /**
+   * Returns the string representation of this document in flat open document xml format.
+   *
+   * @returns {string} The string representation of this document
+   * @since 0.1.0
+   * @deprecated since version 0.3.0; use {@link TextDocument#saveFlat} instead
+   */
+  public toString(): string {
+    const document = new DOMImplementation().createDocument(
+      "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
+      OdfElementName.OfficeDocument,
+      null);
+    const root = document.firstChild;
+
+    this.toXML(document, root as Element);
+
+    return XML_DECLARATION + new XMLSerializer().serializeToString(document);
   }
 
   /** @inheritDoc */

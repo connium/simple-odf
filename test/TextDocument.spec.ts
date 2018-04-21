@@ -25,7 +25,7 @@ describe(TextDocument.name, () => {
   it("return the basis document", () => {
     const result = document.toString();
 
-    expect(result).toEqual(baseDocument);
+    expect(result).toEqual(XML_DECLARATION + baseDocument);
   });
 
   it("write a flat document", async (done) => {

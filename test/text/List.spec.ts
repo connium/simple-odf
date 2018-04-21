@@ -63,29 +63,31 @@ describe(List.name, () => {
     });
 
     it("insert item at the specified position and return the added item", () => {
-      const addedItem = list.insertItem(2, "new");
+      const insertedItem = list.insertItem(2, "new");
 
-      expect(addedItem).toEqual(itemToAdd);
+      expect(insertedItem).toEqual(itemToAdd);
       expect(list.getItems()).toEqual([testItem1, testItem2, itemToAdd, testItem3]);
     });
 
     it("add new items to the specified position and return the added item", () => {
-      const addedItem = list.insertItem(2, itemToAdd);
+      const insertedItem = list.insertItem(2, itemToAdd);
 
-      expect(addedItem).toBe(itemToAdd);
+      expect(insertedItem).toBe(itemToAdd);
       expect(list.getItems()).toEqual([testItem1, testItem2, itemToAdd, testItem3]);
     });
 
-    xit("insert item at the front of the list if position is negative", () => {
-      list.insertItem(-2, itemToAdd);
+    it("insert item at the front of the list if position is negative", () => {
+      const insertedItem = list.insertItem(-2, itemToAdd);
 
-      // TODO how to test? getItem(0)
+      expect(insertedItem).toBe(itemToAdd);
+      expect(list.getItems()).toEqual([itemToAdd, testItem1, testItem2, testItem3]);
     });
 
-    xit("insert item at the end of the list if position is larger than the size of the list", () => {
-      list.insertItem(10, itemToAdd);
+    it("insert item at the end of the list if position is larger than the size of the list", () => {
+      const insertedItem = list.insertItem(10, itemToAdd);
 
-      // TODO how to test? getItem(0)
+      expect(insertedItem).toBe(itemToAdd);
+      expect(list.getItems()).toEqual([testItem1, testItem2, testItem3, itemToAdd]);
     });
   });
 
@@ -102,13 +104,13 @@ describe(List.name, () => {
       expect(item).toEqual(testItem2);
     });
 
-    xit("return undefined if the specified position is less then 0", () => {
+    it("return undefined if the specified position is less then 0", () => {
       const item = list.getItem(-2);
 
       expect(item).toBeUndefined();
     });
 
-    xit("return undefined if the specified position is larger than the list size", () => {
+    it("return undefined if the specified position is larger than the list size", () => {
       const item = list.getItem(10);
 
       expect(item).toBeUndefined();
@@ -127,33 +129,7 @@ describe(List.name, () => {
     });
   });
 
-  describe("#setItem", () => {
-    let itemToAdd: ListItem;
-
-    beforeEach(() => {
-      list.addItem(testItem1);
-      list.addItem(testItem2);
-      list.addItem(testItem3);
-
-      itemToAdd = new ListItem("new");
-    });
-
-    it("replace the item at the specified position and return the previous item", () => {
-      const addedItem = list.setItem(2, "new");
-
-      expect(addedItem).toEqual(testItem3);
-      expect(itemToAdd).toEqual(list.getItem(2));
-    });
-
-    it("replace the item at the specified position and return the previous item", () => {
-      const addedItem = list.setItem(2, itemToAdd);
-
-      expect(addedItem).toEqual(testItem3);
-      expect(itemToAdd).toEqual(list.getItem(2));
-    });
-  });
-
-  describe("#removeItem", () => {
+  describe("#removeItemAt", () => {
     beforeEach(() => {
       list.addItem(testItem1);
       list.addItem(testItem2);
@@ -161,20 +137,20 @@ describe(List.name, () => {
     });
 
     it("remove the item at the specified position and return it", () => {
-      const removedItem = list.removeItem(1);
+      const removedItem = list.removeItemAt(1);
 
       expect(removedItem).toEqual(testItem2);
       expect(list.getItems()).toEqual([testItem1, testItem3]);
     });
 
-    xit("return undefined if the specified position is less then 0", () => {
-      const removedItem = list.removeItem(-2);
+    it("return undefined if the specified position is less then 0", () => {
+      const removedItem = list.removeItemAt(-2);
 
       expect(removedItem).toBeUndefined();
     });
 
-    xit("return undefined if the specified position is larger than the list size", () => {
-      const removedItem = list.removeItem(10);
+    it("return undefined if the specified position is larger than the list size", () => {
+      const removedItem = list.removeItemAt(10);
 
       expect(removedItem).toBeUndefined();
     });

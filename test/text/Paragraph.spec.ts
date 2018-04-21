@@ -1,4 +1,5 @@
 import { HorizontalAlignment } from "../../src/style/HorizontalAlignment";
+import { Style } from "../../src/style/Style";
 import { Paragraph } from "../../src/text/Paragraph";
 import { TextDocument } from "../../src/TextDocument";
 
@@ -9,40 +10,33 @@ describe(Paragraph.name, () => {
     document = new TextDocument();
   });
 
-  it("add text namespace", () => {
-    document.addParagraph();
+  describe("#addParagraph", () => {
+    it("add text namespace", () => {
+      document.addParagraph();
 
-    const documentAsString = document.toString();
-    expect(documentAsString).toMatch(/xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"/);
+      const documentAsString = document.toString();
+      expect(documentAsString).toMatch(/xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"/);
+    });
+
+    it("insert an empty paragraph", () => {
+      document.addParagraph();
+
+      const documentAsString = document.toString();
+      expect(documentAsString).toMatch(/<text:p\/>/);
+    });
+
+    it("insert a paragraph with specified text", () => {
+      document.addParagraph("some text");
+
+      const documentAsString = document.toString();
+      expect(documentAsString).toMatch(/<text:p>some text<\/text:p>/);
+    });
   });
 
-  it("insert an empty paragraph", () => {
-    document.addParagraph();
-
-    const documentAsString = document.toString();
-    expect(documentAsString).toMatch(/<text:p\/>/);
-  });
-
-  it("insert a paragraph with specified text", () => {
-    document.addParagraph("some text");
-
-    const documentAsString = document.toString();
-    expect(documentAsString).toMatch(/<text:p>some text<\/text:p>/);
-  });
-
-  it("return the text", () => {
-    const paragraph = document.addParagraph("some text");
-    paragraph.appendText(" some\nmore   text");
-    paragraph.appendHyperlink(" link", "http://example.org/");
-    paragraph.appendText(" even more text");
-
-    expect(paragraph.getText()).toEqual("some text some\nmore   text link even more text");
-  });
-
-  describe("#appendText", () => {
+  describe("#addText", () => {
     it("set the text if element is empty", () => {
       const paragraph = document.addParagraph();
-      paragraph.appendText("some text");
+      paragraph.addText("some text");
 
       const documentAsString = document.toString();
       expect(documentAsString).toMatch(/<text:p>some text<\/text:p>/);
@@ -50,27 +44,32 @@ describe(Paragraph.name, () => {
 
     it("append the text", () => {
       const paragraph = document.addParagraph("some text");
-      paragraph.appendText(" some more text");
+      paragraph.addText(" some more text");
 
       const documentAsString = document.toString();
       expect(documentAsString).toMatch(/<text:p>some text some more text<\/text:p>/);
     });
   });
 
-  it("replace existing text with specified text", () => {
-    const paragraph = document.addParagraph("some text");
-    paragraph.setText("some other text");
+  describe("#getText", () => {
+    it("return the text", () => {
+      const paragraph = document.addParagraph("some text");
+      paragraph.addText(" some\nmore   text");
+      paragraph.addHyperlink(" link", "http://example.org/");
+      paragraph.addText(" even more text");
 
-    const documentAsString = document.toString();
-    expect(documentAsString).toMatch(/<text:p>some other text<\/text:p>/);
+      expect(paragraph.getText()).toEqual("some text some\nmore   text link even more text");
+    });
   });
 
-  it("remove text from paragraph", () => {
-    const paragraph = document.addParagraph("some text");
-    paragraph.removeText();
+  describe("#setText", () => {
+    it("replace existing text with specified text", () => {
+      const paragraph = document.addParagraph("some text");
+      paragraph.setText("some other text");
 
-    const documentAsString = document.toString();
-    expect(documentAsString).toMatch(/<text:p\/>/);
+      const documentAsString = document.toString();
+      expect(documentAsString).toMatch(/<text:p>some other text<\/text:p>/);
+    });
   });
 
   it("replace newline with line break", () => {
@@ -80,18 +79,10 @@ describe(Paragraph.name, () => {
     expect(documentAsString).toMatch(/<text:p>some text<text:line-break\/>some more text<\/text:p>/);
   });
 
-  describe("#appendHyperlink", () => {
-    it("add xlink namespace", () => {
-      const paragraph = document.addParagraph();
-      paragraph.appendHyperlink("some linked text", "http://example.org/");
-
-      const documentAsString = document.toString();
-      expect(documentAsString).toMatch(/xmlns:xlink="http:\/\/www.w3.org\/1999\/xlink"/);
-    });
-
+  describe("#addHyperlink", () => {
     it("append a linked text", () => {
       const paragraph = document.addParagraph("some text");
-      paragraph.appendHyperlink(" some linked text", "http://example.org/");
+      paragraph.addHyperlink(" some linked text", "http://example.org/");
 
       const documentAsString = document.toString();
       /* tslint:disable-next-line:max-line-length */
@@ -100,49 +91,61 @@ describe(Paragraph.name, () => {
 
     it("not create a hyperlink if text is empty", () => {
       const paragraph = document.addParagraph("some text");
-      paragraph.appendHyperlink("", "http://example.org/");
+      paragraph.addHyperlink("", "http://example.org/");
 
       const documentAsString = document.toString();
-      /* tslint:disable-next-line:max-line-length */
       expect(documentAsString).toMatch(/<text:p>some text<\/text:p>/);
     });
   });
 
-  describe("style", () => {
+  describe("#setStyle", () => {
+    let paragraph: Paragraph;
+    let style: Style;
+
+    beforeEach(() => {
+      paragraph = document.addParagraph("some text");
+      style = new Style();
+    });
+
+    it("set style-name attribute on paragraph if any style property was set", () => {
+      style.setPageBreakBefore();
+      paragraph.setStyle(style);
+
+      expect(document.toString()).toMatch(/<text:p text:style-name="([a-z0-9]+)">some text<\/text:p>/);
+    });
+
+    it("not style-name attribute if style is not set", () => {
+      paragraph.setStyle(undefined);
+
+      expect(document.toString()).toMatch(/<text:p>some text<\/text:p>/);
+    });
+
+    it("not style-name attribute if default style is set", () => {
+      paragraph.setStyle(new Style());
+
+      expect(document.toString()).toMatch(/<text:p>some text<\/text:p>/);
+    });
+  });
+
+  describe("#getStyle", () => {
     let paragraph: Paragraph;
 
     beforeEach(() => {
       paragraph = document.addParagraph("some text");
     });
 
-    it("set style-name attribute on paragraph if any style property was set", () => {
-      paragraph.setPageBreak();
-
-      expect(document.toString()).toMatch(/<text:p text:style-name="([a-z0-9]+)">some text<\/text:p>/);
+    it("return undefined if no style was set", () => {
+      expect(paragraph.getStyle()).toBeUndefined();
     });
 
-    it("set the page break property to the paragraph style", () => {
-      paragraph.setPageBreak();
+    it("return previous set style", () => {
+      const testStyle = new Style();
+      testStyle.setHorizontalAlignment(HorizontalAlignment.Center);
+      testStyle.setPageBreakBefore();
 
-      /* tslint:disable-next-line:max-line-length */
-      expect(document.toString()).toMatch(/<style:style style:family="paragraph" style:name="([a-z0-9]+)"><style:paragraph-properties fo:break-before="page"\/><\/style:style>/);
-    });
+      paragraph.setStyle(testStyle);
 
-    it("get the current horizontal alignment and not set a style if it is default", () => {
-      const alignment = paragraph.getHorizontalAlignment();
-
-      expect(alignment).toBe(HorizontalAlignment.Default);
-      expect(document.toString()).not.toMatch(/<style:style style:family="paragraph" style:name="([a-z0-9]+)">/);
-    });
-
-    it("set the horizontal alignment", () => {
-      const testAlignment = HorizontalAlignment.Center;
-
-      paragraph.setHorizontalAlignment(testAlignment);
-
-      expect(paragraph.getHorizontalAlignment()).toBe(testAlignment);
-      /* tslint:disable-next-line:max-line-length */
-      expect(document.toString()).toMatch(/<style:style style:family="paragraph" style:name="([a-z0-9]+)"><style:paragraph-properties fo:text-align="center"\/><\/style:style>/);
+      expect(paragraph.getStyle()).toBe(testStyle);
     });
   });
 });

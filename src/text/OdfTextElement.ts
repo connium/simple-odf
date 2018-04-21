@@ -6,7 +6,7 @@ import { OdfElementName } from "../OdfElementName";
  *
  * @since 0.3.0
  */
-export class Text extends OdfElement {
+export class OdfTextElement extends OdfElement {
   /**
    * Creates a text
    *
@@ -18,16 +18,6 @@ export class Text extends OdfElement {
   }
 
   /**
-   * Returns the text content.
-   *
-   * @returns {string} The text content
-   * @since 0.3.0
-   */
-  public getText(): string {
-    return this.text;
-  }
-
-  /**
    * Sets the new text content.
    *
    * @param {string} text The new text content
@@ -35,6 +25,16 @@ export class Text extends OdfElement {
    */
   public setText(text: string): void {
     this.text = text;
+  }
+
+  /**
+   * Returns the text content.
+   *
+   * @returns {string} The text content
+   * @since 0.3.0
+   */
+  public getText(): string {
+    return this.text;
   }
 
   /** @inheritDoc */

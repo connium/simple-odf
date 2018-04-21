@@ -9,49 +9,44 @@ import { Paragraph } from "./Paragraph";
  */
 export class Heading extends Paragraph {
   public static DEFAULT_LEVEL = 1;
-  private outlineLevel: number;
 
   /**
    * Creates a heading
    *
-   * @param {string} [text] The optional text content of the heading
-   * @param {number} headingLevel The outline level of this heading
+   * @param {string} [text] The text content of the heading
+   * @param {number} [level] The heading level; defaults to 1 if omitted
    * @since 0.1.0
    */
-  public constructor(text?: string, headingLevel = Heading.DEFAULT_LEVEL) {
+  public constructor(text?: string, private level = Heading.DEFAULT_LEVEL) {
     super(text);
 
-    this.setHeadingLevel(headingLevel);
+    this.setLevel(level);
   }
 
   /**
-   * Sets the outline level of this heading.
+   * Sets the level of this heading.
    *
-   * @param {number} headingLevel The outline level
+   * @param {number} level The heading level
    * @since 0.1.0
    */
-  public setHeadingLevel(headingLevel: number): void {
-    if (headingLevel > Heading.DEFAULT_LEVEL) {
-      this.outlineLevel = headingLevel;
-    } else {
-      this.outlineLevel = Heading.DEFAULT_LEVEL;
-    }
+  public setLevel(level: number): void {
+    this.level = level > Heading.DEFAULT_LEVEL ? level : Heading.DEFAULT_LEVEL;
   }
 
   /**
-   * Returns the outline level of this heading.
+   * Returns the level of this heading.
    *
-   * @returns {number} The outline level
+   * @returns {number} The heading level
    * @since 0.1.0
    */
-  public getHeadingLevel(): number {
-    return this.outlineLevel;
+  public getLevel(): number {
+    return this.level;
   }
 
   /** @inheritDoc */
   protected createElement(document: Document): Element {
     const heading = document.createElement(OdfElementName.TextHeading);
-    heading.setAttribute(OdfAttributeName.TextOutlineLevel, this.outlineLevel.toString(10));
+    heading.setAttribute(OdfAttributeName.TextOutlineLevel, this.level.toString(10));
 
     return heading;
   }
