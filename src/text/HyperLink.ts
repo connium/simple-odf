@@ -1,18 +1,20 @@
 import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElementName } from "../OdfElementName";
-import { Text } from "./Text";
+import { OdfTextElement } from "./OdfTextElement";
+
+const LINK_TYPE = "simple";
 
 /**
  * This class represents a hyperlink in a paragraph.
  *
  * @since 0.3.0
  */
-export class Hyperlink extends Text {
+export class Hyperlink extends OdfTextElement {
   /**
    * Creates a hyperlink
    *
    * @param {string} text The text content of the hyperlink
-   * @param {string} uri The URI of the hyperlink
+   * @param {string} uri The target URI of the hyperlink
    * @since 0.3.0
    */
   public constructor(text: string, private uri: string) {
@@ -20,23 +22,23 @@ export class Hyperlink extends Text {
   }
 
   /**
-   * Returns the URI of this hyperlink.
+   * Sets the target URI for this hyperlink.
    *
-   * @returns {string} The URI of this hyperlink
-   * @since 0.3.0
-   */
-  public getURI(): string {
-    return this.uri;
-  }
-
-  /**
-   * Sets the URI for this hyperlink.
-   *
-   * @param {string} uri The new URI of this hyperlink
+   * @param {string} uri The new target URI
    * @since 0.3.0
    */
   public setURI(uri: string): void {
     this.uri = uri;
+  }
+
+  /**
+   * Returns the target URI of this hyperlink.
+   *
+   * @returns {string} The target URI
+   * @since 0.3.0
+   */
+  public getURI(): string {
+    return this.uri;
   }
 
   /** @inheritDoc */
@@ -47,15 +49,18 @@ export class Hyperlink extends Text {
       return;
     }
 
+    if (this.uri === undefined) {
+      return super.toXML(document, parent);
+    }
+
     (document.firstChild as Element).setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
 
     const hyperlink = document.createElement(OdfElementName.TextHyperlink);
-    hyperlink.setAttribute(OdfAttributeName.XlinkType, "simple");
+    hyperlink.setAttribute(OdfAttributeName.XlinkType, LINK_TYPE);
     hyperlink.setAttribute(OdfAttributeName.XlinkHref, this.uri);
+    parent.appendChild(hyperlink);
 
     const textNode = document.createTextNode(text);
     hyperlink.appendChild(textNode);
-
-    parent.appendChild(hyperlink);
   }
 }

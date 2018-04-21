@@ -1,32 +1,46 @@
 import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElement } from "../OdfElement";
 import { OdfElementName } from "../OdfElementName";
-import { HorizontalAlignment } from "../style/HorizontalAlignment";
 import { Style } from "../style/Style";
 import { Hyperlink } from "./HyperLink";
-import { Text } from "./Text";
+import { OdfTextElement } from "./OdfTextElement";
 
 /**
  * This class represents a paragraph.
- * If a text is specified, this will be set as text content of the paragraph.
  *
  * @since 0.1.0
  */
 export class Paragraph extends OdfElement {
-  private style: Style;
+  private style: Style | undefined;
 
   /**
    * Creates a paragraph
    *
-   * @param {string} [text] The optional text content of the paragraph
+   * @param {string} [text] The text content of the paragraph
    * @since 0.1.0
    */
   public constructor(text?: string) {
     super();
 
-    this.appendText(text || "");
+    this.addText(text || "");
+  }
 
-    this.style = new Style();
+  /**
+   * Appends the specified text to the end of this paragraph.
+   *
+   * @param {string} text The additional text content
+   * @since 0.1.0
+   */
+  public addText(text: string): void {
+    const elements = this.getAll();
+
+    if (elements.length > 0 && elements[elements.length - 1].constructor.name === OdfTextElement.name) {
+      const lastElement = elements[elements.length - 1] as OdfTextElement;
+      lastElement.setText(lastElement.getText() + text);
+      return;
+    }
+
+    this.append(new OdfTextElement(text));
   }
 
   /**
@@ -37,100 +51,66 @@ export class Paragraph extends OdfElement {
    * @since 0.1.0
    */
   public getText(): string {
-    return this.getElements()
+    return this.getAll()
       .map((value: OdfElement) => {
-        return value instanceof Text ? value.getText() : "";
+        return value instanceof OdfTextElement ? value.getText() : "";
       })
       .join("");
-  }
-
-  /**
-   * Appends the specified text to the end of this paragraph.
-   *
-   * @param {string} text The additional text content
-   * @since 0.1.0
-   */
-  public appendText(text: string): void {
-    const elements = this.getElements();
-
-    if (elements.length > 0 && elements[elements.length - 1].constructor.name === Text.name) {
-      const lastElement = elements[elements.length - 1] as Text;
-      lastElement.setText(lastElement.getText() + text);
-      return;
-    }
-
-    this.appendElement(new Text(text));
   }
 
   /**
    * Sets the text content of this paragraph.
    * Note: This will replace any existing content of the paragraph.
    *
-   * @param {string} text The text content
+   * @param {string} text The new text content
    * @since 0.1.0
    */
   public setText(text: string): void {
     this.removeText();
-    this.appendText(text || "");
-  }
-
-  /**
-   * Removes the text content of this paragraph.
-   *
-   * @since 0.1.0
-   */
-  public removeText(): void {
-    const elements = this.getElements();
-
-    for (let i = elements.length - 1; i >= 0; i--) {
-      this.removeElement(i);
-    }
+    this.addText(text || "");
   }
 
   /**
    * Appends the specified text as hyperlink to the end of this paragraph.
    *
    * @param {string} text The text content of the hyperlink
-   * @param {string} uri The URI of the hyperlink
+   * @param {string} uri The target URI of the hyperlink
+   * @returns {Hyperlink} The newly added hyperlink
    * @since 0.3.0
    */
-  public appendHyperlink(text: string, uri: string): void {
-    this.appendElement(new Hyperlink(text, uri));
+  public addHyperlink(text: string, uri: string): Hyperlink {
+    const hyperlink = new Hyperlink(text, uri);
+    this.append(hyperlink);
+
+    return hyperlink;
   }
 
   /**
-   * Inserts a new page break to the document before this paragraph.
+   * Sets the new style of this paragraph.
    *
-   * @since 0.1.0
+   * @returns {Style | undefined} The new style or undefined use the default style
+   * @since 0.3.0
    */
-  public setPageBreak(): void {
-    this.style.setPageBreakBefore(true);
+  public setStyle(style: Style | undefined): void {
+    this.style = style;
   }
 
   /**
-   * Returns the horizontal alignment setting of this paragraph.
+   * Returns the style of this paragraph.
    *
-   * @returns {HorizontalAlignment} The horizontal alignment setting
-   * @since 0.2.0
+   * @returns {Style | undefined} The style of the paragraph
+   * or undefined if no style has been set and the default style will be used
+   * @since 0.3.0
    */
-  public getHorizontalAlignment(): HorizontalAlignment {
-    return this.style.getHorizontalAlignment();
-  }
-
-  /**
-   * Sets the horizontal alignment setting of this paragraph.
-   *
-   * @param {HorizontalAlignment} horizontalAlignment The horizontal alignment setting
-   * @since 0.1.0
-   */
-  public setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): void {
-    this.style.setHorizontalAlignment(horizontalAlignment);
+  public getStyle(): Style | undefined {
+    return this.style;
   }
 
   /**
    * Creates the paragraph element.
    *
    * @param {Document} document The XML document
+   * @returns {Element} The DOM element representing this paragraph
    * @since 0.1.0
    */
   protected createElement(document: Document): Element {
@@ -142,21 +122,37 @@ export class Paragraph extends OdfElement {
     (document.firstChild as Element).setAttribute("xmlns:text", "urn:oasis:names:tc:opendocument:xmlns:text:1.0");
 
     const paragraph = this.createElement(document);
+    parent.appendChild(paragraph);
 
     this.appendStyle(document, paragraph);
 
-    parent.appendChild(paragraph);
-
     super.toXML(document, paragraph);
+  }
+
+  /**
+   * Removes the text content of this paragraph.
+   *
+   * @since 0.1.0
+   */
+  private removeText(): void {
+    const elements = this.getAll();
+
+    for (let index = elements.length - 1; index >= 0; index--) {
+      this.removeAt(index);
+    }
   }
 
   /**
    * Appends the style of the paragraph to the XML document.
    *
    * @param {Document} document The XML document
-   * @param {Element} paragraph The paragraph the text belongs to
+   * @param {Element} paragraph The paragraph element for which the style should be added
    */
   private appendStyle(document: Document, paragraph: Element): void {
+    if (this.style === undefined) {
+      return;
+    }
+
     this.style.toXML(document);
 
     if (this.style.isDefault() === false) {

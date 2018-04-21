@@ -13,14 +13,14 @@ export class ListItem extends OdfElement {
   /**
    * Creates a list item
    *
-   * @param {string} [text] The optional text content
+   * @param {string} [text] The text content of the list item
    * @since 0.2.0
    */
   public constructor(text?: string) {
     super();
 
     this.paragraph = new Paragraph(text);
-    this.appendElement(this.paragraph);
+    this.append(this.paragraph);
   }
 
   /** @inheritDoc */

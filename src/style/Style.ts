@@ -4,7 +4,7 @@ import { OdfElementName } from "../OdfElementName";
 import { HorizontalAlignment } from "./HorizontalAlignment";
 
 /**
- * TODO
+ * This class represents the style of a paragraph.
  *
  * @since 0.1.0
  */
@@ -21,23 +21,54 @@ export class Style {
   }
 
   /**
-   * TODO
+   * Returns the name of the style.
+   * The name is computed to make sure equal styles feature equal names and reflects the current comnfiguration.
    *
-   * @returns {string} TODO
+   * @returns {string} The name of the style
    * @since 0.1.0
    */
   public getName(): string {
     const hash = createHash("md5");
 
+    hash.update(this.horizontalAlignment);
     hash.update(this.shouldBreakPageBefore ? "pb" : "");
 
     return hash.digest("hex");
   }
 
   /**
-   * TODO
+   * Sets the horizontal alignment setting of this paragraph.
    *
-   * @returns {boolean} TODO
+   * @param {HorizontalAlignment} horizontalAlignment The horizontal alignment setting
+   * @since 0.1.0
+   */
+  public setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): void {
+    this.horizontalAlignment = horizontalAlignment;
+  }
+
+  /**
+   * Returns the horizontal alignment setting of this paragraph.
+   *
+   * @returns {HorizontalAlignment} The horizontal alignment setting
+   * @since 0.2.0
+   */
+  public getHorizontalAlignment(): HorizontalAlignment {
+    return this.horizontalAlignment;
+  }
+
+  /**
+   * Inserts a new page break to the document before the corresponding element.
+   *
+   * @since 0.1.0
+   */
+  public setPageBreakBefore(): void {
+    this.shouldBreakPageBefore = true;
+  }
+
+  /**
+   * Returns whether the style represents the default style.
+   *
+   * @returns {boolean} TRUE if the style equals the default style, FALSE otherwise
    * @since 0.1.0
    */
   public isDefault(): boolean {
@@ -46,39 +77,9 @@ export class Style {
   }
 
   /**
-   * TODO
+   * Transforms the style element into Open Document Format.
    *
-   * @returns {HorizontalAlignment} TODO
-   * @since 0.2.0
-   */
-  public getHorizontalAlignment(): HorizontalAlignment {
-    return this.horizontalAlignment;
-  }
-
-  /**
-   * TODO
-   *
-   * @param {HorizontalAlignment} horizontalAlignment TODO
-   * @since 0.1.0
-   */
-  public setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): void {
-    this.horizontalAlignment = horizontalAlignment;
-  }
-
-  /**
-   * TODO
-   *
-   * @param {boolean} shouldBreakBefore TODO
-   * @since 0.1.0
-   */
-  public setPageBreakBefore(shouldBreakBefore: boolean): void {
-    this.shouldBreakPageBefore = shouldBreakBefore;
-  }
-
-  /**
-   * TODO
-   *
-   * @param {Document} document TODO
+   * @param {Document} document The XML document
    * @since 0.1.0
    */
   public toXML(document: Document): void {
@@ -92,9 +93,9 @@ export class Style {
     if (automaticStylesElement.childNodes.length > 0) {
       /* tslint:disable-next-line:prefer-for-of*/
       for (let i = 0; i < automaticStylesElement.childNodes.length; i++) {
-        const existingStyleElement = automaticStylesElement.childNodes[i];
+        const existingStyleElement = automaticStylesElement.childNodes[i] as Element;
         const nameAttribute = existingStyleElement.attributes.getNamedItem(OdfAttributeName.StyleName);
-        if (nameAttribute.value === styleName) {
+        if (nameAttribute !== null && nameAttribute.value === styleName) {
           return;
         }
       }
@@ -119,10 +120,11 @@ export class Style {
   }
 
   /**
-   * TODO
+   * Returns the `automatic-styles` element of the document.
+   * If there is no such element yet, it will be created.
    *
-   * @param {Document} document TODO
-   * @returns {Element} TODO
+   * @param {Document} document The XML document
+   * @returns {Element} The documents `automatic-styles` element
    */
   private getAutomaticStylesElement(document: Document): Element {
     const rootNode = document.firstChild as Element;
@@ -137,10 +139,10 @@ export class Style {
   }
 
   /**
-   * TODO
+   * Creates and returns the `automatic-styles` element for the document.
    *
-   * @param {Document} document TODO
-   * @returns {Element} TODO
+   * @param {Document} document The XML document
+   * @returns {Element} The newly created `automatic-styles` element
    */
   private createAutomaticStylesElement(document: Document): Element {
     const rootNode = document.firstChild as Element;

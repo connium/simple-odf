@@ -21,18 +21,18 @@ export class List extends OdfElement {
   /**
    * Adds a new list item with the specified text or adds the specified item to the list.
    *
-   * @param {string | ListItem} [item] The optional text content of the new item or the item to add
-   * @returns {ListItem} The added list item
+   * @param {string | ListItem} [item] The text content of the new item or the item to add
+   * @returns {ListItem} The newly added list item
    * @since 0.2.0
    */
   public addItem(item?: string | ListItem): ListItem {
     if (item instanceof ListItem) {
-      this.appendElement(item);
+      this.append(item);
       return item;
     }
 
     const listItem = new ListItem(item);
-    this.appendElement(listItem);
+    this.append(listItem);
 
     return listItem;
   }
@@ -41,19 +41,19 @@ export class List extends OdfElement {
    * Inserts a new list item with the specified text or inserts the specified item at the specified position.
    * The item is inserted before the item at the specified position.
    *
-   * @param {number} position The index to insert. The start number is 0
+   * @param {number} position The index at which to insert the list item (starting from 0).
    * @param {string | ListItem} item The text content of the new item or the item to insert
-   * @returns {ListItem} The added list item
+   * @returns {ListItem} The newly added list item
    * @since 0.2.0
    */
   public insertItem(position: number, item: string | ListItem): ListItem {
     if (item instanceof ListItem) {
-      this.insertElement(position, item);
+      this.insert(position, item);
       return item;
     }
 
     const listItem = new ListItem(item);
-    this.insertElement(position, listItem);
+    this.insert(position, listItem);
 
     return listItem;
   }
@@ -62,49 +62,35 @@ export class List extends OdfElement {
    * Returns the item at the specified position in this list.
    * If an invalid position is given, undefined is returned.
    *
-   * @param {number} position The index to insert. The start number is 0
-   * @returns {ListItem | undefined} The list item at the specified position or undefined if the position is invalid
+   * @param {number} position The index of the requested the list item (starting from 0).
+   * @returns {ListItem | undefined} The list item at the specified position
+   * or undefined if there is no list item at the specified position
    * @since 0.2.0
    */
   public getItem(position: number): ListItem | undefined {
-    return this.getElement(position) as ListItem;
+    return this.get(position) as ListItem;
   }
 
   /**
-   * Returns the item at the specified position in this list.
-   * If an invalid position is given, undefined is returned.
+   * Returns all list items.
    *
-   * @returns {ListItem[]} The list item at the specified position or undefined if the position is invalid
+   * @returns {ListItem[]} A copy of the list of list items
    * @since 0.2.0
    */
   public getItems(): ListItem[] {
-    return this.getElements() as ListItem[];
+    return this.getAll() as ListItem[];
   }
 
   /**
-   * Replaces the item at the specified position with the specified item.
+   * Removes the list item from the specified position.
    *
-   * @param {number} position The position to put the specified item. The start number is 0
-   * @param {string | ListItem} item The text content of the new item or the item to insert
-   * @returns {ListItem | undefined} The previous item at the position or undefined if the position is invalid
+   * @param {number} position The index of the list item to remove (starting from 0).
+   * @returns {ListItem | undefined} The removed list item
+   * or undefined if there is no list item at the specified position
    * @since 0.2.0
    */
-  public setItem(position: number, item: string | ListItem): ListItem | undefined {
-    const newItem = item instanceof ListItem ? item : new ListItem(item);
-
-    return this.setElement(position, newItem) as ListItem;
-  }
-
-  /**
-   * Removes the item at the specified position from this list.
-   * If an invalid position is given, undefined is returned.
-   *
-   * @param {number} position The index of the item to be removed. The start number is 0
-   * @returns {ListItem | undefined} The removed item or undefined if the position is invalid
-   * @since 0.2.0
-   */
-  public removeItem(position: number): ListItem | undefined {
-    return this.removeElement(position) as ListItem;
+  public removeItemAt(position: number): ListItem | undefined {
+    return this.removeAt(position) as ListItem;
   }
 
   /**
@@ -116,7 +102,7 @@ export class List extends OdfElement {
     let removedElement;
 
     do {
-      removedElement = this.removeElement(0);
+      removedElement = this.removeAt(0);
     } while (removedElement !== undefined);
   }
 
@@ -127,7 +113,7 @@ export class List extends OdfElement {
    * @since 0.2.0
    */
   public size(): number {
-    return this.getElements().length;
+    return this.getAll().length;
   }
 
   /** @inheritDoc */
