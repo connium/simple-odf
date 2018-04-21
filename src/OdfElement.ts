@@ -14,17 +14,25 @@ export class OdfElement {
   }
 
   /**
-   * Appends a child element to this element.
+   * Appends the element as a child element to this element.
    *
    * @param {OdfElement} element The element to append
    * @since 0.1.0
    */
-  public appendElement(element: OdfElement): void {
+  public append(element: OdfElement): void {
     this.children.push(element);
   }
 
-  /** TODO */
-  protected insertElement(position: number, element: OdfElement): void {
+  /**
+   * Inserts the element at the specified position in the list of child elements.
+   *
+   * @param {number} position The index at which to insert the element (starting from 0).
+   * If greater than the number child elements, the element will appended at the end of the list.
+   * If negative, the element will be inserted as first element.
+   * @param {OdfElement} element The element to insert
+   * @since 0.2.0
+   */
+  protected insert(position: number, element: OdfElement): void {
     let index = position;
 
     if (position < 0) {
@@ -36,8 +44,15 @@ export class OdfElement {
     this.children.splice(index, 0, element);
   }
 
-  /** TODO */
-  protected getElement(position: number): OdfElement | undefined {
+  /**
+   * Returns the element at the specified position.
+   *
+   * @param {number} position The index of the requested the element (starting from 0).
+   * @returns {OdfElement | undefined} The element at the specified position
+   * or undefined if there is no element at the specified position
+   * @since 0.2.0
+   */
+  protected get(position: number): OdfElement | undefined {
     if (position < 0) {
       return undefined;
     }
@@ -48,25 +63,26 @@ export class OdfElement {
     return this.children[position];
   }
 
-  /** TODO */
-  protected getElements(): OdfElement[] {
+  /**
+   * Returns all child elements.
+   *
+   * @returns {OdfElement[]} A copy of the list of child elements
+   * @since 0.2.0
+   */
+  protected getAll(): OdfElement[] {
     return Array.from(this.children);
   }
 
-  /** TODO */
-  protected setElement(position: number, element: OdfElement): OdfElement | undefined {
-    const oldElement = this.getElement(position);
-
-    if (oldElement !== undefined) {
-      this.children[position] = element;
-    }
-
-    return oldElement;
-  }
-
-  /** TODO */
-  protected removeElement(position: number): OdfElement | undefined {
-    const oldElement = this.getElement(position);
+  /**
+   * Removes the child element from the specified position.
+   *
+   * @param {number} position The index of the element to remove (starting from 0).
+   * @returns {OdfElement | undefined} The removed child element
+   * or undefined if there is no element at the specified position
+   * @since 0.2.0
+   */
+  protected removeAt(position: number): OdfElement | undefined {
+    const oldElement = this.get(position);
 
     if (oldElement !== undefined) {
       this.children.splice(position, 1);
@@ -75,7 +91,12 @@ export class OdfElement {
     return oldElement;
   }
 
-  /** TODO */
+  /**
+   * Returns whether the element has any child elements.
+   *
+   * @returns {boolean} TRUE if the there is any child element, FALSE otherwise
+   * @since 0.2.0
+   */
   protected hasChildren(): boolean {
     return this.children.length > 0;
   }
