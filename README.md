@@ -21,13 +21,18 @@ const simpleOdf = require("simple-odf");
 
 const document = new simpleOdf.TextDocument();
 
-document.addHeadline("My First Document");
+document.addParagraph().addImage("/home/homer/myself.png");
+
+document.addHeading("Welcome to simple-odf");
 
 const p1 = document.addParagraph("The quick, brown fox jumps over a lazy dog.");
-p1.appendTextContent("\nThe five boxing wizards jump quickly\n\n");
-p1.appendHyperlink("Visit me", "http://example.org/");
+p1.addText("\nThe five boxing wizards jump quickly.\n\n");
+p1.addHyperlink("Visit me", "http://example.org/");
+const style1 = new Style();
+style1.setHorizontalAlignment(HorizontalAlignment.Center);
+p1.setStyle(style1);
 
-document.addHeadline("Credits", 2);
+document.addHeading("Credits", 2);
 
 document.addParagraph("This was quite easy. Do you want to know why?");
 
