@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - **paragraph:** Add hyperlinks to a paragraph, closes [#5](https://github.com/connium/simple-odf/issues/5)
 - **paragraph:** Add images to a paragraph, closes [#7](https://github.com/connium/simple-odf/issues/7)
+- **paragraph:** Replace tab character with tab element, closes [#10](https://github.com/connium/simple-odf/issues/10)
+- **paragraph:** Replace sequence of space characters with space element, closes [#10](https://github.com/connium/simple-odf/issues/10)
 
 ### Changed
 - **general:** Full rewrite of the public API to use the terminology of the Open Document Format
