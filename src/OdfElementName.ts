@@ -18,4 +18,6 @@ export enum OdfElementName {
   TextList = "text:list",
   TextListItem = "text:list-item",
   TextParagraph = "text:p",
+  TextSpace = "text:s",
+  TextTabulation = "text:tab",
 }

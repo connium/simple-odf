@@ -69,6 +69,19 @@ describe(Paragraph.name, () => {
     expect(document.toString()).toMatch(/<text:p>some text<text:line-break\/>some more text<\/text:p>/);
   });
 
+  it("replace tab with tabulation", () => {
+    document.addParagraph("some\ttabbed\t\ttext");
+
+    expect(document.toString()).toMatch(/<text:p>some<text:tab\/>tabbed<text:tab\/><text:tab\/>text<\/text:p>/);
+  });
+
+  it("replace sequence of spaces with space node", () => {
+    document.addParagraph(" some  spacey   text    ");
+
+    /* tslint:disable-next-line:max-line-length */
+    expect(document.toString()).toMatch(/<text:p> some <text:s\/>spacey <text:s c="2"\/>text <text:s c="3"\/><\/text:p>/);
+  });
+
   describe("#addHyperlink", () => {
     it("append a linked text", () => {
       document.addParagraph("some text").addHyperlink(" some linked text", "http://example.org/");
