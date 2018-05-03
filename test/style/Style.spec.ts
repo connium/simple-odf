@@ -1,5 +1,7 @@
 import { HorizontalAlignment } from "../../src/style/HorizontalAlignment";
 import { Style } from "../../src/style/Style";
+import { TabStop } from "../../src/style/TabStop";
+import { TabStopType } from "../../src/style/TabStopType";
 import { Paragraph } from "../../src/text/Paragraph";
 import { TextDocument } from "../../src/TextDocument";
 
@@ -49,7 +51,13 @@ describe(Style.name, () => {
       testStyle2.setHorizontalAlignment(HorizontalAlignment.Center);
       testStyle2.setPageBreakBefore();
 
+      const testStyle3 = new Style();
+      testStyle3.setHorizontalAlignment(HorizontalAlignment.Center);
+      testStyle3.setPageBreakBefore();
+      testStyle3.addTabStop(new TabStop(23));
+
       expect(testStyle1.getName()).not.toEqual(testStyle2.getName());
+      expect(testStyle2.getName()).not.toEqual(testStyle3.getName());
     });
   });
 
@@ -81,6 +89,52 @@ describe(Style.name, () => {
     });
   });
 
+  describe("#addTabStop", () => {
+    it("add new item to the list of tab stops and return the added tab stop", () => {
+      const testTabStop = new TabStop(23);
+
+      const addedTabStop = testStyle.addTabStop(testTabStop);
+
+      expect(addedTabStop).toEqual(testTabStop);
+      expect(testStyle.getTabStops()).toContain(testTabStop);
+    });
+
+    it("order tab stops by position", () => {
+      const testTabStop1 = new TabStop(42);
+      const testTabStop2 = new TabStop(23);
+
+      testStyle.addTabStop(testTabStop1);
+      testStyle.addTabStop(testTabStop2);
+
+      expect(testStyle.getTabStops()).toEqual([testTabStop2, testTabStop1]);
+    });
+
+    it("not add new tab stop if a tab stop with the same position already is defined", () => {
+      const testTabStop1 = new TabStop(23, TabStopType.Left);
+      const testTabStop2 = new TabStop(23, TabStopType.Right);
+
+      const addedTabStop1 = testStyle.addTabStop(testTabStop1);
+      const addedTabStop2 = testStyle.addTabStop(testTabStop2);
+
+      expect(addedTabStop1).toEqual(testTabStop1);
+      expect(addedTabStop2).toBeUndefined();
+      expect(testStyle.getTabStops()).toEqual([testTabStop1]);
+    });
+  });
+
+  describe("#getItems", () => {
+    it("return the items in order", () => {
+      const testTabStop1 = new TabStop(23);
+      const testTabStop2 = new TabStop(42);
+
+      testStyle.addTabStop(testTabStop1);
+      testStyle.addTabStop(testTabStop2);
+
+      expect(testStyle.getTabStops()).toEqual([testTabStop1, testTabStop2]);
+    });
+  });
+
+
   describe("#isDefault", () => {
     it("return true if the style equals the default style", () => {
       expect(testStyle.isDefault()).toBe(true);
@@ -96,8 +150,13 @@ describe(Style.name, () => {
 
       expect(testStyle.isDefault()).toBe(false);
 
-      testStyle.setHorizontalAlignment(HorizontalAlignment.Default);
+      testStyle = new Style();
       testStyle.setPageBreakBefore();
+
+      expect(testStyle.isDefault()).toBe(false);
+
+      testStyle = new Style();
+      testStyle.addTabStop(new TabStop(23));
 
       expect(testStyle.isDefault()).toBe(false);
     });

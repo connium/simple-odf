@@ -3,6 +3,8 @@ import { join } from "path";
 import { promisify } from "util";
 import { HorizontalAlignment } from "../src/style/HorizontalAlignment";
 import { Style } from "../src/style/Style";
+import { TabStop } from "../src/style/TabStop";
+import { TabStopType } from "../src/style/TabStopType";
 import { TextDocument } from "../src/TextDocument";
 
 const FILEPATH = "./integration.fodt";
@@ -29,6 +31,13 @@ describe("integration", () => {
     para1.setStyle(new Style());
     para1.getStyle().setHorizontalAlignment(HorizontalAlignment.Center);
 
+    document.addParagraph();
+
+    const para2 = document.addParagraph("first\tsecond\tthird");
+    para2.setStyle(new Style());
+    para2.getStyle().addTabStop(new TabStop(4));
+    para2.getStyle().addTabStop(new TabStop(12, TabStopType.Right));
+
     const heading20 = document.addHeading("List");
     heading20.setStyle(new Style());
     heading20.getStyle().setPageBreakBefore();
@@ -41,9 +50,9 @@ describe("integration", () => {
     heading30.setStyle(new Style());
     heading30.getStyle().setPageBreakBefore();
 
-    const para2 = document.addParagraph("This is just an ");
-    para2.addHyperlink("example", "http://example.org");
-    para2.addText(".");
+    const para3 = document.addParagraph("This is just an ");
+    para3.addHyperlink("example", "http://example.org");
+    para3.addText(".");
 
     await document.saveFlat(FILEPATH);
 
