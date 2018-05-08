@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **paragraph:** Replace sequence of space characters with space element, closes [#10](https://github.com/connium/simple-odf/issues/10)
 
 ### Changed
+- **chore:** Update dependencies and fix jest configuration
 - **general:** Full rewrite of the public API to use the terminology of the Open Document Format
 
 ## [0.2.0] (2018-01-12)
