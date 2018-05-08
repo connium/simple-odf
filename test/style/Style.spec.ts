@@ -90,6 +90,15 @@ describe(Style.name, () => {
   });
 
   describe("#addTabStop", () => {
+    it("add new item to the list of tab stops by position and return the added tab stop", () => {
+      const testTabStop = new TabStop(23);
+
+      const addedTabStop = testStyle.addTabStop(23, TabStopType.Left);
+
+      expect(addedTabStop).toEqual(testTabStop);
+      expect(testStyle.getTabStops()[0]).toEqual(testTabStop);
+    });
+
     it("add new item to the list of tab stops and return the added tab stop", () => {
       const testTabStop = new TabStop(23);
 
@@ -122,7 +131,7 @@ describe(Style.name, () => {
     });
   });
 
-  describe("#getItems", () => {
+  describe("#getTabStops", () => {
     it("return the items in order", () => {
       const testTabStop1 = new TabStop(23);
       const testTabStop2 = new TabStop(42);
@@ -134,6 +143,19 @@ describe(Style.name, () => {
     });
   });
 
+  describe("#clearTabStops", () => {
+    beforeEach(() => {
+      testStyle.addTabStop(new TabStop(23));
+      testStyle.addTabStop(new TabStop(42));
+    });
+
+    it("remove all items from the list", () => {
+      testStyle.clearTabStops();
+
+      expect(testStyle.getTabStops().length).toBe(0);
+    });
+
+  });
 
   describe("#isDefault", () => {
     it("return true if the style equals the default style", () => {

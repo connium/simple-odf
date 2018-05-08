@@ -3,6 +3,7 @@ import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElementName } from "../OdfElementName";
 import { HorizontalAlignment } from "./HorizontalAlignment";
 import { TabStop } from "./TabStop";
+import { TabStopType } from "./TabStopType";
 
 /**
  * This class represents the style of a paragraph.
@@ -75,24 +76,39 @@ export class Style {
    * If a tab stop at the same position already exists, the new tab stop will not be added.
    * The tab stops will be ordered by their position.
    *
+   * @param {number} position The position of the tab stop in centimeters relative to the left margin.
+   * @param {TabStopType} type The type of the tab stop. Defaults to `TabStopType.Left`.
+   * @returns {TabStop | undefined} The newly added tab stop
+   * or `undefined` if a tab stop at the same position already exists
+   * @since 0.3.0
+   */
+  public addTabStop(position: number, type: TabStopType): TabStop | undefined;
+  /**
+   * Adds a new tab stop to this style.
+   * If a tab stop at the same position already exists, the new tab stop will not be added.
+   * The tab stops will be ordered by their position.
+   *
    * @param {TabStop} tabStop The tab stop to add
    * @returns {TabStop | undefined} The newly added tab stop
    * or `undefined` if a tab stop at the same position already exists
    * @since 0.3.0
    */
-  public addTabStop(tabStop: TabStop): TabStop | undefined {
+  public addTabStop(tabStop: TabStop): TabStop | undefined;
+  public addTabStop(arg1: number | TabStop, type = TabStopType.Left) {
+    const newTabStop = typeof arg1 === "object" ? arg1 : new TabStop(arg1, type);
+
     const existsTabStop = this.tabStops.some((value: TabStop) => {
-      return tabStop.getPosition() === value.getPosition();
+      return newTabStop.getPosition() === value.getPosition();
     });
 
     if (existsTabStop === true) {
       return undefined;
     }
 
-    this.tabStops.push(tabStop);
+    this.tabStops.push(newTabStop);
     this.sortTabStops();
 
-    return tabStop;
+    return newTabStop;
   }
 
   /**
@@ -103,6 +119,15 @@ export class Style {
    */
   public getTabStops(): TabStop[] {
     return Array.from(this.tabStops);
+  }
+
+  /**
+   * Removes all tab stops.
+   *
+   * @since 0.3.0
+   */
+  public clearTabStops(): void {
+    this.tabStops = [];
   }
 
   /**
@@ -205,6 +230,9 @@ export class Style {
     return automaticStyles;
   }
 
+  /**
+   * Sorts the tab stops by their position ascending.
+   */
   private sortTabStops(): void {
     this.tabStops.sort((a: TabStop, b: TabStop) => {
       return a.getPosition() - b.getPosition();
