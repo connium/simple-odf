@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased] (2018-??-??)
+### Fixed
+- **paragraph:** Types for Image, TabStop and TabStopType are not exported, closes [#24](https://github.com/connium/simple-odf/issues/24)
 
 ## [0.3.0] (2018-05-10)
 ### Added
