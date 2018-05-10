@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **paragraph:** Add images to a paragraph, closes [#7](https://github.com/connium/simple-odf/issues/7)
 - **paragraph:** Replace tab character with tab element, closes [#10](https://github.com/connium/simple-odf/issues/10)
 - **paragraph:** Replace sequence of space characters with space element, closes [#10](https://github.com/connium/simple-odf/issues/10)
+- **paragraph:** Define tab stops on a paragraph, closes [#14](https://github.com/connium/simple-odf/issues/14)
 
 ### Changed
 - **chore:** Update dependencies and fix jest configuration

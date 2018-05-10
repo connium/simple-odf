@@ -5,6 +5,7 @@ lib/test/
 src/
 test/
 
+.travis.yml
 TODO.md
 tsconfig.json
 tslint.json

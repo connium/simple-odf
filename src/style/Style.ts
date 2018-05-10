@@ -2,6 +2,8 @@ import { createHash } from "crypto";
 import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElementName } from "../OdfElementName";
 import { HorizontalAlignment } from "./HorizontalAlignment";
+import { TabStop } from "./TabStop";
+import { TabStopType } from "./TabStopType";
 
 /**
  * This class represents the style of a paragraph.
@@ -11,6 +13,7 @@ import { HorizontalAlignment } from "./HorizontalAlignment";
 export class Style {
   private horizontalAlignment: HorizontalAlignment;
   private shouldBreakPageBefore: boolean;
+  private tabStops: TabStop[] = [];
 
   /**
    * Constructor.
@@ -22,7 +25,7 @@ export class Style {
 
   /**
    * Returns the name of the style.
-   * The name is computed to make sure equal styles feature equal names and reflects the current comnfiguration.
+   * The name is computed to make sure equal styles feature equal names and reflects the current configuration.
    *
    * @returns {string} The name of the style
    * @since 0.1.0
@@ -32,6 +35,9 @@ export class Style {
 
     hash.update(this.horizontalAlignment);
     hash.update(this.shouldBreakPageBefore ? "pb" : "");
+    this.tabStops.forEach((tabStop: TabStop) => {
+      hash.update(`${tabStop.getPosition()}${tabStop.getType()}`);
+    });
 
     return hash.digest("hex");
   }
@@ -66,6 +72,65 @@ export class Style {
   }
 
   /**
+   * Adds a new tab stop to this style.
+   * If a tab stop at the same position already exists, the new tab stop will not be added.
+   * The tab stops will be ordered by their position.
+   *
+   * @param {number} position The position of the tab stop in centimeters relative to the left margin.
+   * @param {TabStopType} type The type of the tab stop. Defaults to `TabStopType.Left`.
+   * @returns {TabStop | undefined} The newly added tab stop
+   * or `undefined` if a tab stop at the same position already exists
+   * @since 0.3.0
+   */
+  public addTabStop(position: number, type: TabStopType): TabStop | undefined;
+  /**
+   * Adds a new tab stop to this style.
+   * If a tab stop at the same position already exists, the new tab stop will not be added.
+   * The tab stops will be ordered by their position.
+   *
+   * @param {TabStop} tabStop The tab stop to add
+   * @returns {TabStop | undefined} The newly added tab stop
+   * or `undefined` if a tab stop at the same position already exists
+   * @since 0.3.0
+   */
+  public addTabStop(tabStop: TabStop): TabStop | undefined;
+  public addTabStop(arg1: number | TabStop, type = TabStopType.Left) {
+    const newTabStop = typeof arg1 === "object" ? arg1 : new TabStop(arg1, type);
+
+    const existsTabStop = this.tabStops.some((value: TabStop) => {
+      return newTabStop.getPosition() === value.getPosition();
+    });
+
+    if (existsTabStop === true) {
+      return undefined;
+    }
+
+    this.tabStops.push(newTabStop);
+    this.sortTabStops();
+
+    return newTabStop;
+  }
+
+  /**
+   * Returns all tab stops.
+   *
+   * @returns {TabStop[]} A copy of the list of tab stops
+   * @since 0.3.0
+   */
+  public getTabStops(): TabStop[] {
+    return Array.from(this.tabStops);
+  }
+
+  /**
+   * Removes all tab stops.
+   *
+   * @since 0.3.0
+   */
+  public clearTabStops(): void {
+    this.tabStops = [];
+  }
+
+  /**
    * Returns whether the style represents the default style.
    *
    * @returns {boolean} TRUE if the style equals the default style, FALSE otherwise
@@ -73,7 +138,8 @@ export class Style {
    */
   public isDefault(): boolean {
     return this.horizontalAlignment === HorizontalAlignment.Default
-      && this.shouldBreakPageBefore === false;
+      && this.shouldBreakPageBefore === false
+      && this.tabStops.length === 0;
   }
 
   /**
@@ -116,6 +182,15 @@ export class Style {
       paragraphPropertiesElement.setAttribute("fo:break-before", "page");
     }
 
+    if (this.tabStops.length > 0) {
+      const tabStopsElement = document.createElement("style:tab-stops");
+      paragraphPropertiesElement.appendChild(tabStopsElement);
+
+      this.tabStops.forEach((tabStop: TabStop) => {
+        tabStop.toXml(document, tabStopsElement);
+      });
+    }
+
     styleElement.appendChild(paragraphPropertiesElement);
   }
 
@@ -153,5 +228,14 @@ export class Style {
     rootNode.insertBefore(automaticStyles, rootNode.firstChild);
 
     return automaticStyles;
+  }
+
+  /**
+   * Sorts the tab stops by their position ascending.
+   */
+  private sortTabStops(): void {
+    this.tabStops.sort((a: TabStop, b: TabStop) => {
+      return a.getPosition() - b.getPosition();
+    });
   }
 }
