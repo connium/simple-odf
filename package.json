@@ -5,6 +5,8 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
+    "preversion": "npm test",
+    "postversion": "git push && git push --tags",
     "prepublishOnly": "tsc",
     "pretest": "npm run lint",
     "test": "jest",
