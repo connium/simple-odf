@@ -6,6 +6,7 @@ lib/test/
 src/
 test/
 
+.bettercodehub.yml
 .travis.yml
 TODO.md
 tsconfig.json
