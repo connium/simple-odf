@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased] (2018-??-??)
+
+## [0.3.0] (2018-05-10)
 ### Added
 - **chore:** Add continuous integration with Travis CI by @oncletom, partly fixes [#17](https://github.com/connium/simple-odf/issues/17)
 - **paragraph:** Add hyperlinks to a paragraph, closes [#5](https://github.com/connium/simple-odf/issues/5)
@@ -45,6 +47,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **paragraph:** Set horizontal alignment
 - **text-document:** Create text documents and save them as flat XML ODF document
 
-[Unreleased]: https://github.com/connium/simple-odf/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/connium/simple-odf/compare/v0.3.0...HEAD
 [0.3.0]: https://github.com/connium/simple-odf/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/connium/simple-odf/compare/v0.1.0...v0.2.0
