@@ -1,8 +1,13 @@
 export { TextDocument } from "./TextDocument";
 
+// draw
+export { Image } from "./draw/Image";
+
 // style
 export { HorizontalAlignment } from "./style/HorizontalAlignment";
 export { Style } from "./style/Style";
+export { TabStop } from "./style/TabStop";
+export { TabStopType } from "./style/TabStopType";
 
 // text
 export { Heading } from "./text/Heading";
