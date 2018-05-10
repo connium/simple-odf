@@ -4,6 +4,12 @@ sudo: false
 language: node_js
 node_js: v8
 
+before_install:
+- npm install codecov -g
+
+after_success:
+- codecov
+
 deploy:
   - provider: npm
     skip_cleanup: true
