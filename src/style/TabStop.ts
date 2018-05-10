@@ -34,7 +34,7 @@ export class TabStop {
    * @since 0.3.0
    */
   public setPosition(position: number): void {
-    this.position = position >= 0 ? position : 0;
+    this.position = Math.max(position, 0);
   }
 
   /**
