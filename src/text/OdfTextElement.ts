@@ -70,6 +70,8 @@ export class OdfTextElement extends OdfElement {
           this.appendTabNode(document, parent);
           str = "";
           break;
+        case "\r":
+          break;
         default:
           str += currentChar;
           break;

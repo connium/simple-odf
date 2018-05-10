@@ -82,6 +82,12 @@ describe(Paragraph.name, () => {
     expect(document.toString()).toMatch(/<text:p> some <text:s\/>spacey <text:s c="2"\/>text <text:s c="3"\/><\/text:p>/);
   });
 
+  it("ignore carriage return character", () => {
+    document.addParagraph("some text\r\nsome\r more text");
+
+    expect(document.toString()).toMatch(/<text:p>some text<text:line-break\/>some more text<\/text:p>/);
+  });
+
   describe("#addHyperlink", () => {
     it("append a linked text", () => {
       document.addParagraph("some text").addHyperlink(" some linked text", "http://example.org/");
