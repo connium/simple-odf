@@ -19,6 +19,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **chore:** Update dependencies and fix jest configuration
 - **general:** Full rewrite of the public API to use the terminology of the Open Document Format
 
+### Fixed
+- **paragraph:** Text breaks if `\r\n` is entered as text of a paragraph, closes [#15](https://github.com/connium/simple-odf/issues/15)
+
 ## [0.2.0] (2018-01-12)
 ### Added
 - **docs:** Add CHANGELOG
