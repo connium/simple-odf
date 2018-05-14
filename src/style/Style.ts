@@ -134,7 +134,7 @@ export class Style {
   /**
    * Returns whether the style represents the default style.
    *
-   * @returns {boolean} TRUE if the style equals the default style, FALSE otherwise
+   * @returns {boolean} `true` if the style equals the default style, `false` otherwise
    * @since 0.1.0
    */
   public isDefault(): boolean {
