@@ -1,8 +1,10 @@
+import { createHash } from "crypto";
 import { Image } from "../draw/Image";
 import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElement } from "../OdfElement";
 import { OdfElementName } from "../OdfElementName";
 import { Style } from "../style/Style";
+import { TextStyle } from "../style/TextStyle";
 import { Hyperlink } from "./HyperLink";
 import { OdfTextElement } from "./OdfTextElement";
 
@@ -12,7 +14,8 @@ import { OdfTextElement } from "./OdfTextElement";
  * @since 0.1.0
  */
 export class Paragraph extends OdfElement {
-  private style: Style | undefined;
+  private style: Style;
+  private textStyle: TextStyle;
 
   /**
    * Creates a paragraph
@@ -22,6 +25,9 @@ export class Paragraph extends OdfElement {
    */
   public constructor(text?: string) {
     super();
+
+    this.style = new Style();
+    this.textStyle = new TextStyle();
 
     this.addText(text || "");
   }
@@ -104,22 +110,31 @@ export class Paragraph extends OdfElement {
   /**
    * Sets the new style of this paragraph.
    *
-   * @returns {Style | undefined} The new style or undefined use the default style
+   * @returns {Style} The new style
    * @since 0.3.0
    */
-  public setStyle(style: Style | undefined): void {
+  public setStyle(style: Style): void {
     this.style = style;
   }
 
   /**
    * Returns the style of this paragraph.
    *
-   * @returns {Style | undefined} The style of the paragraph
-   * or undefined if no style has been set and the default style will be used
+   * @returns {Style} The style of the paragraph
    * @since 0.3.0
    */
-  public getStyle(): Style | undefined {
+  public getStyle(): Style {
     return this.style;
+  }
+
+  // TODO
+  public setTextStyle(textStyle: TextStyle): void {
+    this.textStyle = textStyle;
+  }
+
+  // TODO
+  public getTextStyle(): TextStyle {
+    return this.textStyle;
   }
 
   /**
@@ -140,7 +155,17 @@ export class Paragraph extends OdfElement {
     const paragraph = this.createElement(document);
     parent.appendChild(paragraph);
 
-    this.appendStyle(document, paragraph);
+    // TODO
+    if (this.style.isDefault() === false || this.textStyle.isDefault() === false) {
+      const styleName = createHash("md5")
+        .update(this.style.getName())
+        .update(this.textStyle.getName())
+        .digest("hex");
+
+      paragraph.setAttribute(OdfAttributeName.TextStyleName, styleName);
+      this.style.toXML(document, styleName);
+      this.textStyle.toXML(document, styleName);
+    }
 
     super.toXML(document, paragraph);
   }
@@ -153,24 +178,6 @@ export class Paragraph extends OdfElement {
 
     for (let index = elements.length - 1; index >= 0; index--) {
       this.removeAt(index);
-    }
-  }
-
-  /**
-   * Appends the style of the paragraph to the XML document.
-   *
-   * @param {Document} document The XML document
-   * @param {Element} paragraph The paragraph element for which the style should be added
-   */
-  private appendStyle(document: Document, paragraph: Element): void {
-    if (this.style === undefined) {
-      return;
-    }
-
-    this.style.toXML(document);
-
-    if (this.style.isDefault() === false) {
-      paragraph.setAttribute(OdfAttributeName.TextStyleName, this.style.getName());
     }
   }
 }

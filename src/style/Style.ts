@@ -2,6 +2,7 @@ import { createHash } from "crypto";
 import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElementName } from "../OdfElementName";
 import { HorizontalAlignment } from "./HorizontalAlignment";
+import { StyleHelper } from "./StyleHelper";
 import { TabStop } from "./TabStop";
 import { TabStopType } from "./TabStopType";
 
@@ -148,86 +149,32 @@ export class Style {
    * @param {Document} document The XML document
    * @since 0.1.0
    */
-  public toXML(document: Document): void {
+  public toXML(document: Document, styleName: string): void {
     if (this.isDefault() === true) {
       return;
     }
 
-    const automaticStylesElement = this.getAutomaticStylesElement(document);
-    const styleName = this.getName();
-
-    if (automaticStylesElement.childNodes.length > 0) {
-      /* tslint:disable-next-line:prefer-for-of*/
-      for (let i = 0; i < automaticStylesElement.childNodes.length; i++) {
-        const existingStyleElement = automaticStylesElement.childNodes[i] as Element;
-        const nameAttribute = existingStyleElement.attributes.getNamedItem(OdfAttributeName.StyleName);
-        if (nameAttribute !== null && nameAttribute.value === styleName) {
-          return;
-        }
-      }
-    }
-
-    const styleElement = document.createElement(OdfElementName.StyleStyle);
-    styleElement.setAttribute(OdfAttributeName.StyleFamily, "paragraph");
-    styleElement.setAttribute(OdfAttributeName.StyleName, styleName);
-    automaticStylesElement.appendChild(styleElement);
+    const styleElement = StyleHelper.getStyleElement(document, "paragraph", styleName);
 
     const paragraphPropertiesElement = document.createElement(OdfElementName.StyleParagraphProperties);
+    styleElement.appendChild(paragraphPropertiesElement);
 
     if (this.horizontalAlignment !== HorizontalAlignment.Default) {
-      paragraphPropertiesElement.setAttribute("fo:text-align", this.horizontalAlignment);
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatTextAlign, this.horizontalAlignment);
     }
 
     if (this.shouldBreakPageBefore === true) {
-      paragraphPropertiesElement.setAttribute("fo:break-before", "page");
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBreakBefore, "page");
     }
 
     if (this.tabStops.length > 0) {
-      const tabStopsElement = document.createElement("style:tab-stops");
+      const tabStopsElement = document.createElement(OdfElementName.StyleTabStops);
       paragraphPropertiesElement.appendChild(tabStopsElement);
 
       this.tabStops.forEach((tabStop: TabStop) => {
         tabStop.toXml(document, tabStopsElement);
       });
     }
-
-    styleElement.appendChild(paragraphPropertiesElement);
-  }
-
-  /**
-   * Returns the `automatic-styles` element of the document.
-   * If there is no such element yet, it will be created.
-   *
-   * @param {Document} document The XML document
-   * @returns {Element} The documents `automatic-styles` element
-   */
-  private getAutomaticStylesElement(document: Document): Element {
-    const rootNode = document.firstChild as Element;
-
-    const automaticStylesElements = rootNode.getElementsByTagName(OdfElementName.OfficeAutomaticStyles);
-
-    if (automaticStylesElements.length === 0) {
-      return this.createAutomaticStylesElement(document);
-    }
-
-    return automaticStylesElements[0];
-  }
-
-  /**
-   * Creates and returns the `automatic-styles` element for the document.
-   *
-   * @param {Document} document The XML document
-   * @returns {Element} The newly created `automatic-styles` element
-   */
-  private createAutomaticStylesElement(document: Document): Element {
-    const rootNode = document.firstChild as Element;
-    rootNode.setAttribute("xmlns:style", "urn:oasis:names:tc:opendocument:xmlns:style:1.0");
-    rootNode.setAttribute("xmlns:fo", "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0");
-
-    const automaticStyles = document.createElement(OdfElementName.OfficeAutomaticStyles);
-    rootNode.insertBefore(automaticStyles, rootNode.firstChild);
-
-    return automaticStyles;
   }
 
   /**

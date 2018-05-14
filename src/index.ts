@@ -8,6 +8,8 @@ export { HorizontalAlignment } from "./style/HorizontalAlignment";
 export { Style } from "./style/Style";
 export { TabStop } from "./style/TabStop";
 export { TabStopType } from "./style/TabStopType";
+export { TextStyle } from "./style/TextStyle";
+export { Typeface } from "./style/Typeface";
 
 // text
 export { Heading } from "./text/Heading";

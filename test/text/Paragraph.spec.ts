@@ -128,12 +128,6 @@ describe(Paragraph.name, () => {
       expect(document.toString()).toMatch(/<text:p text:style-name="([a-z0-9]+)">some text<\/text:p>/);
     });
 
-    it("not style-name attribute if style is not set", () => {
-      paragraph.setStyle(undefined);
-
-      expect(document.toString()).toMatch(/<text:p>some text<\/text:p>/);
-    });
-
     it("not style-name attribute if default style is set", () => {
       paragraph.setStyle(testStyle);
 
@@ -148,8 +142,11 @@ describe(Paragraph.name, () => {
       paragraph = document.addParagraph("some text");
     });
 
-    it("return undefined if no style was set", () => {
-      expect(paragraph.getStyle()).toBeUndefined();
+    it("return default style", () => {
+      const style = paragraph.getStyle();
+
+      expect(style).toBeDefined();
+      expect(style.isDefault()).toBe(true);
     });
 
     it("return previous set style", () => {
