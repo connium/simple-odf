@@ -5,10 +5,10 @@ export { Image } from "./draw/Image";
 
 // style
 export { HorizontalAlignment } from "./style/HorizontalAlignment";
+export { ITextStyle } from "./style/ITextStyle";
 export { Style } from "./style/Style";
 export { TabStop } from "./style/TabStop";
 export { TabStopType } from "./style/TabStopType";
-export { TextStyle } from "./style/TextStyle";
 export { Typeface } from "./style/Typeface";
 
 // text

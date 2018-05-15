@@ -3,6 +3,7 @@ import { Image } from "../draw/Image";
 import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElement } from "../OdfElement";
 import { OdfElementName } from "../OdfElementName";
+import { ITextStyle } from "../style/ITextStyle";
 import { Style } from "../style/Style";
 import { TextStyle } from "../style/TextStyle";
 import { Hyperlink } from "./HyperLink";
@@ -15,7 +16,7 @@ import { OdfTextElement } from "./OdfTextElement";
  */
 export class Paragraph extends OdfElement {
   private style: Style;
-  private textStyle: TextStyle;
+  private textStyle: ITextStyle;
 
   /**
    * Creates a paragraph
@@ -128,12 +129,12 @@ export class Paragraph extends OdfElement {
   }
 
   // TODO
-  public setTextStyle(textStyle: TextStyle): void {
+  public setTextStyle(textStyle: ITextStyle): void {
     this.textStyle = textStyle;
   }
 
   // TODO
-  public getTextStyle(): TextStyle {
+  public getTextStyle(): ITextStyle {
     return this.textStyle;
   }
 
