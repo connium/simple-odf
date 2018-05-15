@@ -18,9 +18,29 @@ import { Typeface } from "./Typeface";
  * paragraph1.setTextStyle(style);
  * paragraph2.setTextStyle(style);
  *
+ * @example
+ * // set the font size of a paragraph to 8pt
+ * paragraph.getTextStyle().setFontSize(8);
+ *
  * @since 0.4.0
  */
 export interface ITextStyle {
+  /**
+   * Sets the font size that will be applied to the text.
+   *
+   * @param {number} size The font size to apply as point value (pt)
+   * @since 0.4.0
+   */
+  setFontSize(size: number): void;
+
+  /**
+   * Returns the font size that will be applied to the text.
+   *
+   * @returns {number} The font size to apply as point value (pt)
+   * @since 0.4.0
+   */
+  getFontSize(): number;
+
   /**
    * Sets the typeface that will be applied to the text.
    *

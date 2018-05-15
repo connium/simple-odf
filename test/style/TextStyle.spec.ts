@@ -14,6 +14,37 @@ describe(TextStyle.name, () => {
     testStyle = new TextStyle();
   });
 
+  describe("#setFontSize", () => {
+    it("not set text-properties if font size is default", () => {
+      paragraph.setTextStyle(testStyle);
+
+      expect(document.toString()).not.toMatch(/<style:text-properties/);
+    });
+
+    it("set the font size", () => {
+      testStyle.setFontSize(23);
+      paragraph.setTextStyle(testStyle);
+
+      expect(document.toString()).toMatch(/<style:text-properties fo:font-size="23pt"\/>/);
+    });
+
+    it("set a minimum font size", () => {
+      testStyle.setFontSize(-42);
+
+      expect(testStyle.getFontSize()).toBe(2);
+    });
+  });
+
+  describe("#getFontSize", () => {
+    it("return the current font size", () => {
+      expect(testStyle.getFontSize()).toBe(12);
+
+      testStyle.setFontSize(23);
+
+      expect(testStyle.getFontSize()).toBe(23);
+    });
+  });
+
   describe("#setTypeface", () => {
     it("not set text-properties if typeface is default", () => {
       paragraph.setTextStyle(testStyle);
@@ -82,5 +113,4 @@ describe(TextStyle.name, () => {
       expect(testStyle.isDefault()).toBe(false);
     });
   });
-
 });

@@ -5,6 +5,10 @@ import { ITextStyle } from "./ITextStyle";
 import { StyleHelper } from "./StyleHelper";
 import { Typeface } from "./Typeface";
 
+const MINIMAL_FONT_SIZE = 2;
+const DEFAULT_FONT_SIZE = 12;
+const DEFAULT_TYPEFACE = Typeface.Normal;
+
 /**
  * This class represents the style of some text.
  *
@@ -12,6 +16,7 @@ import { Typeface } from "./Typeface";
  * @since 0.4.0
  */
 export class TextStyle implements ITextStyle {
+  private fontSize: number;
   private typeface: Typeface;
 
   /**
@@ -20,7 +25,18 @@ export class TextStyle implements ITextStyle {
    * @since 0.4.0
    */
   public constructor() {
-    this.typeface = Typeface.Normal;
+    this.fontSize = DEFAULT_FONT_SIZE;
+    this.typeface = DEFAULT_TYPEFACE;
+  }
+
+  /** @inheritDoc */
+  public setFontSize(size: number): void {
+    this.fontSize = Math.max(size, MINIMAL_FONT_SIZE);
+  }
+
+  /** @inheritDoc */
+  public getFontSize(): number {
+    return this.fontSize;
   }
 
   /** @inheritDoc */
@@ -35,13 +51,14 @@ export class TextStyle implements ITextStyle {
 
   /** @inheritDoc */
   public isDefault(): boolean {
-    return this.typeface === Typeface.Normal;
+    return this.fontSize === DEFAULT_FONT_SIZE && this.typeface === DEFAULT_TYPEFACE;
   }
 
   /** @inheritDoc */
   public getName(): string {
     const hash = createHash("md5");
 
+    hash.update(this.fontSize.toString());
     hash.update(this.typeface.toString());
 
     return hash.digest("hex");
@@ -58,8 +75,22 @@ export class TextStyle implements ITextStyle {
     const textPropertiesElement = document.createElement(OdfElementName.StyleTextProperties);
     styleElement.appendChild(textPropertiesElement);
 
+    this.setFontSizeAttribute(textPropertiesElement);
     this.setFontStyleAttribute(textPropertiesElement);
     this.setFontWeightAttribute(textPropertiesElement);
+  }
+
+  /**
+   * Sets the `font-size` attribute if the font size is different from the default font size.
+   *
+   * @param {Element} textPropertiesElement The element which will take the attribute
+   */
+  private setFontSizeAttribute(textPropertiesElement: Element): void {
+    if (this.fontSize === DEFAULT_FONT_SIZE) {
+      return;
+    }
+
+    textPropertiesElement.setAttribute(OdfAttributeName.FormatFontSize, this.fontSize + "pt");
   }
 
   /**
