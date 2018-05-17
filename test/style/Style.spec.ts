@@ -129,6 +129,14 @@ describe(Style.name, () => {
       expect(addedTabStop2).toBeUndefined();
       expect(testStyle.getTabStops()).toEqual([testTabStop1]);
     });
+
+    it("add tab stop elements to the paragraph style", () => {
+      testStyle.addTabStop(23, TabStopType.Left);
+      paragraph.setStyle(testStyle);
+
+      /* tslint:disable-next-line:max-line-length */
+      expect(document.toString()).toMatch(/<style:style style:family="paragraph" style:name="([a-z0-9]+)"><style:paragraph-properties><style:tab-stops><style:tab-stop style:position="23cm"\/><\/style:tab-stops><\/style:paragraph-properties><\/style:style>/);
+    });
   });
 
   describe("#getTabStops", () => {

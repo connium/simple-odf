@@ -1,6 +1,9 @@
 import { readFile, unlink } from "fs";
 import { promisify } from "util";
 import { HorizontalAlignment } from "../src/style/HorizontalAlignment";
+import { Heading } from "../src/text/Heading";
+import { List } from "../src/text/List";
+import { Paragraph } from "../src/text/Paragraph";
 import { TextDocument, XML_DECLARATION } from "../src/TextDocument";
 
 const FILEPATH = "./test.fodt";
@@ -22,20 +25,66 @@ describe(TextDocument.name, () => {
     done();
   });
 
-  it("return the basis document", () => {
-    const result = document.toString();
+  describe("#addHeading", () => {
+    it("return a heading", () => {
+      const heading = document.addHeading();
 
-    expect(result).toEqual(XML_DECLARATION + baseDocument);
+      expect(heading).toBeInstanceOf(Heading);
+    });
+
+    it("add heading to document", () => {
+      document.addHeading();
+
+      expect(document.toString()).toMatch(/<text:h/);
+    });
   });
 
-  it("write a flat document", async (done) => {
-    const readFileAsync = promisify(readFile);
+  describe("#addList", () => {
+    it("return a list", () => {
+      const list = document.addList();
 
-    await document.saveFlat(FILEPATH);
+      expect(list).toBeInstanceOf(List);
+    });
 
-    const fileContents = await readFileAsync(FILEPATH, "utf8");
+    it("add list to document", () => {
+      document.addList().addItem();
 
-    expect(fileContents).toEqual(XML_DECLARATION + baseDocument);
-    done();
+      expect(document.toString()).toMatch(/<text:list>/);
+    });
+  });
+
+  describe("#addParagraph", () => {
+    it("return a paragraph", () => {
+      const paragraph = document.addParagraph();
+
+      expect(paragraph).toBeInstanceOf(Paragraph);
+    });
+
+    it("add paragraph to document", () => {
+      document.addParagraph();
+
+      expect(document.toString()).toMatch(/<text:p/);
+    });
+  });
+
+  describe("#saveFlat", () => {
+    it("write a flat document", async (done) => {
+      const readFileAsync = promisify(readFile);
+
+      await document.saveFlat(FILEPATH);
+
+      const fileContents = await readFileAsync(FILEPATH, "utf8");
+
+      expect(fileContents).toEqual(XML_DECLARATION + baseDocument);
+      done();
+    });
+  });
+
+  describe("#toString", () => {
+    it("return the basis document", () => {
+      const result = document.toString();
+
+      expect(result).toEqual(XML_DECLARATION + baseDocument);
+    });
   });
 });

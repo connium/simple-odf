@@ -1,3 +1,5 @@
+import { Color } from "../../src/style/Color";
+import { Style } from "../../src/style/Style";
 import { TextStyle } from "../../src/style/TextStyle";
 import { Typeface } from "../../src/style/Typeface";
 import { Paragraph } from "../../src/text/Paragraph";
@@ -10,15 +12,53 @@ describe(TextStyle.name, () => {
 
   beforeEach(() => {
     document = new TextDocument();
-    paragraph = document.addParagraph();
+    paragraph = document.addParagraph("test");
     testStyle = new TextStyle();
+  });
+
+  it("not set a style if it is default", () => {
+    const testParagraph = new Style();
+    testParagraph.setPageBreakBefore();
+    paragraph.setStyle(testParagraph);
+    paragraph.setTextStyle(testStyle);
+
+    expect(document.toString()).not.toMatch(/<style:text-properties/);
+  });
+
+  describe("#setColor", () => {
+    it("not set text-properties if color is default", () => {
+      paragraph.setTextStyle(testStyle);
+
+      expect(document.toString()).not.toMatch(/fo:color/);
+    });
+
+    it("set the font size", () => {
+      testStyle.setColor(Color.fromRgb(1, 2, 3));
+      paragraph.setTextStyle(testStyle);
+
+      expect(document.toString()).toMatch(/<style:text-properties fo:color="#010203"\/>/);
+    });
+  });
+
+  describe("#getColor", () => {
+    it("return undefined if no color is set", () => {
+      expect(testStyle.getColor()).toBeUndefined();
+    });
+
+    it("return the current color", () => {
+      const testColor = Color.fromRgb(1, 2, 3);
+
+      testStyle.setColor(testColor);
+
+      expect(testStyle.getColor()).toBe(testColor);
+    });
   });
 
   describe("#setFontSize", () => {
     it("not set text-properties if font size is default", () => {
       paragraph.setTextStyle(testStyle);
 
-      expect(document.toString()).not.toMatch(/<style:text-properties/);
+      expect(document.toString()).not.toMatch(/fo:font-size/);
     });
 
     it("set the font size", () => {
@@ -49,7 +89,8 @@ describe(TextStyle.name, () => {
     it("not set text-properties if typeface is default", () => {
       paragraph.setTextStyle(testStyle);
 
-      expect(document.toString()).not.toMatch(/<style:text-properties/);
+      expect(document.toString()).not.toMatch(/fo:font-style/);
+      expect(document.toString()).not.toMatch(/fo:font-weight/);
     });
 
     it("set the font-style for italic", () => {
@@ -102,6 +143,8 @@ describe(TextStyle.name, () => {
     it("return true if the style equals the default style", () => {
       expect(testStyle.isDefault()).toBe(true);
 
+      testStyle.setColor(undefined);
+      testStyle.setFontSize(12);
       testStyle.setTypeface(Typeface.Normal);
 
       expect(testStyle.isDefault()).toBe(true);

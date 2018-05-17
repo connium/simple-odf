@@ -117,7 +117,7 @@ export class List extends OdfElement {
   }
 
   /** @inheritDoc */
-  protected toXML(document: Document, parent: Element): void {
+  protected toXml(document: Document, parent: Element): void {
     if (this.hasChildren() === false) {
       return;
     }
@@ -126,6 +126,6 @@ export class List extends OdfElement {
 
     parent.appendChild(listElement);
 
-    super.toXML(document, listElement);
+    super.toXml(document, listElement);
   }
 }

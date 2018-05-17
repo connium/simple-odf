@@ -8,7 +8,7 @@ before_install:
 - npm install codecov -g
 
 after_success:
-- codecov
+- npm run coverage | codecov
 
 deploy:
   - provider: npm

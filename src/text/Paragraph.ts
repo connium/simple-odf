@@ -128,12 +128,22 @@ export class Paragraph extends OdfElement {
     return this.style;
   }
 
-  // TODO
+  /**
+   * Sets the new text style of this paragraph.
+   *
+   * @returns {ITextStyle} The new text style
+   * @since 0.4.0
+   */
   public setTextStyle(textStyle: ITextStyle): void {
     this.textStyle = textStyle;
   }
 
-  // TODO
+  /**
+   * Returns the text style of this paragraph.
+   *
+   * @returns {Style} The text style of the paragraph
+   * @since 0.4.0
+   */
   public getTextStyle(): ITextStyle {
     return this.textStyle;
   }
@@ -150,25 +160,25 @@ export class Paragraph extends OdfElement {
   }
 
   /** @inheritDoc */
-  protected toXML(document: Document, parent: Element): void {
+  protected toXml(document: Document, parent: Element): void {
     (document.firstChild as Element).setAttribute("xmlns:text", "urn:oasis:names:tc:opendocument:xmlns:text:1.0");
 
     const paragraph = this.createElement(document);
     parent.appendChild(paragraph);
 
-    // TODO
-    if (this.style.isDefault() === false || this.textStyle.isDefault() === false) {
+    if (this.style.isDefault() === false || (this.textStyle as TextStyle).isDefault() === false) {
       const styleName = createHash("md5")
         .update(this.style.getName())
-        .update(this.textStyle.getName())
+        .update((this.textStyle as TextStyle).getName())
         .digest("hex");
 
       paragraph.setAttribute(OdfAttributeName.TextStyleName, styleName);
+      // TODO don't set style if style is already defined
       this.style.toXML(document, styleName);
-      this.textStyle.toXML(document, styleName);
+      (this.textStyle as TextStyle).toXML(document, styleName);
     }
 
-    super.toXML(document, paragraph);
+    super.toXml(document, paragraph);
   }
 
   /**

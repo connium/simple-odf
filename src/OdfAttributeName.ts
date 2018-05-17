@@ -1,5 +1,6 @@
 export enum OdfAttributeName {
   FormatBreakBefore = "fo:break-before",
+  FormatColor = "fo:color",
   FormatFontSize = "fo:font-size",
   FormatFontStyle = "fo:font-style",
   FormatFontWeight = "fo:font-weight",

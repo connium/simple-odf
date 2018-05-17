@@ -40,7 +40,7 @@ export class OdfTextElement extends OdfElement {
   }
 
   /** @inheritDoc */
-  protected toXML(document: Document, parent: Element): void {
+  protected toXml(document: Document, parent: Element): void {
     if (this.text === undefined || this.text === "") {
       return;
     }

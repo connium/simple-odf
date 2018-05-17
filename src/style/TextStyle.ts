@@ -1,6 +1,7 @@
 import { createHash } from "crypto";
 import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElementName } from "../OdfElementName";
+import { Color } from "./Color";
 import { ITextStyle } from "./ITextStyle";
 import { StyleHelper } from "./StyleHelper";
 import { Typeface } from "./Typeface";
@@ -16,6 +17,7 @@ const DEFAULT_TYPEFACE = Typeface.Normal;
  * @since 0.4.0
  */
 export class TextStyle implements ITextStyle {
+  private color: Color | undefined;
   private fontSize: number;
   private typeface: Typeface;
 
@@ -27,6 +29,16 @@ export class TextStyle implements ITextStyle {
   public constructor() {
     this.fontSize = DEFAULT_FONT_SIZE;
     this.typeface = DEFAULT_TYPEFACE;
+  }
+
+  /** @inheritDoc */
+  public setColor(color: Color | undefined): void {
+    this.color = color;
+  }
+
+  /** @inheritDoc */
+  public getColor(): Color | undefined {
+    return this.color;
   }
 
   /** @inheritDoc */
@@ -49,22 +61,43 @@ export class TextStyle implements ITextStyle {
     return this.typeface;
   }
 
-  /** @inheritDoc */
+  /**
+   * Returns whether the text style represents the default style.
+   *
+   * @returns {boolean} `true` if the text style equals the default style, `false` otherwise
+   * @since 0.4.0
+   */
   public isDefault(): boolean {
-    return this.fontSize === DEFAULT_FONT_SIZE && this.typeface === DEFAULT_TYPEFACE;
+    return this.color === undefined
+      && this.fontSize === DEFAULT_FONT_SIZE
+      && this.typeface === DEFAULT_TYPEFACE;
   }
 
-  /** @inheritDoc */
+  /**
+   * Returns the name of the style.
+   * The name is computed to make sure equal styles feature equal names and reflects the current configuration.
+   *
+   * @returns {string} The name of the style
+   * @since 0.4.0
+   */
   public getName(): string {
     const hash = createHash("md5");
 
+    if (this.color !== undefined) {
+      hash.update(this.color.toHex());
+    }
     hash.update(this.fontSize.toString());
     hash.update(this.typeface.toString());
 
     return hash.digest("hex");
   }
 
-  /** @inheritDoc */
+  /**
+   * Transforms the text style into Open Document Format.
+   *
+   * @param {Document} document The XML document
+   * @since 0.4.0
+   */
   public toXML(document: Document, styleName: string): void {
     if (this.isDefault() === true) {
       return;
@@ -75,9 +108,23 @@ export class TextStyle implements ITextStyle {
     const textPropertiesElement = document.createElement(OdfElementName.StyleTextProperties);
     styleElement.appendChild(textPropertiesElement);
 
+    this.setColorAttribute(textPropertiesElement);
     this.setFontSizeAttribute(textPropertiesElement);
     this.setFontStyleAttribute(textPropertiesElement);
     this.setFontWeightAttribute(textPropertiesElement);
+  }
+
+  /**
+   * Sets the `color` attribute if a color is set.
+   *
+   * @param {Element} textPropertiesElement The element which will take the attribute
+   */
+  private setColorAttribute(textPropertiesElement: Element): void {
+    if (this.color === undefined) {
+      return;
+    }
+
+    textPropertiesElement.setAttribute(OdfAttributeName.FormatColor, this.color.toHex());
   }
 
   /**

@@ -23,7 +23,7 @@ export class Image extends OdfElement {
   }
 
   /** @inheritDoc */
-  protected toXML(document: Document, parent: Element): void {
+  protected toXml(document: Document, parent: Element): void {
     (document.firstChild as Element).setAttribute("xmlns:draw", "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0");
 
     const frame = document.createElement(OdfElementName.DrawFrame);
@@ -41,6 +41,6 @@ export class Image extends OdfElement {
     const textNode = document.createTextNode(base64Image);
     binaryData.appendChild(textNode);
 
-    super.toXML(document, frame);
+    super.toXml(document, frame);
   }
 }
