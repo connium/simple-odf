@@ -33,6 +33,20 @@ describe(TextProperties.name, () => {
     });
   });
 
+  describe("#getFontName", () => {
+    it("return `undefined` as default", () => {
+      expect(properties.getFontName()).toBeUndefined();
+    });
+
+    it("return the current font name", () => {
+      const testFontName = "someFont";
+
+      properties.setFontName(testFontName);
+
+      expect(properties.getFontName()).toBe(testFontName);
+    });
+  });
+
   describe("#setFontSize", () => {
     it("set a minimum font size", () => {
       properties.setFontSize(-42);
@@ -72,6 +86,12 @@ describe(TextProperties.name, () => {
       expect(properties.isDefault()).toBe(false);
     });
 
+    it("return false if font name was set", () => {
+      properties.setFontName("someFontName");
+
+      expect(properties.isDefault()).toBe(false);
+    });
+
     it("return false if font size was set", () => {
       properties.setFontSize(23);
 
@@ -98,6 +118,13 @@ describe(TextProperties.name, () => {
       paragraph.setStyle(testStyle);
 
       expect(document.toString()).toMatch(/<style:text-properties fo:color="#010203"\/>/);
+    });
+
+    it("set the font name", () => {
+      testStyle.setFontName("someFontName");
+      paragraph.setStyle(testStyle);
+
+      expect(document.toString()).toMatch(/<style:text-properties style:font-name="someFontName"\/>/);
     });
 
     it("set the font size", () => {

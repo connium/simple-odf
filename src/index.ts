@@ -5,6 +5,7 @@ export { Image } from "./draw/Image";
 
 // style
 export { Color } from "./style/Color";
+export { FontPitch } from "./style/FontPitch";
 export { HorizontalAlignment } from "./style/HorizontalAlignment";
 export { IParagraphStyle } from "./style/IParagraphStyle";
 export { ParagraphStyle } from "./style/ParagraphStyle";

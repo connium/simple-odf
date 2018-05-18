@@ -130,17 +130,20 @@ export class ParagraphProperties implements IParagraphProperties {
   /**
    * Adds the `tab-stops` element and the tab stop definitions if any tab stop is set.
    *
-   * @param {Element} textPropertiesElement The element which will take the attribute
+   * @param {Document} document The XML document
+   * @param {Element} textPropertiesElement The element which will be used as parent
    */
   private setTabStopElements(document: Document, paragraphPropertiesElement: Element): void {
-    if (this.tabStops.length > 0) {
-      const tabStopsElement = document.createElement(OdfElementName.StyleTabStops);
-      paragraphPropertiesElement.appendChild(tabStopsElement);
-
-      this.tabStops.forEach((tabStop: TabStop) => {
-        tabStop.toXml(document, tabStopsElement);
-      });
+    if (this.tabStops.length === 0) {
+      return;
     }
+
+    const tabStopsElement = document.createElement(OdfElementName.StyleTabStops);
+    paragraphPropertiesElement.appendChild(tabStopsElement);
+
+    this.tabStops.forEach((tabStop: TabStop) => {
+      tabStop.toXml(document, tabStopsElement);
+    });
   }
 
   /**

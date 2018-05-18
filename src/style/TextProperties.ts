@@ -16,6 +16,7 @@ const DEFAULT_TYPEFACE = Typeface.Normal;
  */
 export class TextProperties implements ITextProperties {
   private color: Color | undefined;
+  private fontName: string | undefined;
   private fontSize: number;
   private typeface: Typeface;
 
@@ -37,6 +38,16 @@ export class TextProperties implements ITextProperties {
   /** @inheritDoc */
   public getColor(): Color | undefined {
     return this.color;
+  }
+
+  /** @inheritDoc */
+  public setFontName(name: string): void {
+    this.fontName = name;
+  }
+
+  /** @inheritDoc */
+  public getFontName(): string | undefined {
+    return this.fontName;
   }
 
   /** @inheritDoc */
@@ -67,6 +78,7 @@ export class TextProperties implements ITextProperties {
    */
   public isDefault(): boolean {
     return this.color === undefined
+      && this.fontName === undefined
       && this.fontSize === DEFAULT_FONT_SIZE
       && this.typeface === DEFAULT_TYPEFACE;
   }
@@ -87,6 +99,7 @@ export class TextProperties implements ITextProperties {
     parent.appendChild(textPropertiesElement);
 
     this.setColorAttribute(textPropertiesElement);
+    this.setFontNameAttribute(textPropertiesElement);
     this.setFontSizeAttribute(textPropertiesElement);
     this.setFontStyleAttribute(textPropertiesElement);
     this.setFontWeightAttribute(textPropertiesElement);
@@ -103,6 +116,19 @@ export class TextProperties implements ITextProperties {
     }
 
     textPropertiesElement.setAttribute(OdfAttributeName.FormatColor, this.color.toHex());
+  }
+
+  /**
+   * Sets the `font-name` attribute if a font name is set.
+   *
+   * @param {Element} textPropertiesElement The element which will take the attribute
+   */
+  private setFontNameAttribute(textPropertiesElement: Element): void {
+    if (this.fontName === undefined) {
+      return;
+    }
+
+    textPropertiesElement.setAttribute(OdfAttributeName.StyleFontName, this.fontName);
   }
 
   /**

@@ -1,5 +1,6 @@
 import { readFile, unlink } from "fs";
 import { promisify } from "util";
+import { FontPitch } from "../src/style/FontPitch";
 import { HorizontalAlignment } from "../src/style/HorizontalAlignment";
 import { Heading } from "../src/text/Heading";
 import { List } from "../src/text/List";
@@ -23,6 +24,28 @@ describe(TextDocument.name, () => {
     await unlinkAsync(FILEPATH);
 
     done();
+  });
+
+  describe("#declareFont", () => {
+    it("add svg namespace", () => {
+      document.declareFont("Springfield", "Springfield", FontPitch.Variable);
+
+      expect(document.toString()).toMatch(/xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0"/);
+    });
+
+    it("add font declaration to document", () => {
+      document.declareFont("Springfield", "Springfield", FontPitch.Variable);
+
+      /* tslint:disable-next-line:max-line-length */
+      expect(document.toString()).toMatch(/<office:font-face-decls><style:font-face style:name="Springfield" svg:font-family="Springfield" style:font-pitch="variable"\/><\/office:font-face-decls>/);
+    });
+
+    it("add font declaration to document and wrap font family if it contains spaces", () => {
+      document.declareFont("Homer Simpson", "Homer Simpson", FontPitch.Variable);
+
+      /* tslint:disable-next-line:max-line-length */
+      expect(document.toString()).toMatch(/<office:font-face-decls><style:font-face style:name="Homer Simpson" svg:font-family="'Homer Simpson'" style:font-pitch="variable"\/><\/office:font-face-decls>/);
+    });
   });
 
   describe("#addHeading", () => {

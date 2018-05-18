@@ -38,8 +38,10 @@ export class StyleHelper {
     rootNode.setAttribute("xmlns:style", "urn:oasis:names:tc:opendocument:xmlns:style:1.0");
     rootNode.setAttribute("xmlns:fo", "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0");
 
+    const officeBodyElement = rootNode.getElementsByTagName(OdfElementName.OfficeBody)[0];
+
     const automaticStyles = document.createElement(OdfElementName.OfficeAutomaticStyles);
-    rootNode.insertBefore(automaticStyles, rootNode.firstChild);
+    rootNode.insertBefore(automaticStyles, officeBodyElement);
 
     return automaticStyles;
   }
