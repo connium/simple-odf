@@ -1,5 +1,5 @@
 import { join } from "path";
-import { Style } from "../../src/style/Style";
+import { ParagraphStyle } from "../../src/style/ParagraphStyle";
 import { Paragraph } from "../../src/text/Paragraph";
 import { TextDocument } from "../../src/TextDocument";
 
@@ -114,11 +114,11 @@ describe(Paragraph.name, () => {
 
   describe("#setStyle", () => {
     let paragraph: Paragraph;
-    let testStyle: Style;
+    let testStyle: ParagraphStyle;
 
     beforeEach(() => {
       paragraph = document.addParagraph("some text");
-      testStyle = new Style();
+      testStyle = new ParagraphStyle();
     });
 
     it("set style-name attribute on paragraph if any style property was set", () => {
@@ -126,12 +126,6 @@ describe(Paragraph.name, () => {
       paragraph.setStyle(testStyle);
 
       expect(document.toString()).toMatch(/<text:p text:style-name="([a-z0-9]+)">some text<\/text:p>/);
-    });
-
-    it("not style-name attribute if style is not set", () => {
-      paragraph.setStyle(undefined);
-
-      expect(document.toString()).toMatch(/<text:p>some text<\/text:p>/);
     });
 
     it("not style-name attribute if default style is set", () => {
@@ -153,7 +147,7 @@ describe(Paragraph.name, () => {
     });
 
     it("return previous set style", () => {
-      const testStyle = new Style();
+      const testStyle = new ParagraphStyle();
       testStyle.setPageBreakBefore();
 
       paragraph.setStyle(testStyle);

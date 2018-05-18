@@ -109,9 +109,9 @@ export class OdfElement {
    * @param {Element} parent The parent node
    * @since 0.1.0
    */
-  protected toXML(document: Document, parent: Element): void {
+  protected toXml(document: Document, parent: Element): void {
     this.children.forEach((child: OdfElement) => {
-      child.toXML(document, parent);
+      child.toXml(document, parent);
     });
   }
 }

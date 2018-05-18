@@ -13,7 +13,7 @@
     "watch-test": "jest --watch",
     "coverage": "jest --coverage",
     "jest": "jest",
-    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint": "tslint -c tslint.json 'src/**/*.ts', 'test/**/*.ts'",
     "tsc": "tsc"
   },
   "repository": {

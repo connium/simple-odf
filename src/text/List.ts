@@ -117,15 +117,14 @@ export class List extends OdfElement {
   }
 
   /** @inheritDoc */
-  protected toXML(document: Document, parent: Element): void {
+  protected toXml(document: Document, parent: Element): void {
     if (this.hasChildren() === false) {
       return;
     }
 
     const listElement = document.createElement(OdfElementName.TextList);
-
     parent.appendChild(listElement);
 
-    super.toXML(document, listElement);
+    super.toXml(document, listElement);
   }
 }

@@ -1,3 +1,5 @@
+import { OdfAttributeName } from "../OdfAttributeName";
+import { OdfElementName } from "../OdfElementName";
 import { TabStopType } from "./TabStopType";
 
 /**
@@ -75,11 +77,12 @@ export class TabStop {
    * @since 0.3.0
    */
   public toXml(document: Document, parent: Element): void {
-    const tabStopElement = document.createElement("style:tab-stop");
-    tabStopElement.setAttribute("style:position", `${this.position}cm`);
-    if (this.type !== TabStopType.Left) {
-      tabStopElement.setAttribute("style:type", this.type);
-    }
+    const tabStopElement = document.createElement(OdfElementName.StyleTabStop);
     parent.appendChild(tabStopElement);
+
+    tabStopElement.setAttribute(OdfAttributeName.StylePosition, `${this.position}cm`);
+    if (this.type !== TabStopType.Left) {
+      tabStopElement.setAttribute(OdfAttributeName.StyleType, this.type);
+    }
   }
 }

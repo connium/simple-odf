@@ -9,6 +9,8 @@ export enum OdfElementName {
   OfficeText = "office:text",
 
   StyleStyle = "style:style",
+  StyleTabStop = "style:tab-stop",
+  StyleTabStops = "style:tab-stops",
   StyleTextProperties = "style:text-properties",
   StyleParagraphProperties = "style:paragraph-properties",
 

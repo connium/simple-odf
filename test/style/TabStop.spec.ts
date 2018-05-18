@@ -1,4 +1,4 @@
-import { Style } from "../../src/style/Style";
+import { ParagraphStyle } from "../../src/style/ParagraphStyle";
 import { TabStop } from "../../src/style/TabStop";
 import { TabStopType } from "../../src/style/TabStopType";
 import { TextDocument } from "../../src/TextDocument";
@@ -88,7 +88,7 @@ describe(TabStop.name, () => {
     it("return the current position", () => {
       const document = new TextDocument();
       const paragraph = document.addParagraph();
-      const style = new Style();
+      const style = new ParagraphStyle();
 
       style.addTabStop(new TabStop(2, TabStopType.Center));
       style.addTabStop(new TabStop(4, TabStopType.Char));

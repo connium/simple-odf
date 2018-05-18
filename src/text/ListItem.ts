@@ -24,11 +24,10 @@ export class ListItem extends OdfElement {
   }
 
   /** @inheritDoc */
-  protected toXML(document: Document, parent: Element): void {
+  protected toXml(document: Document, parent: Element): void {
     const listItemElement = document.createElement(OdfElementName.TextListItem);
-
     parent.appendChild(listItemElement);
 
-    super.toXML(document, listItemElement);
+    super.toXml(document, listItemElement);
   }
 }

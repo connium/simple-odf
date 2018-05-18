@@ -94,13 +94,13 @@ export class TextDocument extends OdfElement {
       null);
     const root = document.firstChild;
 
-    this.toXML(document, root as Element);
+    this.toXml(document, root as Element);
 
     return XML_DECLARATION + new XMLSerializer().serializeToString(document);
   }
 
   /** @inheritDoc */
-  protected toXML(document: Document, root: Element): void {
+  protected toXml(document: Document, root: Element): void {
     root.setAttribute(OdfAttributeName.OfficeMimetype, "application/vnd.oasis.opendocument.text");
     root.setAttribute(OdfAttributeName.OfficeVersion, OFFICE_VERSION);
 
@@ -110,6 +110,6 @@ export class TextDocument extends OdfElement {
     const textElement = document.createElement(OdfElementName.OfficeText);
     bodyElement.appendChild(textElement);
 
-    super.toXML(document, textElement);
+    super.toXml(document, textElement);
   }
 }

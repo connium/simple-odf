@@ -42,7 +42,7 @@ export class Hyperlink extends OdfTextElement {
   }
 
   /** @inheritDoc */
-  protected toXML(document: Document, parent: Element): void {
+  protected toXml(document: Document, parent: Element): void {
     const text = this.getText();
 
     if (text === undefined || text === "") {
@@ -50,15 +50,15 @@ export class Hyperlink extends OdfTextElement {
     }
 
     if (this.uri === undefined) {
-      return super.toXML(document, parent);
+      return super.toXml(document, parent);
     }
 
     (document.firstChild as Element).setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
 
     const hyperlink = document.createElement(OdfElementName.TextHyperlink);
+    parent.appendChild(hyperlink);
     hyperlink.setAttribute(OdfAttributeName.XlinkType, LINK_TYPE);
     hyperlink.setAttribute(OdfAttributeName.XlinkHref, this.uri);
-    parent.appendChild(hyperlink);
 
     const textNode = document.createTextNode(text);
     hyperlink.appendChild(textNode);

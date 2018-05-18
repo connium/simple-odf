@@ -29,8 +29,14 @@ document.addHeading("Welcome to simple-odf");
 const p1 = document.addParagraph("The quick, brown fox jumps over a lazy dog.");
 p1.addText("\nThe five boxing wizards jump quickly.\n\n");
 p1.addHyperlink("Visit me", "http://example.org/");
-const style1 = new Style();
-style1.setHorizontalAlignment(HorizontalAlignment.Center);
+const style1 = new simpleOdf.ParagraphStyle();
+// text formatting
+style1.setColor(simpleOdf.Color.fromRgb(255, 0, 0));
+style1.setFontSize(20);
+style1.setTypeface(simpleOdf.Typeface.Bold);
+// paragraph formatting
+style1.setHorizontalAlignment(simpleOdf.HorizontalAlignment.Center);
+style1.setPageBreakBefore();
 p1.setStyle(style1);
 
 document.addHeading("Credits", 2);

@@ -23,12 +23,12 @@ export class Image extends OdfElement {
   }
 
   /** @inheritDoc */
-  protected toXML(document: Document, parent: Element): void {
+  protected toXml(document: Document, parent: Element): void {
     (document.firstChild as Element).setAttribute("xmlns:draw", "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0");
 
     const frame = document.createElement(OdfElementName.DrawFrame);
-    frame.setAttribute(OdfAttributeName.TextAnchorType, DEFAULT_ANCHOR_TYPE);
     parent.appendChild(frame);
+    frame.setAttribute(OdfAttributeName.TextAnchorType, DEFAULT_ANCHOR_TYPE);
 
     const image = document.createElement(OdfElementName.DrawImage);
     frame.appendChild(image);
@@ -41,6 +41,6 @@ export class Image extends OdfElement {
     const textNode = document.createTextNode(base64Image);
     binaryData.appendChild(textNode);
 
-    super.toXML(document, frame);
+    super.toXml(document, frame);
   }
 }

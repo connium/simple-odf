@@ -1,8 +1,7 @@
 import { Image } from "../draw/Image";
-import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElement } from "../OdfElement";
 import { OdfElementName } from "../OdfElementName";
-import { Style } from "../style/Style";
+import { IParagraphStyle } from "../style/IParagraphStyle";
 import { Hyperlink } from "./HyperLink";
 import { OdfTextElement } from "./OdfTextElement";
 
@@ -12,7 +11,7 @@ import { OdfTextElement } from "./OdfTextElement";
  * @since 0.1.0
  */
 export class Paragraph extends OdfElement {
-  private style: Style | undefined;
+  private style: IParagraphStyle | undefined;
 
   /**
    * Creates a paragraph
@@ -103,22 +102,22 @@ export class Paragraph extends OdfElement {
 
   /**
    * Sets the new style of this paragraph.
+   * To reset the style, `undefined` must be given.
    *
-   * @returns {Style | undefined} The new style or undefined use the default style
+   * @returns {IParagraphStyle | undefined} The new style or `undefined` to reset the style
    * @since 0.3.0
    */
-  public setStyle(style: Style | undefined): void {
+  public setStyle(style: IParagraphStyle | undefined): void {
     this.style = style;
   }
 
   /**
    * Returns the style of this paragraph.
    *
-   * @returns {Style | undefined} The style of the paragraph
-   * or undefined if no style has been set and the default style will be used
+   * @returns {IParagraphStyle | undefined} The style of the paragraph or `undefined` if no style was set
    * @since 0.3.0
    */
-  public getStyle(): Style | undefined {
+  public getStyle(): IParagraphStyle | undefined {
     return this.style;
   }
 
@@ -134,15 +133,17 @@ export class Paragraph extends OdfElement {
   }
 
   /** @inheritDoc */
-  protected toXML(document: Document, parent: Element): void {
+  protected toXml(document: Document, parent: Element): void {
     (document.firstChild as Element).setAttribute("xmlns:text", "urn:oasis:names:tc:opendocument:xmlns:text:1.0");
 
     const paragraph = this.createElement(document);
     parent.appendChild(paragraph);
 
-    this.appendStyle(document, paragraph);
+    if (this.style !== undefined) {
+      this.style.toXml(document, paragraph);
+    }
 
-    super.toXML(document, paragraph);
+    super.toXml(document, paragraph);
   }
 
   /**
@@ -153,24 +154,6 @@ export class Paragraph extends OdfElement {
 
     for (let index = elements.length - 1; index >= 0; index--) {
       this.removeAt(index);
-    }
-  }
-
-  /**
-   * Appends the style of the paragraph to the XML document.
-   *
-   * @param {Document} document The XML document
-   * @param {Element} paragraph The paragraph element for which the style should be added
-   */
-  private appendStyle(document: Document, paragraph: Element): void {
-    if (this.style === undefined) {
-      return;
-    }
-
-    this.style.toXML(document);
-
-    if (this.style.isDefault() === false) {
-      paragraph.setAttribute(OdfAttributeName.TextStyleName, this.style.getName());
     }
   }
 }
