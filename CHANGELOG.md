@@ -10,7 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - **chore:** Add code coverage analysis with Codecov by @oncletom, closes [#17](https://github.com/connium/simple-odf/issues/17)
 - **chore:** Add static code analysis with Better Code Hub
-- **paragraph:** Set typeface to the text of a paragraph, closes [#26](https://github.com/connium/simple-odf/issues/26)
+- **paragraph:** Set color, font size and typeface to the text of a paragraph, closes [#26](https://github.com/connium/simple-odf/issues/26)
+
+### Changed
+- **chore:** Run TSLint on production and test code
+- **paragraph:** Style now is of type `IParagraphStyle`
 
 ## [0.3.1] (2018-05-10)
 ### Fixed

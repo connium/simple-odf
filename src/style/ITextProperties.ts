@@ -2,7 +2,7 @@ import { Color } from "./Color";
 import { Typeface } from "./Typeface";
 
 /**
- * This class represents the style of some text.
+ * This class represents the styling properties of some text.
  *
  * It is used to apply formatting to the text content.
  * To format the text of a paragraph either the paragraphs test style must be altered
@@ -25,7 +25,7 @@ import { Typeface } from "./Typeface";
  *
  * @since 0.4.0
  */
-export interface ITextStyle {
+export interface ITextProperties {
   /**
    * Sets the font color that will be applied to the text.
    * To reset the color, `undefined` must be given.

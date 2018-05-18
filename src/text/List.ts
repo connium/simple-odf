@@ -123,7 +123,6 @@ export class List extends OdfElement {
     }
 
     const listElement = document.createElement(OdfElementName.TextList);
-
     parent.appendChild(listElement);
 
     super.toXml(document, listElement);

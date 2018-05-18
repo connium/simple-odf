@@ -78,10 +78,11 @@ export class TabStop {
    */
   public toXml(document: Document, parent: Element): void {
     const tabStopElement = document.createElement(OdfElementName.StyleTabStop);
+    parent.appendChild(tabStopElement);
+
     tabStopElement.setAttribute(OdfAttributeName.StylePosition, `${this.position}cm`);
     if (this.type !== TabStopType.Left) {
       tabStopElement.setAttribute(OdfAttributeName.StyleType, this.type);
     }
-    parent.appendChild(tabStopElement);
   }
 }

@@ -27,8 +27,8 @@ export class Image extends OdfElement {
     (document.firstChild as Element).setAttribute("xmlns:draw", "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0");
 
     const frame = document.createElement(OdfElementName.DrawFrame);
-    frame.setAttribute(OdfAttributeName.TextAnchorType, DEFAULT_ANCHOR_TYPE);
     parent.appendChild(frame);
+    frame.setAttribute(OdfAttributeName.TextAnchorType, DEFAULT_ANCHOR_TYPE);
 
     const image = document.createElement(OdfElementName.DrawImage);
     frame.appendChild(image);

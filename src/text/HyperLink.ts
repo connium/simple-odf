@@ -56,9 +56,9 @@ export class Hyperlink extends OdfTextElement {
     (document.firstChild as Element).setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
 
     const hyperlink = document.createElement(OdfElementName.TextHyperlink);
+    parent.appendChild(hyperlink);
     hyperlink.setAttribute(OdfAttributeName.XlinkType, LINK_TYPE);
     hyperlink.setAttribute(OdfAttributeName.XlinkHref, this.uri);
-    parent.appendChild(hyperlink);
 
     const textNode = document.createTextNode(text);
     hyperlink.appendChild(textNode);

@@ -1,17 +1,19 @@
-import { createHash } from "crypto";
 import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElementName } from "../OdfElementName";
 import { HorizontalAlignment } from "./HorizontalAlignment";
-import { StyleHelper } from "./StyleHelper";
+import { IParagraphProperties } from "./IParagraphProperties";
 import { TabStop } from "./TabStop";
 import { TabStopType } from "./TabStopType";
+
+const DEFAULT_HORIZONTAL_ALIGNMENT = HorizontalAlignment.Default;
+const DEFAULT_PAGE_BREAK = false;
 
 /**
  * This class represents the style of a paragraph.
  *
  * @since 0.1.0
  */
-export class Style {
+export class ParagraphProperties implements IParagraphProperties {
   private horizontalAlignment: HorizontalAlignment;
   private shouldBreakPageBefore: boolean;
   private tabStops: TabStop[] = [];
@@ -20,82 +22,31 @@ export class Style {
    * Constructor.
    */
   public constructor() {
-    this.horizontalAlignment = HorizontalAlignment.Default;
-    this.shouldBreakPageBefore = false;
+    this.horizontalAlignment = DEFAULT_HORIZONTAL_ALIGNMENT;
+    this.shouldBreakPageBefore = DEFAULT_PAGE_BREAK;
   }
 
-  /**
-   * Returns the name of the style.
-   * The name is computed to make sure equal styles feature equal names and reflects the current configuration.
-   *
-   * @returns {string} The name of the style
-   * @since 0.1.0
-   */
-  public getName(): string {
-    const hash = createHash("md5");
-
-    hash.update(this.horizontalAlignment);
-    hash.update(this.shouldBreakPageBefore ? "pb" : "");
-    this.tabStops.forEach((tabStop: TabStop) => {
-      hash.update(`${tabStop.getPosition()}${tabStop.getType()}`);
-    });
-
-    return hash.digest("hex");
-  }
-
-  /**
-   * Sets the horizontal alignment setting of this paragraph.
-   *
-   * @param {HorizontalAlignment} horizontalAlignment The horizontal alignment setting
-   * @since 0.1.0
-   */
+  /** @inheritDoc */
   public setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): void {
     this.horizontalAlignment = horizontalAlignment;
   }
 
-  /**
-   * Returns the horizontal alignment setting of this paragraph.
-   *
-   * @returns {HorizontalAlignment} The horizontal alignment setting
-   * @since 0.2.0
-   */
+  /** @inheritDoc */
   public getHorizontalAlignment(): HorizontalAlignment {
     return this.horizontalAlignment;
   }
 
-  /**
-   * Inserts a new page break to the document before the corresponding element.
-   *
-   * @since 0.1.0
-   */
+  /** @inheritDoc */
   public setPageBreakBefore(): void {
     this.shouldBreakPageBefore = true;
   }
 
-  /**
-   * Adds a new tab stop to this style.
-   * If a tab stop at the same position already exists, the new tab stop will not be added.
-   * The tab stops will be ordered by their position.
-   *
-   * @param {number} position The position of the tab stop in centimeters relative to the left margin.
-   * @param {TabStopType} type The type of the tab stop. Defaults to `TabStopType.Left`.
-   * @returns {TabStop | undefined} The newly added tab stop
-   * or `undefined` if a tab stop at the same position already exists
-   * @since 0.3.0
-   */
+  /** @inheritDoc */
   public addTabStop(position: number, type: TabStopType): TabStop | undefined;
-  /**
-   * Adds a new tab stop to this style.
-   * If a tab stop at the same position already exists, the new tab stop will not be added.
-   * The tab stops will be ordered by their position.
-   *
-   * @param {TabStop} tabStop The tab stop to add
-   * @returns {TabStop | undefined} The newly added tab stop
-   * or `undefined` if a tab stop at the same position already exists
-   * @since 0.3.0
-   */
+
+  /** @inheritDoc */
   public addTabStop(tabStop: TabStop): TabStop | undefined;
-  public addTabStop(arg1: number | TabStop, type = TabStopType.Left) {
+  public addTabStop(arg1: number | TabStop, type = TabStopType.Left): TabStop | undefined {
     const newTabStop = typeof arg1 === "object" ? arg1 : new TabStop(arg1, type);
 
     const existsTabStop = this.tabStops.some((value: TabStop) => {
@@ -112,21 +63,12 @@ export class Style {
     return newTabStop;
   }
 
-  /**
-   * Returns all tab stops.
-   *
-   * @returns {TabStop[]} A copy of the list of tab stops
-   * @since 0.3.0
-   */
+  /** @inheritDoc */
   public getTabStops(): TabStop[] {
     return Array.from(this.tabStops);
   }
 
-  /**
-   * Removes all tab stops.
-   *
-   * @since 0.3.0
-   */
+  /** @inheritDoc */
   public clearTabStops(): void {
     this.tabStops = [];
   }
@@ -138,8 +80,8 @@ export class Style {
    * @since 0.1.0
    */
   public isDefault(): boolean {
-    return this.horizontalAlignment === HorizontalAlignment.Default
-      && this.shouldBreakPageBefore === false
+    return this.horizontalAlignment === DEFAULT_HORIZONTAL_ALIGNMENT
+      && this.shouldBreakPageBefore === DEFAULT_PAGE_BREAK
       && this.tabStops.length === 0;
   }
 
@@ -147,26 +89,50 @@ export class Style {
    * Transforms the style element into Open Document Format.
    *
    * @param {Document} document The XML document
+   * @param {Element} parent The parent node in the DOM (`style:style`)
    * @since 0.1.0
    */
-  public toXML(document: Document, styleName: string): void {
+  public toXml(document: Document, parent: Element): void {
     if (this.isDefault() === true) {
       return;
     }
 
-    const styleElement = StyleHelper.getStyleElement(document, "paragraph", styleName);
-
     const paragraphPropertiesElement = document.createElement(OdfElementName.StyleParagraphProperties);
-    styleElement.appendChild(paragraphPropertiesElement);
+    parent.appendChild(paragraphPropertiesElement);
 
+    this.setHorizontalAlignmentAttribute(paragraphPropertiesElement);
+    this.setPageBreakAttribute(paragraphPropertiesElement);
+    this.setTabStopElements(document, paragraphPropertiesElement);
+  }
+
+  /**
+   * Sets the `text-align` attribute if an horizontal alignment is set.
+   *
+   * @param {Element} textPropertiesElement The element which will take the attribute
+   */
+  private setHorizontalAlignmentAttribute(paragraphPropertiesElement: Element): void {
     if (this.horizontalAlignment !== HorizontalAlignment.Default) {
       paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatTextAlign, this.horizontalAlignment);
     }
+  }
 
+  /**
+   * Sets the page break attribute if a page break is set.
+   *
+   * @param {Element} textPropertiesElement The element which will take the attribute
+   */
+  private setPageBreakAttribute(paragraphPropertiesElement: Element): void {
     if (this.shouldBreakPageBefore === true) {
       paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBreakBefore, "page");
     }
+  }
 
+  /**
+   * Adds the `tab-stops` element and the tab stop definitions if any tab stop is set.
+   *
+   * @param {Element} textPropertiesElement The element which will take the attribute
+   */
+  private setTabStopElements(document: Document, paragraphPropertiesElement: Element): void {
     if (this.tabStops.length > 0) {
       const tabStopsElement = document.createElement(OdfElementName.StyleTabStops);
       paragraphPropertiesElement.appendChild(tabStopsElement);

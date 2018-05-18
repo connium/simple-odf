@@ -1,11 +1,7 @@
-import { createHash } from "crypto";
 import { Image } from "../draw/Image";
-import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElement } from "../OdfElement";
 import { OdfElementName } from "../OdfElementName";
-import { ITextStyle } from "../style/ITextStyle";
-import { Style } from "../style/Style";
-import { TextStyle } from "../style/TextStyle";
+import { IParagraphStyle } from "../style/IParagraphStyle";
 import { Hyperlink } from "./HyperLink";
 import { OdfTextElement } from "./OdfTextElement";
 
@@ -15,8 +11,7 @@ import { OdfTextElement } from "./OdfTextElement";
  * @since 0.1.0
  */
 export class Paragraph extends OdfElement {
-  private style: Style;
-  private textStyle: ITextStyle;
+  private style: IParagraphStyle | undefined;
 
   /**
    * Creates a paragraph
@@ -26,9 +21,6 @@ export class Paragraph extends OdfElement {
    */
   public constructor(text?: string) {
     super();
-
-    this.style = new Style();
-    this.textStyle = new TextStyle();
 
     this.addText(text || "");
   }
@@ -110,42 +102,23 @@ export class Paragraph extends OdfElement {
 
   /**
    * Sets the new style of this paragraph.
+   * To reset the style, `undefined` must be given.
    *
-   * @returns {Style} The new style
+   * @returns {IParagraphStyle | undefined} The new style or `undefined` to reset the style
    * @since 0.3.0
    */
-  public setStyle(style: Style): void {
+  public setStyle(style: IParagraphStyle | undefined): void {
     this.style = style;
   }
 
   /**
    * Returns the style of this paragraph.
    *
-   * @returns {Style} The style of the paragraph
+   * @returns {IParagraphStyle | undefined} The style of the paragraph or `undefined` if no style was set
    * @since 0.3.0
    */
-  public getStyle(): Style {
+  public getStyle(): IParagraphStyle | undefined {
     return this.style;
-  }
-
-  /**
-   * Sets the new text style of this paragraph.
-   *
-   * @returns {ITextStyle} The new text style
-   * @since 0.4.0
-   */
-  public setTextStyle(textStyle: ITextStyle): void {
-    this.textStyle = textStyle;
-  }
-
-  /**
-   * Returns the text style of this paragraph.
-   *
-   * @returns {Style} The text style of the paragraph
-   * @since 0.4.0
-   */
-  public getTextStyle(): ITextStyle {
-    return this.textStyle;
   }
 
   /**
@@ -166,16 +139,8 @@ export class Paragraph extends OdfElement {
     const paragraph = this.createElement(document);
     parent.appendChild(paragraph);
 
-    if (this.style.isDefault() === false || (this.textStyle as TextStyle).isDefault() === false) {
-      const styleName = createHash("md5")
-        .update(this.style.getName())
-        .update((this.textStyle as TextStyle).getName())
-        .digest("hex");
-
-      paragraph.setAttribute(OdfAttributeName.TextStyleName, styleName);
-      // TODO don't set style if style is already defined
-      this.style.toXML(document, styleName);
-      (this.textStyle as TextStyle).toXML(document, styleName);
+    if (this.style !== undefined) {
+      this.style.toXml(document, paragraph);
     }
 
     super.toXml(document, paragraph);

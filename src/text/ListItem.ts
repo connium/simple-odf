@@ -26,7 +26,6 @@ export class ListItem extends OdfElement {
   /** @inheritDoc */
   protected toXml(document: Document, parent: Element): void {
     const listItemElement = document.createElement(OdfElementName.TextListItem);
-
     parent.appendChild(listItemElement);
 
     super.toXml(document, listItemElement);

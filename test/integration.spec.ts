@@ -3,7 +3,7 @@ import { join } from "path";
 import { promisify } from "util";
 import { Color } from "../src/style/Color";
 import { HorizontalAlignment } from "../src/style/HorizontalAlignment";
-import { Style } from "../src/style/Style";
+import { ParagraphStyle } from "../src/style/ParagraphStyle";
 import { TabStop } from "../src/style/TabStop";
 import { TabStopType } from "../src/style/TabStopType";
 import { Typeface } from "../src/style/Typeface";
@@ -12,6 +12,12 @@ import { TextDocument } from "../src/TextDocument";
 const FILEPATH = "./integration.fodt";
 
 xdescribe("integration", () => {
+  let document: TextDocument;
+
+  beforeAll(() => {
+    document = new TextDocument();
+  });
+
   afterAll(async (done) => {
     const unlinkAsync = promisify(unlink);
 
@@ -20,54 +26,86 @@ xdescribe("integration", () => {
     done();
   });
 
-  it("create a full blown document", async (done) => {
-    const document = new TextDocument();
-
+  it("image", () => {
     document.addParagraph().addImage(join(__dirname, "data", "ODF.png"));
+  });
 
+  it("add heading", () => {
     document.addHeading("First heading");
     document.addHeading("Second heading", 2);
 
-    let para = document.addParagraph("The quick, brown fox jumps over a lazy dog.");
+    const para = document.addParagraph("The quick, brown fox jumps over a lazy dog.");
     para.addText("\nSome more text");
+  });
 
-    document.addParagraph();
+  describe("paragraph formatting", () => {
+    it("page break", () => {
+      const heading = document.addHeading("Paragraph Formatting", 2);
+      heading.setStyle(new ParagraphStyle());
+      heading.getStyle().setPageBreakBefore();
+    });
 
-    para = document.addParagraph("first\tsecond\tthird");
-    para.getStyle().addTabStop(new TabStop(4));
-    para.getStyle().addTabStop(new TabStop(12, TabStopType.Right));
+    it("align text", () => {
+      const paragraph = document.addParagraph("Some centered text");
+      paragraph.setStyle(new ParagraphStyle());
+      paragraph.getStyle().setHorizontalAlignment(HorizontalAlignment.Center);
+    });
 
-    const heading20 = document.addHeading("List");
-    heading20.getStyle().setPageBreakBefore();
+    it("tab stops", () => {
+      const paragraph = document.addParagraph("first\tsecond\tthird");
+      paragraph.setStyle(new ParagraphStyle());
+      paragraph.getStyle().addTabStop(new TabStop(4));
+      paragraph.getStyle().addTabStop(new TabStop(12, TabStopType.Right));
+    });
+  });
+
+  describe("text formatting", () => {
+    beforeAll(() => {
+      const heading = document.addHeading("Text Formatting", 2);
+      heading.setStyle(new ParagraphStyle());
+      heading.getStyle().setPageBreakBefore();
+    });
+
+    it("color", () => {
+      const paragraph = document.addParagraph("Some mint-colored text");
+      paragraph.setStyle(new ParagraphStyle());
+      paragraph.getStyle().setColor(Color.fromRgb(62, 180, 137));
+    });
+
+    it("font size", () => {
+      const paragraph = document.addParagraph("Some small text");
+      paragraph.setStyle(new ParagraphStyle());
+      paragraph.getStyle().setFontSize(8);
+    });
+
+    it("typeface", () => {
+      const paragraph = document.addParagraph("Some bold text");
+      paragraph.setStyle(new ParagraphStyle());
+      paragraph.getStyle().setTypeface(Typeface.Bold);
+    });
+  });
+
+  it("hyperlink", () => {
+    const heading = document.addHeading("Hyperlink", 2);
+    heading.setStyle(new ParagraphStyle());
+    heading.getStyle().setPageBreakBefore();
+
+    const paragraph = document.addParagraph("This is just an ");
+    paragraph.addHyperlink("example", "http://example.org");
+    paragraph.addText(".");
+  });
+
+  it("list", () => {
+    const heading = document.addHeading("List", 2);
+    heading.setStyle(new ParagraphStyle());
+    heading.getStyle().setPageBreakBefore();
 
     const list = document.addList();
     list.addItem("first item");
     list.addItem("second item");
+  });
 
-    const heading30 = document.addHeading("Another chapter");
-    heading30.getStyle().setPageBreakBefore();
-
-    para = document.addParagraph("This is just an ");
-    para.addHyperlink("example", "http://example.org");
-    para.addText(".");
-
-    const heading40 = document.addHeading("Style & Formatting");
-    heading40.getStyle().setPageBreakBefore();
-
-    const heading41 = document.addHeading("Font", 2);
-
-    para = document.addParagraph("Some bold text");
-    para.getTextStyle().setTypeface(Typeface.Bold);
-    para = document.addParagraph("Some small text");
-    para.getTextStyle().setFontSize(8);
-    para = document.addParagraph("Some colored text");
-    para.getTextStyle().setColor(Color.fromHex("336699"));
-
-    document.addHeading("Paragraph", 2);
-
-    para = document.addParagraph("Some centered text");
-    para.getStyle().setHorizontalAlignment(HorizontalAlignment.Center);
-
+  it("save document", async (done) => {
     await document.saveFlat(FILEPATH);
 
     // TODO use snapshot testing
