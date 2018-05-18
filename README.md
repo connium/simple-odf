@@ -38,6 +38,11 @@ style1.setTypeface(simpleOdf.Typeface.Bold);
 style1.setHorizontalAlignment(simpleOdf.HorizontalAlignment.Center);
 style1.setPageBreakBefore();
 p1.setStyle(style1);
+// font usage
+document.declareFont("Open Sans", "Open Sans", simpleOdf.FontPitch.Variable);
+const p2 = document.addParagraph("It always seems impossible until it's done.");
+const style2 = new simpleOdf.ParagraphStyle();
+style1.setFontName("Open Sans");
 
 document.addHeading("Credits", 2);
 

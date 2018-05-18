@@ -44,6 +44,23 @@ export interface ITextProperties {
   getColor(): Color | undefined;
 
   /**
+   * Sets the name of the font that will be applied to the text.
+   * To reset the font, `undefined` must be given.
+   *
+   * @param {string} name The name of the font to apply or `undefined` if the default font should be used
+   * @since 0.4.0
+   */
+  setFontName(name: string): void;
+
+  /**
+   * Returns the name of the font that will be applied to the text or `undefined` if the default font will be used.
+   *
+   * @returns {string | undefined} The name of the font to apply or `undefined` if the default font will be used
+   * @since 0.4.0
+   */
+  getFontName(): string | undefined;
+
+  /**
    * Sets the font size that will be applied to the text.
    *
    * @param {number} size The font size to apply as point value (pt)

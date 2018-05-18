@@ -5,6 +5,7 @@ import { DOMImplementation, XMLSerializer } from "xmldom";
 import { OdfAttributeName } from "./OdfAttributeName";
 import { OdfElement } from "./OdfElement";
 import { OdfElementName } from "./OdfElementName";
+import { FontPitch } from "./style/FontPitch";
 import { Heading } from "./text/Heading";
 import { List } from "./text/List";
 import { Paragraph } from "./text/Paragraph";
@@ -13,13 +14,39 @@ export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
 
 const OFFICE_VERSION = "1.2";
 
+/** This interface holds a font font declaration */
+interface IFont {
+  name: string;
+  fontFamily: string;
+  fontPitch: FontPitch;
+}
+
 /**
  * This class represents an empty ODF text document.
  * @since 0.1.0
  */
 export class TextDocument extends OdfElement {
+  private fonts: IFont[];
+
   public constructor() {
     super();
+
+    this.fonts = [];
+  }
+
+  /**
+   * Declares a font to be used in the document.
+   *
+   * **Note: There is no check whether the font exists.
+   * In order to be displayed properly, the font must be present on the target system.**
+   *
+   * @param {string} name The name of the font; this name must be set to a {@link ParagraphStyle}
+   * @param {string} fontFamily The name of the font family
+   * @param {FontPitch} fontPitch The ptich of the fonr
+   * @since 0.4.0
+   */
+  public declareFont(name: string, fontFamily: string, fontPitch: FontPitch): void {
+    this.fonts.push({ name, fontFamily, fontPitch });
   }
 
   /**
@@ -104,6 +131,8 @@ export class TextDocument extends OdfElement {
     root.setAttribute(OdfAttributeName.OfficeMimetype, "application/vnd.oasis.opendocument.text");
     root.setAttribute(OdfAttributeName.OfficeVersion, OFFICE_VERSION);
 
+    this.setFontFaceElements(document, root);
+
     const bodyElement = document.createElement(OdfElementName.OfficeBody);
     root.appendChild(bodyElement);
 
@@ -111,5 +140,31 @@ export class TextDocument extends OdfElement {
     bodyElement.appendChild(textElement);
 
     super.toXml(document, textElement);
+  }
+
+  /**
+   * Adds the `font-face-decls` element and the font faces if any font needs to bne declared.
+   *
+   * @param {Document} document The XML document
+   * @param {Element} root The element which will be used as parent
+   */
+  private setFontFaceElements(document: Document, root: Element): void {
+    if (this.fonts.length === 0) {
+      return;
+    }
+
+    root.setAttribute("xmlns:svg", "urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0");
+
+    const fontFaceDeclsElement = document.createElement(OdfElementName.OfficeFontFaceDeclarations);
+    root.appendChild(fontFaceDeclsElement);
+
+    this.fonts.forEach((font: IFont) => {
+      const fontFaceElement = document.createElement(OdfElementName.StyleFontFace);
+      fontFaceDeclsElement.appendChild(fontFaceElement);
+      fontFaceElement.setAttribute("style:name", font.name);
+      const encodedFontFamily = font.fontFamily.includes(" ") === true ? `'${font.fontFamily}'` : font.fontFamily;
+      fontFaceElement.setAttribute("svg:font-family", encodedFontFamily);
+      fontFaceElement.setAttribute("style:font-pitch", font.fontPitch);
+    });
   }
 }

@@ -2,6 +2,7 @@ import { unlink } from "fs";
 import { join } from "path";
 import { promisify } from "util";
 import { Color } from "../src/style/Color";
+import { FontPitch } from "../src/style/FontPitch";
 import { HorizontalAlignment } from "../src/style/HorizontalAlignment";
 import { ParagraphStyle } from "../src/style/ParagraphStyle";
 import { TabStop } from "../src/style/TabStop";
@@ -70,6 +71,14 @@ xdescribe("integration", () => {
       const paragraph = document.addParagraph("Some mint-colored text");
       paragraph.setStyle(new ParagraphStyle());
       paragraph.getStyle().setColor(Color.fromRgb(62, 180, 137));
+    });
+
+    it("font name", () => {
+      document.declareFont("Open Sans", "Open Sans", FontPitch.Variable);
+
+      const paragraph = document.addParagraph("Open Sans");
+      paragraph.setStyle(new ParagraphStyle());
+      paragraph.getStyle().setFontName("Open Sans");
     });
 
     it("font size", () => {

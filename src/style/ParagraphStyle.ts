@@ -39,6 +39,16 @@ export class ParagraphStyle implements IParagraphStyle {
   }
 
   /** @inheritDoc */
+  public setFontName(name: string): void {
+    this.textProperties.setFontName(name);
+  }
+
+  /** @inheritDoc */
+  public getFontName(): string | undefined {
+    return this.textProperties.getFontName();
+  }
+
+  /** @inheritDoc */
   public setFontSize(size: number): void {
     return this.textProperties.setFontSize(size);
   }
@@ -129,6 +139,7 @@ export class ParagraphStyle implements IParagraphStyle {
     // text properties
     const color = this.textProperties.getColor();
     hash.update(color !== undefined ? color.toHex() : "");
+    hash.update(this.textProperties.getFontName() || "");
     hash.update(this.textProperties.getFontSize().toString());
     hash.update(this.textProperties.getTypeface().toString());
 
