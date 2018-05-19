@@ -29,7 +29,8 @@ xdescribe("integration", () => {
   });
 
   it("image", () => {
-    document.addParagraph().addImage(join(__dirname, "data", "ODF.png"));
+    const image = document.addParagraph().addImage(join(__dirname, "data", "ODF.png"));
+    image.setSize(29.4, 36.5);
   });
 
   it("add heading", () => {
