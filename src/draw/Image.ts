@@ -100,12 +100,12 @@ export class Image extends OdfElement {
   private setFrameAttributes(frameElement: Element): void {
     frameElement.setAttribute(OdfAttributeName.TextAnchorType, DEFAULT_ANCHOR_TYPE);
 
-    if (this.height !== undefined) {
-      frameElement.setAttribute("svg:height", + this.height + "mm");
+    if (this.width !== undefined) {
+      frameElement.setAttribute(OdfAttributeName.SvgWidth, + this.width + "mm");
     }
 
-    if (this.width !== undefined) {
-      frameElement.setAttribute("svg:width", + this.width + "mm");
+    if (this.height !== undefined) {
+      frameElement.setAttribute(OdfAttributeName.SvgHeight, + this.height + "mm");
     }
   }
 
