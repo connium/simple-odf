@@ -11,6 +11,7 @@ export { IParagraphStyle } from "./style/IParagraphStyle";
 export { ParagraphStyle } from "./style/ParagraphStyle";
 export { TabStop } from "./style/TabStop";
 export { TabStopType } from "./style/TabStopType";
+export { TextTransformation } from "./style/TextTransformation";
 export { Typeface } from "./style/Typeface";
 
 // text

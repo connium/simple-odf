@@ -5,10 +5,11 @@ export enum OdfAttributeName {
   FormatFontStyle = "fo:font-style",
   FormatFontWeight = "fo:font-weight",
   FormatTextAlign = "fo:text-align",
-  
+  FormatTextTransform = "fo:text-transform",
+
   OfficeMimetype = "office:mimetype",
   OfficeVersion = "office:version",
-  
+
   StyleFamily = "style:family",
   StyleFontName = "style:font-name",
   StyleName = "style:name",
