@@ -33,6 +33,7 @@ const style1 = new simpleOdf.ParagraphStyle();
 // text formatting
 style1.setColor(simpleOdf.Color.fromRgb(255, 0, 0));
 style1.setFontSize(20);
+style1.setTextTransformation(simpleOdf.TextTransformation.Uppercase);
 style1.setTypeface(simpleOdf.Typeface.Bold);
 // paragraph formatting
 style1.setHorizontalAlignment(simpleOdf.HorizontalAlignment.Center);

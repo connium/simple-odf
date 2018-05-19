@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **chore:** Add static code analysis with Better Code Hub
 - **paragraph:** Set color, font size and typeface to the text of a paragraph, closes [#26](https://github.com/connium/simple-odf/issues/26)
 - **paragraph:** Set font family to a paragraph, closes [#27](https://github.com/connium/simple-odf/issues/27)
+- **paragraph:** Apply text transformation to a paragraph, closes [#34](https://github.com/connium/simple-odf/issues/34)
 
 ### Changed
 - **chore:** Run TSLint on production and test code

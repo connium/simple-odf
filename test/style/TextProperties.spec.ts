@@ -1,6 +1,7 @@
 import { Color } from "../../src/style/Color";
 import { ParagraphStyle } from "../../src/style/ParagraphStyle";
 import { TextProperties } from "../../src/style/TextProperties";
+import { TextTransformation } from "../../src/style/TextTransformation";
 import { Typeface } from "../../src/style/Typeface";
 import { Paragraph } from "../../src/text/Paragraph";
 import { TextDocument } from "../../src/TextDocument";
@@ -65,6 +66,18 @@ describe(TextProperties.name, () => {
     });
   });
 
+  describe("#getTextTransformation", () => {
+    it("return `None` as default", () => {
+      expect(properties.getTextTransformation()).toBe(TextTransformation.None);
+    });
+
+    it("return the current transformation", () => {
+      properties.setTextTransformation(TextTransformation.Uppercase);
+
+      expect(properties.getTextTransformation()).toBe(TextTransformation.Uppercase);
+    });
+  });
+
   describe("#getTypeface", () => {
     it("return the current typeface", () => {
       expect(properties.getTypeface()).toBe(Typeface.Normal);
@@ -94,6 +107,12 @@ describe(TextProperties.name, () => {
 
     it("return false if font size was set", () => {
       properties.setFontSize(23);
+
+      expect(properties.isDefault()).toBe(false);
+    });
+
+    it("return false if typeface was set", () => {
+      properties.setTextTransformation(TextTransformation.Uppercase);
 
       expect(properties.isDefault()).toBe(false);
     });
@@ -132,6 +151,27 @@ describe(TextProperties.name, () => {
       paragraph.setStyle(testStyle);
 
       expect(document.toString()).toMatch(/<style:text-properties fo:font-size="23pt"\/>/);
+    });
+
+    it("set the text-transform for capitalize", () => {
+      testStyle.setTextTransformation(TextTransformation.Capitalize);
+      paragraph.setStyle(testStyle);
+
+      expect(document.toString()).toMatch(/<style:text-properties fo:text-transform="capitalize"\/>/);
+    });
+
+    it("set the text-transform for lowercase", () => {
+      testStyle.setTextTransformation(TextTransformation.Lowercase);
+      paragraph.setStyle(testStyle);
+
+      expect(document.toString()).toMatch(/<style:text-properties fo:text-transform="lowercase"\/>/);
+    });
+
+    it("set the text-transform for uppercase", () => {
+      testStyle.setTextTransformation(TextTransformation.Uppercase);
+      paragraph.setStyle(testStyle);
+
+      expect(document.toString()).toMatch(/<style:text-properties fo:text-transform="uppercase"\/>/);
     });
 
     it("set the font-style for italic", () => {

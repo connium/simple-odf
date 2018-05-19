@@ -1,4 +1,5 @@
 import { Color } from "./Color";
+import { TextTransformation } from "./TextTransformation";
 import { Typeface } from "./Typeface";
 
 /**
@@ -75,6 +76,22 @@ export interface ITextProperties {
    * @since 0.4.0
    */
   getFontSize(): number;
+
+  /**
+   * Sets the transformation that will be applied to the text.
+   *
+   * @param {TextTransformation} transformation The transformation to apply
+   * @since 0.4.0
+   */
+  setTextTransformation(transformation: TextTransformation): void;
+
+  /**
+   * Returns the transformation that will be applied to the text.
+   *
+   * @returns {TextTransformation} The transformation to apply
+   * @since 0.4.0
+   */
+  getTextTransformation(): TextTransformation;
 
   /**
    * Sets the typeface that will be applied to the text.

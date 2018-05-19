@@ -9,6 +9,7 @@ import { StyleHelper } from "./StyleHelper";
 import { TabStop } from "./TabStop";
 import { TabStopType } from "./TabStopType";
 import { TextProperties } from "./TextProperties";
+import { TextTransformation } from "./TextTransformation";
 import { Typeface } from "./Typeface";
 
 /**
@@ -56,6 +57,16 @@ export class ParagraphStyle implements IParagraphStyle {
   /** @inheritDoc */
   public getFontSize(): number {
     return this.textProperties.getFontSize();
+  }
+
+  /** @inheritDoc */
+  public setTextTransformation(transformation: TextTransformation): void {
+    this.textProperties.setTextTransformation(transformation);
+  }
+
+  /** @inheritDoc */
+  public getTextTransformation(): TextTransformation {
+    return this.textProperties.getTextTransformation();
   }
 
   /** @inheritDoc */
@@ -141,6 +152,7 @@ export class ParagraphStyle implements IParagraphStyle {
     hash.update(color !== undefined ? color.toHex() : "");
     hash.update(this.textProperties.getFontName() || "");
     hash.update(this.textProperties.getFontSize().toString());
+    hash.update(this.textProperties.getTextTransformation());
     hash.update(this.textProperties.getTypeface().toString());
 
     return hash.digest("hex");

@@ -7,6 +7,7 @@ import { HorizontalAlignment } from "../src/style/HorizontalAlignment";
 import { ParagraphStyle } from "../src/style/ParagraphStyle";
 import { TabStop } from "../src/style/TabStop";
 import { TabStopType } from "../src/style/TabStopType";
+import { TextTransformation } from "../src/style/TextTransformation";
 import { Typeface } from "../src/style/Typeface";
 import { TextDocument } from "../src/TextDocument";
 
@@ -85,6 +86,12 @@ xdescribe("integration", () => {
       const paragraph = document.addParagraph("Some small text");
       paragraph.setStyle(new ParagraphStyle());
       paragraph.getStyle().setFontSize(8);
+    });
+
+    it("text transformation", () => {
+      const paragraph = document.addParagraph("Some uppercase text");
+      paragraph.setStyle(new ParagraphStyle());
+      paragraph.getStyle().setTextTransformation(TextTransformation.Uppercase);
     });
 
     it("typeface", () => {

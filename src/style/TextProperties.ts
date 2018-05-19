@@ -2,10 +2,12 @@ import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElementName } from "../OdfElementName";
 import { Color } from "./Color";
 import { ITextProperties } from "./ITextProperties";
+import { TextTransformation } from "./TextTransformation";
 import { Typeface } from "./Typeface";
 
 const MINIMAL_FONT_SIZE = 2;
 const DEFAULT_FONT_SIZE = 12;
+const DEFAULT_TRANSFORMATION = TextTransformation.None;
 const DEFAULT_TYPEFACE = Typeface.Normal;
 
 /**
@@ -18,6 +20,7 @@ export class TextProperties implements ITextProperties {
   private color: Color | undefined;
   private fontName: string | undefined;
   private fontSize: number;
+  private transformation: TextTransformation;
   private typeface: Typeface;
 
   /**
@@ -27,6 +30,7 @@ export class TextProperties implements ITextProperties {
    */
   public constructor() {
     this.fontSize = DEFAULT_FONT_SIZE;
+    this.transformation = DEFAULT_TRANSFORMATION;
     this.typeface = DEFAULT_TYPEFACE;
   }
 
@@ -61,6 +65,16 @@ export class TextProperties implements ITextProperties {
   }
 
   /** @inheritDoc */
+  public setTextTransformation(transformation: TextTransformation): void {
+    this.transformation = transformation;
+  }
+
+  /** @inheritDoc */
+  public getTextTransformation(): TextTransformation {
+    return this.transformation;
+  }
+
+  /** @inheritDoc */
   public setTypeface(typeface: Typeface): void {
     this.typeface = typeface;
   }
@@ -80,6 +94,7 @@ export class TextProperties implements ITextProperties {
     return this.color === undefined
       && this.fontName === undefined
       && this.fontSize === DEFAULT_FONT_SIZE
+      && this.transformation === DEFAULT_TRANSFORMATION
       && this.typeface === DEFAULT_TYPEFACE;
   }
 
@@ -103,6 +118,7 @@ export class TextProperties implements ITextProperties {
     this.setFontSizeAttribute(textPropertiesElement);
     this.setFontStyleAttribute(textPropertiesElement);
     this.setFontWeightAttribute(textPropertiesElement);
+    this.setTextTransformAttribute(textPropertiesElement);
   }
 
   /**
@@ -170,5 +186,18 @@ export class TextProperties implements ITextProperties {
       || this.typeface === Typeface.BoldOblique) {
       textPropertiesElement.setAttribute(OdfAttributeName.FormatFontWeight, "bold");
     }
+  }
+
+  /**
+   * Sets the `text-transform` attribute if a transformation is set.
+   *
+   * @param {Element} textPropertiesElement The element which will take the attribute
+   */
+  private setTextTransformAttribute(textPropertiesElement: Element): void {
+    if (this.transformation === DEFAULT_TRANSFORMATION) {
+      return;
+    }
+
+    textPropertiesElement.setAttribute(OdfAttributeName.FormatTextTransform, this.transformation);
   }
 }
