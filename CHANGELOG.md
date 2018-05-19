@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] (2018-??-??)
 ### Added
-- **paragraph:** Set image size, closes [#36](https://github.com/connium/simple-odf/issues/36)
+- **paragraph:** Set width and height of an image, closes [#36](https://github.com/connium/simple-odf/issues/36)
 
 ## [0.4.0] (2018-05-19)
 ### Added
