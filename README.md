@@ -22,7 +22,8 @@ const simpleOdf = require("simple-odf");
 
 const document = new simpleOdf.TextDocument();
 
-document.addParagraph().addImage("/home/homer/myself.png");
+const image = document.addParagraph().addImage("/home/homer/myself.png");
+image.setSize(29.4, 36.5);
 
 document.addHeading("Welcome to simple-odf");
 

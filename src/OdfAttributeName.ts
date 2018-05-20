@@ -16,6 +16,9 @@ export enum OdfAttributeName {
   StylePosition = "style:position",
   StyleType = "style:type",
 
+  SvgHeight = "svg:height",
+  SvgWidth = "svg:width",
+
   TextAnchorType = "text:anchor-type",
   TextOutlineLevel = "text:outline-level",
   TextStyleName = "text:style-name",
