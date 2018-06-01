@@ -36,7 +36,7 @@ xdescribe("integration", () => {
 
     const image = paragraph.addImage(join(__dirname, "data", "ODF.png"));
     image.getStyle().setAnchorType(AnchorType.AsChar);
-    image.setSize(29.4, 36.5);
+    image.getStyle().setSize(29.4, 36.5);
   });
 
   it("add heading", () => {

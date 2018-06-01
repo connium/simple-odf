@@ -1,11 +1,9 @@
 import { readFileSync } from "fs";
-import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElement } from "../OdfElement";
 import { OdfElementName } from "../OdfElementName";
 import { IImageStyle } from "../style/IImageStyle";
 import { ImageStyle } from "../style/ImageStyle";
 
-const MINIMAL_SIZE = 1;
 const ENCODING = "base64";
 
 /**
@@ -15,8 +13,6 @@ const ENCODING = "base64";
  */
 export class Image extends OdfElement {
   private style: IImageStyle;
-  private height: number | undefined;
-  private width: number | undefined;
 
   /**
    * Creates an image
@@ -28,58 +24,6 @@ export class Image extends OdfElement {
     super();
 
     this.style = new ImageStyle();
-  }
-
-  /**
-   * Sets the target height of the image.
-   *
-   * @param {number} height The target height of the image in millimeter
-   * @since 0.5.0
-   */
-  public setHeight(height: number): void {
-    this.height = Math.max(height, MINIMAL_SIZE);
-  }
-
-  /**
-   * Returns the target height of the image or `undefined` if no height was set.
-   *
-   * @returns {number | undefined} The target height of the image in millimeter or `undefined` if no height was set
-   * @since 0.5.0
-   */
-  public getHeight(): number | undefined {
-    return this.height;
-  }
-
-  /**
-   * Sets the target width of the image.
-   *
-   * @param {number} width The target width of the image in millimeter
-   * @since 0.5.0
-   */
-  public setWidth(width: number): void {
-    this.width = Math.max(width, MINIMAL_SIZE);
-  }
-
-  /**
-   * Returns the target width of the image or `undefined` if no width was set.
-   *
-   * @returns {number | undefined} The target width of the image in millimeter or `undefined` if no width was set
-   * @since 0.5.0
-   */
-  public getWidth(): number | undefined {
-    return this.width;
-  }
-
-  /**
-   * Sets the target size of the image.
-   *
-   * @param {number} width The target width of the image in millimeter
-   * @param {number} height The target height of the image in millimeter
-   * @since 0.5.0
-   */
-  public setSize(width: number, height: number): void {
-    this.setWidth(width);
-    this.setHeight(height);
   }
 
   /**
@@ -111,25 +55,9 @@ export class Image extends OdfElement {
 
     this.embedImage(document, frameElement);
 
-    this.style.toXml(document, frameElement);
-    this.setFrameAttributes(frameElement);
+    this.style.toXml(frameElement);
 
     super.toXml(document, frameElement);
-  }
-
-  /**
-   * Sets the attributes for the image frame.
-   *
-   * @param {Element} frameElement The element which will take the attribute
-   */
-  private setFrameAttributes(frameElement: Element): void {
-    if (this.width !== undefined) {
-      frameElement.setAttribute(OdfAttributeName.SvgWidth, + this.width + "mm");
-    }
-
-    if (this.height !== undefined) {
-      frameElement.setAttribute(OdfAttributeName.SvgHeight, + this.height + "mm");
-    }
   }
 
   /**

@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **image:** Set width and height of an image, closes [#36](https://github.com/connium/simple-odf/issues/36)
 - **image:** Set anchor type of an image, closes [#11](https://github.com/connium/simple-odf/issues/11)
 
+### Changed
+- **image:** Move size configuration of an image to the image style, closes [#41](https://github.com/connium/simple-odf/issues/41)
+
 ## [0.4.0] (2018-05-19)
 ### Added
 - **chore:** Add code coverage analysis with Codecov by @oncletom, closes [#17](https://github.com/connium/simple-odf/issues/17)
