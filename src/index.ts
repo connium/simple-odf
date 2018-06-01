@@ -4,6 +4,7 @@ export { TextDocument } from "./TextDocument";
 export { Image } from "./draw/Image";
 
 // style
+export { AnchorType } from "./style/AnchorType";
 export { Color } from "./style/Color";
 export { FontPitch } from "./style/FontPitch";
 export { HorizontalAlignment } from "./style/HorizontalAlignment";

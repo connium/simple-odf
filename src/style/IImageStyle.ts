@@ -23,11 +23,51 @@ export interface IImageStyle {
   getAnchorType(): AnchorType;
 
   /**
+   * Sets the target height of the image.
+   *
+   * @param {number} height The target height of the image in millimeter
+   * @since 0.5.0
+   */
+  setHeight(height: number): void;
+
+  /**
+   * Returns the target height of the image or `undefined` if no height was set.
+   *
+   * @returns {number | undefined} The target height of the image in millimeter or `undefined` if no height was set
+   * @since 0.5.0
+   */
+  getHeight(): number | undefined;
+
+  /**
+   * Sets the target width of the image.
+   *
+   * @param {number} width The target width of the image in millimeter
+   * @since 0.5.0
+   */
+  setWidth(width: number): void;
+
+  /**
+   * Returns the target width of the image or `undefined` if no width was set.
+   *
+   * @returns {number | undefined} The target width of the image in millimeter or `undefined` if no width was set
+   * @since 0.5.0
+   */
+  getWidth(): number | undefined;
+
+  /**
+   * Sets the target size of the image.
+   *
+   * @param {number} width The target width of the image in millimeter
+   * @param {number} height The target height of the image in millimeter
+   * @since 0.5.0
+   */
+  setSize(width: number, height: number): void;
+
+  /**
    * Transforms the image style into Open Document Format.
    *
-   * @param {Document} document The XML document
    * @param {Element} parent The parent node in the DOM (`draw:frame`)
    * @since 0.5.0
    */
-  toXml(document: Document, parent: Element): void;
+  toXml(parent: Element): void;
 }
