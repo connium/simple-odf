@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased] (2018-??-??)
+
+## [0.5.0] (2018-06-01)
 ### Added
 - **image:** Set width and height of an image, closes [#36](https://github.com/connium/simple-odf/issues/36)
 - **image:** Set anchor type of an image, closes [#11](https://github.com/connium/simple-odf/issues/11)
@@ -69,7 +71,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **paragraph:** Set horizontal alignment
 - **text-document:** Create text documents and save them as flat XML ODF document
 
-[Unreleased]: https://github.com/connium/simple-odf/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/connium/simple-odf/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/connium/simple-odf/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/connium/simple-odf/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/connium/simple-odf/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/connium/simple-odf/compare/v0.2.0...v0.3.0
