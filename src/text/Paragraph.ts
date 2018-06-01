@@ -104,7 +104,7 @@ export class Paragraph extends OdfElement {
    * Sets the new style of this paragraph.
    * To reset the style, `undefined` must be given.
    *
-   * @returns {IParagraphStyle | undefined} The new style or `undefined` to reset the style
+   * @param {IParagraphStyle | undefined} style The new style or `undefined` to reset the style
    * @since 0.3.0
    */
   public setStyle(style: IParagraphStyle | undefined): void {

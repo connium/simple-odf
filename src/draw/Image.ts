@@ -2,9 +2,10 @@ import { readFileSync } from "fs";
 import { OdfAttributeName } from "../OdfAttributeName";
 import { OdfElement } from "../OdfElement";
 import { OdfElementName } from "../OdfElementName";
+import { IImageStyle } from "../style/IImageStyle";
+import { ImageStyle } from "../style/ImageStyle";
 
 const MINIMAL_SIZE = 1;
-const DEFAULT_ANCHOR_TYPE = "paragraph";
 const ENCODING = "base64";
 
 /**
@@ -13,6 +14,7 @@ const ENCODING = "base64";
  * @since 0.3.0
  */
 export class Image extends OdfElement {
+  private style: IImageStyle;
   private height: number | undefined;
   private width: number | undefined;
 
@@ -24,6 +26,8 @@ export class Image extends OdfElement {
    */
   public constructor(private path: string) {
     super();
+
+    this.style = new ImageStyle();
   }
 
   /**
@@ -78,6 +82,26 @@ export class Image extends OdfElement {
     this.setHeight(height);
   }
 
+  /**
+   * Sets the new style of this image.
+   *
+   * @param {IImageStyle} style The new style
+   * @since 0.5.0
+   */
+  public setStyle(style: IImageStyle): void {
+    this.style = style;
+  }
+
+  /**
+   * Returns the style of this image.
+   *
+   * @returns {IImageStyle} The style of the image
+   * @since 0.5.0
+   */
+  public getStyle(): IImageStyle {
+    return this.style;
+  }
+
   /** @inheritDoc */
   protected toXml(document: Document, parent: Element): void {
     (document.firstChild as Element).setAttribute("xmlns:draw", "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0");
@@ -85,9 +109,10 @@ export class Image extends OdfElement {
     const frameElement = document.createElement(OdfElementName.DrawFrame);
     parent.appendChild(frameElement);
 
-    this.setFrameAttributes(frameElement);
-
     this.embedImage(document, frameElement);
+
+    this.style.toXml(document, frameElement);
+    this.setFrameAttributes(frameElement);
 
     super.toXml(document, frameElement);
   }
@@ -98,8 +123,6 @@ export class Image extends OdfElement {
    * @param {Element} frameElement The element which will take the attribute
    */
   private setFrameAttributes(frameElement: Element): void {
-    frameElement.setAttribute(OdfAttributeName.TextAnchorType, DEFAULT_ANCHOR_TYPE);
-
     if (this.width !== undefined) {
       frameElement.setAttribute(OdfAttributeName.SvgWidth, + this.width + "mm");
     }

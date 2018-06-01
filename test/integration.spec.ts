@@ -1,6 +1,7 @@
 import { unlink } from "fs";
 import { join } from "path";
 import { promisify } from "util";
+import { AnchorType } from "../src/style/AnchorType";
 import { Color } from "../src/style/Color";
 import { FontPitch } from "../src/style/FontPitch";
 import { HorizontalAlignment } from "../src/style/HorizontalAlignment";
@@ -29,7 +30,12 @@ xdescribe("integration", () => {
   });
 
   it("image", () => {
-    const image = document.addParagraph().addImage(join(__dirname, "data", "ODF.png"));
+    const paragraph = document.addParagraph();
+    paragraph.setStyle(new ParagraphStyle());
+    paragraph.getStyle().setHorizontalAlignment(HorizontalAlignment.Center);
+
+    const image = paragraph.addImage(join(__dirname, "data", "ODF.png"));
+    image.getStyle().setAnchorType(AnchorType.AsChar);
     image.setSize(29.4, 36.5);
   });
 

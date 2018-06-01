@@ -128,7 +128,7 @@ describe(Paragraph.name, () => {
       expect(document.toString()).toMatch(/<text:p text:style-name="([a-z0-9]+)">some text<\/text:p>/);
     });
 
-    it("not style-name attribute if default style is set", () => {
+    it("not set style-name attribute if default style is set", () => {
       paragraph.setStyle(testStyle);
 
       expect(document.toString()).toMatch(/<text:p>some text<\/text:p>/);
