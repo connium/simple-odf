@@ -8,10 +8,10 @@ import { ITextProperties } from "./ITextProperties";
  */
 export interface IParagraphStyle extends ITextProperties, IParagraphProperties {
   /**
-   * Transforms the tab stop into Open Document Format.
+   * Transforms the paragraph style into Open Document Format.
    *
    * @param {Document} document The XML document
-   * @param {Element} parent The parent node in the DOM (`style:tab-stops`)
+   * @param {Element} parent The parent node in the DOM (`text:h` or `text:p`)
    * @since 0.4.0
    */
   toXml(document: Document, parent: Element): void;

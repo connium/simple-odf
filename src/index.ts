@@ -7,6 +7,8 @@ export { Image } from "./draw/Image";
 export { Color } from "./style/Color";
 export { FontPitch } from "./style/FontPitch";
 export { HorizontalAlignment } from "./style/HorizontalAlignment";
+export { IImageStyle } from "./style/IImageStyle";
+export { ImageStyle } from "./style/ImageStyle";
 export { IParagraphStyle } from "./style/IParagraphStyle";
 export { ParagraphStyle } from "./style/ParagraphStyle";
 export { TabStop } from "./style/TabStop";
