@@ -11,12 +11,6 @@ describe(Paragraph.name, () => {
   });
 
   describe("#addParagraph", () => {
-    it("add text namespace", () => {
-      document.addParagraph();
-
-      expect(document.toString()).toMatch(/xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"/);
-    });
-
     it("insert an empty paragraph", () => {
       document.addParagraph();
 

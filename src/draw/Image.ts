@@ -48,8 +48,6 @@ export class Image extends OdfElement {
 
   /** @inheritDoc */
   protected toXml(document: Document, parent: Element): void {
-    (document.firstChild as Element).setAttribute("xmlns:draw", "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0");
-
     const frameElement = document.createElement(OdfElementName.DrawFrame);
     parent.appendChild(frameElement);
 
