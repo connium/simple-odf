@@ -11,7 +11,7 @@ const FILEPATH = "./test.fodt";
 
 describe(TextDocument.name, () => {
   /* tslint:disable-next-line:max-line-length */
-  const baseDocument = '<office:document office:mimetype="application/vnd.oasis.opendocument.text" office:version="1.2" xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0"><office:body><office:text/></office:body></office:document>';
+  const baseDocument = '<office:document xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" office:mimetype="application/vnd.oasis.opendocument.text" office:version="1.2" xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0"><office:body><office:text/></office:body></office:document>';
   let document: TextDocument;
 
   beforeEach(() => {
@@ -26,13 +26,33 @@ describe(TextDocument.name, () => {
     done();
   });
 
-  describe("#declareFont", () => {
-    it("add svg namespace", () => {
-      document.declareFont("Springfield", "Springfield", FontPitch.Variable);
+  describe("namespace declaration", () => {
+    it("add draw namespace", () => {
+      expect(document.toString()).toMatch(/xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0"/);
+    });
 
+    it("add fo namespace", () => {
+      expect(document.toString()).toMatch(/xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0"/);
+    });
+
+    it("add style namespace", () => {
+      expect(document.toString()).toMatch(/xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0"/);
+    });
+
+    it("add svg namespace", () => {
       expect(document.toString()).toMatch(/xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0"/);
     });
 
+    it("add text namespace", () => {
+      expect(document.toString()).toMatch(/xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"/);
+    });
+
+    it("add xlink namespace", () => {
+      expect(document.toString()).toMatch(/xmlns:xlink="http:\/\/www.w3.org\/1999\/xlink"/);
+    });
+  });
+
+  describe("#declareFont", () => {
     it("add font declaration to document", () => {
       document.declareFont("Springfield", "Springfield", FontPitch.Variable);
 

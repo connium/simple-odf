@@ -134,8 +134,6 @@ export class Paragraph extends OdfElement {
 
   /** @inheritDoc */
   protected toXml(document: Document, parent: Element): void {
-    (document.firstChild as Element).setAttribute("xmlns:text", "urn:oasis:names:tc:opendocument:xmlns:text:1.0");
-
     const paragraph = this.createElement(document);
     parent.appendChild(paragraph);
 

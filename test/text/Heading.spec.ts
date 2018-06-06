@@ -10,13 +10,6 @@ describe(Heading.name, () => {
   });
 
   describe("#addHeading", () => {
-    it("add text namespace", () => {
-      document.addHeading();
-
-      const documentAsString = document.toString();
-      expect(documentAsString).toMatch(/xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"/);
-    });
-
     it("insert an empty heading with default level 1", () => {
       document.addHeading();
 

@@ -35,8 +35,6 @@ export class StyleHelper {
    */
   private static createAutomaticStylesElement(document: Document): Element {
     const rootNode = document.firstChild as Element;
-    rootNode.setAttribute("xmlns:style", "urn:oasis:names:tc:opendocument:xmlns:style:1.0");
-    rootNode.setAttribute("xmlns:fo", "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0");
 
     const officeBodyElement = rootNode.getElementsByTagName(OdfElementName.OfficeBody)[0];
 

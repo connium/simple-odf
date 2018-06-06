@@ -128,6 +128,8 @@ export class TextDocument extends OdfElement {
 
   /** @inheritDoc */
   protected toXml(document: Document, root: Element): void {
+    this.setXmlNamespaces(root);
+
     root.setAttribute(OdfAttributeName.OfficeMimetype, "application/vnd.oasis.opendocument.text");
     root.setAttribute(OdfAttributeName.OfficeVersion, OFFICE_VERSION);
 
@@ -143,7 +145,21 @@ export class TextDocument extends OdfElement {
   }
 
   /**
-   * Adds the `font-face-decls` element and the font faces if any font needs to bne declared.
+   * Declares the used XML namespaces.
+   *
+   * @param {Element} root The root element of the document which will be used as parent
+   */
+  private setXmlNamespaces(root: Element): void {
+    root.setAttribute("xmlns:draw", "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0");
+    root.setAttribute("xmlns:fo", "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0");
+    root.setAttribute("xmlns:style", "urn:oasis:names:tc:opendocument:xmlns:style:1.0");
+    root.setAttribute("xmlns:svg", "urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0");
+    root.setAttribute("xmlns:text", "urn:oasis:names:tc:opendocument:xmlns:text:1.0");
+    root.setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
+  }
+
+  /**
+   * Adds the `font-face-decls` element and the font faces if any font needs to be declared.
    *
    * @param {Document} document The XML document
    * @param {Element} root The element which will be used as parent
@@ -152,8 +168,6 @@ export class TextDocument extends OdfElement {
     if (this.fonts.length === 0) {
       return;
     }
-
-    root.setAttribute("xmlns:svg", "urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0");
 
     const fontFaceDeclsElement = document.createElement(OdfElementName.OfficeFontFaceDeclarations);
     root.appendChild(fontFaceDeclsElement);

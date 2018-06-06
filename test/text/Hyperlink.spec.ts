@@ -12,12 +12,6 @@ describe(Hyperlink.name, () => {
   });
 
   describe("#addHyperlink", () => {
-    it("add xlink namespace", () => {
-      document.addParagraph().addHyperlink("some linked text", testUri);
-
-      expect(document.toString()).toMatch(/xmlns:xlink="http:\/\/www.w3.org\/1999\/xlink"/);
-    });
-
     it("append a linked text", () => {
       document.addParagraph(testText).addHyperlink(" some linked text", testUri);
 
