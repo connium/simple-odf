@@ -7,6 +7,7 @@ import { TabStopType } from "./TabStopType";
 
 const DEFAULT_HORIZONTAL_ALIGNMENT = HorizontalAlignment.Default;
 const DEFAULT_PAGE_BREAK = false;
+const DEFAULT_KEEP_TOGETHER = false;
 
 /**
  * This class represents the style of a paragraph.
@@ -16,6 +17,7 @@ const DEFAULT_PAGE_BREAK = false;
 export class ParagraphProperties implements IParagraphProperties {
   private horizontalAlignment: HorizontalAlignment;
   private shouldBreakPageBefore: boolean;
+  private shouldKeepParagraphTogether: boolean;
   private tabStops: TabStop[] = [];
 
   /**
@@ -24,6 +26,7 @@ export class ParagraphProperties implements IParagraphProperties {
   public constructor() {
     this.horizontalAlignment = DEFAULT_HORIZONTAL_ALIGNMENT;
     this.shouldBreakPageBefore = DEFAULT_PAGE_BREAK;
+    this.shouldKeepParagraphTogether = DEFAULT_KEEP_TOGETHER;
   }
 
   /** @inheritDoc */
@@ -39,6 +42,11 @@ export class ParagraphProperties implements IParagraphProperties {
   /** @inheritDoc */
   public setPageBreakBefore(): void {
     this.shouldBreakPageBefore = true;
+  }
+
+  /** @inheritDoc */
+  public setKeepTogether(): void {
+    this.shouldKeepParagraphTogether = true;
   }
 
   /** @inheritDoc */
@@ -80,9 +88,12 @@ export class ParagraphProperties implements IParagraphProperties {
    * @since 0.1.0
    */
   public isDefault(): boolean {
-    return this.horizontalAlignment === DEFAULT_HORIZONTAL_ALIGNMENT
-      && this.shouldBreakPageBefore === DEFAULT_PAGE_BREAK
-      && this.tabStops.length === 0;
+    return (
+      this.horizontalAlignment === DEFAULT_HORIZONTAL_ALIGNMENT &&
+      this.shouldBreakPageBefore === DEFAULT_PAGE_BREAK &&
+      this.shouldKeepParagraphTogether === DEFAULT_KEEP_TOGETHER &&
+      this.tabStops.length === 0
+    );
   }
 
   /**
@@ -102,6 +113,7 @@ export class ParagraphProperties implements IParagraphProperties {
 
     this.setHorizontalAlignmentAttribute(paragraphPropertiesElement);
     this.setPageBreakAttribute(paragraphPropertiesElement);
+    this.setKeepTogetherAttribute(paragraphPropertiesElement);
     this.setTabStopElements(document, paragraphPropertiesElement);
   }
 
@@ -124,6 +136,20 @@ export class ParagraphProperties implements IParagraphProperties {
   private setPageBreakAttribute(paragraphPropertiesElement: Element): void {
     if (this.shouldBreakPageBefore === true) {
       paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBreakBefore, "page");
+    }
+  }
+
+  /**
+   * Sets the keep together attribute if paragraph marked as keep together.
+   *
+   * @param {Element} textPropertiesElement The element which will take the attribute
+   */
+  private setKeepTogetherAttribute(paragraphPropertiesElement: Element): void {
+    if (this.shouldKeepParagraphTogether === true) {
+      paragraphPropertiesElement.setAttribute(
+        OdfAttributeName.FormatKeepTogether,
+        "always"
+      );
     }
   }
 
