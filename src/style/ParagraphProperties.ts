@@ -17,7 +17,7 @@ const DEFAULT_KEEP_TOGETHER = false;
 export class ParagraphProperties implements IParagraphProperties {
   private horizontalAlignment: HorizontalAlignment;
   private shouldBreakPageBefore: boolean;
-  private shouldKeepParagraphTogether: boolean;
+  private shouldKeepTogether: boolean;
   private tabStops: TabStop[] = [];
 
   /**
@@ -26,7 +26,7 @@ export class ParagraphProperties implements IParagraphProperties {
   public constructor() {
     this.horizontalAlignment = DEFAULT_HORIZONTAL_ALIGNMENT;
     this.shouldBreakPageBefore = DEFAULT_PAGE_BREAK;
-    this.shouldKeepParagraphTogether = DEFAULT_KEEP_TOGETHER;
+    this.shouldKeepTogether = DEFAULT_KEEP_TOGETHER;
   }
 
   /** @inheritDoc */
@@ -46,7 +46,7 @@ export class ParagraphProperties implements IParagraphProperties {
 
   /** @inheritDoc */
   public setKeepTogether(): void {
-    this.shouldKeepParagraphTogether = true;
+    this.shouldKeepTogether = true;
   }
 
   /** @inheritDoc */
@@ -91,7 +91,7 @@ export class ParagraphProperties implements IParagraphProperties {
     return (
       this.horizontalAlignment === DEFAULT_HORIZONTAL_ALIGNMENT &&
       this.shouldBreakPageBefore === DEFAULT_PAGE_BREAK &&
-      this.shouldKeepParagraphTogether === DEFAULT_KEEP_TOGETHER &&
+      this.shouldKeepTogether === DEFAULT_KEEP_TOGETHER &&
       this.tabStops.length === 0
     );
   }
@@ -145,7 +145,7 @@ export class ParagraphProperties implements IParagraphProperties {
    * @param {Element} textPropertiesElement The element which will take the attribute
    */
   private setKeepTogetherAttribute(paragraphPropertiesElement: Element): void {
-    if (this.shouldKeepParagraphTogether === true) {
+    if (this.shouldKeepTogether === true) {
       paragraphPropertiesElement.setAttribute(
         OdfAttributeName.FormatKeepTogether,
         "always"
