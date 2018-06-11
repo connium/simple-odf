@@ -146,10 +146,7 @@ export class ParagraphProperties implements IParagraphProperties {
    */
   private setKeepTogetherAttribute(paragraphPropertiesElement: Element): void {
     if (this.shouldKeepTogether === true) {
-      paragraphPropertiesElement.setAttribute(
-        OdfAttributeName.FormatKeepTogether,
-        "always"
-      );
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatKeepTogether, "always");
     }
   }
 
