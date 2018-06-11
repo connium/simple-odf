@@ -95,8 +95,8 @@ export class ParagraphStyle implements IParagraphStyle {
   }
 
   /** @inheritDoc */
-  public setKeepTogether(): void {
-    return this.paragraphProperties.setKeepTogether();
+  public setKeepTogether(keepTogether: boolean = true): void {
+    return this.paragraphProperties.setKeepTogether(keepTogether);
   }
 
   /** @inheritDoc */

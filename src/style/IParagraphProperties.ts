@@ -36,7 +36,7 @@ export interface IParagraphProperties {
    *
    * @since 0.6.0
    */
-  setKeepTogether(): void;
+  setKeepTogether(keepTogether?: boolean): void;
 
   /**
    * Adds a new tab stop to this style.

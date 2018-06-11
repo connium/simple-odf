@@ -45,8 +45,8 @@ export class ParagraphProperties implements IParagraphProperties {
   }
 
   /** @inheritDoc */
-  public setKeepTogether(): void {
-    this.shouldKeepTogether = true;
+  public setKeepTogether(keepTogether: boolean = true): void {
+    this.shouldKeepTogether = keepTogether;
   }
 
   /** @inheritDoc */
