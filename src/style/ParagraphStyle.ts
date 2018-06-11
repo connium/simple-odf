@@ -95,6 +95,11 @@ export class ParagraphStyle implements IParagraphStyle {
   }
 
   /** @inheritDoc */
+  public setKeepTogether(keepTogether: boolean = true): void {
+    return this.paragraphProperties.setKeepTogether(keepTogether);
+  }
+
+  /** @inheritDoc */
   public addTabStop(position: number, type: TabStopType): TabStop | undefined;
   /** @inheritDoc */
   public addTabStop(tabStop: TabStop): TabStop | undefined;
@@ -143,6 +148,7 @@ export class ParagraphStyle implements IParagraphStyle {
     // paragraph properties
     hash.update(this.paragraphProperties.getHorizontalAlignment());
     hash.update((this.paragraphProperties as any).shouldBreakPageBefore ? "pb" : "");
+    hash.update((this.paragraphProperties as any).shouldKeepTogether ? "kt" : "");
     this.paragraphProperties.getTabStops().forEach((tabStop: TabStop) => {
       hash.update(`${tabStop.getPosition()}${tabStop.getType()}`);
     });

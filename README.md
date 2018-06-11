@@ -40,6 +40,7 @@ style1.setTypeface(simpleOdf.Typeface.Bold);
 // paragraph formatting
 style1.setHorizontalAlignment(simpleOdf.HorizontalAlignment.Center);
 style1.setPageBreakBefore();
+style1.setKeepTogether();
 p1.setStyle(style1);
 // font usage
 document.declareFont("Open Sans", "Open Sans", simpleOdf.FontPitch.Variable);

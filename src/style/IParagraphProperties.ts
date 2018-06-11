@@ -32,6 +32,13 @@ export interface IParagraphProperties {
   setPageBreakBefore(): void;
 
   /**
+   * Keeps paragraph lines on the same page (page break before paragraph if necessary).
+   *
+   * @since 0.6.0
+   */
+  setKeepTogether(keepTogether?: boolean): void;
+
+  /**
    * Adds a new tab stop to this style.
    * If a tab stop at the same position already exists, the new tab stop will not be added.
    * The tab stops will be ordered by their position.

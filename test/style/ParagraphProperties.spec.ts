@@ -34,6 +34,8 @@ describe(ParagraphProperties.name, () => {
 
   // setPageBreakBefore
 
+  // setKeepTogether
+
   describe("#addTabStop", () => {
     it("add new item to the list of tab stops by position and return the added tab stop", () => {
       const testTabStop = new TabStop(23);
@@ -114,6 +116,12 @@ describe(ParagraphProperties.name, () => {
 
     it("return false if page break was set", () => {
       properties.setPageBreakBefore();
+
+      expect(properties.isDefault()).toBe(false);
+    });
+
+    it("return false if keep together was set", () => {
+      properties.setKeepTogether();
 
       expect(properties.isDefault()).toBe(false);
     });

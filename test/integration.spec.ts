@@ -54,6 +54,12 @@ xdescribe("integration", () => {
       heading.getStyle().setPageBreakBefore();
     });
 
+    it("keep together", () => {
+      const heading = document.addParagraph("Paragraph Formatting");
+      heading.setStyle(new ParagraphStyle());
+      heading.getStyle().setKeepTogether();
+    });
+
     it("align text", () => {
       const paragraph = document.addParagraph("Some centered text");
       paragraph.setStyle(new ParagraphStyle());
