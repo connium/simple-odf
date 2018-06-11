@@ -120,7 +120,7 @@ export class ParagraphProperties implements IParagraphProperties {
   /**
    * Sets the `text-align` attribute if an horizontal alignment is set.
    *
-   * @param {Element} textPropertiesElement The element which will take the attribute
+   * @param {Element} paragraphPropertiesElement The element which will take the attribute
    */
   private setHorizontalAlignmentAttribute(paragraphPropertiesElement: Element): void {
     if (this.horizontalAlignment !== HorizontalAlignment.Default) {
@@ -131,7 +131,7 @@ export class ParagraphProperties implements IParagraphProperties {
   /**
    * Sets the page break attribute if a page break is set.
    *
-   * @param {Element} textPropertiesElement The element which will take the attribute
+   * @param {Element} paragraphPropertiesElement The element which will take the attribute
    */
   private setPageBreakAttribute(paragraphPropertiesElement: Element): void {
     if (this.shouldBreakPageBefore === true) {
@@ -142,7 +142,7 @@ export class ParagraphProperties implements IParagraphProperties {
   /**
    * Sets the keep together attribute if paragraph marked as keep together.
    *
-   * @param {Element} textPropertiesElement The element which will take the attribute
+   * @param {Element} paragraphPropertiesElement The element which will take the attribute
    */
   private setKeepTogetherAttribute(paragraphPropertiesElement: Element): void {
     if (this.shouldKeepTogether === true) {
@@ -157,7 +157,7 @@ export class ParagraphProperties implements IParagraphProperties {
    * Adds the `tab-stops` element and the tab stop definitions if any tab stop is set.
    *
    * @param {Document} document The XML document
-   * @param {Element} textPropertiesElement The element which will be used as parent
+   * @param {Element} paragraphPropertiesElement The element which will be used as parent
    */
   private setTabStopElements(document: Document, paragraphPropertiesElement: Element): void {
     if (this.tabStops.length === 0) {
