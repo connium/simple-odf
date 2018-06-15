@@ -1,6 +1,6 @@
 import { OdfElement } from "../OdfElement";
-import { OdfElementName } from "../OdfElementName";
 import { Paragraph } from "./Paragraph";
+import { TextElementName } from "./TextElementName";
 
 /**
  * This class represents an item in a list.
@@ -25,7 +25,7 @@ export class ListItem extends OdfElement {
 
   /** @inheritDoc */
   protected toXml(document: Document, parent: Element): void {
-    const listItemElement = document.createElement(OdfElementName.TextListItem);
+    const listItemElement = document.createElement(TextElementName.TextListItem);
     parent.appendChild(listItemElement);
 
     super.toXml(document, listItemElement);

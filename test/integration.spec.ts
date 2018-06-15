@@ -29,6 +29,15 @@ xdescribe("integration", () => {
     done();
   });
 
+  it("meta data", () => {
+    const meta = document.getMeta();
+    meta.setCreator("Homer Simpson");
+    meta.setLanguage("en-US");
+    meta.setTitle("simple-odf");
+    meta.setSubject("ODF document creation");
+    meta.setDescription("ODF text document created with Node.js powered by simple-odf");
+  });
+
   it("image", () => {
     const paragraph = document.addParagraph();
     paragraph.setStyle(new ParagraphStyle());

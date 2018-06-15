@@ -1,6 +1,6 @@
 import { OdfAttributeName } from "../OdfAttributeName";
-import { OdfElementName } from "../OdfElementName";
 import { Paragraph } from "./Paragraph";
+import { TextElementName } from "./TextElementName";
 
 /**
  * This class represents a heading.
@@ -45,7 +45,7 @@ export class Heading extends Paragraph {
 
   /** @inheritDoc */
   protected createElement(document: Document): Element {
-    const heading = document.createElement(OdfElementName.TextHeading);
+    const heading = document.createElement(TextElementName.TextHeading);
     heading.setAttribute(OdfAttributeName.TextOutlineLevel, this.level.toString(10));
 
     return heading;

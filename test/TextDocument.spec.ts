@@ -1,7 +1,7 @@
 import { readFile, unlink } from "fs";
 import { promisify } from "util";
+import { Meta } from "../src/meta/Meta";
 import { FontPitch } from "../src/style/FontPitch";
-import { HorizontalAlignment } from "../src/style/HorizontalAlignment";
 import { Heading } from "../src/text/Heading";
 import { List } from "../src/text/List";
 import { Paragraph } from "../src/text/Paragraph";
@@ -9,9 +9,12 @@ import { TextDocument, XML_DECLARATION } from "../src/TextDocument";
 
 const FILEPATH = "./test.fodt";
 
+jest.mock("../src/meta/Meta");
+
 describe(TextDocument.name, () => {
+
   /* tslint:disable-next-line:max-line-length */
-  const baseDocument = '<office:document xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" office:mimetype="application/vnd.oasis.opendocument.text" office:version="1.2" xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0"><office:body><office:text/></office:body></office:document>';
+  const baseDocument = '<office:document xmlns:dc="http://purl.org/dc/elements/1.1" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" office:mimetype="application/vnd.oasis.opendocument.text" office:version="1.2" xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0"><office:body><office:text/></office:body></office:document>';
   let document: TextDocument;
 
   beforeEach(() => {
@@ -27,12 +30,20 @@ describe(TextDocument.name, () => {
   });
 
   describe("namespace declaration", () => {
+    it("add dc namespace", () => {
+      expect(document.toString()).toMatch(/xmlns:dc="http:\/\/purl.org\/dc\/elements\/1.1"/);
+    });
+
     it("add draw namespace", () => {
       expect(document.toString()).toMatch(/xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0"/);
     });
 
     it("add fo namespace", () => {
       expect(document.toString()).toMatch(/xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0"/);
+    });
+
+    it("add meta namespace", () => {
+      expect(document.toString()).toMatch(/xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0"/);
     });
 
     it("add style namespace", () => {
@@ -49,6 +60,12 @@ describe(TextDocument.name, () => {
 
     it("add xlink namespace", () => {
       expect(document.toString()).toMatch(/xmlns:xlink="http:\/\/www.w3.org\/1999\/xlink"/);
+    });
+  });
+
+  describe("#getMeta", () => {
+    it("return a meta object", () => {
+      expect(document.getMeta()).toBeInstanceOf(Meta);
     });
   });
 

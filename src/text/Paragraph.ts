@@ -1,9 +1,9 @@
 import { Image } from "../draw/Image";
 import { OdfElement } from "../OdfElement";
-import { OdfElementName } from "../OdfElementName";
 import { IParagraphStyle } from "../style/IParagraphStyle";
 import { Hyperlink } from "./HyperLink";
 import { OdfTextElement } from "./OdfTextElement";
+import { TextElementName } from "./TextElementName";
 
 /**
  * This class represents a paragraph.
@@ -129,7 +129,7 @@ export class Paragraph extends OdfElement {
    * @since 0.1.0
    */
   protected createElement(document: Document): Element {
-    return document.createElement(OdfElementName.TextParagraph);
+    return document.createElement(TextElementName.TextParagraph);
   }
 
   /** @inheritDoc */

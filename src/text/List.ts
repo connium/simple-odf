@@ -1,6 +1,6 @@
 import { OdfElement } from "../OdfElement";
-import { OdfElementName } from "../OdfElementName";
 import { ListItem } from "./ListItem";
+import { TextElementName } from "./TextElementName";
 
 /**
  * This class represents a list.
@@ -122,7 +122,7 @@ export class List extends OdfElement {
       return;
     }
 
-    const listElement = document.createElement(OdfElementName.TextList);
+    const listElement = document.createElement(TextElementName.TextList);
     parent.appendChild(listElement);
 
     super.toXml(document, listElement);
