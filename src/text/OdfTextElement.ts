@@ -1,5 +1,5 @@
 import { OdfElement } from "../OdfElement";
-import { OdfElementName } from "../OdfElementName";
+import { TextElementName } from "./TextElementName";
 
 const SPACE = " ";
 
@@ -108,7 +108,7 @@ export class OdfTextElement extends OdfElement {
    * @since 0.3.0
    */
   private appendSpaceNode(document: Document, parent: Element, count: number): void {
-    const space = document.createElement(OdfElementName.TextSpace);
+    const space = document.createElement(TextElementName.TextSpace);
     parent.appendChild(space);
 
     if (count > 1) {
@@ -124,7 +124,7 @@ export class OdfTextElement extends OdfElement {
    * @since 0.3.0
    */
   private appendTabNode(document: Document, parent: Element): void {
-    const tabulation = document.createElement(OdfElementName.TextTabulation);
+    const tabulation = document.createElement(TextElementName.TextTabulation);
     parent.appendChild(tabulation);
   }
 
@@ -136,7 +136,7 @@ export class OdfTextElement extends OdfElement {
    * @since 0.3.0
    */
   private appendLineBreakNode(document: Document, parent: Element): void {
-    const lineBreak = document.createElement(OdfElementName.TextLineBreak);
+    const lineBreak = document.createElement(TextElementName.TextLineBreak);
     parent.appendChild(lineBreak);
   }
 

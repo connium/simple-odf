@@ -3,6 +3,7 @@ import { OdfElement } from "../OdfElement";
 import { OdfElementName } from "../OdfElementName";
 import { IImageStyle } from "../style/IImageStyle";
 import { ImageStyle } from "../style/ImageStyle";
+import { DrawElementName } from "./DrawElementName";
 
 const ENCODING = "base64";
 
@@ -48,7 +49,7 @@ export class Image extends OdfElement {
 
   /** @inheritDoc */
   protected toXml(document: Document, parent: Element): void {
-    const frameElement = document.createElement(OdfElementName.DrawFrame);
+    const frameElement = document.createElement(DrawElementName.DrawFrame);
     parent.appendChild(frameElement);
 
     this.embedImage(document, frameElement);
@@ -65,7 +66,7 @@ export class Image extends OdfElement {
    * @param {Element} frameElement The parent node in the DOM (`draw:frame`)
    */
   private embedImage(document: Document, frameElement: Element): void {
-    const image = document.createElement(OdfElementName.DrawImage);
+    const image = document.createElement(DrawElementName.DrawImage);
     frameElement.appendChild(image);
 
     const binaryData = document.createElement(OdfElementName.OfficeBinaryData);

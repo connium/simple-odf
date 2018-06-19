@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased] (2018-??-??)
+### Added
+- **meta:** Set meta data of the document, closes [#44](https://github.com/connium/simple-odf/issues/44)
+- **paragraph:** Add keep-together style (by @verheyenkoen)
+
 ### Changed
 - **document:** Declare all namespaces on creation of the text document, closes [#30](https://github.com/connium/simple-odf/issues/30)
 
@@ -20,7 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.4.0] (2018-05-19)
 ### Added
-- **chore:** Add code coverage analysis with Codecov by @oncletom, closes [#17](https://github.com/connium/simple-odf/issues/17)
+- **chore:** Add code coverage analysis with Codecov (by @oncletom), closes [#17](https://github.com/connium/simple-odf/issues/17)
 - **chore:** Add static code analysis with Better Code Hub
 - **paragraph:** Set color, font size and typeface to the text of a paragraph, closes [#26](https://github.com/connium/simple-odf/issues/26)
 - **paragraph:** Set font family to a paragraph, closes [#27](https://github.com/connium/simple-odf/issues/27)
@@ -36,7 +40,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.3.0] (2018-05-10)
 ### Added
-- **chore:** Add continuous integration with Travis CI by @oncletom, partly fixes [#17](https://github.com/connium/simple-odf/issues/17)
+- **chore:** Add continuous integration with Travis CI (by @oncletom), partly fixes [#17](https://github.com/connium/simple-odf/issues/17)
 - **paragraph:** Add hyperlinks to a paragraph, closes [#5](https://github.com/connium/simple-odf/issues/5)
 - **paragraph:** Add images to a paragraph, closes [#7](https://github.com/connium/simple-odf/issues/7)
 - **paragraph:** Replace tab character with tab element, closes [#10](https://github.com/connium/simple-odf/issues/10)

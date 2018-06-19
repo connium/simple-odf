@@ -3,6 +3,9 @@ export { TextDocument } from "./TextDocument";
 // draw
 export { Image } from "./draw/Image";
 
+// meta
+export { IMeta } from "./meta/IMeta";
+
 // style
 export { AnchorType } from "./style/AnchorType";
 export { Color } from "./style/Color";

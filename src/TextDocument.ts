@@ -2,6 +2,8 @@ import { writeFile } from "fs";
 import { promisify } from "util";
 import { DOMImplementation, XMLSerializer } from "xmldom";
 
+import { IMeta } from "./meta/IMeta";
+import { Meta } from "./meta/Meta";
 import { OdfAttributeName } from "./OdfAttributeName";
 import { OdfElement } from "./OdfElement";
 import { OdfElementName } from "./OdfElementName";
@@ -11,7 +13,6 @@ import { List } from "./text/List";
 import { Paragraph } from "./text/Paragraph";
 
 export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
-
 const OFFICE_VERSION = "1.2";
 
 /** This interface holds a font font declaration */
@@ -26,12 +27,25 @@ interface IFont {
  * @since 0.1.0
  */
 export class TextDocument extends OdfElement {
+  private meta: Meta;
   private fonts: IFont[];
 
   public constructor() {
     super();
 
+    this.meta = new Meta();
     this.fonts = [];
+  }
+
+  /**
+   * The `getMeta()` method returns the meta data of the document.
+   *
+   * @returns {IMeta} An object holding the meta data of the document
+   * @see {@link IMeta}
+   * @since 0.6.0
+   */
+  public getMeta(): IMeta {
+    return this.meta;
   }
 
   /**
@@ -133,6 +147,8 @@ export class TextDocument extends OdfElement {
     root.setAttribute(OdfAttributeName.OfficeMimetype, "application/vnd.oasis.opendocument.text");
     root.setAttribute(OdfAttributeName.OfficeVersion, OFFICE_VERSION);
 
+    this.meta.toXml(document, root);
+
     this.setFontFaceElements(document, root);
 
     const bodyElement = document.createElement(OdfElementName.OfficeBody);
@@ -150,8 +166,10 @@ export class TextDocument extends OdfElement {
    * @param {Element} root The root element of the document which will be used as parent
    */
   private setXmlNamespaces(root: Element): void {
+    root.setAttribute("xmlns:dc", "http://purl.org/dc/elements/1.1");
     root.setAttribute("xmlns:draw", "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0");
     root.setAttribute("xmlns:fo", "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0");
+    root.setAttribute("xmlns:meta", "urn:oasis:names:tc:opendocument:xmlns:meta:1.0");
     root.setAttribute("xmlns:style", "urn:oasis:names:tc:opendocument:xmlns:style:1.0");
     root.setAttribute("xmlns:svg", "urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0");
     root.setAttribute("xmlns:text", "urn:oasis:names:tc:opendocument:xmlns:text:1.0");

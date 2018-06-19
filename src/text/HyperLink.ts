@@ -1,6 +1,6 @@
 import { OdfAttributeName } from "../OdfAttributeName";
-import { OdfElementName } from "../OdfElementName";
 import { OdfTextElement } from "./OdfTextElement";
+import { TextElementName } from "./TextElementName";
 
 const LINK_TYPE = "simple";
 
@@ -53,7 +53,7 @@ export class Hyperlink extends OdfTextElement {
       return super.toXml(document, parent);
     }
 
-    const hyperlink = document.createElement(OdfElementName.TextHyperlink);
+    const hyperlink = document.createElement(TextElementName.TextHyperlink);
     parent.appendChild(hyperlink);
     hyperlink.setAttribute(OdfAttributeName.XlinkType, LINK_TYPE);
     hyperlink.setAttribute(OdfAttributeName.XlinkHref, this.uri);
