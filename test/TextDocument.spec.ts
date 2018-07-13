@@ -2,6 +2,7 @@ import { readFile, unlink } from "fs";
 import { promisify } from "util";
 import { Meta } from "../src/meta/Meta";
 import { FontPitch } from "../src/style/FontPitch";
+import { OutlineStyle } from "../src/style/OutlineStyle";
 import { Heading } from "../src/text/Heading";
 import { List } from "../src/text/List";
 import { Paragraph } from "../src/text/Paragraph";
@@ -82,6 +83,25 @@ describe(TextDocument.name, () => {
 
       /* tslint:disable-next-line:max-line-length */
       expect(document.toString()).toMatch(/<office:font-face-decls><style:font-face style:name="Homer Simpson" svg:font-family="'Homer Simpson'" style:font-pitch="variable"\/><\/office:font-face-decls>/);
+    });
+  });
+
+  describe("#getOutlineStyle", () => {
+    it("return an outline style object", () => {
+      expect(document.getOutlineStyle()).toBeInstanceOf(OutlineStyle);
+    });
+
+    it("return the same instance if called multiple times", () => {
+      const style1 = document.getOutlineStyle();
+      const style2 = document.getOutlineStyle();
+
+      expect(style1).toBe(style2);
+    });
+
+    it("add office styles element to document", () => {
+      document.getOutlineStyle();
+
+      expect(document.toString()).toMatch(/<office:styles/); // TODO
     });
   });
 

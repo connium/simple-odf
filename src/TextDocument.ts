@@ -8,6 +8,8 @@ import { OdfAttributeName } from "./OdfAttributeName";
 import { OdfElement } from "./OdfElement";
 import { OdfElementName } from "./OdfElementName";
 import { FontPitch } from "./style/FontPitch";
+import { IOutlineStyle } from "./style/IOutlineStyle";
+import { StyleFactory } from "./style/StyleFactory";
 import { Heading } from "./text/Heading";
 import { List } from "./text/List";
 import { Paragraph } from "./text/Paragraph";
@@ -27,11 +29,15 @@ interface IFont {
  * @since 0.1.0
  */
 export class TextDocument extends OdfElement {
+  private styleFactory: StyleFactory;
   private meta: Meta;
   private fonts: IFont[];
+  private outlineStyle: IOutlineStyle | undefined;
 
   public constructor() {
     super();
+
+    this.styleFactory = new StyleFactory();
 
     this.meta = new Meta();
     this.fonts = [];
@@ -56,11 +62,26 @@ export class TextDocument extends OdfElement {
    *
    * @param {string} name The name of the font; this name must be set to a {@link ParagraphStyle}
    * @param {string} fontFamily The name of the font family
-   * @param {FontPitch} fontPitch The ptich of the fonr
+   * @param {FontPitch} fontPitch The pitch of the font
    * @since 0.4.0
    */
   public declareFont(name: string, fontFamily: string, fontPitch: FontPitch): void {
     this.fonts.push({ name, fontFamily, fontPitch });
+  }
+
+  /**
+   * The `getOutlineStyle()` method returns the outline style of the document
+   * that is used for configuring the outline numbering for headlines.
+   *
+   * @returns {IOutlineStyle} An object holding the outline style of the document
+   * @see {@link IOutlineStyle}
+   * @since 0.6.0
+   */
+  public getOutlineStyle(): IOutlineStyle {
+    if (this.outlineStyle === undefined) {
+      this.outlineStyle = this.styleFactory.createOutlineStyle();
+    }
+    return this.outlineStyle;
   }
 
   /**
@@ -151,6 +172,8 @@ export class TextDocument extends OdfElement {
 
     this.setFontFaceElements(document, root);
 
+    this.setOfficeStyles(document, root);
+
     const bodyElement = document.createElement(OdfElementName.OfficeBody);
     root.appendChild(bodyElement);
 
@@ -198,5 +221,24 @@ export class TextDocument extends OdfElement {
       fontFaceElement.setAttribute("svg:font-family", encodedFontFamily);
       fontFaceElement.setAttribute("style:font-pitch", font.fontPitch);
     });
+  }
+
+  /**
+   * Adds the `font-face-decls` element and the font faces if any font needs to be declared.
+   *
+   * @param {Document} document The XML document
+   * @param {Element} root The element which will be used as parent
+   */
+  private setOfficeStyles(document: Document, root: Element): void {
+    if (this.outlineStyle === undefined) {
+      return;
+    }
+
+        // TODO office:styles / text:outline-style
+
+    const stylesElement = document.createElement(OdfElementName.OfficeStyles);
+    root.appendChild(stylesElement);
+
+    (this.outlineStyle as any).toXml(document, root);
   }
 }

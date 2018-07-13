@@ -14,7 +14,7 @@ import { TextDocument } from "../src/TextDocument";
 
 const FILEPATH = "./integration.fodt";
 
-xdescribe("integration", () => {
+describe.skip("integration", () => {
   let document: TextDocument;
 
   beforeAll(() => {
@@ -24,7 +24,7 @@ xdescribe("integration", () => {
   afterAll(async (done) => {
     const unlinkAsync = promisify(unlink);
 
-    await unlinkAsync(FILEPATH);
+    // await unlinkAsync(FILEPATH);
 
     done();
   });
