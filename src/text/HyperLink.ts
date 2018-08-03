@@ -25,10 +25,13 @@ export class Hyperlink extends OdfTextElement {
    * Sets the target URI for this hyperlink.
    *
    * @param {string} uri The new target URI
+   * @returns {Hyperlink} The `Hyperlink` object
    * @since 0.3.0
    */
-  public setURI(uri: string): void {
+  public setURI(uri: string): Hyperlink {
     this.uri = uri;
+
+    return this;
   }
 
   /**

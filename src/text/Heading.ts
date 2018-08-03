@@ -27,10 +27,13 @@ export class Heading extends Paragraph {
    * Sets the level of this heading.
    *
    * @param {number} level The heading level
+   * @returns {Heading} The `Heading` object
    * @since 0.1.0
    */
-  public setLevel(level: number): void {
+  public setLevel(level: number): Heading {
     this.level = level > Heading.DEFAULT_LEVEL ? level : Heading.DEFAULT_LEVEL;
+
+    return this;
   }
 
   /**
