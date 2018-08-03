@@ -4,14 +4,14 @@
  * It is used to set descriptive information about the document.
  *
  * @example
- * const meta = document.getMeta();
- * meta.setCreator("Homer Simpson");
- * meta.setTitle("Node.js meets ODF");
- * meta.setSubject("ODF document creation");
- * meta.addKeyword("Node.js");
- * meta.addKeyword("Open Document Format");
- * meta.setDescription("ODF text document created with Node.js powered by simple-odf");
- * meta.setLanguage("en-US");
+ * document.getMeta()
+ *   .setCreator("Homer Simpson")
+ *   .setTitle("Node.js meets ODF")
+ *   .setSubject("ODF document creation")
+ *   .addKeyword("Node.js")
+ *   .addKeyword("Open Document Format")
+ *   .setDescription("ODF text document created with Node.js powered by simple-odf")
+ *   .setLanguage("en-US");
  *
  * @since 0.6.0
  */
@@ -24,31 +24,32 @@ export interface IMeta {
    * If an empty string is given, `setCreator()` will set the creator to username of the currently effective user.
    *
    * @param {string} creator The name of the person who last modified a document
+   * @returns {IMeta} The `IMeta` object
    * @since 0.6.0
    */
-  setCreator(creator: string): void;
+  setCreator(creator: string): IMeta;
 
   getCreator(): string;
 
-  setDescription(description: string | undefined): void;
+  setDescription(description: string | undefined): IMeta;
 
   getDescription(): string | undefined;
 
-  addKeyword(keyword: string): void;
+  addKeyword(keyword: string): IMeta;
 
-  removeKeyword(keyword: string): void;
+  removeKeyword(keyword: string): IMeta;
 
   getKeywords(): string[];
 
-  setLanguage(language: string | undefined): void;
+  setLanguage(language: string | undefined): IMeta;
 
   getLanguage(): string | undefined;
 
-  setSubject(subject: string | undefined): void;
+  setSubject(subject: string | undefined): IMeta;
 
   getSubject(): string | undefined;
 
-  setTitle(title: string | undefined): void;
+  setTitle(title: string | undefined): IMeta;
 
   getTitle(): string | undefined;
 }

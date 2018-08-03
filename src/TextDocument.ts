@@ -38,9 +38,9 @@ export class TextDocument extends OdfElement {
   }
 
   /**
-   * The `getMeta()` method returns the meta data of the document.
+   * The `getMeta()` method returns the metadata of the document.
    *
-   * @returns {IMeta} An object holding the meta data of the document
+   * @returns {IMeta} An object holding the metadata of the document
    * @see {@link IMeta}
    * @since 0.6.0
    */

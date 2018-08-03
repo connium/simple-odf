@@ -209,10 +209,11 @@ describe(Meta.name, () => {
     });
 
     it("ignore description, language, subject, title if they are empty", () => {
-      document.getMeta().setDescription("");
-      document.getMeta().setLanguage("");
-      document.getMeta().setSubject("");
-      document.getMeta().setTitle("");
+      document.getMeta()
+        .setDescription("")
+        .setLanguage("")
+        .setSubject("")
+        .setTitle("");
 
       const regex = new RegExp("<office:meta>"
         + "<meta:initial-creator>" + userInfo().username + "</meta:initial-creator>"
@@ -226,11 +227,12 @@ describe(Meta.name, () => {
     });
 
     it("append description, language, subject, title if they are set", () => {
-      document.getMeta().setCreator("Homer Simpson");
-      document.getMeta().setDescription("some test description");
-      document.getMeta().setLanguage("zu");
-      document.getMeta().setSubject("some test subject");
-      document.getMeta().setTitle("some test title");
+      document.getMeta()
+        .setCreator("Homer Simpson")
+        .setDescription("some test description")
+        .setLanguage("zu")
+        .setSubject("some test subject")
+        .setTitle("some test title");
 
       const regex = new RegExp("<office:meta>"
         + "<meta:initial-creator>" + userInfo().username + "</meta:initial-creator>"
@@ -248,10 +250,11 @@ describe(Meta.name, () => {
     });
 
     it("append description, keywords, subject", () => {
-      document.getMeta().setDescription("some test description");
-      document.getMeta().addKeyword("some keyword");
-      document.getMeta().addKeyword("some other keyword");
-      document.getMeta().setSubject("some test subject");
+      document.getMeta()
+        .setDescription("some test description")
+        .addKeyword("some keyword")
+        .addKeyword("some other keyword")
+        .setSubject("some test subject");
 
       const regex = new RegExp("<office:meta>"
         + "<meta:initial-creator>" + userInfo().username + "</meta:initial-creator>"

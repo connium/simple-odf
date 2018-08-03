@@ -29,7 +29,7 @@ xdescribe("integration", () => {
     done();
   });
 
-  it("meta data", () => {
+  it("metadata", () => {
     const meta = document.getMeta();
     meta.setCreator("Homer Simpson");
     meta.setLanguage("en-US");

@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] (2018-??-??)
 ### Added
-- **meta:** Set meta data of the document, closes [#44](https://github.com/connium/simple-odf/issues/44)
+- **meta:** Set metadata of the document, closes [#44](https://github.com/connium/simple-odf/issues/44)
 - **paragraph:** Add keep-together style (by @verheyenkoen)
 
 ### Changed

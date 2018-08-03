@@ -4,7 +4,7 @@ import { IMeta } from "./IMeta";
 import { MetaElementName } from "./MetaElementName";
 
 /**
- * This class represents the meta data of a document.
+ * This class represents the metadata of a document.
  *
  * @implements {IMeta}
  * @since 0.6.0
@@ -82,8 +82,10 @@ export class Meta implements IMeta {
   }
 
   /** @inheritDoc */
-  public setCreator(creator: string): void {
+  public setCreator(creator: string): IMeta {
     this.creator = Meta.sanitizeString(creator, this.getCurrentUser());
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -92,8 +94,10 @@ export class Meta implements IMeta {
   }
 
   /** @inheritDoc */
-  public setDescription(description: string | undefined): void {
+  public setDescription(description: string | undefined): IMeta {
     this.description = Meta.sanitizeOptionalString(description);
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -102,19 +106,21 @@ export class Meta implements IMeta {
   }
 
   /** @inheritDoc */
-  public addKeyword(keyword: string): void {
+  public addKeyword(keyword: string): IMeta {
     const sanitizedKeyword = Meta.sanitizeOptionalString(keyword);
 
-    if (sanitizedKeyword === undefined) {
-      return;
+    if (sanitizedKeyword !== undefined) {
+      this.keywords.push(sanitizedKeyword);
     }
 
-    this.keywords.push(sanitizedKeyword);
+    return this;
   }
 
   /** @inheritDoc */
-  public removeKeyword(keyword: string): void {
+  public removeKeyword(keyword: string): IMeta {
     this.keywords = this.keywords.filter((existingKeyword: string) => existingKeyword !== keyword);
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -123,12 +129,12 @@ export class Meta implements IMeta {
   }
 
   /** @inheritDoc */
-  public setLanguage(language: string | undefined): void {
-    if (language !== undefined && /^[a-z]{2}(-[A-Z]{2})?$/.test(language) === false) {
-      return;
+  public setLanguage(language: string | undefined): IMeta {
+    if (language === undefined || /^[a-z]{2}(-[A-Z]{2})?$/.test(language) === false) {
+      this.language = language;
     }
 
-    this.language = language;
+    return this;
   }
 
   /** @inheritDoc */
@@ -137,8 +143,10 @@ export class Meta implements IMeta {
   }
 
   /** @inheritDoc */
-  public setSubject(subject: string | undefined): void {
+  public setSubject(subject: string | undefined): IMeta {
     this.subject = Meta.sanitizeOptionalString(subject);
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -147,8 +155,10 @@ export class Meta implements IMeta {
   }
 
   /** @inheritDoc */
-  public setTitle(title: string | undefined): void {
+  public setTitle(title: string | undefined): IMeta {
     this.title = Meta.sanitizeOptionalString(title);
+
+    return this;
   }
 
   /** @inheritDoc */
