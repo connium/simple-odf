@@ -10,12 +10,56 @@ import { MetaElementName } from "./MetaElementName";
  * @since 0.6.0
  */
 export class Meta implements IMeta {
+  /**
+   * Trims the given text and replaces it with the specified default value if it is `undefined` or empty.
+   *
+   * @param {string | undefined} text The text to sanitize
+   * @param {string} defaultValue The default value to use if the given text is `undefined` or empty
+   * @returns {string} The sanitized string
+   */
+  private static sanitizeString(text: string | undefined, defaultValue: string): string {
+    if (text === undefined) {
+      return defaultValue;
+    }
+
+    const trimmedText = text.trim();
+
+    return trimmedText.length > 0 ? trimmedText : defaultValue;
+  }
+
+  /**
+   * Trims the given text and returns `undefined` if it is `undefined` or empty.
+   *
+   * @param {string | undefined} text The text to sanitize
+   * @returns {string | undefined} The sanitized string or `undefined` if the given text is empty
+   */
+  private static sanitizeOptionalString(text: string | undefined): string | undefined {
+    if (text === undefined) {
+      return undefined;
+    }
+
+    const trimmedText = text.trim();
+
+    return trimmedText.length > 0 ? trimmedText : undefined;
+  }
+
   private creationDate: number;
   private creator: string;
+  private date: number;
   private description: string | undefined;
+  private editingCycles: number;
+  private generator: string;
+  private initialCreator: string;
+  private keywords: string[];
   private language: string | undefined;
   private subject: string | undefined;
   private title: string | undefined;
+  // private printedBy: string;
+  // private printDate: number;
+  // private template: any;
+  // private hyperlinkBehaviour: any;
+  // private autoReload: any;
+  // private editingDuration: any;
 
   /**
    * Constructor.
@@ -27,12 +71,19 @@ export class Meta implements IMeta {
    */
   public constructor() {
     this.creationDate = Date.now();
-    this.creator = userInfo().username;
+    this.creator = this.getCurrentUser();
+    this.date = Date.now();
+    this.editingCycles = 1;
+
+    const packageJson = require("../../package.json");
+    this.generator = `${packageJson.name}/${packageJson.version}`;
+    this.initialCreator = this.getCurrentUser();
+    this.keywords = [];
   }
 
   /** @inheritDoc */
   public setCreator(creator: string): void {
-    this.creator = creator.length > 0 ? creator : userInfo().username;
+    this.creator = Meta.sanitizeString(creator, this.getCurrentUser());
   }
 
   /** @inheritDoc */
@@ -42,12 +93,33 @@ export class Meta implements IMeta {
 
   /** @inheritDoc */
   public setDescription(description: string | undefined): void {
-    this.description = description;
+    this.description = Meta.sanitizeOptionalString(description);
   }
 
   /** @inheritDoc */
   public getDescription(): string | undefined {
     return this.description;
+  }
+
+  /** @inheritDoc */
+  public addKeyword(keyword: string): void {
+    const sanitizedKeyword = Meta.sanitizeOptionalString(keyword);
+
+    if (sanitizedKeyword === undefined) {
+      return;
+    }
+
+    this.keywords.push(sanitizedKeyword);
+  }
+
+  /** @inheritDoc */
+  public removeKeyword(keyword: string): void {
+    this.keywords = this.keywords.filter((existingKeyword: string) => existingKeyword !== keyword);
+  }
+
+  /** @inheritDoc */
+  public getKeywords(): string[] {
+    return Array.from(this.keywords);
   }
 
   /** @inheritDoc */
@@ -66,7 +138,7 @@ export class Meta implements IMeta {
 
   /** @inheritDoc */
   public setSubject(subject: string | undefined): void {
-    this.subject = subject;
+    this.subject = Meta.sanitizeOptionalString(subject);
   }
 
   /** @inheritDoc */
@@ -76,7 +148,7 @@ export class Meta implements IMeta {
 
   /** @inheritDoc */
   public setTitle(title: string | undefined): void {
-    this.title = title;
+    this.title = Meta.sanitizeOptionalString(title);
   }
 
   /** @inheritDoc */
@@ -92,18 +164,58 @@ export class Meta implements IMeta {
    * @since 0.6.0
    */
   public toXml(document: Document, root: Element): void {
+    this.date = Date.now();
+
     const metaElement = document.createElement(OdfElementName.OfficeMeta);
     root.appendChild(metaElement);
 
+    this.setInitialCreatorElement(document, metaElement);
+    this.setCreationDateElement(document, metaElement);
+
     this.setCreatorElement(document, metaElement);
     this.setDateElement(document, metaElement);
+    this.setEditingCyclesElement(document, metaElement);
+
+    this.setTitleElement(document, metaElement);
+    this.setSubjectElement(document, metaElement);
+    this.setKeywordElements(document, metaElement);
     this.setDescriptionElement(document, metaElement);
     this.setLanguageElement(document, metaElement);
-    this.setSubjectElement(document, metaElement);
-    this.setTitleElement(document, metaElement);
-    this.setCreationDateElement(document, metaElement);
-    this.setEditingCyclesElement(document, metaElement);
+
     this.setGeneratorElement(document, metaElement);
+  }
+
+  /**
+   * Returns the user name of the current active user.
+   *
+   * @returns {string} The name of the current active user
+   */
+  private getCurrentUser(): string {
+    return userInfo().username;
+  }
+
+  /**
+   * Sets the `meta:initial-creator` element to the current user.
+   *
+   * @param {Document} document The XML document
+   * @param {Element} metaElement The meta element which will act as parent
+   */
+  private setInitialCreatorElement(document: Document, metaElement: Element): void {
+    const creatorElement = document.createElement(MetaElementName.MetaInitialCreator);
+    metaElement.appendChild(creatorElement);
+    creatorElement.appendChild(document.createTextNode(this.initialCreator));
+  }
+
+  /**
+   * Sets the `meta:creation-date` element to the date and time this class was constructed.
+   *
+   * @param {Document} document The XML document
+   * @param {Element} metaElement The meta element which will act as parent
+   */
+  private setCreationDateElement(document: Document, metaElement: Element): void {
+    const creationDateElement = document.createElement(MetaElementName.MetaCreationDate);
+    metaElement.appendChild(creationDateElement);
+    creationDateElement.appendChild(document.createTextNode(new Date(this.creationDate).toISOString()));
   }
 
   /**
@@ -127,7 +239,69 @@ export class Meta implements IMeta {
   private setDateElement(document: Document, metaElement: Element): void {
     const dateElement = document.createElement(MetaElementName.DcDate);
     metaElement.appendChild(dateElement);
-    dateElement.appendChild(document.createTextNode(new Date().toISOString()));
+    dateElement.appendChild(document.createTextNode(new Date(this.date).toISOString()));
+  }
+
+  /**
+   * Sets the `meta:editing-cycles` element to 1.
+   *
+   * @param {Document} document The XML document
+   * @param {Element} metaElement The meta element which will act as parent
+   */
+  private setEditingCyclesElement(document: Document, metaElement: Element): void {
+    const editingCyclesElement = document.createElement(MetaElementName.MetaEditingCycles);
+    metaElement.appendChild(editingCyclesElement);
+    editingCyclesElement.appendChild(document.createTextNode(this.editingCycles.toString()));
+  }
+
+  /**
+   * Sets the `dc:title` element if title is set.
+   *
+   * @param {Document} document The XML document
+   * @param {Element} metaElement The meta element which will act as parent
+   */
+  private setTitleElement(document: Document, metaElement: Element): void {
+    if (this.title === undefined || this.title.length === 0) {
+      return;
+    }
+
+    const titleElement = document.createElement(MetaElementName.DcTitle);
+    metaElement.appendChild(titleElement);
+    titleElement.appendChild(document.createTextNode(this.title));
+  }
+
+  /**
+   * Sets the `dc:subject` element if subject is set.
+   *
+   * @param {Document} document The XML document
+   * @param {Element} metaElement The meta element which will act as parent
+   */
+  private setSubjectElement(document: Document, metaElement: Element): void {
+    if (this.subject === undefined || this.subject.length === 0) {
+      return;
+    }
+
+    const subjectElement = document.createElement(MetaElementName.DcSubject);
+    metaElement.appendChild(subjectElement);
+    subjectElement.appendChild(document.createTextNode(this.subject));
+  }
+
+  /**
+   * Sets the `meta:keyword` elements if any keyword is set.
+   *
+   * @param {Document} document The XML document
+   * @param {Element} metaElement The meta element which will act as parent
+   */
+  private setKeywordElements(document: Document, metaElement: Element): void {
+    if (this.keywords.length === 0) {
+      return;
+    }
+
+    this.keywords.forEach((keyword: string) => {
+      const subjectElement = document.createElement(MetaElementName.MetaKeyword);
+      metaElement.appendChild(subjectElement);
+      subjectElement.appendChild(document.createTextNode(keyword));
+    });
   }
 
   /**
@@ -163,62 +337,6 @@ export class Meta implements IMeta {
   }
 
   /**
-   * Sets the `dc:subject` element if subject is set.
-   *
-   * @param {Document} document The XML document
-   * @param {Element} metaElement The meta element which will act as parent
-   */
-  private setSubjectElement(document: Document, metaElement: Element): void {
-    if (this.subject === undefined || this.subject.length === 0) {
-      return;
-    }
-
-    const subjectElement = document.createElement(MetaElementName.DcSubject);
-    metaElement.appendChild(subjectElement);
-    subjectElement.appendChild(document.createTextNode(this.subject));
-  }
-
-  /**
-   * Sets the `dc:title` element if title is set.
-   *
-   * @param {Document} document The XML document
-   * @param {Element} metaElement The meta element which will act as parent
-   */
-  private setTitleElement(document: Document, metaElement: Element): void {
-    if (this.title === undefined || this.title.length === 0) {
-      return;
-    }
-
-    const titleElement = document.createElement(MetaElementName.DcTitle);
-    metaElement.appendChild(titleElement);
-    titleElement.appendChild(document.createTextNode(this.title));
-  }
-
-  /**
-   * Sets the `meta:creation-date` element to the date and time this class was constructed.
-   *
-   * @param {Document} document The XML document
-   * @param {Element} metaElement The meta element which will act as parent
-   */
-  private setCreationDateElement(document: Document, metaElement: Element): void {
-    const creationDateElement = document.createElement(MetaElementName.MetaCreationDate);
-    metaElement.appendChild(creationDateElement);
-    creationDateElement.appendChild(document.createTextNode(new Date(this.creationDate).toISOString()));
-  }
-
-  /**
-   * Sets the `meta:editing-cycles` element to 1.
-   *
-   * @param {Document} document The XML document
-   * @param {Element} metaElement The meta element which will act as parent
-   */
-  private setEditingCyclesElement(document: Document, metaElement: Element): void {
-    const editingCyclesElement = document.createElement(MetaElementName.MetaEditingCycles);
-    metaElement.appendChild(editingCyclesElement);
-    editingCyclesElement.appendChild(document.createTextNode("1"));
-  }
-
-  /**
    * Sets the `meta:generator` element to the name and version of this library (`simple-odf/x.y.z`).
    *
    * @param {Document} document The XML document
@@ -227,7 +345,6 @@ export class Meta implements IMeta {
   private setGeneratorElement(document: Document, metaElement: Element): void {
     const generatorElement = document.createElement(MetaElementName.MetaGenerator);
     metaElement.appendChild(generatorElement);
-    const packageJson = require("../../package.json");
-    generatorElement.appendChild(document.createTextNode(`${packageJson.name}/${packageJson.version}`));
+    generatorElement.appendChild(document.createTextNode(this.generator));
   }
 }
