@@ -31,10 +31,13 @@ export class Image extends OdfElement {
    * Sets the new style of this image.
    *
    * @param {IImageStyle} style The new style
+   * @returns {Image} The `image` object
    * @since 0.5.0
    */
-  public setStyle(style: IImageStyle): void {
+  public setStyle(style: IImageStyle): Image {
     this.style = style;
+
+    return this;
   }
 
   /**
