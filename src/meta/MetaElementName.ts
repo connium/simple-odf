@@ -9,4 +9,6 @@ export enum MetaElementName {
   MetaCreationDate = "meta:creation-date",
   MetaEditingCycles = "meta:editing-cycles",
   MetaGenerator = "meta:generator",
+  MetaInitialCreator = "meta:initial-creator",
+  MetaKeyword = "meta:keyword",
 }
