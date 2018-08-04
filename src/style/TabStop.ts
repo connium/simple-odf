@@ -33,10 +33,13 @@ export class TabStop {
    *
    * @param {number} position The position of the tab stop in centimeters relative to the left margin.
    * If a negative value is given, the `position` will be set to `0`.
+   * @returns {TabStop} The `TabStop` object
    * @since 0.3.0
    */
-  public setPosition(position: number): void {
+  public setPosition(position: number): TabStop {
     this.position = Math.max(position, 0);
+
+    return this;
   }
 
   /**
@@ -53,10 +56,13 @@ export class TabStop {
    * Sets the type of this tab stop.
    *
    * @param {TabStopType} type The type of the tab stop
+   * @returns {TabStop} The `TabStop` object
    * @since 0.3.0
    */
-  public setType(type: TabStopType): void {
+  public setType(type: TabStopType): TabStop {
     this.type = type;
+
+    return this;
   }
 
   /**

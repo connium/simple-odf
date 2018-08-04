@@ -32,9 +32,10 @@ export interface ITextProperties {
    * To reset the color, `undefined` must be given.
    *
    * @param {Color | undefined} color The font color to apply or `undefined` if the default color should be used
+   * @returns {ITextProperties} The `ITextProperties` object
    * @since 0.4.0
    */
-  setColor(color: Color | undefined): void;
+  setColor(color: Color | undefined): ITextProperties;
 
   /**
    * Returns the font color that will be applied to the text or `undefined` if the default color will be used.
@@ -49,9 +50,10 @@ export interface ITextProperties {
    * To reset the font, `undefined` must be given.
    *
    * @param {string} name The name of the font to apply or `undefined` if the default font should be used
+   * @returns {ITextProperties} The `ITextProperties` object
    * @since 0.4.0
    */
-  setFontName(name: string): void;
+  setFontName(name: string): ITextProperties;
 
   /**
    * Returns the name of the font that will be applied to the text or `undefined` if the default font will be used.
@@ -65,9 +67,10 @@ export interface ITextProperties {
    * Sets the font size that will be applied to the text.
    *
    * @param {number} size The font size to apply as point value (pt)
+   * @returns {ITextProperties} The `ITextProperties` object
    * @since 0.4.0
    */
-  setFontSize(size: number): void;
+  setFontSize(size: number): ITextProperties;
 
   /**
    * Returns the font size that will be applied to the text.
@@ -81,9 +84,10 @@ export interface ITextProperties {
    * Sets the transformation that will be applied to the text.
    *
    * @param {TextTransformation} transformation The transformation to apply
+   * @returns {ITextProperties} The `ITextProperties` object
    * @since 0.4.0
    */
-  setTextTransformation(transformation: TextTransformation): void;
+  setTextTransformation(transformation: TextTransformation): ITextProperties;
 
   /**
    * Returns the transformation that will be applied to the text.
@@ -97,9 +101,10 @@ export interface ITextProperties {
    * Sets the typeface that will be applied to the text.
    *
    * @param {Typeface} typeface The typeface to apply
+   * @returns {ITextProperties} The `ITextProperties` object
    * @since 0.4.0
    */
-  setTypeface(typeface: Typeface): void;
+  setTypeface(typeface: Typeface): ITextProperties;
 
   /**
    * Returns the typeface that will be applied to the text.

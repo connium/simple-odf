@@ -12,9 +12,10 @@ export interface IParagraphProperties {
    * Sets the horizontal alignment setting of this paragraph.
    *
    * @param {HorizontalAlignment} horizontalAlignment The horizontal alignment setting
+   * @returns {IParagraphProperties} The `IParagraphProperties` object
    * @since 0.1.0
    */
-  setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): void;
+  setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): IParagraphProperties;
 
   /**
    * Returns the horizontal alignment setting of this paragraph.
@@ -27,16 +28,18 @@ export interface IParagraphProperties {
   /**
    * Inserts a new page break to the document before the corresponding element.
    *
+   * @returns {IParagraphProperties} The `IParagraphProperties` object
    * @since 0.1.0
    */
-  setPageBreakBefore(): void;
+  setPageBreakBefore(): IParagraphProperties;
 
   /**
    * Keeps paragraph lines on the same page (page break before paragraph if necessary).
    *
+   * @returns {IParagraphProperties} The `IParagraphProperties` object
    * @since 0.6.0
    */
-  setKeepTogether(keepTogether?: boolean): void;
+  setKeepTogether(keepTogether?: boolean): IParagraphProperties;
 
   /**
    * Adds a new tab stop to this style.
@@ -74,7 +77,8 @@ export interface IParagraphProperties {
   /**
    * Removes all tab stops.
    *
+   * @returns {IParagraphProperties} The `IParagraphProperties` object
    * @since 0.3.0
    */
-  clearTabStops(): void;
+  clearTabStops(): IParagraphProperties;
 }

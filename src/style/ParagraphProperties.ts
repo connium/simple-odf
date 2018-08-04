@@ -30,8 +30,10 @@ export class ParagraphProperties implements IParagraphProperties {
   }
 
   /** @inheritDoc */
-  public setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): void {
+  public setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): IParagraphProperties {
     this.horizontalAlignment = horizontalAlignment;
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -40,13 +42,17 @@ export class ParagraphProperties implements IParagraphProperties {
   }
 
   /** @inheritDoc */
-  public setPageBreakBefore(): void {
+  public setPageBreakBefore(): IParagraphProperties {
     this.shouldBreakPageBefore = true;
+
+    return this;
   }
 
   /** @inheritDoc */
-  public setKeepTogether(keepTogether: boolean = true): void {
+  public setKeepTogether(keepTogether: boolean = true): IParagraphProperties {
     this.shouldKeepTogether = keepTogether;
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -77,8 +83,10 @@ export class ParagraphProperties implements IParagraphProperties {
   }
 
   /** @inheritDoc */
-  public clearTabStops(): void {
+  public clearTabStops(): IParagraphProperties {
     this.tabStops = [];
+
+    return this;
   }
 
   /**

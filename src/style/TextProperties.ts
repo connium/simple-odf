@@ -35,8 +35,10 @@ export class TextProperties implements ITextProperties {
   }
 
   /** @inheritDoc */
-  public setColor(color: Color | undefined): void {
+  public setColor(color: Color | undefined): ITextProperties {
     this.color = color;
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -45,8 +47,10 @@ export class TextProperties implements ITextProperties {
   }
 
   /** @inheritDoc */
-  public setFontName(name: string): void {
+  public setFontName(name: string): ITextProperties {
     this.fontName = name;
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -55,8 +59,10 @@ export class TextProperties implements ITextProperties {
   }
 
   /** @inheritDoc */
-  public setFontSize(size: number): void {
+  public setFontSize(size: number): ITextProperties {
     this.fontSize = Math.max(size, MINIMAL_FONT_SIZE);
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -65,8 +71,10 @@ export class TextProperties implements ITextProperties {
   }
 
   /** @inheritDoc */
-  public setTextTransformation(transformation: TextTransformation): void {
+  public setTextTransformation(transformation: TextTransformation): ITextProperties {
     this.transformation = transformation;
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -75,8 +83,10 @@ export class TextProperties implements ITextProperties {
   }
 
   /** @inheritDoc */
-  public setTypeface(typeface: Typeface): void {
+  public setTypeface(typeface: Typeface): ITextProperties {
     this.typeface = typeface;
+
+    return this;
   }
 
   /** @inheritDoc */

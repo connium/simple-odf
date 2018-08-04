@@ -30,8 +30,10 @@ export class ParagraphStyle implements IParagraphStyle {
   }
 
   /** @inheritDoc */
-  public setColor(color: Color | undefined): void {
-    return this.textProperties.setColor(color);
+  public setColor(color: Color | undefined): IParagraphStyle {
+    this.textProperties.setColor(color);
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -40,8 +42,10 @@ export class ParagraphStyle implements IParagraphStyle {
   }
 
   /** @inheritDoc */
-  public setFontName(name: string): void {
+  public setFontName(name: string): IParagraphStyle {
     this.textProperties.setFontName(name);
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -50,8 +54,10 @@ export class ParagraphStyle implements IParagraphStyle {
   }
 
   /** @inheritDoc */
-  public setFontSize(size: number): void {
-    return this.textProperties.setFontSize(size);
+  public setFontSize(size: number): IParagraphStyle {
+    this.textProperties.setFontSize(size);
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -60,8 +66,10 @@ export class ParagraphStyle implements IParagraphStyle {
   }
 
   /** @inheritDoc */
-  public setTextTransformation(transformation: TextTransformation): void {
+  public setTextTransformation(transformation: TextTransformation): IParagraphStyle {
     this.textProperties.setTextTransformation(transformation);
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -70,8 +78,10 @@ export class ParagraphStyle implements IParagraphStyle {
   }
 
   /** @inheritDoc */
-  public setTypeface(typeface: Typeface): void {
-    return this.textProperties.setTypeface(typeface);
+  public setTypeface(typeface: Typeface): IParagraphStyle {
+    this.textProperties.setTypeface(typeface);
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -80,8 +90,10 @@ export class ParagraphStyle implements IParagraphStyle {
   }
 
   /** @inheritDoc */
-  public setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): void {
-    return this.paragraphProperties.setHorizontalAlignment(horizontalAlignment);
+  public setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): IParagraphStyle {
+    this.paragraphProperties.setHorizontalAlignment(horizontalAlignment);
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -90,13 +102,17 @@ export class ParagraphStyle implements IParagraphStyle {
   }
 
   /** @inheritDoc */
-  public setPageBreakBefore(): void {
-    return this.paragraphProperties.setPageBreakBefore();
+  public setPageBreakBefore(): IParagraphStyle {
+    this.paragraphProperties.setPageBreakBefore();
+
+    return this;
   }
 
   /** @inheritDoc */
-  public setKeepTogether(keepTogether: boolean = true): void {
-    return this.paragraphProperties.setKeepTogether(keepTogether);
+  public setKeepTogether(keepTogether: boolean = true): IParagraphStyle {
+    this.paragraphProperties.setKeepTogether(keepTogether);
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -113,8 +129,10 @@ export class ParagraphStyle implements IParagraphStyle {
   }
 
   /** @inheritDoc */
-  public clearTabStops(): void {
-    return this.paragraphProperties.clearTabStops();
+  public clearTabStops(): IParagraphStyle {
+    this.paragraphProperties.clearTabStops();
+
+    return this;
   }
 
   /** @inheritDoc */

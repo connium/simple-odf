@@ -10,9 +10,10 @@ export interface IImageStyle {
    * Sets the anchor type setting of this image.
    *
    * @param {AnchorType} anchorType The anchor type setting
+   * @returns {IImageStyle} The `IImageStyle` object
    * @since 0.5.0
    */
-  setAnchorType(anchorType: AnchorType): void;
+  setAnchorType(anchorType: AnchorType): IImageStyle;
 
   /**
    * Returns the anchor type setting of this image.
@@ -26,9 +27,10 @@ export interface IImageStyle {
    * Sets the target height of the image.
    *
    * @param {number} height The target height of the image in millimeter
+   * @returns {IImageStyle} The `IImageStyle` object
    * @since 0.5.0
    */
-  setHeight(height: number): void;
+  setHeight(height: number): IImageStyle;
 
   /**
    * Returns the target height of the image or `undefined` if no height was set.
@@ -42,9 +44,10 @@ export interface IImageStyle {
    * Sets the target width of the image.
    *
    * @param {number} width The target width of the image in millimeter
+   * @returns {IImageStyle} The `IImageStyle` object
    * @since 0.5.0
    */
-  setWidth(width: number): void;
+  setWidth(width: number): IImageStyle;
 
   /**
    * Returns the target width of the image or `undefined` if no width was set.
@@ -59,9 +62,10 @@ export interface IImageStyle {
    *
    * @param {number} width The target width of the image in millimeter
    * @param {number} height The target height of the image in millimeter
+   * @returns {IImageStyle} The `IImageStyle` object
    * @since 0.5.0
    */
-  setSize(width: number, height: number): void;
+  setSize(width: number, height: number): IImageStyle;
 
   /**
    * Transforms the image style into Open Document Format.

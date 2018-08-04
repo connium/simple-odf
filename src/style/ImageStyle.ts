@@ -23,8 +23,10 @@ export class ImageStyle implements IImageStyle {
   }
 
   /** @inheritDoc */
-  public setAnchorType(anchorType: AnchorType): void {
+  public setAnchorType(anchorType: AnchorType): IImageStyle {
     this.anchorType = anchorType;
+
+    return this;
   }
 
   /** @inheritDoc */
@@ -32,56 +34,36 @@ export class ImageStyle implements IImageStyle {
     return this.anchorType;
   }
 
-  /**
-   * Sets the target height of the image.
-   *
-   * @param {number} height The target height of the image in millimeter
-   * @since 0.5.0
-   */
-  public setHeight(height: number): void {
+  /** @inheritDoc */
+  public setHeight(height: number): IImageStyle {
     this.height = Math.max(height, MINIMAL_SIZE);
+
+    return this;
   }
 
-  /**
-   * Returns the target height of the image or `undefined` if no height was set.
-   *
-   * @returns {number | undefined} The target height of the image in millimeter or `undefined` if no height was set
-   * @since 0.5.0
-   */
+  /** @inheritDoc */
   public getHeight(): number | undefined {
     return this.height;
   }
 
-  /**
-   * Sets the target width of the image.
-   *
-   * @param {number} width The target width of the image in millimeter
-   * @since 0.5.0
-   */
-  public setWidth(width: number): void {
+  /** @inheritDoc */
+  public setWidth(width: number): IImageStyle {
     this.width = Math.max(width, MINIMAL_SIZE);
+
+    return this;
   }
 
-  /**
-   * Returns the target width of the image or `undefined` if no width was set.
-   *
-   * @returns {number | undefined} The target width of the image in millimeter or `undefined` if no width was set
-   * @since 0.5.0
-   */
+  /** @inheritDoc */
   public getWidth(): number | undefined {
     return this.width;
   }
 
-  /**
-   * Sets the target size of the image.
-   *
-   * @param {number} width The target width of the image in millimeter
-   * @param {number} height The target height of the image in millimeter
-   * @since 0.5.0
-   */
-  public setSize(width: number, height: number): void {
+  /** @inheritDoc */
+  public setSize(width: number, height: number): IImageStyle {
     this.setWidth(width);
     this.setHeight(height);
+
+    return this;
   }
 
   /** @inheritDoc */

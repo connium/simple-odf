@@ -130,7 +130,7 @@ export class Meta implements IMeta {
 
   /** @inheritDoc */
   public setLanguage(language: string | undefined): IMeta {
-    if (language === undefined || /^[a-z]{2}(-[A-Z]{2})?$/.test(language) === false) {
+    if (language === undefined || /^[a-z]{2}(-[A-Z]{2})?$/.test(language) === true) {
       this.language = language;
     }
 
