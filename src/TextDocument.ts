@@ -2,7 +2,6 @@ import { writeFile } from "fs";
 import { promisify } from "util";
 import { DOMImplementation, XMLSerializer } from "xmldom";
 
-import { IMeta } from "./meta/IMeta";
 import { Meta } from "./meta/Meta";
 import { OdfAttributeName } from "./OdfAttributeName";
 import { OdfElement } from "./OdfElement";
@@ -38,13 +37,13 @@ export class TextDocument extends OdfElement {
   }
 
   /**
-   * The `getMeta()` method returns the meta data of the document.
+   * The `getMeta()` method returns the metadata of the document.
    *
-   * @returns {IMeta} An object holding the meta data of the document
-   * @see {@link IMeta}
+   * @returns {Meta} An object holding the metadata of the document
+   * @see {@link Meta}
    * @since 0.6.0
    */
-  public getMeta(): IMeta {
+  public getMeta(): Meta {
     return this.meta;
   }
 
