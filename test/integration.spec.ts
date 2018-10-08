@@ -29,13 +29,13 @@ xdescribe("integration", () => {
     done();
   });
 
-  it("meta data", () => {
-    const meta = document.getMeta();
-    meta.setCreator("Homer Simpson");
-    meta.setLanguage("en-US");
-    meta.setTitle("simple-odf");
-    meta.setSubject("ODF document creation");
-    meta.setDescription("ODF text document created with Node.js powered by simple-odf");
+  it("metadata", () => {
+    document.getMeta()
+      .setCreator("Homer Simpson")
+      .setLanguage("en-US")
+      .setTitle("simple-odf")
+      .setSubject("ODF document creation")
+      .setDescription("ODF text document created with Node.js powered by simple-odf");
   });
 
   it("image", () => {

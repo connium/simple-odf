@@ -11,4 +11,6 @@ export enum MetaElementName {
   MetaGenerator = "meta:generator",
   MetaInitialCreator = "meta:initial-creator",
   MetaKeyword = "meta:keyword",
+  MetaPrintDate = "meta:print-date",
+  MetaPrintedBy = "meta:printed-by",
 }

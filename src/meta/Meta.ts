@@ -1,157 +1,321 @@
 import { userInfo } from "os";
 import { OdfElementName } from "../OdfElementName";
-import { IMeta } from "./IMeta";
 import { MetaElementName } from "./MetaElementName";
 
 /**
- * This class represents the meta data of a document.
+ * This class represents the metadata of a document.
  *
- * @implements {IMeta}
+ * It is used to set descriptive information about the document.
+ *
+ * @example
+ * document.getMeta()
+ *   .setCreator("Homer Simpson")
+ *   .setTitle("Node.js meets ODF")
+ *   .setSubject("ODF document creation")
+ *   .addKeyword("Node.js")
+ *   .addKeyword("Open Document Format")
+ *   .setDescription("ODF text document created with Node.js powered by simple-odf")
+ *   .setLanguage("en-US");
+ *
  * @since 0.6.0
  */
-export class Meta implements IMeta {
-  /**
-   * Trims the given text and replaces it with the specified default value if it is `undefined` or empty.
-   *
-   * @param {string | undefined} text The text to sanitize
-   * @param {string} defaultValue The default value to use if the given text is `undefined` or empty
-   * @returns {string} The sanitized string
-   */
-  private static sanitizeString(text: string | undefined, defaultValue: string): string {
-    if (text === undefined) {
-      return defaultValue;
-    }
-
-    const trimmedText = text.trim();
-
-    return trimmedText.length > 0 ? trimmedText : defaultValue;
-  }
-
-  /**
-   * Trims the given text and returns `undefined` if it is `undefined` or empty.
-   *
-   * @param {string | undefined} text The text to sanitize
-   * @returns {string | undefined} The sanitized string or `undefined` if the given text is empty
-   */
-  private static sanitizeOptionalString(text: string | undefined): string | undefined {
-    if (text === undefined) {
-      return undefined;
-    }
-
-    const trimmedText = text.trim();
-
-    return trimmedText.length > 0 ? trimmedText : undefined;
-  }
-
-  private creationDate: number;
-  private creator: string;
-  private date: number;
-  private description: string | undefined;
-  private editingCycles: number;
+export class Meta {
   private generator: string;
-  private initialCreator: string;
-  private keywords: string[];
-  private language: string | undefined;
-  private subject: string | undefined;
   private title: string | undefined;
-  // private printedBy: string;
-  // private printDate: number;
-  // private template: any;
-  // private hyperlinkBehaviour: any;
-  // private autoReload: any;
-  // private editingDuration: any;
+  private description: string | undefined;
+  private subject: string | undefined;
+  private keywords: string[];
+  private initialCreator: string | undefined;
+  private creator: string | undefined;
+  private printedBy: string | undefined;
+  private creationDate: number;
+  private date: number | undefined;
+  private printDate: number | undefined;
+  // private template: any | undefined;
+  // private autoReload: any | undefined;
+  // private hyperlinkBehaviour: any | undefined;
+  private language: string | undefined;
+  private editingCycles: number; // nonNegativeInteger
+  // private editingDuration: number | undefined;
+  // private document-statistic: any | undefined;
+  // private userDefined: any | undefined;
 
   /**
    * Constructor.
    *
    * Initializes the creation date with the current time stamp
-   * and sets username of the currently effective user as creator.
+   * and sets the username of the currently effective user as creator.
    *
    * @since 0.6.0
    */
   public constructor() {
+    const packageJson = require("../../package.json");
+    const currentUsername = userInfo().username;
+
+    this.generator = `${packageJson.name}/${packageJson.version}`;
+    this.keywords = [];
+    this.initialCreator = currentUsername;
+    this.creator = currentUsername;
     this.creationDate = Date.now();
-    this.creator = this.getCurrentUser();
     this.date = Date.now();
     this.editingCycles = 1;
-
-    const packageJson = require("../../package.json");
-    this.generator = `${packageJson.name}/${packageJson.version}`;
-    this.initialCreator = this.getCurrentUser();
-    this.keywords = [];
   }
 
-  /** @inheritDoc */
-  public setCreator(creator: string): void {
-    this.creator = Meta.sanitizeString(creator, this.getCurrentUser());
+  /**
+   * The `setCreator()` method sets the name of the person who last modified the document.
+   *
+   * The creator is initialized with the username of the currently effective user.
+   *
+   * @param {string | undefined} creator The name of the person who last modified a document
+   * @returns {Meta} The `Meta` object
+   * @since 0.6.0
+   */
+  public setCreator(creator: string | undefined): Meta {
+    if (creator === undefined || typeof creator === "string") {
+      this.creator = creator;
+    }
+
+    return this;
   }
 
-  /** @inheritDoc */
-  public getCreator(): string {
+  /**
+   * @returns {string | undefined}
+   * @since 0.6.0
+   */
+  public getCreator(): string | undefined {
     return this.creator;
   }
 
-  /** @inheritDoc */
-  public setDescription(description: string | undefined): void {
-    this.description = Meta.sanitizeOptionalString(description);
+  /**
+   * @returns {number}
+   * @since 0.6.0
+   */
+  public getCreationDate(): number {
+    return this.creationDate;
   }
 
-  /** @inheritDoc */
+  /**
+   * @param {number | undefined} date
+   * @returns {Meta} The `Meta` object
+   * @since 0.6.0
+   */
+  public setDate(date: number | undefined): Meta {
+    if (date === undefined || (typeof date === "number" && date >= Date.now())) {
+      this.date = date;
+    }
+
+    return this;
+  }
+
+  /**
+   * @returns {number | undefined}
+   * @since 0.6.0
+   */
+  public getDate(): number | undefined {
+    return this.date;
+  }
+
+  /**
+   * @param {string | undefined} description
+   * @returns {Meta} The `Meta` object
+   * @since 0.6.0
+   */
+  public setDescription(description: string | undefined): Meta {
+    if (description === undefined || typeof description === "string") {
+      this.description = description;
+    }
+
+    return this;
+  }
+
+  /**
+   * @returns {string | undefined}
+   * @since 0.6.0
+   */
   public getDescription(): string | undefined {
     return this.description;
   }
 
-  /** @inheritDoc */
-  public addKeyword(keyword: string): void {
-    const sanitizedKeyword = Meta.sanitizeOptionalString(keyword);
+  /**
+   * @returns {number}
+   * @since 0.6.0
+   */
+  public getEditingCycles(): number {
+    return this.editingCycles;
+  }
 
-    if (sanitizedKeyword === undefined) {
-      return;
+  /**
+   * @returns {string}
+   * @since 0.6.0
+   */
+  public getGenerator(): string {
+    return this.generator;
+  }
+
+  /**
+   * @param {string | undefined} initialCreator
+   * @returns {Meta} The `Meta` object
+   * @since 0.6.0
+   */
+  public setInitialCreator(initialCreator: string | undefined): Meta {
+    if (initialCreator === undefined || typeof initialCreator === "string") {
+      this.initialCreator = initialCreator;
     }
 
-    this.keywords.push(sanitizedKeyword);
+    return this;
   }
 
-  /** @inheritDoc */
-  public removeKeyword(keyword: string): void {
-    this.keywords = this.keywords.filter((existingKeyword: string) => existingKeyword !== keyword);
+  /**
+   * @returns {string | undefined}
+   * @since 0.6.0
+   */
+  public getInitialCreator(): string | undefined {
+    return this.initialCreator;
   }
 
-  /** @inheritDoc */
+  /**
+   * @param {string} keyword
+   * @returns {Meta} The `Meta` object
+   * @since 0.6.0
+   */
+  public addKeyword(keyword: string): Meta {
+    if (typeof keyword === "string") {
+      this.keywords.push(...keyword.split(","));
+    }
+
+    return this;
+  }
+
+  /**
+   * @returns {string[]}
+   * @since 0.6.0
+   */
   public getKeywords(): string[] {
     return Array.from(this.keywords);
   }
 
-  /** @inheritDoc */
-  public setLanguage(language: string | undefined): void {
-    if (language !== undefined && /^[a-z]{2}(-[A-Z]{2})?$/.test(language) === false) {
-      return;
-    }
+  /**
+   * @param {string} keyword
+   * @returns {Meta} The `Meta` object
+   * @since 0.6.0
+   */
+  public removeKeyword(keyword: string): Meta {
+    this.keywords = this.keywords.filter((existingKeyword: string) => existingKeyword !== keyword);
 
-    this.language = language;
+    return this;
   }
 
-  /** @inheritDoc */
+  /**
+   * @returns {Meta} The `Meta` object
+   * @since 0.6.0
+   */
+  public clearKeywords(): Meta {
+    this.keywords = [];
+
+    return this;
+  }
+
+  /**
+   * @param {string | undefined} language
+   * @returns {Meta} The `Meta` object
+   * @since 0.6.0
+   */
+  public setLanguage(language: string | undefined): Meta {
+    if (language === undefined || /^[a-z]{2}(-[A-Z]{2})?$/.test(language) === true) {
+      this.language = language;
+    }
+
+    return this;
+  }
+
+  /**
+   * @returns {string | undefined}
+   * @since 0.6.0
+   */
   public getLanguage(): string | undefined {
     return this.language;
   }
 
-  /** @inheritDoc */
-  public setSubject(subject: string | undefined): void {
-    this.subject = Meta.sanitizeOptionalString(subject);
+  /**
+   * @param {number | undefined} printDate
+   * @returns {Meta} The `Meta` object
+   * @since 0.6.0
+   */
+  public setPrintDate(printDate: number | undefined): Meta {
+    if (printDate === undefined || (typeof printDate === "number" && printDate >= Date.now())) {
+      this.printDate = printDate;
+    }
+
+    return this;
   }
 
-  /** @inheritDoc */
+  /**
+   * @returns {number | undefined}
+   * @since 0.6.0
+   */
+  public getPrintDate(): number | undefined {
+    return this.printDate;
+  }
+
+  /**
+   * @param {string | undefined} printedBy
+   * @returns {Meta} The `Meta` object
+   * @since 0.6.0
+   */
+  public setPrintedBy(printedBy: string | undefined): Meta {
+    if (printedBy === undefined || typeof printedBy === "string") {
+      this.printedBy = printedBy;
+    }
+
+    return this;
+  }
+
+  /**
+   * @returns {string | undefined}
+   * @since 0.6.0
+   */
+  public getPrintedBy(): string | undefined {
+    return this.printedBy;
+  }
+
+  /**
+   * @param {string | undefined} subject
+   * @returns {Meta} The `Meta` object
+   * @since 0.6.0
+   */
+  public setSubject(subject: string | undefined): Meta {
+    if (subject === undefined || typeof subject === "string") {
+      this.subject = subject;
+    }
+
+    return this;
+  }
+
+  /**
+   * @returns {string | undefined}
+   * @since 0.6.0
+   */
   public getSubject(): string | undefined {
     return this.subject;
   }
 
-  /** @inheritDoc */
-  public setTitle(title: string | undefined): void {
-    this.title = Meta.sanitizeOptionalString(title);
+  /**
+   * @param {string | undefined} title
+   * @returns {Meta} The `Meta` object
+   * @since 0.6.0
+   */
+  public setTitle(title: string | undefined): Meta {
+    if (title === undefined || typeof title === "string") {
+      this.title = title;
+    }
+
+    return this;
   }
 
-  /** @inheritDoc */
+  /**
+   * @returns {string | undefined}
+   * @since 0.6.0
+   */
   public getTitle(): string | undefined {
     return this.title;
   }
@@ -164,46 +328,22 @@ export class Meta implements IMeta {
    * @since 0.6.0
    */
   public toXml(document: Document, root: Element): void {
-    this.date = Date.now();
-
     const metaElement = document.createElement(OdfElementName.OfficeMeta);
     root.appendChild(metaElement);
 
-    this.setInitialCreatorElement(document, metaElement);
-    this.setCreationDateElement(document, metaElement);
-
-    this.setCreatorElement(document, metaElement);
-    this.setDateElement(document, metaElement);
-    this.setEditingCyclesElement(document, metaElement);
-
+    this.setGeneratorElement(document, metaElement);
     this.setTitleElement(document, metaElement);
+    this.setDescriptionElement(document, metaElement);
     this.setSubjectElement(document, metaElement);
     this.setKeywordElements(document, metaElement);
-    this.setDescriptionElement(document, metaElement);
+    this.setInitialCreatorElement(document, metaElement);
+    this.setCreatorElement(document, metaElement);
+    this.setPrintedByElement(document, metaElement);
+    this.setCreationDateElement(document, metaElement);
+    this.setDateElement(document, metaElement);
+    this.setPrintDateElement(document, metaElement);
     this.setLanguageElement(document, metaElement);
-
-    this.setGeneratorElement(document, metaElement);
-  }
-
-  /**
-   * Returns the user name of the current active user.
-   *
-   * @returns {string} The name of the current active user
-   */
-  private getCurrentUser(): string {
-    return userInfo().username;
-  }
-
-  /**
-   * Sets the `meta:initial-creator` element to the current user.
-   *
-   * @param {Document} document The XML document
-   * @param {Element} metaElement The meta element which will act as parent
-   */
-  private setInitialCreatorElement(document: Document, metaElement: Element): void {
-    const creatorElement = document.createElement(MetaElementName.MetaInitialCreator);
-    metaElement.appendChild(creatorElement);
-    creatorElement.appendChild(document.createTextNode(this.initialCreator));
+    this.setEditingCyclesElement(document, metaElement);
   }
 
   /**
@@ -225,21 +365,45 @@ export class Meta implements IMeta {
    * @param {Element} metaElement The meta element which will act as parent
    */
   private setCreatorElement(document: Document, metaElement: Element): void {
+    if (this.creator === undefined || this.creator.length === 0) {
+      return;
+    }
+
     const creatorElement = document.createElement(MetaElementName.DcCreator);
     metaElement.appendChild(creatorElement);
     creatorElement.appendChild(document.createTextNode(this.creator));
   }
 
   /**
-   * Sets the `dc:date` element to the current date and time.
+   * Sets the `dc:date` element if date is set.
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
    */
   private setDateElement(document: Document, metaElement: Element): void {
+    if (this.date === undefined) {
+      return;
+    }
+
     const dateElement = document.createElement(MetaElementName.DcDate);
     metaElement.appendChild(dateElement);
     dateElement.appendChild(document.createTextNode(new Date(this.date).toISOString()));
+  }
+
+  /**
+   * Sets the `dc:description` element if description is set.
+   *
+   * @param {Document} document The XML document
+   * @param {Element} metaElement The meta element which will act as parent
+   */
+  private setDescriptionElement(document: Document, metaElement: Element): void {
+    if (this.description === undefined || this.description.length === 0) {
+      return;
+    }
+
+    const descriptionElement = document.createElement(MetaElementName.DcDescription);
+    metaElement.appendChild(descriptionElement);
+    descriptionElement.appendChild(document.createTextNode(this.description));
   }
 
   /**
@@ -255,35 +419,31 @@ export class Meta implements IMeta {
   }
 
   /**
-   * Sets the `dc:title` element if title is set.
+   * Sets the `meta:generator` element to the name and version of this library (`simple-odf/x.y.z`).
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
    */
-  private setTitleElement(document: Document, metaElement: Element): void {
-    if (this.title === undefined || this.title.length === 0) {
-      return;
-    }
-
-    const titleElement = document.createElement(MetaElementName.DcTitle);
-    metaElement.appendChild(titleElement);
-    titleElement.appendChild(document.createTextNode(this.title));
+  private setGeneratorElement(document: Document, metaElement: Element): void {
+    const generatorElement = document.createElement(MetaElementName.MetaGenerator);
+    metaElement.appendChild(generatorElement);
+    generatorElement.appendChild(document.createTextNode(this.generator));
   }
 
   /**
-   * Sets the `dc:subject` element if subject is set.
+   * Sets the `meta:initial-creator` element to the current user.
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
    */
-  private setSubjectElement(document: Document, metaElement: Element): void {
-    if (this.subject === undefined || this.subject.length === 0) {
+  private setInitialCreatorElement(document: Document, metaElement: Element): void {
+    if (this.initialCreator === undefined || this.initialCreator.length === 0) {
       return;
     }
 
-    const subjectElement = document.createElement(MetaElementName.DcSubject);
-    metaElement.appendChild(subjectElement);
-    subjectElement.appendChild(document.createTextNode(this.subject));
+    const creatorElement = document.createElement(MetaElementName.MetaInitialCreator);
+    metaElement.appendChild(creatorElement);
+    creatorElement.appendChild(document.createTextNode(this.initialCreator));
   }
 
   /**
@@ -305,22 +465,6 @@ export class Meta implements IMeta {
   }
 
   /**
-   * Sets the `dc:description` element if description is set.
-   *
-   * @param {Document} document The XML document
-   * @param {Element} metaElement The meta element which will act as parent
-   */
-  private setDescriptionElement(document: Document, metaElement: Element): void {
-    if (this.description === undefined || this.description.length === 0) {
-      return;
-    }
-
-    const descriptionElement = document.createElement(MetaElementName.DcDescription);
-    metaElement.appendChild(descriptionElement);
-    descriptionElement.appendChild(document.createTextNode(this.description));
-  }
-
-  /**
    * Sets the `dc:language` element if language is set.
    *
    * @param {Document} document The XML document
@@ -337,14 +481,65 @@ export class Meta implements IMeta {
   }
 
   /**
-   * Sets the `meta:generator` element to the name and version of this library (`simple-odf/x.y.z`).
+   * Sets the `meta:print-date` element if print date is set.
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
    */
-  private setGeneratorElement(document: Document, metaElement: Element): void {
-    const generatorElement = document.createElement(MetaElementName.MetaGenerator);
-    metaElement.appendChild(generatorElement);
-    generatorElement.appendChild(document.createTextNode(this.generator));
+  private setPrintDateElement(document: Document, metaElement: Element): void {
+    if (this.printDate === undefined) {
+      return;
+    }
+
+    const printDateElement = document.createElement(MetaElementName.MetaPrintDate);
+    metaElement.appendChild(printDateElement);
+    printDateElement.appendChild(document.createTextNode(new Date(this.printDate).toISOString()));
+  }
+
+  /**
+   * Sets the `meta:printed-by` element if printing name is set.
+   *
+   * @param {Document} document The XML document
+   * @param {Element} metaElement The meta element which will act as parent
+   */
+  private setPrintedByElement(document: Document, metaElement: Element): void {
+    if (this.printedBy === undefined || this.printedBy.length === 0) {
+      return;
+    }
+    const printedByElement = document.createElement(MetaElementName.MetaPrintedBy);
+    metaElement.appendChild(printedByElement);
+    printedByElement.appendChild(document.createTextNode(this.printedBy));
+  }
+
+  /**
+   * Sets the `dc:subject` element if subject is set.
+   *
+   * @param {Document} document The XML document
+   * @param {Element} metaElement The meta element which will act as parent
+   */
+  private setSubjectElement(document: Document, metaElement: Element): void {
+    if (this.subject === undefined || this.subject.length === 0) {
+      return;
+    }
+
+    const subjectElement = document.createElement(MetaElementName.DcSubject);
+    metaElement.appendChild(subjectElement);
+    subjectElement.appendChild(document.createTextNode(this.subject));
+  }
+
+  /**
+   * Sets the `dc:title` element if title is set.
+   *
+   * @param {Document} document The XML document
+   * @param {Element} metaElement The meta element which will act as parent
+   */
+  private setTitleElement(document: Document, metaElement: Element): void {
+    if (this.title === undefined || this.title.length === 0) {
+      return;
+    }
+
+    const titleElement = document.createElement(MetaElementName.DcTitle);
+    metaElement.appendChild(titleElement);
+    titleElement.appendChild(document.createTextNode(this.title));
   }
 }
