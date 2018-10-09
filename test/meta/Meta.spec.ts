@@ -3,6 +3,7 @@ import { Meta } from "../../src/meta/Meta";
 import { TextDocument } from "../../src/TextDocument";
 
 describe(Meta.name, () => {
+  const timeOffset = 100;
   const currentUserName = userInfo().username;
 
   let meta: Meta;
@@ -13,7 +14,7 @@ describe(Meta.name, () => {
 
   describe("creation date", () => {
     it("return current date", () => {
-      expect(meta.getCreationDate()).toBeGreaterThan(Date.now() - 10);
+      expect(meta.getCreationDate()).toBeGreaterThan(Date.now() - timeOffset);
     });
   });
 
@@ -51,7 +52,7 @@ describe(Meta.name, () => {
     it("return current date by default", () => {
       const now = Date.now();
 
-      expect(meta.getDate()).toBeGreaterThan(now - 10);
+      expect(meta.getDate()).toBeGreaterThan(now - timeOffset);
       expect(meta.getDate()).toBeLessThanOrEqual(now);
     });
 
