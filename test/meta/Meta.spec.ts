@@ -21,8 +21,8 @@ describe(Meta.name, () => {
   describe("creator", () => {
     const testCreator = "Homer Simpson";
 
-    it("return current user by default", () => {
-      expect(meta.getCreator()).toBe(userInfo().username);
+    it("return undefined by default", () => {
+      expect(meta.getCreator()).toBeUndefined();
     });
 
     it("return previous set creator", () => {
@@ -49,11 +49,8 @@ describe(Meta.name, () => {
   describe("date", () => {
     const testDate = Date.UTC(2020, 3, 1, 12);
 
-    it("return current date by default", () => {
-      const now = Date.now();
-
-      expect(meta.getDate()).toBeGreaterThan(now - timeOffset);
-      expect(meta.getDate()).toBeLessThanOrEqual(now);
+    it("return undefined by default", () => {
+      expect(meta.getDate()).toBeUndefined();
     });
 
     it("return previous set date", () => {
@@ -373,9 +370,7 @@ describe(Meta.name, () => {
       const regex = new RegExp("<office:meta>"
         + "<meta:generator>simple-odf/\\d\\.\\d+\\.\\d+</meta:generator>"
         + "<meta:initial-creator>" + userInfo().username + "</meta:initial-creator>"
-        + "<dc:creator>" + userInfo().username + "</dc:creator>"
         + "<meta:creation-date>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z</meta:creation-date>"
-        + "<dc:date>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z</dc:date>"
         + "<meta:editing-cycles>1</meta:editing-cycles>"
         + "</office:meta>");
       expect(document.toString()).toMatch(regex);
