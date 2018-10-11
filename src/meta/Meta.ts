@@ -41,32 +41,36 @@ export class Meta {
   // private userDefined: any | undefined;
 
   /**
-   * Constructor.
+   * Creates a `Meta` instance that represents the metadata of a document..
    *
    * Initializes the creation date with the current time stamp
-   * and sets the username of the currently effective user as creator.
+   * and sets the username of the currently effective user as initial creator.
+   *
+   * @example
+   * const meta = new Meta();
    *
    * @since 0.6.0
    */
   public constructor() {
     const packageJson = require("../../package.json");
-    const currentUsername = userInfo().username;
 
     this.generator = `${packageJson.name}/${packageJson.version}`;
     this.keywords = [];
-    this.initialCreator = currentUsername;
-    this.creator = currentUsername;
+    this.initialCreator = userInfo().username;
     this.creationDate = Date.now();
-    this.date = Date.now();
     this.editingCycles = 1;
   }
 
   /**
    * The `setCreator()` method sets the name of the person who last modified the document.
    *
-   * The creator is initialized with the username of the currently effective user.
+   * @example
+   * const meta = new Meta();
+   * meta.setCreator('Lisa Simpson'); // 'Lisa Simpson'
+   * meta.setCreator(undefined);      // undefined
    *
    * @param {string | undefined} creator The name of the person who last modified a document
+   *                                     or `undefined` to unset the creator
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
@@ -79,7 +83,16 @@ export class Meta {
   }
 
   /**
-   * @returns {string | undefined}
+   * The `getCreator()` method returns the name of the person who last modified the document.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.getCreator();               // undefined
+   * meta.setCreator('Lisa Simpson');
+   * meta.getCreator();               // 'Lisa Simpson'
+   *
+   * @returns {string | undefined} The name of the person who last modified the document
+   *                               or `undefined` if the creator is not set
    * @since 0.6.0
    */
   public getCreator(): string | undefined {
@@ -87,7 +100,15 @@ export class Meta {
   }
 
   /**
-   * @returns {number}
+   * The `getCreationDate()` method returns the UTC timestamp specifying the date and time when a document was created.
+   *
+   * The creation date is initialized with the UTC timestamp of the moment the `Meta` instance was created.
+   *
+   * @example
+   * const meta = new Meta(); // 2020-04-01 12:00:00
+   * meta.getCreationDate();  // 1585742400000
+   *
+   * @returns {number} The UTC timestamp specifying the date and time when a document was created
    * @since 0.6.0
    */
   public getCreationDate(): number {
@@ -95,7 +116,14 @@ export class Meta {
   }
 
   /**
-   * @param {number | undefined} date
+   * The `setDate()` method sets the date and time when the document was last modified.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.setDate(Date.now()); // 2020-07-23 13:37:00
+   *
+   * @param {number | undefined} date The UTC timestamp specifying the date and time when the document was last modified
+   *                                  or `undefined` to unset the date
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
@@ -108,7 +136,16 @@ export class Meta {
   }
 
   /**
-   * @returns {number | undefined}
+   * The `getDate()` method returns the date and time when the document was last modified.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.getDate();           // undefined
+   * meta.setDate(Date.now()); // 2020-07-23 13:37:00
+   * meta.getDate();           // 1595511420000
+   *
+   * @returns {number | undefined} The UTC timestamp specifying the date and time when the document was last modified
+   *                               or `undefined` if the date is not set
    * @since 0.6.0
    */
   public getDate(): number | undefined {
@@ -116,7 +153,13 @@ export class Meta {
   }
 
   /**
-   * @param {string | undefined} description
+   * The `setDescription()` method sets the description of the document.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.setDescription('Memoirs of the yellow man wearing blue trousers');
+   *
+   * @param {string | undefined} description The description of the document or `undefined` to unset the description
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
@@ -129,7 +172,15 @@ export class Meta {
   }
 
   /**
-   * @returns {string | undefined}
+   * The `getDescription()` method returns the description of the document.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.getDescription(); // undefined
+   * meta.setDescription('Memoirs of the yellow man wearing blue trousers');
+   * meta.getDescription(); // 'Memoirs of the yellow man wearing blue trousers'
+   *
+   * @returns {string | undefined} The description of the document or `undefined` if the description is not set
    * @since 0.6.0
    */
   public getDescription(): string | undefined {
@@ -137,7 +188,15 @@ export class Meta {
   }
 
   /**
-   * @returns {number}
+   * The `getEditingCycles()` method returns the number of times the document has been edited.
+   *
+   * When the `Meta` instance is being created, the value is set to `1`.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.getEditingCycles(); // 1
+   *
+   * @returns {number} The number of times a document has been edited
    * @since 0.6.0
    */
   public getEditingCycles(): number {
@@ -145,7 +204,15 @@ export class Meta {
   }
 
   /**
-   * @returns {string}
+   * The `getGenerator()` method returns a string that identifies **simple-odf** as the OpenDocument producer
+   * that was used to create the document.
+   * The string matches the definition for user-agents as defined in [RFC2616](http://www.ietf.org/rfc/rfc2616.txt).
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.getGenerator(); // simple-odf/0.6.0
+   *
+   * @returns {string} A string that identifies **simple-odf** as the OpenDocument producer of this document
    * @since 0.6.0
    */
   public getGenerator(): string {
@@ -153,7 +220,17 @@ export class Meta {
   }
 
   /**
-   * @param {string | undefined} initialCreator
+   * The `setInitialCreator()` method sets the name of the initial creator of the document.
+   *
+   * The initial creator is initialized with the username of the currently effective user.
+   *
+   * @example
+   * const meta = new Meta();                // 'Homer Simpson'
+   * meta.setInitialCreator('Bart Simpson'); // 'Bart Simpson'
+   * meta.setInitialCreator(undefined);      // undefined
+   *
+   * @param {string | undefined} initialCreator The name of the initial creator of the document
+   *                                            or `undefined` to unset the initial creator
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
@@ -166,7 +243,16 @@ export class Meta {
   }
 
   /**
-   * @returns {string | undefined}
+   * The `getInitialCreator()` method returns the name of the initial creator of the document.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.getInitialCreator();               // 'Homer Simpson'
+   * meta.setInitialCreator('Bart Simpson');
+   * meta.getInitialCreator();               // 'Bart Simpson'
+   *
+   * @returns {string | undefined} The name of the initial creator of the document
+   *                               or `undefined` if the initial creator is not set
    * @since 0.6.0
    */
   public getInitialCreator(): string | undefined {
@@ -174,7 +260,15 @@ export class Meta {
   }
 
   /**
-   * @param {string} keyword
+   * The `addKeyword()` method adds a keyword pertaining to a document to the end of the keyword list.
+   * If the given string includes comma characters, the string will be split and added as multiple key words.
+   *
+   * @example
+   * const meta = new Meta();                       // []
+   * meta.addKeyword('memoirs');                    // ['memoirs']
+   * meta.addKeyword('Simpson,family,Springfield'); // ['memoirs', 'Simpson', 'family', 'Springfield']
+   *
+   * @param {string} keyword The keyword to add to the end of the keyword list
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
@@ -187,7 +281,15 @@ export class Meta {
   }
 
   /**
-   * @returns {string[]}
+   * The `getKeywords()` method returns a new `Array` object that contains the keywords of the document.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.getKeywords();                     // []
+   * meta.addKeyword('Simpson,Springfield');
+   * meta.getKeywords();                     // ['Simpson', 'Springfield']
+   *
+   * @returns {string[]} A new `Array` object that contains the keywords of the document
    * @since 0.6.0
    */
   public getKeywords(): string[] {
@@ -195,7 +297,14 @@ export class Meta {
   }
 
   /**
-   * @param {string} keyword
+   * The `removeKeyword()` method removes the specified keyword from the keyword list.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.addKeyword('Simpson,Springfield'); // ['Simpson', 'Springfield']
+   * meta.removeKeyword('Simpson');          // ['Springfield']
+   *
+   * @param {string} keyword The keyword to remove from the keyword list
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
@@ -206,6 +315,13 @@ export class Meta {
   }
 
   /**
+   * The `clearKeywords()` method removes all elements from the keyword list.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.addKeyword('Simpson,Springfield'); // ['Simpson', 'Springfield']
+   * meta.clearKeywords();                   // []
+   *
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
@@ -216,7 +332,17 @@ export class Meta {
   }
 
   /**
-   * @param {string | undefined} language
+   * The `setLanguage()` method sets default language of the document.
+   * A language is a natural language identifier as defined by [RFC5646](http://www.ietf.org/rfc/rfc5646.txt).
+   * If an illegal value is provided, the value will be ignored.
+   *
+   * @example
+   * const meta = new Meta();     // undefined
+   * meta.setLanguage('en-US');   // 'en-US'
+   * meta.setLanguage('illegal'); // 'en-US'
+   *
+   * @param {string | undefined} language The default language of the document
+   *                                      or `undefined` to unset the default language
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
@@ -229,7 +355,16 @@ export class Meta {
   }
 
   /**
-   * @returns {string | undefined}
+   * The `getLanguage()` method returns the default language of the document.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.getLanguage();        // undefined
+   * meta.setLanguage('en-US');
+   * meta.getLanguage();        // 'en-US'
+   *
+   * @returns {string | undefined} The default language of the document
+   *                               or `undefined` if the default language is not set
    * @since 0.6.0
    */
   public getLanguage(): string | undefined {
@@ -237,7 +372,14 @@ export class Meta {
   }
 
   /**
-   * @param {number | undefined} printDate
+   * The `setPrintDate()` method sets the date and time when the document was last printed.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.setPrintDate(Date.now()); // 2020-07-23 13:37:00
+   *
+   * @param {number | undefined} printDate The UTC timestamp specifying the date and time when the document was last
+   *                                       printed or `undefined` to unset the print date
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
@@ -250,7 +392,16 @@ export class Meta {
   }
 
   /**
-   * @returns {number | undefined}
+   * The `getPrintDate()` method returns the date and time when the document was last printed.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.getPrintDate();           // undefined
+   * meta.setPrintDate(Date.now()); // 2020-07-23 13:37:00
+   * meta.getPrintDate();           // 1595511420000
+   *
+   * @returns {number | undefined} The UTC timestamp specifying the date and time when the document was last printed
+   *                               or `undefined` if the print date is not set
    * @since 0.6.0
    */
   public getPrintDate(): number | undefined {
@@ -258,7 +409,15 @@ export class Meta {
   }
 
   /**
-   * @param {string | undefined} printedBy
+   * The `setPrintedBy()` method sets the name of the last person who printed the document.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.setPrintedBy('Marge Simpson'); // 'Marge Simpson'
+   * meta.setPrintedBy(undefined);       // undefined
+   *
+   * @param {string | undefined} printedBy The name of the last person who printed the document
+   *                                       or `undefined` to unset the name of the person
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
@@ -271,7 +430,16 @@ export class Meta {
   }
 
   /**
-   * @returns {string | undefined}
+   * The `getPrintedBy()` method returns the name of the last person who printed the document.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.getPrintedBy();                // undefined
+   * meta.setPrintedBy('Marge Simpson');
+   * meta.getPrintedBy();                // 'Marge Simpson'
+   *
+   * @returns {string | undefined} The name of the last person who printed the document
+   *                               or `undefined` if the name of the person is not set
    * @since 0.6.0
    */
   public getPrintedBy(): string | undefined {
@@ -279,7 +447,14 @@ export class Meta {
   }
 
   /**
-   * @param {string | undefined} subject
+   * The `setSubject()` method sets the subject of the document.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.setSubject('Simpsons'); // 'Simpsons'
+   * meta.setSubject(undefined);  // undefined
+   *
+   * @param {string | undefined} subject The subject of the document or `undefined` to unset the subject
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
@@ -292,7 +467,15 @@ export class Meta {
   }
 
   /**
-   * @returns {string | undefined}
+   * The `getSubject()` method returns the subject of the document.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.getSubject();           // undefined
+   * meta.setSubject('Simpsons');
+   * meta.getSubject();           // 'Simpsons'
+   *
+   * @returns {string | undefined} The subject of the document or `undefined` if the subject is not set
    * @since 0.6.0
    */
   public getSubject(): string | undefined {
@@ -300,7 +483,14 @@ export class Meta {
   }
 
   /**
-   * @param {string | undefined} title
+   * The `setTitle()` method sets the title of the document.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.setTitle('Memoirs of Homer Simpson'); // 'Memoirs of Homer Simpson'
+   * meta.setTitle(undefined);                  // undefined
+   *
+   * @param {string | undefined} title The title of the document or `undefined` to unset the title
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
@@ -313,7 +503,15 @@ export class Meta {
   }
 
   /**
-   * @returns {string | undefined}
+   * The `getTitle()` method returns the title of the document.
+   *
+   * @example
+   * const meta = new Meta();
+   * meta.getTitle();                           // undefined
+   * meta.setTitle('Memoirs of Homer Simpson');
+   * meta.getTitle();                           // 'Memoirs of Homer Simpson'
+   *
+   * @returns {string | undefined} The title of the document or `undefined` if the title is not set
    * @since 0.6.0
    */
   public getTitle(): string | undefined {
