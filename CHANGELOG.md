@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased] (2018-??-??)
+
+## [0.6.0] (2018-10-12)
 ### Added
 - **meta:** Set meta data of the document, closes [#44](https://github.com/connium/simple-odf/issues/44)
 - **paragraph:** Add keep-together style (by @verheyenkoen)
@@ -78,7 +80,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **paragraph:** Set horizontal alignment
 - **text-document:** Create text documents and save them as flat XML ODF document
 
-[Unreleased]: https://github.com/connium/simple-odf/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/connium/simple-odf/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/connium/simple-odf/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/connium/simple-odf/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/connium/simple-odf/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/connium/simple-odf/compare/v0.3.0...v0.3.1
