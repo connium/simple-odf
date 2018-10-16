@@ -39,6 +39,9 @@ export class TextDocument extends OdfElement {
   /**
    * The `getMeta()` method returns the metadata of the document.
    *
+   * @example
+   * document.getMeta().setCreator('Lisa Simpson');
+   *
    * @returns {Meta} An object holding the metadata of the document
    * @see {@link Meta}
    * @since 0.6.0
@@ -163,6 +166,7 @@ export class TextDocument extends OdfElement {
    * Declares the used XML namespaces.
    *
    * @param {Element} root The root element of the document which will be used as parent
+   * @private
    */
   private setXmlNamespaces(root: Element): void {
     root.setAttribute("xmlns:dc", "http://purl.org/dc/elements/1.1");
@@ -180,6 +184,7 @@ export class TextDocument extends OdfElement {
    *
    * @param {Document} document The XML document
    * @param {Element} root The element which will be used as parent
+   * @private
    */
   private setFontFaceElements(document: Document, root: Element): void {
     if (this.fonts.length === 0) {

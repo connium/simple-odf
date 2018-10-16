@@ -64,6 +64,7 @@ export class Image extends OdfElement {
    *
    * @param {Document} document The XML document
    * @param {Element} frameElement The parent node in the DOM (`draw:frame`)
+   * @private
    */
   private embedImage(document: Document, frameElement: Element): void {
     const image = document.createElement(DrawElementName.DrawImage);

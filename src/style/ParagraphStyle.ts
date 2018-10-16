@@ -141,6 +141,7 @@ export class ParagraphStyle implements IParagraphStyle {
    *
    * @returns {string} The name of the style
    * @since 0.4.0
+   * @private
    */
   private getName(): string {
     const hash = createHash("md5");
@@ -170,6 +171,7 @@ export class ParagraphStyle implements IParagraphStyle {
    * @param {Document} document The document to search in
    * @param {string} styleName The name of the style to look for
    * @returns {boolean} Returns whether the style with the given name already exists
+   * @private
    */
   private existsStyle(document: Document, styleName: string): boolean {
     const automaticStylesElement = StyleHelper.getAutomaticStylesElement(document);
@@ -194,6 +196,7 @@ export class ParagraphStyle implements IParagraphStyle {
    * @param {Document} document The document to create the element in
    * @param {string} styleName The name of the style to create
    * @returns {Element} The newly created style element
+   * @private
    */
   private createStyleElement(document: Document, styleName: string): Element {
     const automaticStylesElement = StyleHelper.getAutomaticStylesElement(document);

@@ -59,6 +59,12 @@ list.addItem("just write like you would do in a full-blown editor");
 document.saveFlat("/home/homer/My_first_document.fodf");
 ```
 
+## Documentation
+
+Learn more about the [OASIS Open Document Format](http://docs.oasis-open.org/office/v1.2/OpenDocument-v1.2.html).
+
+- [API reference](./docs/API.md)
+
 ## Contributing
 
 If you want to contribute to simple-odf, you are very welcome. Send issues and pull requests with your ideas.
@@ -96,4 +102,4 @@ If you want to contribute to simple-odf, you are very welcome. Send issues and p
 
 ### License
 
-By contributing to simple-odf, you agree that your contributions will be licensed under its MIT license.
+By contributing to simple-odf, you agree that your contributions will be licensed under its [MIT license](./LICENSE).

@@ -3,6 +3,7 @@
 coverage/
 docs/
 examples/
+jsdoc2md/
 lib/test/
 src/
 test/

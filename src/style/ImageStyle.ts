@@ -93,6 +93,7 @@ export class ImageStyle implements IImageStyle {
    * Sets the attributes for the image frame.
    *
    * @param {Element} frameElement The element which will take the attribute
+   * @private
    */
   private setFrameAttributes(frameElement: Element): void {
     frameElement.setAttribute(OdfAttributeName.TextAnchorType, this.anchorType);

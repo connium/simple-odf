@@ -41,7 +41,7 @@ export class Meta {
   // private userDefined: any | undefined;
 
   /**
-   * Creates a `Meta` instance that represents the metadata of a document..
+   * Creates a `Meta` instance that represents the metadata of a document.
    *
    * Initializes the creation date with the current time stamp
    * and sets the username of the currently effective user as initial creator.
@@ -549,6 +549,7 @@ export class Meta {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @private
    */
   private setCreationDateElement(document: Document, metaElement: Element): void {
     const creationDateElement = document.createElement(MetaElementName.MetaCreationDate);
@@ -561,6 +562,7 @@ export class Meta {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @private
    */
   private setCreatorElement(document: Document, metaElement: Element): void {
     if (this.creator === undefined || this.creator.length === 0) {
@@ -577,6 +579,7 @@ export class Meta {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @private
    */
   private setDateElement(document: Document, metaElement: Element): void {
     if (this.date === undefined) {
@@ -593,6 +596,7 @@ export class Meta {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @private
    */
   private setDescriptionElement(document: Document, metaElement: Element): void {
     if (this.description === undefined || this.description.length === 0) {
@@ -609,6 +613,7 @@ export class Meta {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @private
    */
   private setEditingCyclesElement(document: Document, metaElement: Element): void {
     const editingCyclesElement = document.createElement(MetaElementName.MetaEditingCycles);
@@ -621,6 +626,7 @@ export class Meta {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @private
    */
   private setGeneratorElement(document: Document, metaElement: Element): void {
     const generatorElement = document.createElement(MetaElementName.MetaGenerator);
@@ -633,6 +639,7 @@ export class Meta {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @private
    */
   private setInitialCreatorElement(document: Document, metaElement: Element): void {
     if (this.initialCreator === undefined || this.initialCreator.length === 0) {
@@ -649,6 +656,7 @@ export class Meta {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @private
    */
   private setKeywordElements(document: Document, metaElement: Element): void {
     if (this.keywords.length === 0) {
@@ -667,6 +675,7 @@ export class Meta {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @private
    */
   private setLanguageElement(document: Document, metaElement: Element): void {
     if (this.language === undefined || this.language.length === 0) {
@@ -683,6 +692,7 @@ export class Meta {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @private
    */
   private setPrintDateElement(document: Document, metaElement: Element): void {
     if (this.printDate === undefined) {
@@ -699,6 +709,7 @@ export class Meta {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @private
    */
   private setPrintedByElement(document: Document, metaElement: Element): void {
     if (this.printedBy === undefined || this.printedBy.length === 0) {
@@ -714,6 +725,7 @@ export class Meta {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @private
    */
   private setSubjectElement(document: Document, metaElement: Element): void {
     if (this.subject === undefined || this.subject.length === 0) {
@@ -730,6 +742,7 @@ export class Meta {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @private
    */
   private setTitleElement(document: Document, metaElement: Element): void {
     if (this.title === undefined || this.title.length === 0) {

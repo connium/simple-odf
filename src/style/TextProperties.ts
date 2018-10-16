@@ -15,6 +15,7 @@ const DEFAULT_TYPEFACE = Typeface.Normal;
  *
  * @extends ITextProperties
  * @since 0.4.0
+ * @private
  */
 export class TextProperties implements ITextProperties {
   private color: Color | undefined;

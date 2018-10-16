@@ -14,7 +14,8 @@
     "coverage": "jest --coverage",
     "jest": "jest",
     "lint": "tslint -c tslint.json 'src/**/*.ts', 'test/**/*.ts'",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "docs": "rm -r ./lib && tsc && jsdoc2md --name-format --param-list-format list --separators --partial ./jsdoc2md/body.hbs ./jsdoc2md/params-list.hbs ./jsdoc2md/returns.hbs ./jsdoc2md/scope.hbs --files ./lib/**/*.js ./lib/*.js > ./docs/API.md"
   },
   "repository": {
     "type": "git",
@@ -45,6 +46,7 @@
     "@types/node": "^8.10.35",
     "@types/xmldom": "^0.1.29",
     "jest": "^22.4.4",
+    "jsdoc-to-markdown": "^4.0.1",
     "ts-jest": "^22.4.6",
     "tslint": "^5.11.0",
     "typescript": "^2.9.2"

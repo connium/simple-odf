@@ -13,6 +13,7 @@ const DEFAULT_KEEP_TOGETHER = false;
  * This class represents the style of a paragraph.
  *
  * @since 0.1.0
+ * @private
  */
 export class ParagraphProperties implements IParagraphProperties {
   private horizontalAlignment: HorizontalAlignment;
