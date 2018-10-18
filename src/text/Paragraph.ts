@@ -146,6 +146,7 @@ export class Paragraph extends OdfElement {
 
   /**
    * Removes the text content of this paragraph.
+   * @private
    */
   private removeText(): void {
     const elements = this.getAll();

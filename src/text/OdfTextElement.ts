@@ -7,6 +7,7 @@ const SPACE = " ";
  * This class represents text in a paragraph.
  *
  * @since 0.3.0
+ * @private
  */
 export class OdfTextElement extends OdfElement {
   /**

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased] (2018-??-??)
+### Added
+- **docs:** Add automatically created API documentation, closes [#16](https://github.com/connium/simple-odf/issues/16)
 
 ## [0.6.0] (2018-10-12)
 ### Added

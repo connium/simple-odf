@@ -32,6 +32,7 @@ export class StyleHelper {
    * @param {Document} document The XML document
    * @returns {Element} The newly created `automatic-styles` element
    * @since 0.4.0
+   * @private
    */
   private static createAutomaticStylesElement(document: Document): Element {
     const rootNode = document.firstChild as Element;

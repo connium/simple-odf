@@ -45,6 +45,7 @@ export class Color {
    * @param {number} value The value to be tested
    * @returns {boolean} A `Boolean` indicating whether or not the given value is inside the allowable range
    * @since 0.4.0
+   * @private
    */
   private static checkRange(value: number): boolean {
     return value >= 0 && value <= 255;
@@ -56,6 +57,7 @@ export class Color {
    * @param {number} value The number value to convert
    * @returns {string} A string representing the given number value
    * @since 0.4.0
+   * @private
    */
   private static numberToHex(value: number): string {
     const hexString = value.toString(16);
@@ -73,6 +75,7 @@ export class Color {
    * @param {number} green The green channel of the color
    * @param {number} blue The blue channel of the color
    * @since 0.4.0
+   * @private
    */
   private constructor(private red: number, private green: number, private blue: number) {
   }

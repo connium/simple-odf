@@ -1,6 +1,7 @@
 /**
  * Base element in Open Document Format
  * @since 0.1.0
+ * @private
  */
 export class OdfElement {
   private children: OdfElement[];
