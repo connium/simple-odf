@@ -14,7 +14,7 @@ describe(Meta.name, () => {
 
   describe("creation date", () => {
     it("return current date", () => {
-      expect(meta.getCreationDate()).toBeGreaterThan(Date.now() - timeOffset);
+      expect(meta.getCreationDate().getTime()).toBeGreaterThan(Date.now() - timeOffset);
     });
   });
 
@@ -47,7 +47,7 @@ describe(Meta.name, () => {
   });
 
   describe("date", () => {
-    const testDate = Date.UTC(2020, 3, 1, 12);
+    const testDate = new Date(2020, 3, 1, 12);
 
     it("return undefined by default", () => {
       expect(meta.getDate()).toBeUndefined();
@@ -75,7 +75,7 @@ describe(Meta.name, () => {
 
     it("ignore dates earlier than now", () => {
       meta.setDate(testDate);
-      meta.setDate(Date.UTC(2000, 11, 24, 13, 37, 23, 42));
+      meta.setDate(new Date(2000, 11, 24, 13, 37, 23, 42));
 
       expect(meta.getDate()).toBe(testDate);
     });
@@ -241,7 +241,7 @@ describe(Meta.name, () => {
   });
 
   describe("print date", () => {
-    const testDate = Date.UTC(2020, 3, 1, 12);
+    const testDate = new Date(2020, 3, 1, 12);
 
     it("return undefined by default", () => {
       expect(meta.getPrintDate()).toBeUndefined();
@@ -269,7 +269,7 @@ describe(Meta.name, () => {
 
     it("ignore dates earlier than now", () => {
       meta.setPrintDate(testDate);
-      meta.setPrintDate(Date.UTC(2000, 11, 24, 13, 37, 23, 42));
+      meta.setPrintDate(new Date(2000, 11, 24, 13, 37, 23, 42));
 
       expect(meta.getPrintDate()).toBe(testDate);
     });
@@ -397,13 +397,13 @@ describe(Meta.name, () => {
     it("append elements if they are set", () => {
       document.getMeta()
         .setCreator("Homer Simpson")
-        .setDate(Date.UTC(2020, 11, 24, 13, 37, 23, 42))
+        .setDate(new Date(Date.UTC(2020, 11, 24, 13, 37, 23, 42)))
         .setDescription("some test description")
         .setInitialCreator("Marge Simpson")
         .addKeyword("some keyword")
         .addKeyword("some other keyword")
         .setLanguage("zu")
-        .setPrintDate(Date.UTC(2021, 3, 1))
+        .setPrintDate(new Date(Date.UTC(2021, 3, 1)))
         .setPrintedBy("Maggie Simpson")
         .setSubject("some test subject")
         .setTitle("some test title")
