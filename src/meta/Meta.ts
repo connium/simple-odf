@@ -28,9 +28,9 @@ export class Meta {
   private initialCreator: string | undefined;
   private creator: string | undefined;
   private printedBy: string | undefined;
-  private creationDate: number;
-  private date: number | undefined;
-  private printDate: number | undefined;
+  private creationDate: Date;
+  private date: Date | undefined;
+  private printDate: Date | undefined;
   // private template: any | undefined;
   // private autoReload: any | undefined;
   // private hyperlinkBehaviour: any | undefined;
@@ -57,7 +57,7 @@ export class Meta {
     this.generator = `${packageJson.name}/${packageJson.version}`;
     this.keywords = [];
     this.initialCreator = userInfo().username;
-    this.creationDate = Date.now();
+    this.creationDate = new Date();
     this.editingCycles = 1;
   }
 
@@ -108,10 +108,10 @@ export class Meta {
    * const meta = new Meta(); // 2020-04-01 12:00:00
    * meta.getCreationDate();  // 1585742400000
    *
-   * @returns {number} The UTC timestamp specifying the date and time when a document was created
+   * @returns {Date} A `Date` instance specifying the date and time when a document was created
    * @since 0.6.0
    */
-  public getCreationDate(): number {
+  public getCreationDate(): Date {
     return this.creationDate;
   }
 
@@ -120,15 +120,15 @@ export class Meta {
    *
    * @example
    * const meta = new Meta();
-   * meta.setDate(Date.now()); // 2020-07-23 13:37:00
+   * meta.setDate(new Date()); // 2020-07-23 13:37:00
    *
-   * @param {number | undefined} date The UTC timestamp specifying the date and time when the document was last modified
-   *                                  or `undefined` to unset the date
+   * @param {Date | undefined} date A `Date` instance specifying the date and time when the document was last modified
+   *                                or `undefined` to unset the date
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
-  public setDate(date: number | undefined): Meta {
-    if (date === undefined || (typeof date === "number" && date >= Date.now())) {
+  public setDate(date: Date | undefined): Meta {
+    if (date === undefined || (date instanceof Date && date.getTime() >= Date.now())) {
       this.date = date;
     }
 
@@ -141,14 +141,14 @@ export class Meta {
    * @example
    * const meta = new Meta();
    * meta.getDate();           // undefined
-   * meta.setDate(Date.now()); // 2020-07-23 13:37:00
+   * meta.setDate(new Date()); // 2020-07-23 13:37:00
    * meta.getDate();           // 1595511420000
    *
-   * @returns {number | undefined} The UTC timestamp specifying the date and time when the document was last modified
-   *                               or `undefined` if the date is not set
+   * @returns {Date | undefined} A `Date` instance specifying the date and time when the document was last modified
+   *                             or `undefined` if the date is not set
    * @since 0.6.0
    */
-  public getDate(): number | undefined {
+  public getDate(): Date | undefined {
     return this.date;
   }
 
@@ -376,15 +376,15 @@ export class Meta {
    *
    * @example
    * const meta = new Meta();
-   * meta.setPrintDate(Date.now()); // 2020-07-23 13:37:00
+   * meta.setPrintDate(new Date()); // 2020-07-23 13:37:00
    *
-   * @param {number | undefined} printDate The UTC timestamp specifying the date and time when the document was last
-   *                                       printed or `undefined` to unset the print date
+   * @param {Date | undefined} printDate A `Date` instance specifying the date and time when the document was last
+   *                                     printed or `undefined` to unset the print date
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
-  public setPrintDate(printDate: number | undefined): Meta {
-    if (printDate === undefined || (typeof printDate === "number" && printDate >= Date.now())) {
+  public setPrintDate(printDate: Date | undefined): Meta {
+    if (printDate === undefined || (printDate instanceof Date && printDate.getTime() >= Date.now())) {
       this.printDate = printDate;
     }
 
@@ -397,14 +397,14 @@ export class Meta {
    * @example
    * const meta = new Meta();
    * meta.getPrintDate();           // undefined
-   * meta.setPrintDate(Date.now()); // 2020-07-23 13:37:00
+   * meta.setPrintDate(new Date()); // 2020-07-23 13:37:00
    * meta.getPrintDate();           // 1595511420000
    *
-   * @returns {number | undefined} The UTC timestamp specifying the date and time when the document was last printed
-   *                               or `undefined` if the print date is not set
+   * @returns {Date | undefined} A `Date` instance specifying the date and time when the document was last printed
+   *                             or `undefined` if the print date is not set
    * @since 0.6.0
    */
-  public getPrintDate(): number | undefined {
+  public getPrintDate(): Date | undefined {
     return this.printDate;
   }
 
@@ -554,7 +554,7 @@ export class Meta {
   private setCreationDateElement(document: Document, metaElement: Element): void {
     const creationDateElement = document.createElement(MetaElementName.MetaCreationDate);
     metaElement.appendChild(creationDateElement);
-    creationDateElement.appendChild(document.createTextNode(new Date(this.creationDate).toISOString()));
+    creationDateElement.appendChild(document.createTextNode(this.creationDate.toISOString()));
   }
 
   /**
@@ -588,7 +588,7 @@ export class Meta {
 
     const dateElement = document.createElement(MetaElementName.DcDate);
     metaElement.appendChild(dateElement);
-    dateElement.appendChild(document.createTextNode(new Date(this.date).toISOString()));
+    dateElement.appendChild(document.createTextNode(this.date.toISOString()));
   }
 
   /**
@@ -701,7 +701,7 @@ export class Meta {
 
     const printDateElement = document.createElement(MetaElementName.MetaPrintDate);
     metaElement.appendChild(printDateElement);
-    printDateElement.appendChild(document.createTextNode(new Date(this.printDate).toISOString()));
+    printDateElement.appendChild(document.createTextNode(this.printDate.toISOString()));
   }
 
   /**

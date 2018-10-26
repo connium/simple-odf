@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - **docs:** Add automatically created API documentation, closes [#16](https://github.com/connium/simple-odf/issues/16)
 
+### Changed
+- **meta:** Use `Date` instead of `number` when dealing with dates
+
 ## [0.6.0] (2018-10-12)
 ### Added
 - **meta:** Set meta data of the document, closes [#44](https://github.com/connium/simple-odf/issues/44)
