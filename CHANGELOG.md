@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - **meta:** Use `Date` instead of `number` when dealing with dates
+- **chore:** Update vulnerable dependencies (cryptiles, merge)
 
 ## [0.6.0] (2018-10-12)
 ### Added
