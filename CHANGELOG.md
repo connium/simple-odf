@@ -6,12 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
-## [Unreleased] (2018-??-??)
+## [Unreleased] (2019-??-??)
 ### Added
 - **docs:** Add automatically created API documentation, closes [#16](https://github.com/connium/simple-odf/issues/16)
 
 ### Changed
 - **meta:** Use `Date` instead of `number` when dealing with dates
+- **chore:** Update dev dependencies, place test code next to production code, mention contributors in package.json
 
 ## [0.6.0] (2018-10-12)
 ### Added

@@ -1,8 +1,8 @@
 import { join } from "path";
-import { Image } from "../../src/draw/Image";
-import { AnchorType } from "../../src/style/AnchorType";
-import { ImageStyle } from "../../src/style/ImageStyle";
-import { TextDocument } from "../../src/TextDocument";
+import { Image } from "./Image";
+import { AnchorType } from "../style/AnchorType";
+import { ImageStyle } from "../style/ImageStyle";
+import { TextDocument } from "../TextDocument";
 
 describe(Image.name, () => {
   let document: TextDocument;
@@ -13,7 +13,7 @@ describe(Image.name, () => {
 
   describe("#setStyle", () => {
     it("set text anchor attribute on frame", () => {
-      document.addParagraph().addImage(join(__dirname, "..", "data", "ODF.png"));
+      document.addParagraph().addImage(join(__dirname, "..", "..", "test", "data", "ODF.png"));
 
       expect(document.toString()).toMatch(/<draw:frame text:anchor-type="paragraph">/);
     });
@@ -41,10 +41,8 @@ describe(Image.name, () => {
   });
 
   describe("#toXml", () => {
-    let image: Image;
-
     beforeEach(() => {
-      image = document.addParagraph().addImage(join(__dirname, "..", "data", "ODF.png"));
+      document.addParagraph().addImage(join(__dirname, "..", "..", "test", "data", "ODF.png"));
     });
 
     it("append a draw frame with image and base64 encoded image", () => {

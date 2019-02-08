@@ -2,6 +2,29 @@
   "name": "simple-odf",
   "version": "0.6.0",
   "description": "Open Document Format made easy using pure JavaScript and Node.js",
+  "keywords": [
+    "open",
+    "document",
+    "format",
+    "odf",
+    "odt",
+    "office"
+  ],
+  "homepage": "https://github.com/connium/simple-odf#readme",
+  "bugs": {
+    "url": "https://github.com/connium/simple-odf/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/connium/simple-odf.git"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Christoph Nölke",
+    "Thomas Parisot",
+    "Koen Verheyen"
+  ],
+
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
@@ -15,27 +38,6 @@
     "lint": "tslint -c tslint.json 'src/**/*.ts', 'test/**/*.ts'",
     "docs": "rm -r ./lib && tsc && jsdoc2md --name-format --param-list-format list --separators --partial ./jsdoc2md/body.hbs ./jsdoc2md/params-list.hbs ./jsdoc2md/returns.hbs ./jsdoc2md/scope.hbs --files ./lib/**/*.js ./lib/*.js > ./docs/API.md"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/connium/simple-odf.git"
-  },
-  "keywords": [
-    "open",
-    "document",
-    "format",
-    "odf",
-    "odt",
-    "office"
-  ],
-  "author": "Christoph Nölke",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/connium/simple-odf/issues"
-  },
-  "homepage": "https://github.com/connium/simple-odf#readme",
-  "engines": {
-    "node": "^8.9.4"
-  },
   "dependencies": {
     "xmldom": "^0.1.27"
   },
@@ -48,6 +50,9 @@
     "ts-jest": "^23.10.5",
     "ts-lint": "^4.5.1",
     "typescript": "^3.3.3"
+  },
+  "engines": {
+    "node": "^8.9.4"
   },
   "jest": {
     "transform": {

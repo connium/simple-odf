@@ -1,9 +1,8 @@
 import { join } from "path";
-import { Image } from "../../src/draw/Image";
-import { AnchorType } from "../../src/style/AnchorType";
-import { ImageStyle } from "../../src/style/ImageStyle";
-import { Paragraph } from "../../src/text/Paragraph";
-import { TextDocument } from "../../src/TextDocument";
+import { Image } from "../draw/Image";
+import { AnchorType } from "./AnchorType";
+import { ImageStyle } from "./ImageStyle";
+import { TextDocument } from "../TextDocument";
 
 describe(ImageStyle.name, () => {
   let document: TextDocument;
@@ -79,7 +78,7 @@ describe(ImageStyle.name, () => {
     let image: Image;
 
     beforeEach(() => {
-      image = document.addParagraph().addImage(join(__dirname, "..", "data", "ODF.png"));
+      image = document.addParagraph().addImage(join(__dirname, "..", "..", "test", "data", "ODF.png"));
     });
 
     it("set the anchor type", () => {

@@ -1,4 +1,4 @@
-import { Color } from "../../src/style/Color";
+import { Color } from "./Color";
 
 describe(Color.name, () => {
   const expectedHex = "336699";
@@ -16,22 +16,16 @@ describe(Color.name, () => {
       expect(color.toHex()).toEqual("#" + expectedHex);
     });
 
-    it("return undefined if string is too long", () => {
-      const color = Color.fromHex("123456789");
-
-      expect(color).toBeUndefined();
+    it("throw if string is too long", () => {
+      expect(() => Color.fromHex("123456789")).toThrow("color value");
     });
 
     it("return undefined if string is too short", () => {
-      const color = Color.fromHex("1234");
-
-      expect(color).toBeUndefined();
+      expect(() => Color.fromHex("1234")).toThrowError("color value");
     });
 
     it("return undefined if string contains non-hex characters", () => {
-      const color = Color.fromHex("23fx42");
-
-      expect(color).toBeUndefined();
+      expect(() => Color.fromHex("23fx42")).toThrowError("color value");
     });
   });
 
@@ -44,33 +38,21 @@ describe(Color.name, () => {
     });
 
     it("return undefined if red is out of range", () => {
-      let color = Color.fromRgb(-1, 0x66, 0x99);
+      expect(() => Color.fromRgb(-1, 0x66, 0x99)).toThrowError("color channel");
 
-      expect(color).toBeUndefined();
-
-      color = Color.fromRgb(256, 0x66, 0x99);
-
-      expect(color).toBeUndefined();
+      expect(() => Color.fromRgb(256, 0x66, 0x99)).toThrowError("color channel");
     });
 
     it("return undefined if green is out of range", () => {
-      let color = Color.fromRgb(0x33, -1, 0x99);
+      expect(() => Color.fromRgb(0x33, -1, 0x99)).toThrowError("color channel");
 
-      expect(color).toBeUndefined();
-
-      color = Color.fromRgb(0x33, 256, 0x99);
-
-      expect(color).toBeUndefined();
+      expect(() => Color.fromRgb(0x33, 256, 0x99)).toThrowError("color channel");
     });
 
     it("return undefined if blue is out of range", () => {
-      let color = Color.fromRgb(0x33, 0x66, -1);
+      expect(() => Color.fromRgb(0x33, 0x66, -1)).toThrowError("color channel");
 
-      expect(color).toBeUndefined();
-
-      color = Color.fromRgb(0x33, 0x66, 256);
-
-      expect(color).toBeUndefined();
+      expect(() => Color.fromRgb(0x33, 0x66, 256)).toThrowError("color channel");
     });
   });
 

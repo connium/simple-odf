@@ -1,10 +1,10 @@
-import { Color } from "../../src/style/Color";
-import { ParagraphStyle } from "../../src/style/ParagraphStyle";
-import { TextProperties } from "../../src/style/TextProperties";
-import { TextTransformation } from "../../src/style/TextTransformation";
-import { Typeface } from "../../src/style/Typeface";
-import { Paragraph } from "../../src/text/Paragraph";
-import { TextDocument } from "../../src/TextDocument";
+import { Color } from "./Color";
+import { ParagraphStyle } from "./ParagraphStyle";
+import { TextProperties } from "./TextProperties";
+import { TextTransformation } from "./TextTransformation";
+import { Typeface } from "./Typeface";
+import { Paragraph } from "../text/Paragraph";
+import { TextDocument } from "../TextDocument";
 
 describe(TextProperties.name, () => {
   let properties: TextProperties;

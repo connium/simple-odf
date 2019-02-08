@@ -1,10 +1,9 @@
 import { userInfo } from "os";
-import { Meta } from "../../src/meta/Meta";
-import { TextDocument } from "../../src/TextDocument";
+import { Meta } from "./Meta";
+import { TextDocument } from "../TextDocument";
 
 describe(Meta.name, () => {
   const timeOffset = 100;
-  const currentUserName = userInfo().username;
 
   let meta: Meta;
 
@@ -40,7 +39,7 @@ describe(Meta.name, () => {
 
     it("ignore invalid input", () => {
       meta.setCreator(testCreator);
-      meta.setCreator(null);
+      meta.setCreator(<any>null);
 
       expect(meta.getCreator()).toBe(testCreator);
     });
@@ -68,7 +67,7 @@ describe(Meta.name, () => {
 
     it("ignore invalid input", () => {
       meta.setDate(testDate);
-      meta.setDate(null);
+      meta.setDate(<any>null);
 
       expect(meta.getDate()).toBe(testDate);
     });
@@ -103,7 +102,7 @@ describe(Meta.name, () => {
 
     it("ignore invalid input", () => {
       meta.setDescription(testDescription);
-      meta.setDescription(null);
+      meta.setDescription(<any>null);
 
       expect(meta.getDescription()).toBe(testDescription);
     });
@@ -143,7 +142,7 @@ describe(Meta.name, () => {
 
     it("ignore invalid input", () => {
       meta.setInitialCreator(testCreator);
-      meta.setInitialCreator(null);
+      meta.setInitialCreator(<any>null);
 
       expect(meta.getInitialCreator()).toBe(testCreator);
     });
@@ -174,11 +173,11 @@ describe(Meta.name, () => {
     });
 
     it("ignore invalid input", () => {
-      meta.addKeyword(undefined);
+      meta.addKeyword(<any>undefined);
 
       expect(meta.getKeywords()).toEqual([]);
 
-      meta.addKeyword(null);
+      meta.addKeyword(<any>null);
 
       expect(meta.getKeywords()).toEqual([]);
     });
@@ -262,7 +261,7 @@ describe(Meta.name, () => {
 
     it("ignore invalid input", () => {
       meta.setPrintDate(testDate);
-      meta.setPrintDate(null);
+      meta.setPrintDate(<any>null);
 
       expect(meta.getPrintDate()).toBe(testDate);
     });
@@ -297,7 +296,7 @@ describe(Meta.name, () => {
 
     it("return undefined if empty printed by is set", () => {
       meta.setPrintedBy(testUsername);
-      meta.setPrintedBy(null);
+      meta.setPrintedBy(<any>null);
 
       expect(meta.getPrintedBy()).toBe(testUsername);
     });
@@ -325,7 +324,7 @@ describe(Meta.name, () => {
 
     it("ignore invalid input", () => {
       meta.setSubject(testSubject);
-      meta.setSubject(null);
+      meta.setSubject(<any>null);
 
       expect(meta.getSubject()).toBe(testSubject);
     });
@@ -353,7 +352,7 @@ describe(Meta.name, () => {
 
     it("ignore invalid input", () => {
       meta.setTitle(testTitle);
-      meta.setTitle(null);
+      meta.setTitle(<any>null);
 
       expect(meta.getTitle()).toBe(testTitle);
     });

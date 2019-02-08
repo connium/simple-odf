@@ -1,6 +1,6 @@
-import { List } from "../../src/text/List";
-import { ListItem } from "../../src/text/ListItem";
-import { TextDocument } from "../../src/TextDocument";
+import { List } from "./List";
+import { ListItem } from "./ListItem";
+import { TextDocument } from "../TextDocument";
 
 describe(List.name, () => {
   let document: TextDocument;

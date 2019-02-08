@@ -1,7 +1,7 @@
-import { ParagraphStyle } from "../../src/style/ParagraphStyle";
-import { TabStop } from "../../src/style/TabStop";
-import { TabStopType } from "../../src/style/TabStopType";
-import { TextDocument } from "../../src/TextDocument";
+import { ParagraphStyle } from "./ParagraphStyle";
+import { TabStop } from "./TabStop";
+import { TabStopType } from "./TabStopType";
+import { TextDocument } from "../TextDocument";
 
 describe(TabStop.name, () => {
   describe("#constructor", () => {
@@ -97,10 +97,10 @@ describe(TabStop.name, () => {
       paragraph.setStyle(style);
 
       const documentAsString = document.toString();
-      expect(document.toString()).toMatch(/<style:tab-stop style:position="2cm" style:type="center"\/>/);
-      expect(document.toString()).toMatch(/<style:tab-stop style:position="4cm" style:type="char"\/>/);
-      expect(document.toString()).toMatch(/<style:tab-stop style:position="6cm"\/>/);
-      expect(document.toString()).toMatch(/<style:tab-stop style:position="8cm" style:type="right"\/>/);
+      expect(documentAsString).toMatch(/<style:tab-stop style:position="2cm" style:type="center"\/>/);
+      expect(documentAsString).toMatch(/<style:tab-stop style:position="4cm" style:type="char"\/>/);
+      expect(documentAsString).toMatch(/<style:tab-stop style:position="6cm"\/>/);
+      expect(documentAsString).toMatch(/<style:tab-stop style:position="8cm" style:type="right"\/>/);
     });
   });
 });
