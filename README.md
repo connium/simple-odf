@@ -3,6 +3,7 @@
 Open Document Format made easy using pure JavaScript and Node.js
 
 [![Build Status](https://travis-ci.com/connium/simple-odf.svg?branch=master)](https://travis-ci.com/connium/simple-odf)
+[![codecov](https://codecov.io/gh/connium/simple-odf/branch/master/graph/badge.svg)](https://codecov.io/gh/connium/simple-odf)
 [![Dependencies](https://david-dm.org/connium/simple-odf.svg)](https://david-dm.org/connium/simple-odf)
 [![Known Vulnerabilities](https://snyk.io/test/github/connium/simple-odf/badge.svg)](https://snyk.io/test/github/connium/simple-odf)
 [![Version](https://img.shields.io/npm/v/simple-odf.svg)](https://www.npmjs.com/package/simple-odf)
