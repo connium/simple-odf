@@ -22,14 +22,15 @@ Create your first document.
 const simpleOdf = require("simple-odf");
 
 const document = new simpleOdf.TextDocument();
+const body = document.getBody();
 
-const image = document.addParagraph().addImage("/home/homer/myself.png");
+const image = body.addParagraph().addImage("/home/homer/myself.png");
 image.getStyle().setAnchorType(simpleOdf.AnchorType.AsChar);
 image.getStyle().setSize(29.4, 36.5);
 
-document.addHeading("Welcome to simple-odf");
+body.addHeading("Welcome to simple-odf");
 
-const p1 = document.addParagraph("The quick, brown fox jumps over a lazy dog.");
+const p1 = body.addParagraph("The quick, brown fox jumps over a lazy dog.");
 p1.addText("\nThe five boxing wizards jump quickly.\n\n");
 p1.addHyperlink("Visit me", "http://example.org/");
 const style1 = new simpleOdf.ParagraphStyle();
@@ -45,15 +46,15 @@ style1.setKeepTogether();
 p1.setStyle(style1);
 // font usage
 document.declareFont("Open Sans", "Open Sans", simpleOdf.FontPitch.Variable);
-const p2 = document.addParagraph("It always seems impossible until it's done.");
+const p2 = body.addParagraph("It always seems impossible until it's done.");
 const style2 = new simpleOdf.ParagraphStyle();
 style1.setFontName("Open Sans");
 
-document.addHeading("Credits", 2);
+body.addHeading("Credits", 2);
 
-document.addParagraph("This was quite easy. Do you want to know why?");
+body.addParagraph("This was quite easy. Do you want to know why?");
 
-const list = document.addList();
+const list = body.addList();
 list.addItem("one-liner setup");
 list.addItem("just write like you would do in a full-blown editor");
 

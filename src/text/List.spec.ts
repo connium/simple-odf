@@ -11,7 +11,7 @@ describe(List.name, () => {
 
   beforeEach(() => {
     document = new TextDocument();
-    list = document.addList();
+    list = document.getBody().addList();
 
     testItem1 = new ListItem("first");
     testItem2 = new ListItem("second");

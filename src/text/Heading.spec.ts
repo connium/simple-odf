@@ -11,21 +11,21 @@ describe(Heading.name, () => {
 
   describe("#addHeading", () => {
     it("insert an empty heading with default level 1", () => {
-      document.addHeading();
+      document.getBody().addHeading();
 
       const documentAsString = document.toString();
       expect(documentAsString).toMatch(/<text:h text:outline-level="1"\/>/);
     });
 
     it("insert a heading with given text and default level 1", () => {
-      document.addHeading("heading");
+      document.getBody().addHeading("heading");
 
       const documentAsString = document.toString();
       expect(documentAsString).toMatch(/<text:h text:outline-level="1">heading<\/text:h>/);
     });
 
     it("insert a heading with given text and given level", () => {
-      document.addHeading("heading", 2);
+      document.getBody().addHeading("heading", 2);
 
       const documentAsString = document.toString();
       expect(documentAsString).toMatch(/<text:h text:outline-level="2">heading<\/text:h>/);
@@ -34,7 +34,7 @@ describe(Heading.name, () => {
 
   describe("#setLevel", () => {
     beforeEach(() => {
-      heading = document.addHeading("Heading", 2);
+      heading = document.getBody().addHeading("Heading", 2);
     });
 
     it("change the current level to the given value", () => {
@@ -54,7 +54,7 @@ describe(Heading.name, () => {
 
   describe("#getLevel", () => {
     beforeEach(() => {
-      heading = document.addHeading("heading", 2);
+      heading = document.getBody().addHeading("heading", 2);
     });
 
     it("return the current level", () => {

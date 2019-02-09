@@ -78,7 +78,7 @@ describe(ImageStyle.name, () => {
     let image: Image;
 
     beforeEach(() => {
-      image = document.addParagraph().addImage(join(__dirname, "..", "..", "test", "data", "ODF.png"));
+      image = document.getBody().addParagraph().addImage(join(__dirname, "..", "..", "test", "data", "ODF.png"));
     });
 
     it("set the anchor type", () => {

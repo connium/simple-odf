@@ -16,7 +16,7 @@ describe(TextProperties.name, () => {
     properties = new TextProperties();
 
     document = new TextDocument();
-    paragraph = document.addParagraph("test");
+    paragraph = document.getBody().addParagraph("test");
     testStyle = new ParagraphStyle();
   });
 

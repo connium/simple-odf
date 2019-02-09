@@ -1,4 +1,4 @@
-import { Image } from "../draw/Image";
+import { Image } from "../api/draw/Image";
 import { OdfElement } from "../OdfElement";
 import { IParagraphStyle } from "../style/IParagraphStyle";
 import { Hyperlink } from "./HyperLink";

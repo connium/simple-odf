@@ -8,9 +8,9 @@ export interface IWriter<T> {
    * Transforms the given object into Open Document Format.
    *
    * @param {Document} document The XML document
-   * @param {Element} root The root node in the DOM
+   * @param {Element} parent The parent node in the DOM
    * @param {T} object The object to serialize
    * @since 0.7.0
    */
-  write(document: Document, root: Element, object: T): void;
+  write(document: Document, parent: Element, object: T): void;
 }

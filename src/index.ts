@@ -1,7 +1,7 @@
 export { TextDocument } from "./TextDocument";
 
 // draw
-export { Image } from "./draw/Image";
+export { Image } from "./api/draw/Image";
 
 // meta
 export { Meta } from "./api/meta/Meta";

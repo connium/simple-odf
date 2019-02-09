@@ -1,6 +1,7 @@
 import { unlink } from "fs";
 import { join } from "path";
 import { promisify } from "util";
+import { TextBody } from "../src/api/office/TextBody";
 import { AnchorType } from "../src/style/AnchorType";
 import { Color } from "../src/style/Color";
 import { FontPitch } from "../src/style/FontPitch";
@@ -16,9 +17,11 @@ const FILEPATH = "./integration.fodt";
 
 xdescribe("integration", () => {
   let document: TextDocument;
+  let body: TextBody;
 
   beforeAll(() => {
     document = new TextDocument();
+    body = document.getBody();
   });
 
   afterAll(async (done) => {
@@ -39,7 +42,7 @@ xdescribe("integration", () => {
   });
 
   it("image", () => {
-    const paragraph = document.addParagraph();
+    const paragraph = body.addParagraph();
     paragraph.setStyle(new ParagraphStyle());
     paragraph.getStyle().setHorizontalAlignment(HorizontalAlignment.Center);
 
@@ -49,34 +52,34 @@ xdescribe("integration", () => {
   });
 
   it("add heading", () => {
-    document.addHeading("First heading");
-    document.addHeading("Second heading", 2);
+    body.addHeading("First heading");
+    body.addHeading("Second heading", 2);
 
-    const para = document.addParagraph("The quick, brown fox jumps over a lazy dog.");
+    const para = body.addParagraph("The quick, brown fox jumps over a lazy dog.");
     para.addText("\nSome more text");
   });
 
   describe("paragraph formatting", () => {
     it("page break", () => {
-      const heading = document.addHeading("Paragraph Formatting", 2);
+      const heading = body.addHeading("Paragraph Formatting", 2);
       heading.setStyle(new ParagraphStyle());
       heading.getStyle().setPageBreakBefore();
     });
 
     it("keep together", () => {
-      const heading = document.addParagraph("Paragraph Formatting");
+      const heading = body.addParagraph("Paragraph Formatting");
       heading.setStyle(new ParagraphStyle());
       heading.getStyle().setKeepTogether();
     });
 
     it("align text", () => {
-      const paragraph = document.addParagraph("Some centered text");
+      const paragraph = body.addParagraph("Some centered text");
       paragraph.setStyle(new ParagraphStyle());
       paragraph.getStyle().setHorizontalAlignment(HorizontalAlignment.Center);
     });
 
     it("tab stops", () => {
-      const paragraph = document.addParagraph("first\tsecond\tthird");
+      const paragraph = body.addParagraph("first\tsecond\tthird");
       paragraph.setStyle(new ParagraphStyle());
       paragraph.getStyle().addTabStop(new TabStop(4));
       paragraph.getStyle().addTabStop(new TabStop(12, TabStopType.Right));
@@ -85,13 +88,13 @@ xdescribe("integration", () => {
 
   describe("text formatting", () => {
     beforeAll(() => {
-      const heading = document.addHeading("Text Formatting", 2);
+      const heading = body.addHeading("Text Formatting", 2);
       heading.setStyle(new ParagraphStyle());
       heading.getStyle().setPageBreakBefore();
     });
 
     it("color", () => {
-      const paragraph = document.addParagraph("Some mint-colored text");
+      const paragraph = body.addParagraph("Some mint-colored text");
       paragraph.setStyle(new ParagraphStyle());
       paragraph.getStyle().setColor(Color.fromRgb(62, 180, 137));
     });
@@ -99,46 +102,46 @@ xdescribe("integration", () => {
     it("font name", () => {
       document.declareFont("Open Sans", "Open Sans", FontPitch.Variable);
 
-      const paragraph = document.addParagraph("Open Sans");
+      const paragraph = body.addParagraph("Open Sans");
       paragraph.setStyle(new ParagraphStyle());
       paragraph.getStyle().setFontName("Open Sans");
     });
 
     it("font size", () => {
-      const paragraph = document.addParagraph("Some small text");
+      const paragraph = body.addParagraph("Some small text");
       paragraph.setStyle(new ParagraphStyle());
       paragraph.getStyle().setFontSize(8);
     });
 
     it("text transformation", () => {
-      const paragraph = document.addParagraph("Some uppercase text");
+      const paragraph = body.addParagraph("Some uppercase text");
       paragraph.setStyle(new ParagraphStyle());
       paragraph.getStyle().setTextTransformation(TextTransformation.Uppercase);
     });
 
     it("typeface", () => {
-      const paragraph = document.addParagraph("Some bold text");
+      const paragraph = body.addParagraph("Some bold text");
       paragraph.setStyle(new ParagraphStyle());
       paragraph.getStyle().setTypeface(Typeface.Bold);
     });
   });
 
   it("hyperlink", () => {
-    const heading = document.addHeading("Hyperlink", 2);
+    const heading = body.addHeading("Hyperlink", 2);
     heading.setStyle(new ParagraphStyle());
     heading.getStyle().setPageBreakBefore();
 
-    const paragraph = document.addParagraph("This is just an ");
+    const paragraph = body.addParagraph("This is just an ");
     paragraph.addHyperlink("example", "http://example.org");
     paragraph.addText(".");
   });
 
   it("list", () => {
-    const heading = document.addHeading("List", 2);
+    const heading = body.addHeading("List", 2);
     heading.setStyle(new ParagraphStyle());
     heading.getStyle().setPageBreakBefore();
 
-    const list = document.addList();
+    const list = body.addList();
     list.addItem("first item");
     list.addItem("second item");
   });

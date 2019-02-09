@@ -13,7 +13,7 @@ describe(Hyperlink.name, () => {
 
   describe("#addHyperlink", () => {
     it("append a linked text", () => {
-      document.addParagraph(testText).addHyperlink(" some linked text", testUri);
+      document.getBody().addParagraph(testText).addHyperlink(" some linked text", testUri);
 
       const documentAsString = document.toString();
       /* tslint:disable-next-line:max-line-length */
@@ -21,14 +21,14 @@ describe(Hyperlink.name, () => {
     });
 
     it("not create a hyperlink if text is empty", () => {
-      document.addParagraph(testText).addHyperlink("", testUri);
+      document.getBody().addParagraph(testText).addHyperlink("", testUri);
 
       const documentAsString = document.toString();
       expect(documentAsString).toMatch(/<text:p>some text<\/text:p>/);
     });
 
     it("not create a hyperlink but add the text if URI is empty", () => {
-      document.addParagraph(testText).addHyperlink(" some linked text", "");
+      document.getBody().addParagraph(testText).addHyperlink(" some linked text", "");
 
       const documentAsString = document.toString();
       expect(documentAsString).toMatch(/<text:p>some text some linked text<\/text:p>/);
@@ -39,7 +39,7 @@ describe(Hyperlink.name, () => {
     let hyperlink: Hyperlink;
 
     beforeEach(() => {
-      hyperlink = document.addParagraph().addHyperlink(testText, testUri);
+      hyperlink = document.getBody().addParagraph().addHyperlink(testText, testUri);
     });
 
     it("change the current URI to the given value", () => {
@@ -53,7 +53,7 @@ describe(Hyperlink.name, () => {
     let hyperlink: Hyperlink;
 
     beforeEach(() => {
-      hyperlink = document.addParagraph().addHyperlink(testText, testUri);
+      hyperlink = document.getBody().addParagraph().addHyperlink(testText, testUri);
     });
 
     it("return the current URI", () => {

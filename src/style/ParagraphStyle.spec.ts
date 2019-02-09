@@ -9,7 +9,7 @@ describe(ParagraphStyle.name, () => {
 
   beforeEach(() => {
     document = new TextDocument();
-    paragraph = document.addParagraph("test");
+    paragraph = document.getBody().addParagraph("test");
     testStyle = new ParagraphStyle();
   });
 
@@ -40,7 +40,7 @@ describe(ParagraphStyle.name, () => {
     testStyle.setPageBreakBefore();
 
     paragraph.setStyle(testStyle);
-    document.addParagraph().setStyle(testStyle);
+    document.getBody().addParagraph().setStyle(testStyle);
 
     /* tslint:disable-next-line:max-line-length */
     expect(document.toString()).toMatch(/<office:automatic-styles><style:style style:family="paragraph" style:name="([a-z0-9]+)"><style:paragraph-properties fo:break-before="page"\/><\/style:style><\/office:automatic-styles>/);

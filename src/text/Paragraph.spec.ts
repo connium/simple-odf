@@ -12,13 +12,13 @@ describe(Paragraph.name, () => {
 
   describe("#addParagraph", () => {
     it("insert an empty paragraph", () => {
-      document.addParagraph();
+      document.getBody().addParagraph();
 
       expect(document.toString()).toMatch(/<text:p\/>/);
     });
 
     it("insert a paragraph with specified text", () => {
-      document.addParagraph("some text");
+      document.getBody().addParagraph("some text");
 
       expect(document.toString()).toMatch(/<text:p>some text<\/text:p>/);
     });
@@ -26,13 +26,13 @@ describe(Paragraph.name, () => {
 
   describe("#addText", () => {
     it("set the text if element is empty", () => {
-      document.addParagraph().addText("some text");
+      document.getBody().addParagraph().addText("some text");
 
       expect(document.toString()).toMatch(/<text:p>some text<\/text:p>/);
     });
 
     it("append the text", () => {
-      document.addParagraph("some text").addText(" some more text");
+      document.getBody().addParagraph("some text").addText(" some more text");
 
       expect(document.toString()).toMatch(/<text:p>some text some more text<\/text:p>/);
     });
@@ -40,7 +40,7 @@ describe(Paragraph.name, () => {
 
   describe("#getText", () => {
     it("return the text", () => {
-      const paragraph = document.addParagraph("some text");
+      const paragraph = document.getBody().addParagraph("some text");
       paragraph.addText(" some\nmore   text");
       paragraph.addHyperlink(" link", "http://example.org/");
       paragraph.addText(" even more text");
@@ -51,40 +51,40 @@ describe(Paragraph.name, () => {
 
   describe("#setText", () => {
     it("replace existing text with specified text", () => {
-      document.addParagraph("some text").setText("some other text");
+      document.getBody().addParagraph("some text").setText("some other text");
 
       expect(document.toString()).toMatch(/<text:p>some other text<\/text:p>/);
     });
   });
 
   it("replace newline with line break", () => {
-    document.addParagraph("some text\nsome more text");
+    document.getBody().addParagraph("some text\nsome more text");
 
     expect(document.toString()).toMatch(/<text:p>some text<text:line-break\/>some more text<\/text:p>/);
   });
 
   it("replace tab with tabulation", () => {
-    document.addParagraph("some\ttabbed\t\ttext");
+    document.getBody().addParagraph("some\ttabbed\t\ttext");
 
     expect(document.toString()).toMatch(/<text:p>some<text:tab\/>tabbed<text:tab\/><text:tab\/>text<\/text:p>/);
   });
 
   it("replace sequence of spaces with space node", () => {
-    document.addParagraph(" some  spacey   text    ");
+    document.getBody().addParagraph(" some  spacey   text    ");
 
     /* tslint:disable-next-line:max-line-length */
     expect(document.toString()).toMatch(/<text:p> some <text:s\/>spacey <text:s c="2"\/>text <text:s c="3"\/><\/text:p>/);
   });
 
   it("ignore carriage return character", () => {
-    document.addParagraph("some text\r\nsome\r more text");
+    document.getBody().addParagraph("some text\r\nsome\r more text");
 
     expect(document.toString()).toMatch(/<text:p>some text<text:line-break\/>some more text<\/text:p>/);
   });
 
   describe("#addHyperlink", () => {
     it("append a linked text", () => {
-      document.addParagraph("some text").addHyperlink(" some linked text", "http://example.org/");
+      document.getBody().addParagraph("some text").addHyperlink(" some linked text", "http://example.org/");
 
       /* tslint:disable-next-line:max-line-length */
       expect(document.toString()).toMatch(/<text:p>some text<text:a xlink:type="simple" xlink:href="http:\/\/example.org\/"> some linked text<\/text:a><\/text:p>/);
@@ -93,7 +93,7 @@ describe(Paragraph.name, () => {
 
   describe("#addImage", () => {
     it("append a draw frame with image and binary data", () => {
-      document.addParagraph().addImage(join(__dirname, "..", "..", "test", "data", "ODF.png"));
+      document.getBody().addParagraph().addImage(join(__dirname, "..", "..", "test", "data", "ODF.png"));
 
       const regex = new RegExp("<draw:frame text:anchor-type=\"paragraph\">"
         + "<draw:image>"
@@ -111,7 +111,7 @@ describe(Paragraph.name, () => {
     let testStyle: ParagraphStyle;
 
     beforeEach(() => {
-      paragraph = document.addParagraph("some text");
+      paragraph = document.getBody().addParagraph("some text");
       testStyle = new ParagraphStyle();
     });
 
@@ -133,7 +133,7 @@ describe(Paragraph.name, () => {
     let paragraph: Paragraph;
 
     beforeEach(() => {
-      paragraph = document.addParagraph("some text");
+      paragraph = document.getBody().addParagraph("some text");
     });
 
     it("return undefined if no style was set", () => {

@@ -87,7 +87,7 @@ describe(TabStop.name, () => {
   describe("#toXml", () => {
     it("return the current position", () => {
       const document = new TextDocument();
-      const paragraph = document.addParagraph();
+      const paragraph = document.getBody().addParagraph();
       const style = new ParagraphStyle();
 
       style.addTabStop(new TabStop(2, TabStopType.Center));
