@@ -1,6 +1,6 @@
 /**
  * Implementors of this class are used to transform an object into ODF conform XML.
- * 
+ *
  * @since 0.7.0
  */
 export interface IWriter<T> {
