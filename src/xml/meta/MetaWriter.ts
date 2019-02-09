@@ -1,32 +1,36 @@
-import { OdfElementName } from "../../OdfElementName";
-import { MetaElementName } from "./MetaElementName";
 import { Meta } from "../../api/meta/Meta";
+import { OdfElementName } from "../../OdfElementName";
+import { IWriter } from "../IWriter";
+import { MetaElementName } from "./MetaElementName";
 
-export class MetaWriter {
+/**
+ * XML writer for {@link Meta} elements
+ * 
+ * @implements {IWriter}
+ * @since 0.7.0
+ */
+export class MetaWriter implements IWriter<Meta> {
   /**
-   * Transforms the text style into Open Document Format.
-   *
-   * @param {Document} document The XML document
-   * @param {Element} root The root node in the DOM
-   * @since 0.6.0
+   * @inheritdoc
+   * @since 0.7.0
    */
-  public toXml(meta: Meta, document: Document, root: Element): void {
+  public write(document: Document, root: Element, meta: Meta): void {
     const metaElement = document.createElement(OdfElementName.OfficeMeta);
     root.appendChild(metaElement);
 
-    this.setGeneratorElement(meta, document, metaElement);
-    this.setTitleElement(meta, document, metaElement);
-    this.setDescriptionElement(meta, document, metaElement);
-    this.setSubjectElement(meta, document, metaElement);
-    this.setKeywordElements(meta, document, metaElement);
-    this.setInitialCreatorElement(meta, document, metaElement);
-    this.setCreatorElement(meta, document, metaElement);
-    this.setPrintedByElement(meta, document, metaElement);
-    this.setCreationDateElement(meta, document, metaElement);
-    this.setDateElement(meta, document, metaElement);
-    this.setPrintDateElement(meta, document, metaElement);
-    this.setLanguageElement(meta, document, metaElement);
-    this.setEditingCyclesElement(meta, document, metaElement);
+    this.setGeneratorElement(document, metaElement, meta);
+    this.setTitleElement(document, metaElement, meta);
+    this.setDescriptionElement(document, metaElement, meta);
+    this.setSubjectElement(document, metaElement, meta);
+    this.setKeywordElements(document, metaElement, meta);
+    this.setInitialCreatorElement(document, metaElement, meta);
+    this.setCreatorElement(document, metaElement, meta);
+    this.setPrintedByElement(document, metaElement, meta);
+    this.setCreationDateElement(document, metaElement, meta);
+    this.setDateElement(document, metaElement, meta);
+    this.setPrintDateElement(document, metaElement, meta);
+    this.setLanguageElement(document, metaElement, meta);
+    this.setEditingCyclesElement(document, metaElement, meta);
   }
 
   /**
@@ -34,9 +38,10 @@ export class MetaWriter {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @param {Meta} meta The metadata
    * @private
    */
-  private setCreationDateElement(meta: Meta, document: Document, metaElement: Element): void {
+  private setCreationDateElement(document: Document, metaElement: Element, meta: Meta): void {
     const creationDateElement = document.createElement(MetaElementName.MetaCreationDate);
     metaElement.appendChild(creationDateElement);
     creationDateElement.appendChild(document.createTextNode(meta.getCreationDate().toISOString()));
@@ -47,9 +52,10 @@ export class MetaWriter {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @param {Meta} meta The metadata
    * @private
    */
-  private setCreatorElement(meta: Meta, document: Document, metaElement: Element): void {
+  private setCreatorElement(document: Document, metaElement: Element, meta: Meta): void {
     const creator = meta.getCreator();
     if (creator === undefined || creator.length === 0) {
       return;
@@ -65,9 +71,10 @@ export class MetaWriter {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @param {Meta} meta The metadata
    * @private
    */
-  private setDateElement(meta: Meta, document: Document, metaElement: Element): void {
+  private setDateElement(document: Document, metaElement: Element, meta: Meta): void {
     const date = meta.getDate();
     if (date === undefined) {
       return;
@@ -83,9 +90,10 @@ export class MetaWriter {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @param {Meta} meta The metadata
    * @private
    */
-  private setDescriptionElement(meta: Meta, document: Document, metaElement: Element): void {
+  private setDescriptionElement(document: Document, metaElement: Element, meta: Meta): void {
     const description = meta.getDescription();
     if (description === undefined || description.length === 0) {
       return;
@@ -101,9 +109,10 @@ export class MetaWriter {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @param {Meta} meta The metadata
    * @private
    */
-  private setEditingCyclesElement(meta: Meta, document: Document, metaElement: Element): void {
+  private setEditingCyclesElement(document: Document, metaElement: Element, meta: Meta): void {
     const editingCyclesElement = document.createElement(MetaElementName.MetaEditingCycles);
     metaElement.appendChild(editingCyclesElement);
     editingCyclesElement.appendChild(document.createTextNode(meta.getEditingCycles().toString()));
@@ -114,9 +123,10 @@ export class MetaWriter {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @param {Meta} meta The metadata
    * @private
    */
-  private setGeneratorElement(meta: Meta, document: Document, metaElement: Element): void {
+  private setGeneratorElement(document: Document, metaElement: Element, meta: Meta): void {
     const generatorElement = document.createElement(MetaElementName.MetaGenerator);
     metaElement.appendChild(generatorElement);
     generatorElement.appendChild(document.createTextNode(meta.getGenerator()));
@@ -127,9 +137,10 @@ export class MetaWriter {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @param {Meta} meta The metadata
    * @private
    */
-  private setInitialCreatorElement(meta: Meta, document: Document, metaElement: Element): void {
+  private setInitialCreatorElement(document: Document, metaElement: Element, meta: Meta): void {
     const initialCreator = meta.getInitialCreator();
     if (initialCreator === undefined || initialCreator.length === 0) {
       return;
@@ -145,9 +156,10 @@ export class MetaWriter {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @param {Meta} meta The metadata
    * @private
    */
-  private setKeywordElements(meta: Meta, document: Document, metaElement: Element): void {
+  private setKeywordElements(document: Document, metaElement: Element, meta: Meta): void {
     meta.getKeywords().forEach((keyword: string) => {
       const subjectElement = document.createElement(MetaElementName.MetaKeyword);
       metaElement.appendChild(subjectElement);
@@ -160,9 +172,10 @@ export class MetaWriter {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @param {Meta} meta The metadata
    * @private
    */
-  private setLanguageElement(meta: Meta, document: Document, metaElement: Element): void {
+  private setLanguageElement(document: Document, metaElement: Element, meta: Meta): void {
     const language = meta.getLanguage();
     if (language === undefined || language.length === 0) {
       return;
@@ -178,9 +191,10 @@ export class MetaWriter {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @param {Meta} meta The metadata
    * @private
    */
-  private setPrintDateElement(meta: Meta, document: Document, metaElement: Element): void {
+  private setPrintDateElement(document: Document, metaElement: Element, meta: Meta): void {
     const printDate = meta.getPrintDate();
     if (printDate === undefined) {
       return;
@@ -196,9 +210,10 @@ export class MetaWriter {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @param {Meta} meta The metadata
    * @private
    */
-  private setPrintedByElement(meta: Meta, document: Document, metaElement: Element): void {
+  private setPrintedByElement(document: Document, metaElement: Element, meta: Meta): void {
     const printedBy = meta.getPrintedBy();
     if (printedBy === undefined || printedBy.length === 0) {
       return;
@@ -213,9 +228,10 @@ export class MetaWriter {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @param {Meta} meta The metadata
    * @private
    */
-  private setSubjectElement(meta: Meta, document: Document, metaElement: Element): void {
+  private setSubjectElement(document: Document, metaElement: Element, meta: Meta): void {
     const subject = meta.getSubject();
     if (subject === undefined || subject.length === 0) {
       return;
@@ -231,9 +247,10 @@ export class MetaWriter {
    *
    * @param {Document} document The XML document
    * @param {Element} metaElement The meta element which will act as parent
+   * @param {Meta} meta The metadata
    * @private
    */
-  private setTitleElement(meta: Meta, document: Document, metaElement: Element): void {
+  private setTitleElement(document: Document, metaElement: Element, meta: Meta): void {
     const title = meta.getTitle();
     if (title === undefined || title.length === 0) {
       return;

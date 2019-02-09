@@ -1,7 +1,6 @@
 import { writeFile } from "fs";
 import { promisify } from "util";
 import { DOMImplementation, XMLSerializer } from "xmldom";
-
 import { Meta } from "./api/meta/Meta";
 import { OdfAttributeName } from "./OdfAttributeName";
 import { OdfElement } from "./OdfElement";
@@ -10,6 +9,7 @@ import { FontPitch } from "./style/FontPitch";
 import { Heading } from "./text/Heading";
 import { List } from "./text/List";
 import { Paragraph } from "./text/Paragraph";
+import { MetaWriter } from "./xml/meta/MetaWriter";
 
 export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
 const OFFICE_VERSION = "1.2";
@@ -149,7 +149,7 @@ export class TextDocument extends OdfElement {
     root.setAttribute(OdfAttributeName.OfficeMimetype, "application/vnd.oasis.opendocument.text");
     root.setAttribute(OdfAttributeName.OfficeVersion, OFFICE_VERSION);
 
-    this.meta.toXml(document, root);
+    new MetaWriter().write(document, root, this.meta);
 
     this.setFontFaceElements(document, root);
 
