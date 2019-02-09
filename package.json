@@ -35,7 +35,7 @@
     "test": "jest",
     "watch-test": "jest --watch",
     "coverage": "jest --coverage",
-    "lint": "tslint -c tslint.json 'src/**/*.ts', 'test/**/*.ts'",
+    "lint": "tslint -c tslint.json src/**/*.ts",
     "docs": "rm -r ./lib && tsc && jsdoc2md --name-format --param-list-format list --separators --partial ./jsdoc2md/body.hbs ./jsdoc2md/params-list.hbs ./jsdoc2md/returns.hbs ./jsdoc2md/scope.hbs --files ./lib/**/*.js ./lib/*.js > ./docs/API.md"
   },
   "dependencies": {

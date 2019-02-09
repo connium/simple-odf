@@ -1,8 +1,8 @@
 import { join } from "path";
 import { Image } from "../draw/Image";
+import { TextDocument } from "../TextDocument";
 import { AnchorType } from "./AnchorType";
 import { ImageStyle } from "./ImageStyle";
-import { TextDocument } from "../TextDocument";
 
 describe(ImageStyle.name, () => {
   let document: TextDocument;

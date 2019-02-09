@@ -1,6 +1,6 @@
 import { userInfo } from "os";
-import { OdfElementName } from "../OdfElementName";
-import { MetaElementName } from "./MetaElementName";
+import { OdfElementName } from "../../OdfElementName";
+import { MetaElementName } from "../../xml/meta/MetaElementName";
 
 /**
  * This class represents the metadata of a document.

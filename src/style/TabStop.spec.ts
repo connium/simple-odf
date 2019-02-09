@@ -1,7 +1,7 @@
+import { TextDocument } from "../TextDocument";
 import { ParagraphStyle } from "./ParagraphStyle";
 import { TabStop } from "./TabStop";
 import { TabStopType } from "./TabStopType";
-import { TextDocument } from "../TextDocument";
 
 describe(TabStop.name, () => {
   describe("#constructor", () => {

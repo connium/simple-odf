@@ -1,7 +1,7 @@
 import { join } from "path";
 import { ParagraphStyle } from "../style/ParagraphStyle";
-import { Paragraph } from "./Paragraph";
 import { TextDocument } from "../TextDocument";
+import { Paragraph } from "./Paragraph";
 
 describe(Paragraph.name, () => {
   let document: TextDocument;

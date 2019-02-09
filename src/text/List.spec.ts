@@ -1,6 +1,6 @@
+import { TextDocument } from "../TextDocument";
 import { List } from "./List";
 import { ListItem } from "./ListItem";
-import { TextDocument } from "../TextDocument";
 
 describe(List.name, () => {
   let document: TextDocument;

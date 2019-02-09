@@ -1,6 +1,6 @@
 import { userInfo } from "os";
 import { Meta } from "./Meta";
-import { TextDocument } from "../TextDocument";
+import { TextDocument } from "../../TextDocument";
 
 describe(Meta.name, () => {
   const timeOffset = 100;

@@ -1,5 +1,5 @@
-import { Hyperlink } from "./HyperLink";
 import { TextDocument } from "../TextDocument";
+import { Hyperlink } from "./HyperLink";
 
 describe(Hyperlink.name, () => {
   const testText = "some text";

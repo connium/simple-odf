@@ -1,10 +1,10 @@
+import { Paragraph } from "../text/Paragraph";
+import { TextDocument } from "../TextDocument";
 import { HorizontalAlignment } from "./HorizontalAlignment";
 import { ParagraphProperties } from "./ParagraphProperties";
 import { ParagraphStyle } from "./ParagraphStyle";
 import { TabStop } from "./TabStop";
 import { TabStopType } from "./TabStopType";
-import { Paragraph } from "../text/Paragraph";
-import { TextDocument } from "../TextDocument";
 
 describe(ParagraphProperties.name, () => {
   let properties: ParagraphProperties;

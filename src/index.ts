@@ -4,7 +4,7 @@ export { TextDocument } from "./TextDocument";
 export { Image } from "./draw/Image";
 
 // meta
-export { Meta } from "./meta/Meta";
+export { Meta } from "./api/meta/Meta";
 
 // style
 export { AnchorType } from "./style/AnchorType";

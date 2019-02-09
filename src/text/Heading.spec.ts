@@ -1,5 +1,5 @@
-import { Heading } from "./Heading";
 import { TextDocument } from "../TextDocument";
+import { Heading } from "./Heading";
 
 describe(Heading.name, () => {
   let document: TextDocument;

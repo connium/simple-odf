@@ -2,7 +2,7 @@ import { writeFile } from "fs";
 import { promisify } from "util";
 import { DOMImplementation, XMLSerializer } from "xmldom";
 
-import { Meta } from "./meta/Meta";
+import { Meta } from "./api/meta/Meta";
 import { OdfAttributeName } from "./OdfAttributeName";
 import { OdfElement } from "./OdfElement";
 import { OdfElementName } from "./OdfElementName";
