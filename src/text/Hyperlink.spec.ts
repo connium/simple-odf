@@ -1,5 +1,5 @@
-import { Hyperlink } from "../../src/text/HyperLink";
-import { TextDocument } from "../../src/TextDocument";
+import { Hyperlink } from "./HyperLink";
+import { TextDocument } from "../TextDocument";
 
 describe(Hyperlink.name, () => {
   const testText = "some text";
@@ -28,7 +28,7 @@ describe(Hyperlink.name, () => {
     });
 
     it("not create a hyperlink but add the text if URI is empty", () => {
-      document.addParagraph(testText).addHyperlink(" some linked text", undefined);
+      document.addParagraph(testText).addHyperlink(" some linked text", "");
 
       const documentAsString = document.toString();
       expect(documentAsString).toMatch(/<text:p>some text some linked text<\/text:p>/);

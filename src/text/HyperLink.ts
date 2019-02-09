@@ -49,7 +49,7 @@ export class Hyperlink extends OdfTextElement {
       return;
     }
 
-    if (this.uri === undefined) {
+    if (this.uri === undefined || this.uri === "") {
       return super.toXml(document, parent);
     }
 

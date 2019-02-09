@@ -1,6 +1,6 @@
-import { ParagraphStyle } from "../../src/style/ParagraphStyle";
-import { Paragraph } from "../../src/text/Paragraph";
-import { TextDocument } from "../../src/TextDocument";
+import { ParagraphStyle } from "./ParagraphStyle";
+import { Paragraph } from "../text/Paragraph";
+import { TextDocument } from "../TextDocument";
 
 describe(ParagraphStyle.name, () => {
   let document: TextDocument;

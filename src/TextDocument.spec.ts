@@ -1,11 +1,11 @@
 import { readFile, unlink } from "fs";
 import { promisify } from "util";
-import { Meta } from "../src/meta/Meta";
-import { FontPitch } from "../src/style/FontPitch";
-import { Heading } from "../src/text/Heading";
-import { List } from "../src/text/List";
-import { Paragraph } from "../src/text/Paragraph";
-import { TextDocument, XML_DECLARATION } from "../src/TextDocument";
+import { Meta } from "./meta/Meta";
+import { FontPitch } from "./style/FontPitch";
+import { Heading } from "./text/Heading";
+import { List } from "./text/List";
+import { Paragraph } from "./text/Paragraph";
+import { TextDocument, XML_DECLARATION } from "./TextDocument";
 
 const FILEPATH = "./test.fodt";
 

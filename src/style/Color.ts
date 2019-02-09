@@ -9,14 +9,14 @@ export class Color {
    * The string is expected to be in `#rrggbb` or `rrggbb` format.
    *
    * @param {string} value The value you want to parse
-   * @returns {Color | undefined} A color parsed from the given value.
-   * If the value cannot be converted to a color, `undefined` is returned.
+   * @returns {Color | never} A color parsed from the given value
+   * @throws {Error} If the value cannot be converted to a color
    * @since 0.4.0
    */
-  public static fromHex(value: string): Color | undefined {
+  public static fromHex(value: string): Color | never {
     const matches = value.match(/^#?([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})$/);
     if (matches === null) {
-      return undefined;
+      throw new Error('Invalid color value');
     }
 
     return new Color(parseInt(matches[1], 16), parseInt(matches[2], 16), parseInt(matches[3], 16));
@@ -28,15 +28,15 @@ export class Color {
    * @param {number} red The red channel of the color with a range of 0...255
    * @param {number} green The green channel of the color with a range of 0...255
    * @param {number} blue The blue channel of the color with a range of 0...255
-   * @returns {Color | undefined} A color parsed from the given value.
-   * If any channel is outside the allowable range, `undefined` is returned.
+   * @returns {Color | never} A color parsed from the given value
+   * @throws {Error} If any channel is outside the allowable range
    * @since 0.4.0
    */
-  public static fromRgb(red: number, green: number, blue: number): Color | undefined {
+  public static fromRgb(red: number, green: number, blue: number): Color | never {
     if (Color.checkRange(red) && Color.checkRange(green) && Color.checkRange(blue)) {
       return new Color(red, green, blue);
     }
-    return undefined;
+    throw new Error('Invalid value for a color channel');
   }
 
   /**
