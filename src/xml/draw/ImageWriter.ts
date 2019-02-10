@@ -1,14 +1,14 @@
-import { IWriter } from "../IWriter";
-import { Image } from "../../api/draw/Image";
-import { DrawElementName } from "./DrawElementName";
-import { OdfElementName } from "../../OdfElementName";
 import { readFileSync } from "fs";
+import { Image } from "../../api/draw/Image";
+import { OdfElementName } from "../../OdfElementName";
+import { IWriter } from "../IWriter";
+import { DrawElementName } from "./DrawElementName";
 
 const ENCODING = "base64";
 
 /**
  * TODO
- * 
+ *
  * @implements {IWriter}
  * @since 0.7.0
  */

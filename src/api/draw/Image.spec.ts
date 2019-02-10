@@ -3,7 +3,7 @@ import { ImageStyle } from "../../style/ImageStyle";
 import { Image } from "./Image";
 
 describe(Image.name, () => {
-  const testImagePath = '/some/image.path.png';
+  const testImagePath = "/some/image.path.png";
 
   let image: Image;
 
@@ -15,14 +15,14 @@ describe(Image.name, () => {
     it("return initial path", () => {
       expect(image.getPath()).toBe(testImagePath);
     });
-  })
+  });
 
   describe("style", () => {
     let testStyle: ImageStyle;
 
     beforeEach(() => {
       testStyle = new ImageStyle();
-    })
+    });
 
     it("return style by default", () => {
       expect(image.getStyle()).toBeInstanceOf(ImageStyle);

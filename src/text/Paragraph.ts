@@ -1,7 +1,7 @@
 import { Image } from "../api/draw/Image";
+import { Hyperlink } from "../api/text/Hyperlink";
 import { OdfElement } from "../OdfElement";
 import { IParagraphStyle } from "../style/IParagraphStyle";
-import { Hyperlink } from "./HyperLink";
 import { OdfTextElement } from "./OdfTextElement";
 import { TextElementName } from "./TextElementName";
 

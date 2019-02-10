@@ -4,7 +4,7 @@ import { IWriter } from "../IWriter";
 
 /**
  * XML writer for {@link TextBody} elements
- * 
+ *
  * @implements {IWriter}
  * @since 0.7.0
  */

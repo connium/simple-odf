@@ -5,7 +5,7 @@ import { MetaElementName } from "./MetaElementName";
 
 /**
  * XML writer for {@link Meta} elements
- * 
+ *
  * @implements {IWriter}
  * @since 0.7.0
  */

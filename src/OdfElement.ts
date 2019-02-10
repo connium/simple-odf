@@ -1,3 +1,5 @@
+import { HyperlinkWriter } from "./xml/text/HyperlinkWriter";
+
 /**
  * Base element in Open Document Format
  * @since 0.1.0
@@ -20,7 +22,7 @@ export class OdfElement {
    * @param {OdfElement} element The element to append
    * @since 0.1.0
    */
-  public append(element: OdfElement): void {
+  protected append(element: OdfElement): void {
     this.children.push(element);
   }
 
@@ -112,7 +114,12 @@ export class OdfElement {
    */
   protected toXml(document: Document, parent: Element): void {
     this.children.forEach((child: OdfElement) => {
-      child.toXml(document, parent);
+      // instanceof is not possible because of circular dependency
+      if (child.hasOwnProperty("uri") === true) {
+        new HyperlinkWriter().write(document, parent, <any>child);
+      } else {
+        child.toXml(document, parent);
+      }
     });
   }
 }

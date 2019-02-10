@@ -6,6 +6,9 @@ export { Image } from "./api/draw/Image";
 // meta
 export { Meta } from "./api/meta/Meta";
 
+// office
+export { TextBody } from "./api/office/TextBody";
+
 // style
 export { AnchorType } from "./style/AnchorType";
 export { Color } from "./style/Color";
@@ -22,7 +25,7 @@ export { Typeface } from "./style/Typeface";
 
 // text
 export { Heading } from "./text/Heading";
-export { Hyperlink } from "./text/HyperLink";
+export { Hyperlink } from "./api/text/Hyperlink";
 export { List } from "./text/List";
 export { ListItem } from "./text/ListItem";
 export { Paragraph } from "./text/Paragraph";
