@@ -1,4 +1,4 @@
-import { Paragraph } from "../text/Paragraph";
+import { Paragraph } from "../api/text";
 import { TextDocument } from "../TextDocument";
 import { HorizontalAlignment } from "./HorizontalAlignment";
 import { ParagraphProperties } from "./ParagraphProperties";

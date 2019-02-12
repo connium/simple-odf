@@ -1,4 +1,4 @@
-import { TextDocument } from "../TextDocument";
+import { TextDocument } from "../../TextDocument";
 import { Heading } from "./Heading";
 
 describe(Heading.name, () => {

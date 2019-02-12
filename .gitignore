@@ -3,6 +3,6 @@ coverage/
 examples/
 lib/
 node_modules/
-test/example
+example.spec.ts
 
 TODO.md

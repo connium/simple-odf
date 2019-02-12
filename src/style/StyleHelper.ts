@@ -1,4 +1,4 @@
-import { OdfElementName } from "../OdfElementName";
+import { OdfElementName } from "../xml/OdfElementName";
 
 /**
  * Utility class for dealing with styles.

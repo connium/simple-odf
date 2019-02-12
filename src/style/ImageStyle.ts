@@ -1,4 +1,4 @@
-import { OdfAttributeName } from "../OdfAttributeName";
+import { OdfAttributeName } from "../xml/OdfAttributeName";
 import { AnchorType } from "./AnchorType";
 import { IImageStyle } from "./IImageStyle";
 

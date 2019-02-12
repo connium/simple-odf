@@ -8,7 +8,7 @@ import { TextDocument, XML_DECLARATION } from "./TextDocument";
 const FILEPATH = "./test.fodt";
 
 jest.mock("./xml/meta/MetaWriter");
-jest.mock("./xml/office/TextBodyWriter");
+jest.mock("./xml/DomVisitor");
 
 describe(TextDocument.name, () => {
   /* tslint:disable-next-line:max-line-length */

@@ -1,7 +1,5 @@
-import { OdfElement } from "../../OdfElement";
-import { Heading } from "../../text/Heading";
-import { List } from "../../text/List";
-import { Paragraph } from "../../text/Paragraph";
+import { OdfElement } from "../OdfElement";
+import { Heading, List, Paragraph } from "../text";
 
 /**
  * This class represents the content of a text document.
@@ -22,7 +20,7 @@ export class TextBody extends OdfElement {
    * @param {string} [text] The text content of the heading
    * @param {number} [level=1] The heading level; defaults to 1 if omitted
    * @returns {Heading} The newly added heading
-   * @since 0.1.0
+   * @since 0.7.0
    */
   public addHeading(text?: string, level = 1): Heading {
     const heading = new Heading(text, level);
@@ -35,7 +33,7 @@ export class TextBody extends OdfElement {
    * Adds an empty list at the end of the document.
    *
    * @returns {List} The newly added list
-   * @since 0.2.0
+   * @since 0.7.0
    */
   public addList(): List {
     const list = new List();
@@ -50,7 +48,7 @@ export class TextBody extends OdfElement {
    *
    * @param {string} [text] The text content of the paragraph
    * @returns {Paragraph} The newly added paragraph
-   * @since 0.1.0
+   * @since 0.7.0
    */
   public addParagraph(text?: string): Paragraph {
     const paragraph = new Paragraph(text);

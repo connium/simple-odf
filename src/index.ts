@@ -24,8 +24,8 @@ export { TextTransformation } from "./style/TextTransformation";
 export { Typeface } from "./style/Typeface";
 
 // text
-export { Heading } from "./text/Heading";
+export { Heading } from "./api/text/Heading";
 export { Hyperlink } from "./api/text/Hyperlink";
-export { List } from "./text/List";
-export { ListItem } from "./text/ListItem";
-export { Paragraph } from "./text/Paragraph";
+export { List } from "./api/text/List";
+export { ListItem } from "./api/text/ListItem";
+export { Paragraph } from "./api/text/Paragraph";

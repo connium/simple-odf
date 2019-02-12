@@ -1,5 +1,5 @@
 import { join } from "path";
-import { Image } from "../draw/Image";
+import { Image } from "../api/draw";
 import { TextDocument } from "../TextDocument";
 import { AnchorType } from "./AnchorType";
 import { ImageStyle } from "./ImageStyle";

@@ -1,6 +1,6 @@
 import { join } from "path";
-import { ParagraphStyle } from "../style/ParagraphStyle";
-import { TextDocument } from "../TextDocument";
+import { ParagraphStyle } from "../../style/ParagraphStyle";
+import { TextDocument } from "../../TextDocument";
 import { Paragraph } from "./Paragraph";
 
 describe(Paragraph.name, () => {
@@ -93,7 +93,7 @@ describe(Paragraph.name, () => {
 
   describe("#addImage", () => {
     it("append a draw frame with image and binary data", () => {
-      document.getBody().addParagraph().addImage(join(__dirname, "..", "..", "test", "data", "ODF.png"));
+      document.getBody().addParagraph().addImage(join(__dirname, "..", "..", "..", "test", "data", "ODF.png"));
 
       const regex = new RegExp("<draw:frame text:anchor-type=\"paragraph\">"
         + "<draw:image>"

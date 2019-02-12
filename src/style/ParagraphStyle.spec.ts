@@ -1,4 +1,4 @@
-import { Paragraph } from "../text/Paragraph";
+import { Paragraph } from "../api/text";
 import { TextDocument } from "../TextDocument";
 import { ParagraphStyle } from "./ParagraphStyle";
 

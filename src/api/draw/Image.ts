@@ -1,7 +1,6 @@
-import { OdfElement } from "../../OdfElement";
 import { IImageStyle } from "../../style/IImageStyle";
 import { ImageStyle } from "../../style/ImageStyle";
-import { ImageWriter } from "../../xml/draw/ImageWriter";
+import { OdfElement } from "../OdfElement";
 
 /**
  * This class represents an image in a paragraph.
@@ -82,10 +81,5 @@ export class Image extends OdfElement {
    */
   public getStyle(): IImageStyle {
     return this.style;
-  }
-
-  /** @inheritDoc */
-  protected toXml(document: Document, parent: Element): void {
-    new ImageWriter().write(document, parent, this);
   }
 }

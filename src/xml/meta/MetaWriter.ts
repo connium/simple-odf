@@ -1,17 +1,19 @@
-import { Meta } from "../../api/meta/Meta";
-import { OdfElementName } from "../../OdfElementName";
-import { IWriter } from "../IWriter";
+import { Meta } from "../../api/meta";
+import { OdfElementName } from "../OdfElementName";
 import { MetaElementName } from "./MetaElementName";
 
 /**
- * XML writer for {@link Meta} elements
+ * Transforms a {@link Meta} object into ODF conform XML
  *
- * @implements {IWriter}
  * @since 0.7.0
  */
-export class MetaWriter implements IWriter<Meta> {
+export class MetaWriter {
   /**
-   * @inheritdoc
+   * Transforms the given {@link Meta} into Open Document Format.
+   *
+   * @param {Document} document The XML document
+   * @param {Element} parent The parent node in the DOM
+   * @param {Meta} meta The Meta to serialize
    * @since 0.7.0
    */
   public write(document: Document, root: Element, meta: Meta): void {

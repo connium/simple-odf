@@ -1,5 +1,5 @@
-import { OdfAttributeName } from "../OdfAttributeName";
-import { OdfElementName } from "../OdfElementName";
+import { OdfAttributeName } from "../xml/OdfAttributeName";
+import { OdfElementName } from "../xml/OdfElementName";
 import { HorizontalAlignment } from "./HorizontalAlignment";
 import { IParagraphProperties } from "./IParagraphProperties";
 import { TabStop } from "./TabStop";

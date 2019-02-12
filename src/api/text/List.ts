@@ -1,6 +1,5 @@
 import { OdfElement } from "../OdfElement";
 import { ListItem } from "./ListItem";
-import { TextElementName } from "./TextElementName";
 
 /**
  * This class represents a list.
@@ -114,17 +113,5 @@ export class List extends OdfElement {
    */
   public size(): number {
     return this.getAll().length;
-  }
-
-  /** @inheritDoc */
-  protected toXml(document: Document, parent: Element): void {
-    if (this.hasChildren() === false) {
-      return;
-    }
-
-    const listElement = document.createElement(TextElementName.TextList);
-    parent.appendChild(listElement);
-
-    super.toXml(document, listElement);
   }
 }

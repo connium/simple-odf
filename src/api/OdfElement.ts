@@ -1,5 +1,3 @@
-import { HyperlinkWriter } from "./xml/text/HyperlinkWriter";
-
 /**
  * Base element in Open Document Format
  * @since 0.1.0
@@ -14,6 +12,16 @@ export class OdfElement {
    */
   public constructor() {
     this.children = [];
+  }
+
+  /**
+   * Returns all child elements.
+   *
+   * @returns {OdfElement[]} A copy of the list of child elements
+   * @since 0.2.0
+   */
+  public getAll(): OdfElement[] {
+    return Array.from(this.children);
   }
 
   /**
@@ -67,16 +75,6 @@ export class OdfElement {
   }
 
   /**
-   * Returns all child elements.
-   *
-   * @returns {OdfElement[]} A copy of the list of child elements
-   * @since 0.2.0
-   */
-  protected getAll(): OdfElement[] {
-    return Array.from(this.children);
-  }
-
-  /**
    * Removes the child element from the specified position.
    *
    * @param {number} position The index of the element to remove (starting from 0).
@@ -102,24 +100,5 @@ export class OdfElement {
    */
   protected hasChildren(): boolean {
     return this.children.length > 0;
-  }
-
-  /**
-   * Transforms the element into Open Document Format.
-   * Implementors of this class must add themselves to the document and afterwards call <code>super.toXML(...)</code>.
-   *
-   * @param {Document} document The XML document
-   * @param {Element} parent The parent node
-   * @since 0.1.0
-   */
-  protected toXml(document: Document, parent: Element): void {
-    this.children.forEach((child: OdfElement) => {
-      // instanceof is not possible because of circular dependency
-      if (child.hasOwnProperty("uri") === true) {
-        new HyperlinkWriter().write(document, parent, <any>child);
-      } else {
-        child.toXml(document, parent);
-      }
-    });
   }
 }

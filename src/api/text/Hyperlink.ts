@@ -1,4 +1,4 @@
-import { OdfTextElement } from "../../text/OdfTextElement";
+import { OdfTextElement } from "./OdfTextElement";
 
 /**
  * This class represents a hyperlink in a paragraph.
@@ -60,10 +60,5 @@ export class Hyperlink extends OdfTextElement {
    */
   public getURI(): string {
     return this.uri;
-  }
-
-  /** @inheritDoc */
-  protected toXml(): void {
-    // do nothing
   }
 }

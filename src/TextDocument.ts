@@ -1,13 +1,13 @@
 import { writeFile } from "fs";
 import { promisify } from "util";
 import { DOMImplementation, XMLSerializer } from "xmldom";
-import { Meta } from "./api/meta/Meta";
-import { TextBody } from "./api/office/TextBody";
-import { OdfAttributeName } from "./OdfAttributeName";
-import { OdfElementName } from "./OdfElementName";
+import { Meta } from "./api/meta";
+import { TextBody } from "./api/office";
 import { FontPitch } from "./style/FontPitch";
+import { DomVisitor } from "./xml/DomVisitor";
 import { MetaWriter } from "./xml/meta/MetaWriter";
-import { TextBodyWriter } from "./xml/office/TextBodyWriter";
+import { OdfAttributeName } from "./xml/OdfAttributeName";
+import { OdfElementName } from "./xml/OdfElementName";
 
 export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
 const OFFICE_VERSION = "1.2";
@@ -120,7 +120,7 @@ export class TextDocument {
 
     this.setFontFaceElements(document, root);
 
-    new TextBodyWriter().write(document, root, this.body);
+    new DomVisitor().visit(this.body, document, root);
   }
 
   /**

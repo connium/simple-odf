@@ -1,9 +1,8 @@
-import { Image } from "../api/draw/Image";
-import { Hyperlink } from "../api/text/Hyperlink";
+import { IParagraphStyle } from "../../style/IParagraphStyle";
+import { Image } from "../draw";
 import { OdfElement } from "../OdfElement";
-import { IParagraphStyle } from "../style/IParagraphStyle";
+import { Hyperlink } from "./Hyperlink";
 import { OdfTextElement } from "./OdfTextElement";
-import { TextElementName } from "./TextElementName";
 
 /**
  * This class represents a paragraph.
@@ -119,29 +118,6 @@ export class Paragraph extends OdfElement {
    */
   public getStyle(): IParagraphStyle | undefined {
     return this.style;
-  }
-
-  /**
-   * Creates the paragraph element.
-   *
-   * @param {Document} document The XML document
-   * @returns {Element} The DOM element representing this paragraph
-   * @since 0.1.0
-   */
-  protected createElement(document: Document): Element {
-    return document.createElement(TextElementName.TextParagraph);
-  }
-
-  /** @inheritDoc */
-  protected toXml(document: Document, parent: Element): void {
-    const paragraph = this.createElement(document);
-    parent.appendChild(paragraph);
-
-    if (this.style !== undefined) {
-      this.style.toXml(document, paragraph);
-    }
-
-    super.toXml(document, paragraph);
   }
 
   /**

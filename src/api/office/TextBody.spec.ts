@@ -1,6 +1,4 @@
-import { Heading } from "../../text/Heading";
-import { List } from "../../text/List";
-import { Paragraph } from "../../text/Paragraph";
+import { Heading, List, Paragraph } from "../text";
 import { TextBody } from "./TextBody";
 
 describe(TextBody.name, () => {

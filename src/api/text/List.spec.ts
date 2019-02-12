@@ -1,4 +1,4 @@
-import { TextDocument } from "../TextDocument";
+import { TextDocument } from "../../TextDocument";
 import { List } from "./List";
 import { ListItem } from "./ListItem";
 
