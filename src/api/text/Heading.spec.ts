@@ -1,66 +1,52 @@
-import { TextDocument } from "../../TextDocument";
 import { Heading } from "./Heading";
 
 describe(Heading.name, () => {
-  let document: TextDocument;
+  const testLevel = 2;
+  const testText = "some text";
+
   let heading: Heading;
 
   beforeEach(() => {
-    document = new TextDocument();
+    heading = new Heading(testText, testLevel);
   });
 
-  describe("#addHeading", () => {
-    it("insert an empty heading with default level 1", () => {
-      document.getBody().addHeading();
-
-      const documentAsString = document.toString();
-      expect(documentAsString).toMatch(/<text:h text:outline-level="1"\/>/);
+  describe("level", () => {
+    it("return initial level", () => {
+      expect(heading.getLevel()).toBe(testLevel);
     });
 
-    it("insert a heading with given text and default level 1", () => {
-      document.getBody().addHeading("heading");
+    it("return default level if initial level is not set", () => {
+      heading = new Heading(testText);
 
-      const documentAsString = document.toString();
-      expect(documentAsString).toMatch(/<text:h text:outline-level="1">heading<\/text:h>/);
+      expect(heading.getLevel()).toBe(Heading.DEFAULT_LEVEL);
     });
 
-    it("insert a heading with given text and given level", () => {
-      document.getBody().addHeading("heading", 2);
-
-      const documentAsString = document.toString();
-      expect(documentAsString).toMatch(/<text:h text:outline-level="2">heading<\/text:h>/);
-    });
-  });
-
-  describe("#setLevel", () => {
-    beforeEach(() => {
-      heading = document.getBody().addHeading("Heading", 2);
-    });
-
-    it("change the current level to the given value", () => {
+    it("return previous set level", () => {
       heading.setLevel(3);
-      const headingLevel = heading.getLevel();
 
-      expect(headingLevel).toBe(3);
+      expect(heading.getLevel()).toBe(3);
     });
 
-    it("change the current level to the default value, if the given value is invalid", () => {
+    it("use default level if invalid level is given", () => {
       heading.setLevel(-2);
-      const headingLevel = heading.getLevel();
 
-      expect(headingLevel).toBe(Heading.DEFAULT_LEVEL);
+      expect(heading.getLevel()).toBe(Heading.DEFAULT_LEVEL);
+
+      heading.setLevel(<any>null);
+
+      expect(heading.getLevel()).toBe(Heading.DEFAULT_LEVEL);
     });
   });
 
-  describe("#getLevel", () => {
-    beforeEach(() => {
-      heading = document.getBody().addHeading("heading", 2);
+  describe("text", () => {
+    it("return initial text", () => {
+      expect(heading.getText()).toBe(testText);
     });
 
-    it("return the current level", () => {
-      const headingLevel = heading.getLevel();
+    it("return empty text if initial text is not set", () => {
+      heading = new Heading();
 
-      expect(headingLevel).toBe(2);
+      expect(heading.getText()).toBe("");
     });
   });
 });

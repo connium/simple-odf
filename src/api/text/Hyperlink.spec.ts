@@ -10,6 +10,12 @@ describe(Hyperlink.name, () => {
     hyperlink = new Hyperlink(testText, testUri);
   });
 
+  describe("text", () => {
+    it("return initial text", () => {
+      expect(hyperlink.getText()).toBe(testText);
+    });
+  });
+
   describe("URI", () => {
     it("return initial URI", () => {
       expect(hyperlink.getURI()).toBe(testUri);

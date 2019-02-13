@@ -10,20 +10,6 @@ describe(Paragraph.name, () => {
     document = new TextDocument();
   });
 
-  describe("#addParagraph", () => {
-    it("insert an empty paragraph", () => {
-      document.getBody().addParagraph();
-
-      expect(document.toString()).toMatch(/<text:p\/>/);
-    });
-
-    it("insert a paragraph with specified text", () => {
-      document.getBody().addParagraph("some text");
-
-      expect(document.toString()).toMatch(/<text:p>some text<\/text:p>/);
-    });
-  });
-
   describe("#addText", () => {
     it("set the text if element is empty", () => {
       document.getBody().addParagraph().addText("some text");
