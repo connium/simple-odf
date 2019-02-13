@@ -28,18 +28,21 @@ export class Paragraph extends OdfElement {
    * Appends the specified text to the end of this paragraph.
    *
    * @param {string} text The additional text content
+   * @returns {Paragraph} The `Paragraph` object
    * @since 0.1.0
    */
-  public addText(text: string): void {
+  public addText(text: string): Paragraph {
     const elements = this.getAll();
 
     if (elements.length > 0 && elements[elements.length - 1].constructor.name === OdfTextElement.name) {
       const lastElement = elements[elements.length - 1] as OdfTextElement;
       lastElement.setText(lastElement.getText() + text);
-      return;
+      return this;
     }
 
     this.append(new OdfTextElement(text));
+
+    return this;
   }
 
   /**
@@ -62,11 +65,14 @@ export class Paragraph extends OdfElement {
    * Note: This will replace any existing content of the paragraph.
    *
    * @param {string} text The new text content
+   * @returns {Paragraph} The `Paragraph` object
    * @since 0.1.0
    */
-  public setText(text: string): void {
+  public setText(text: string): Paragraph {
     this.removeText();
     this.addText(text || "");
+
+    return this;
   }
 
   /**
@@ -104,10 +110,13 @@ export class Paragraph extends OdfElement {
    * To reset the style, `undefined` must be given.
    *
    * @param {IParagraphStyle | undefined} style The new style or `undefined` to reset the style
+   * @returns {Paragraph} The `Paragraph` object
    * @since 0.3.0
    */
-  public setStyle(style: IParagraphStyle | undefined): void {
+  public setStyle(style: IParagraphStyle | undefined): Paragraph {
     this.style = style;
+
+    return this;
   }
 
   /**
@@ -122,13 +131,17 @@ export class Paragraph extends OdfElement {
 
   /**
    * Removes the text content of this paragraph.
+   * 
+   * @returns {Paragraph} The `Paragraph` object
    * @private
    */
-  private removeText(): void {
+  private removeText(): Paragraph {
     const elements = this.getAll();
 
     for (let index = elements.length - 1; index >= 0; index--) {
       this.removeAt(index);
     }
+
+    return this;
   }
 }

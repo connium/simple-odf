@@ -95,14 +95,17 @@ export class List extends OdfElement {
   /**
    * Removes all items from this list.
    *
+   * @returns {List} The `List` object
    * @since 0.2.0
    */
-  public clear(): void {
+  public clear(): List {
     let removedElement;
 
     do {
       removedElement = this.removeAt(0);
     } while (removedElement !== undefined);
+
+    return this;
   }
 
   /**
