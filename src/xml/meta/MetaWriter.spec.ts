@@ -1,28 +1,39 @@
 import { userInfo } from "os";
-import { TextDocument } from "../../TextDocument";
+import { DOMImplementation, XMLSerializer } from "xmldom";
+import { Meta } from "../../api/meta";
+import { OdfElementName } from "../OdfElementName";
 import { MetaWriter } from "./MetaWriter";
 
 describe(MetaWriter.name, () => {
   describe("#write", () => {
-    let document: TextDocument;
+    let metaWriter: MetaWriter;
+    let testDocument: Document;
+    let testRoot: Element;
+    let meta: Meta;
 
     beforeEach(() => {
-      document = new TextDocument();
+      testDocument = new DOMImplementation().createDocument("someNameSpace", OdfElementName.OfficeDocument, null);
+      testRoot = testDocument.firstChild as Element;
+      meta = new Meta();
+
+      metaWriter = new MetaWriter();
     });
 
     it("append creator, date, creation-date, editing-cycles and generator as default properties", () => {
+      metaWriter.write(testDocument, testRoot, meta);
+
+      const documentAsString = new XMLSerializer().serializeToString(testDocument);
       const regex = new RegExp("<office:meta>"
         + "<meta:generator>simple-odf/\\d\\.\\d+\\.\\d+</meta:generator>"
         + "<meta:initial-creator>" + userInfo().username + "</meta:initial-creator>"
         + "<meta:creation-date>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z</meta:creation-date>"
         + "<meta:editing-cycles>1</meta:editing-cycles>"
         + "</office:meta>");
-      expect(document.toString()).toMatch(regex);
+      expect(documentAsString).toMatch(regex);
     });
 
     it("ignore description, language, subject, title if they are empty", () => {
-      document.getMeta()
-        .setCreator("")
+      meta.setCreator("")
         .setDate(undefined)
         .setDescription("")
         .setInitialCreator("")
@@ -30,17 +41,19 @@ describe(MetaWriter.name, () => {
         .setSubject("")
         .setTitle("");
 
+      metaWriter.write(testDocument, testRoot, meta);
+
+      const documentAsString = new XMLSerializer().serializeToString(testDocument);
       const regex = new RegExp("<office:meta>"
         + "<meta:generator>simple-odf/\\d\\.\\d+\\.\\d+</meta:generator>"
         + "<meta:creation-date>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z</meta:creation-date>"
         + "<meta:editing-cycles>1</meta:editing-cycles>"
         + "</office:meta>");
-      expect(document.toString()).toMatch(regex);
+      expect(documentAsString).toMatch(regex);
     });
 
     it("append elements if they are set", () => {
-      document.getMeta()
-        .setCreator("Homer Simpson")
+      meta.setCreator("Homer Simpson")
         .setDate(new Date(Date.UTC(2020, 11, 24, 13, 37, 23, 42)))
         .setDescription("some test description")
         .setInitialCreator("Marge Simpson")
@@ -53,6 +66,9 @@ describe(MetaWriter.name, () => {
         .setTitle("some test title")
         ;
 
+      metaWriter.write(testDocument, testRoot, meta);
+
+      const documentAsString = new XMLSerializer().serializeToString(testDocument);
       const regex = new RegExp("<office:meta>"
         + "<meta:generator>simple-odf/\\d\\.\\d+\\.\\d+</meta:generator>"
         + "<dc:title>some test title</dc:title>"
@@ -69,7 +85,7 @@ describe(MetaWriter.name, () => {
         + "<dc:language>zu</dc:language>"
         + "<meta:editing-cycles>1</meta:editing-cycles>"
         + "</office:meta>");
-      expect(document.toString()).toMatch(regex);
+      expect(documentAsString).toMatch(regex);
     });
   });
 });

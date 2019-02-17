@@ -1,4 +1,5 @@
 import { IParagraphStyle } from "../../style/IParagraphStyle";
+import { ParagraphStyle } from "../../style/ParagraphStyle";
 import { Image } from "../draw";
 import { OdfElement } from "../OdfElement";
 import { Hyperlink } from "./Hyperlink";
@@ -114,7 +115,9 @@ export class Paragraph extends OdfElement {
    * @since 0.3.0
    */
   public setStyle(style: IParagraphStyle | undefined): Paragraph {
-    this.style = style;
+    if (style instanceof ParagraphStyle) {
+      this.style = style;
+    }
 
     return this;
   }
@@ -131,7 +134,7 @@ export class Paragraph extends OdfElement {
 
   /**
    * Removes the text content of this paragraph.
-   * 
+   *
    * @returns {Paragraph} The `Paragraph` object
    * @private
    */

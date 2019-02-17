@@ -102,6 +102,51 @@ fdescribe(DomVisitor.name, () => {
       });
     });
 
+    describe("visitOdfText", () => {
+      let paragraph: Paragraph;
+
+      beforeEach(() => {
+        paragraph = new Paragraph();
+      });
+
+      it("replace newline with line break", () => {
+        paragraph.setText("some text\nsome more text");
+
+        domVisitor.visit(paragraph, testDocument, testRoot);
+
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+        expect(documentAsString).toMatch(/<text:p>some text<text:line-break\/>some more text<\/text:p>/);
+      });
+
+      it("replace tab with tabulation", () => {
+        paragraph.setText("some\ttabbed\t\ttext");
+
+        domVisitor.visit(paragraph, testDocument, testRoot);
+
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+        expect(documentAsString).toMatch(/<text:p>some<text:tab\/>tabbed<text:tab\/><text:tab\/>text<\/text:p>/);
+      });
+
+      it("replace sequence of spaces with space node", () => {
+        paragraph.setText(" some  spacey   text    ");
+
+        domVisitor.visit(paragraph, testDocument, testRoot);
+
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+        /* tslint:disable-next-line:max-line-length */
+        expect(documentAsString).toMatch(/<text:p> some <text:s\/>spacey <text:s c="2"\/>text <text:s c="3"\/><\/text:p>/);
+      });
+
+      it("ignore carriage return character", () => {
+        paragraph.setText("some text\r\nsome\r more text");
+
+        domVisitor.visit(paragraph, testDocument, testRoot);
+
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+        expect(documentAsString).toMatch(/<text:p>some text<text:line-break\/>some more text<\/text:p>/);
+      });
+    });
+
     describe("#visitParagraph", () => {
       let paragraph: Paragraph;
 
