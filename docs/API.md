@@ -2039,16 +2039,16 @@ Creates a tab stop to be set to the style of a paragraph.
 
 #### Parameters
 - [position] <code>number</code>  
-The position of the tab stop in centimeters relative to the left margin.
+The position of the tab stop in millimeters relative to the left margin.
 If a negative value is given, the `position` will be set to `0`.
 - [type] <code>TabStopType</code>  
 The type of the tab stop. Defaults to `TabStopType.Left`.
 
 **Example**  
 ```js
-// creates a right aligned tab stop with a distance of 4 cm from the left margin
-const tabStop4 = new TabStop(4, TabStopType.Right);
-paragraph.getStyle().addTabStop(tabStop4);
+// creates a right aligned tab stop with a distance of 40 mm from the left margin
+const tabStop40 = new TabStop(40, TabStopType.Right);
+paragraph.getStyle().addTabStop(tabStop40);
 ```
 
 * * *
@@ -2060,7 +2060,7 @@ Sets the position of this tab stop.
 
 #### Parameters
 - position <code>number</code>  
-The position of the tab stop in centimeters relative to the left margin.
+The position of the tab stop in millimeters relative to the left margin.
 If a negative value is given, the `position` will be set to `0`.
 
 **Since**: 0.3.0  
@@ -2073,7 +2073,7 @@ If a negative value is given, the `position` will be set to `0`.
 Returns the position of this tab stop.
 
 **Return value**  
-<code>number</code> - The position of this tab stop in centimeters
+<code>number</code> - The position of this tab stop in millimeters
 
 **Since**: 0.3.0  
 

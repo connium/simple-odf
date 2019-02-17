@@ -80,8 +80,8 @@ xdescribe("integration", () => {
     it("tab stops", () => {
       const paragraph = body.addParagraph("first\tsecond\tthird");
       paragraph.setStyle(new ParagraphStyle());
-      paragraph.getStyle().addTabStop(new TabStop(4));
-      paragraph.getStyle().addTabStop(new TabStop(12, TabStopType.Right));
+      paragraph.getStyle().addTabStop(new TabStop(40));
+      paragraph.getStyle().addTabStop(new TabStop(120, TabStopType.Right));
     });
   });
 

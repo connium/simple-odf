@@ -9,9 +9,9 @@ import { TabStopType } from "./TabStopType";
  * To become effective they must be set to the style of the respective paragraph.
  *
  * @example
- * // creates a right aligned tab stop with a distance of 4 cm from the left margin
- * const tabStop4 = new TabStop(4, TabStopType.Right);
- * paragraph.getStyle().addTabStop(tabStop4);
+ * // creates a right aligned tab stop with a distance of 40 mm from the left margin
+ * const tabStop40 = new TabStop(40, TabStopType.Right);
+ * paragraph.getStyle().addTabStop(tabStop40);
  *
  * @since 0.3.0
  */
@@ -19,7 +19,7 @@ export class TabStop {
   /**
    * Creates a tab stop to be set to the style of a paragraph.
    *
-   * @param {number} [position] The position of the tab stop in centimeters relative to the left margin.
+   * @param {number} [position] The position of the tab stop in millimeters relative to the left margin.
    * If a negative value is given, the `position` will be set to `0`.
    * @param {TabStopType} [type] The type of the tab stop. Defaults to `TabStopType.Left`.
    * @since 0.3.0
@@ -31,7 +31,7 @@ export class TabStop {
   /**
    * Sets the position of this tab stop.
    *
-   * @param {number} position The position of the tab stop in centimeters relative to the left margin.
+   * @param {number} position The position of the tab stop in millimeters relative to the left margin.
    * If a negative value is given, the `position` will be set to `0`.
    * @since 0.3.0
    */
@@ -42,7 +42,7 @@ export class TabStop {
   /**
    * Returns the position of this tab stop.
    *
-   * @returns {number} The position of this tab stop in centimeters
+   * @returns {number} The position of this tab stop in millimeters
    * @since 0.3.0
    */
   public getPosition(): number {
@@ -80,7 +80,7 @@ export class TabStop {
     const tabStopElement = document.createElement(OdfElementName.StyleTabStop);
     parent.appendChild(tabStopElement);
 
-    tabStopElement.setAttribute(OdfAttributeName.StylePosition, `${this.position}cm`);
+    tabStopElement.setAttribute(OdfAttributeName.StylePosition, `${this.position}mm`);
     if (this.type !== TabStopType.Left) {
       tabStopElement.setAttribute(OdfAttributeName.StyleType, this.type);
     }

@@ -43,7 +43,7 @@ export interface IParagraphProperties {
    * If a tab stop at the same position already exists, the new tab stop will not be added.
    * The tab stops will be ordered by their position.
    *
-   * @param {number} position The position of the tab stop in centimeters relative to the left margin.
+   * @param {number} position The position of the tab stop in millimeters relative to the left margin.
    * @param {TabStopType} type The type of the tab stop. Defaults to `TabStopType.Left`.
    * @returns {TabStop | undefined} The newly added tab stop
    * or `undefined` if a tab stop at the same position already exists
