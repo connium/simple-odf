@@ -97,10 +97,10 @@ describe(TabStop.name, () => {
       paragraph.setStyle(style);
 
       const documentAsString = document.toString();
-      expect(documentAsString).toMatch(/<style:tab-stop style:position="2cm" style:type="center"\/>/);
-      expect(documentAsString).toMatch(/<style:tab-stop style:position="4cm" style:type="char"\/>/);
-      expect(documentAsString).toMatch(/<style:tab-stop style:position="6cm"\/>/);
-      expect(documentAsString).toMatch(/<style:tab-stop style:position="8cm" style:type="right"\/>/);
+      expect(documentAsString).toMatch(/<style:tab-stop style:position="2mm" style:type="center"\/>/);
+      expect(documentAsString).toMatch(/<style:tab-stop style:position="4mm" style:type="char"\/>/);
+      expect(documentAsString).toMatch(/<style:tab-stop style:position="6mm"\/>/);
+      expect(documentAsString).toMatch(/<style:tab-stop style:position="8mm" style:type="right"\/>/);
     });
   });
 });

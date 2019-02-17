@@ -12,8 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - **meta:** Use `Date` instead of `number` when dealing with dates
-- **chore:** Update dev dependencies, place test code next to production code, mention contributors in package.json
+- **style:** Always use millimeter as unit, except for font size
 - **refactor:** Split API and serialization logic, closes [#60](https://github.com/connium/simple-odf/issues/60)
+- **chore:** Update dev dependencies, place test code next to production code, mention contributors in package.json
 
 ## [0.6.0] (2018-10-12)
 ### Added
