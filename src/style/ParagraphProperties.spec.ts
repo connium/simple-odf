@@ -1,5 +1,5 @@
+import { TextDocument } from "../api/office";
 import { Paragraph } from "../api/text";
-import { TextDocument } from "../TextDocument";
 import { HorizontalAlignment } from "./HorizontalAlignment";
 import { ParagraphProperties } from "./ParagraphProperties";
 import { ParagraphStyle } from "./ParagraphStyle";

@@ -15,7 +15,7 @@ export class Hyperlink extends OdfTextElement {
    * Creates a hyperlink
    *
    * @example
-   * const hyperlink = new Hyperlink('My website', 'https://example.com/');
+   * new Hyperlink('My website', 'https://example.com/');
    *
    * @param {string} text The text content of the hyperlink
    * @param {string} uri The target URI of the hyperlink

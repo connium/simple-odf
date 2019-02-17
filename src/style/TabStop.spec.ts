@@ -1,4 +1,4 @@
-import { TextDocument } from "../TextDocument";
+import { TextDocument } from "../api/office";
 import { ParagraphStyle } from "./ParagraphStyle";
 import { TabStop } from "./TabStop";
 import { TabStopType } from "./TabStopType";

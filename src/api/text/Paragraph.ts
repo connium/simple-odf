@@ -8,15 +8,24 @@ import { OdfTextElement } from "./OdfTextElement";
 /**
  * This class represents a paragraph.
  *
+ * @example
+ * document.getBody().addParagraph("Some text")
+ *   .addText("\nEven more text")
+ *   .addImage("/home/homer/myself.png");
+ *
  * @since 0.1.0
  */
 export class Paragraph extends OdfElement {
   private style: IParagraphStyle | undefined;
 
   /**
-   * Creates a paragraph
+   * Creates a `Paragraph` instance.
    *
-   * @param {string} [text] The text content of the paragraph
+   * @example
+   * new Paragraph("Some text");
+   * new Paragraph();
+   *
+   * @param {string} [text] The text content of the paragraph; defaults to an empty string if omitted
    * @since 0.1.0
    */
   public constructor(text?: string) {
@@ -26,7 +35,11 @@ export class Paragraph extends OdfElement {
   }
 
   /**
-   * Appends the specified text to the end of this paragraph.
+   * Appends the specified text to the end of the paragraph.
+   *
+   * @example
+   * new Paragraph("Some text")      // Some text
+   *   .addText("\nEven more text"); // Some text\nEven more text
    *
    * @param {string} text The additional text content
    * @returns {Paragraph} The `Paragraph` object
@@ -47,10 +60,16 @@ export class Paragraph extends OdfElement {
   }
 
   /**
-   * Returns the text content of this paragraph.
+   * Returns the text content of the paragraph.
    * Note: This will only return the text; other elements and markup will be omitted.
    *
-   * @returns {string} The text content of this paragraph
+   * @example
+   * const paragraph = new Paragraph("Some text, ");
+   * paragraph.addHyperlink("some linked text");
+   * paragraph.addText(", even more text");
+   * paragraph.getText(); // Some text, some linked text, even more text
+   *
+   * @returns {string} The text content of the paragraph
    * @since 0.1.0
    */
   public getText(): string {
@@ -62,8 +81,12 @@ export class Paragraph extends OdfElement {
   }
 
   /**
-   * Sets the text content of this paragraph.
+   * Sets the text content of the paragraph.
    * Note: This will replace any existing content of the paragraph.
+   *
+   * @example
+   * new Paragraph("Some text")     // Some text
+   *   .setText("Some other text"); // Some other text
    *
    * @param {string} text The new text content
    * @returns {Paragraph} The `Paragraph` object
@@ -77,11 +100,15 @@ export class Paragraph extends OdfElement {
   }
 
   /**
-   * Appends the specified text as hyperlink to the end of this paragraph.
+   * Appends the specified text as hyperlink to the end of the paragraph.
+   *
+   * @example
+   * new Paragraph("Some text, ")         // Some text,
+   *   .addHyperlink("some linked text"); // Some text, some linked text
    *
    * @param {string} text The text content of the hyperlink
    * @param {string} uri The target URI of the hyperlink
-   * @returns {Hyperlink} The newly added hyperlink
+   * @returns {Hyperlink} The added `Hyperlink` object
    * @since 0.3.0
    */
   public addHyperlink(text: string, uri: string): Hyperlink {
@@ -92,11 +119,15 @@ export class Paragraph extends OdfElement {
   }
 
   /**
-   * Appends the image of the denoted path to the end of this paragraph.
+   * Appends the image of the denoted path to the end of the paragraph.
    * The current paragraph will be set as anchor for the image.
    *
+   * @example
+   * new Paragraph("Some text")
+   *   .addImage("/home/homer/myself.png");
+   *
    * @param {string} path The path to the image file
-   * @returns {Image} The newly added image
+   * @returns {Image} The added `Image` object
    * @since 0.3.0
    */
   public addImage(path: string): Image {
@@ -107,8 +138,12 @@ export class Paragraph extends OdfElement {
   }
 
   /**
-   * Sets the new style of this paragraph.
+   * Sets the new style of the paragraph.
    * To reset the style, `undefined` must be given.
+   *
+   * @example
+   * new Paragraph("Some text")
+   *   .setStyle(new ParagraphStyle());
    *
    * @param {IParagraphStyle | undefined} style The new style or `undefined` to reset the style
    * @returns {Paragraph} The `Paragraph` object
@@ -123,7 +158,13 @@ export class Paragraph extends OdfElement {
   }
 
   /**
-   * Returns the style of this paragraph.
+   * Returns the style of the paragraph.
+   *
+   * @example
+   * const paragraph = new Paragraph("Some text");
+   * paragraph.getStyle();                     // undefined
+   * paragraph.setStyle(new ParagraphStyle());
+   * paragraph.getStyle();                     // previously set style
    *
    * @returns {IParagraphStyle | undefined} The style of the paragraph or `undefined` if no style was set
    * @since 0.3.0
@@ -133,7 +174,11 @@ export class Paragraph extends OdfElement {
   }
 
   /**
-   * Removes the text content of this paragraph.
+   * Removes the text content of the paragraph.
+   *
+   * @example
+   * new Paragraph("Some text") // Some text
+   *   .removeText();           // ""
    *
    * @returns {Paragraph} The `Paragraph` object
    * @private

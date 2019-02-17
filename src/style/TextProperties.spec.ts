@@ -1,5 +1,5 @@
+import { TextDocument } from "../api/office";
 import { Paragraph } from "../api/text";
-import { TextDocument } from "../TextDocument";
 import { Color } from "./Color";
 import { ParagraphStyle } from "./ParagraphStyle";
 import { TextProperties } from "./TextProperties";

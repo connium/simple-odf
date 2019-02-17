@@ -39,7 +39,7 @@ export class Image extends OdfElement {
    *
    * @example
    * const image = new Image("/home/homer/myself.png");
-   * meta.getPath(); // '/home/homer/myself.png'
+   * image.getPath(); // '/home/homer/myself.png'
    *
    * @returns {string} The path to the image file
    * @since 0.7.0
@@ -53,7 +53,7 @@ export class Image extends OdfElement {
    *
    * @example
    * const image = new Image("/home/homer/myself.png");
-   * meta.setStyle(new ImageStyle());
+   * image.setStyle(new ImageStyle());
    *
    * @param {IImageStyle} style The new style
    * @returns {Image} The `Image` object
@@ -73,7 +73,7 @@ export class Image extends OdfElement {
    * @example
    * const image = new Image("/home/homer/myself.png");
    * image.getStyle();                // default style
-   * meta.setStyle(new ImageStyle());
+   * image.setStyle(new ImageStyle());
    * image.getStyle();                // previously set style
    *
    * @returns {IImageStyle} The style of the image

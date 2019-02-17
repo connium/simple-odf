@@ -1,6 +1,6 @@
 import { join } from "path";
 import { Image } from "../api/draw";
-import { TextDocument } from "../TextDocument";
+import { TextDocument } from "../api/office";
 import { AnchorType } from "./AnchorType";
 import { ImageStyle } from "./ImageStyle";
 

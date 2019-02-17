@@ -1,5 +1,3 @@
-export { TextDocument } from "./TextDocument";
-
 // draw
 export { Image } from "./api/draw/Image";
 
@@ -8,11 +6,15 @@ export { Meta } from "./api/meta/Meta";
 
 // office
 export { TextBody } from "./api/office/TextBody";
+export { TextDocument } from "./api/office/TextDocument";
 
 // style
+export { FontFace } from "./api/style/FontFace";
+export { FontPitch } from "./api/style/FontPitch";
+
+// style (legacy)
 export { AnchorType } from "./style/AnchorType";
 export { Color } from "./style/Color";
-export { FontPitch } from "./style/FontPitch";
 export { HorizontalAlignment } from "./style/HorizontalAlignment";
 export { IImageStyle } from "./style/IImageStyle";
 export { ImageStyle } from "./style/ImageStyle";

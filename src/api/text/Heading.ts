@@ -1,18 +1,35 @@
 import { Paragraph } from "./Paragraph";
 
 /**
- * This class represents a heading.
+ * This class represents a heading in a document.
  *
+ * It is used to structure a document into multiple sections.
+ * A chapter or section begins with a heading and extends to the next heading at the same or higher level.
+ *
+ * @example
+ * document.getBody().addHeading("First Headline", 1);
+ *
+ * @example
+ * document.getBody().addHeading()
+ *   .setText("Second Headline")
+ *   .setLevel(2);
+ *
+ * @extends {Paragraph}
  * @since 0.1.0
  */
 export class Heading extends Paragraph {
   public static DEFAULT_LEVEL = 1;
 
   /**
-   * Creates a heading
+   * Creates a `Heading` instance that represents a heading in a document.
    *
-   * @param {string} [text] The text content of the heading
-   * @param {number} [level] The heading level; defaults to 1 if omitted
+   * @example
+   * new Heading("First Headline", 1);
+   * new Heading("First Headline");
+   * new Heading();
+   *
+   * @param {string} [text=''] The text content of the heading; defaults to an empty string if omitted
+   * @param {number} [level=1] The level of the heading, starting with `1`; defaults to `1` if omitted
    * @since 0.1.0
    */
   public constructor(text?: string, private level = Heading.DEFAULT_LEVEL) {
@@ -22,9 +39,10 @@ export class Heading extends Paragraph {
   }
 
   /**
-   * Sets the level of this heading.
+   * The `setLevel()` method sets the level of the heading, starting with `1`.
+   * If an illegal value is provided, then the heading is assumed to be at level `1`.
    *
-   * @param {number} level The heading level
+   * @param {number} level The level of the heading, starting with `1`
    * @returns {Heading} The `Heading` object
    * @since 0.1.0
    */
@@ -35,9 +53,9 @@ export class Heading extends Paragraph {
   }
 
   /**
-   * Returns the level of this heading.
+   * The `getLevel()` method returns the level of the heading.
    *
-   * @returns {number} The heading level
+   * @returns {number} The level of the heading
    * @since 0.1.0
    */
   public getLevel(): number {
