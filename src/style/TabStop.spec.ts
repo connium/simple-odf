@@ -1,7 +1,7 @@
+import { TextDocument } from "../api/office";
 import { ParagraphStyle } from "./ParagraphStyle";
 import { TabStop } from "./TabStop";
 import { TabStopType } from "./TabStopType";
-import { TextDocument } from "../TextDocument";
 
 describe(TabStop.name, () => {
   describe("#constructor", () => {
@@ -87,7 +87,7 @@ describe(TabStop.name, () => {
   describe("#toXml", () => {
     it("return the current position", () => {
       const document = new TextDocument();
-      const paragraph = document.addParagraph();
+      const paragraph = document.getBody().addParagraph();
       const style = new ParagraphStyle();
 
       style.addTabStop(new TabStop(2, TabStopType.Center));

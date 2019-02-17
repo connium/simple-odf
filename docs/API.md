@@ -3,10 +3,34 @@
 <dl>
 <dt><a href="#Image">Image</a></dt>
 <dd><p>This class represents an image in a paragraph.</p>
+<p>It is used to embed image data in BASE64 encoding.</p>
 </dd>
 <dt><a href="#Meta">Meta</a></dt>
 <dd><p>This class represents the metadata of a document.</p>
 <p>It is used to set descriptive information about the document.</p>
+</dd>
+<dt><a href="#TextBody">TextBody</a></dt>
+<dd><p>This class represents the content of a text document.</p>
+</dd>
+<dt><a href="#TextDocument">TextDocument</a></dt>
+<dd><p>This class represents a text document in OpenDocument format.</p>
+</dd>
+<dt><a href="#Heading">Heading</a> ⇐ <code><a href="#Paragraph">Paragraph</a></code></dt>
+<dd><p>This class represents a heading in a document.</p>
+<p>It is used to structure a document into multiple sections.
+A chapter or section begins with a heading and extends to the next heading at the same or higher level.</p>
+</dd>
+<dt><a href="#Hyperlink">Hyperlink</a></dt>
+<dd><p>This class represents a hyperlink in a paragraph.</p>
+</dd>
+<dt><a href="#List">List</a></dt>
+<dd><p>This class represents a list and may contain any number list items.</p>
+</dd>
+<dt><a href="#ListItem">ListItem</a></dt>
+<dd><p>This class represents an item in a list.</p>
+</dd>
+<dt><a href="#Paragraph">Paragraph</a></dt>
+<dd><p>This class represents a paragraph.</p>
 </dd>
 <dt><a href="#Color">Color</a></dt>
 <dd><p>This class represents a Color.</p>
@@ -25,25 +49,6 @@
 <p>Tab stops are used to align text in a paragraph.
 To become effective they must be set to the style of the respective paragraph.</p>
 </dd>
-<dt><a href="#Heading">Heading</a></dt>
-<dd><p>This class represents a heading.</p>
-</dd>
-<dt><a href="#Hyperlink">Hyperlink</a></dt>
-<dd><p>This class represents a hyperlink in a paragraph.</p>
-</dd>
-<dt><a href="#List">List</a></dt>
-<dd><p>This class represents a list.
-It can contain multiple list items.</p>
-</dd>
-<dt><a href="#ListItem">ListItem</a></dt>
-<dd><p>This class represents an item in a list.</p>
-</dd>
-<dt><a href="#Paragraph">Paragraph</a></dt>
-<dd><p>This class represents a paragraph.</p>
-</dd>
-<dt><a href="#TextDocument">TextDocument</a></dt>
-<dd><p>This class represents an empty ODF text document.</p>
-</dd>
 </dl>
 
 <a name="Image"></a>
@@ -51,13 +56,15 @@ It can contain multiple list items.</p>
 ## Image
 This class represents an image in a paragraph.
 
+It is used to embed image data in BASE64 encoding.
+
 **Since**: 0.3.0  
 
 * [Image](#Image)
     * [`new Image(path)`](#new_Image_new)
-    * [`.setStyle(style)`](#Image+setStyle)
+    * [`.getPath()`](#Image+getPath) ⇒ <code>string</code>
+    * [`.setStyle(style)`](#Image+setStyle) ⇒ [<code>Image</code>](#Image)
     * [`.getStyle()`](#Image+getStyle) ⇒ <code>IImageStyle</code>
-    * [`.toXml()`](#Image+toXml)
 
 
 * * *
@@ -71,18 +78,51 @@ Creates an image
 - path <code>string</code>  
 Path to the image file that should be embedded
 
+**Example**  
+```js
+document.getBody()
+  .addParagraph()
+  .addImage("/home/homer/myself.png")
+  .getStyle()
+  .setSize(42, 23);
+```
+
+* * *
+
+<a name="Image+getPath"></a>
+
+### `image.getPath()` ⇒ <code>string</code>
+The `getPath()` method returns the path to the image file that should be embedded.
+
+**Return value**  
+<code>string</code> - The path to the image file
+
+**Example**  
+```js
+const image = new Image("/home/homer/myself.png");
+image.getPath(); // '/home/homer/myself.png'
+```
+**Since**: 0.7.0  
 
 * * *
 
 <a name="Image+setStyle"></a>
 
-### `image.setStyle(style)`
+### `image.setStyle(style)` ⇒ [<code>Image</code>](#Image)
 Sets the new style of this image.
 
 #### Parameters
 - style <code>IImageStyle</code>  
 The new style
 
+**Return value**  
+[<code>Image</code>](#Image) - The `Image` object
+
+**Example**  
+```js
+const image = new Image("/home/homer/myself.png");
+image.setStyle(new ImageStyle());
+```
 **Since**: 0.5.0  
 
 * * *
@@ -95,13 +135,14 @@ Returns the style of this image.
 **Return value**  
 <code>IImageStyle</code> - The style of the image
 
+**Example**  
+```js
+const image = new Image("/home/homer/myself.png");
+image.getStyle();                // default style
+image.setStyle(new ImageStyle());
+image.getStyle();                // previously set style
+```
 **Since**: 0.5.0  
-
-* * *
-
-<a name="Image+toXml"></a>
-
-### `image.toXml()`
 
 * * *
 
@@ -118,9 +159,9 @@ It is used to set descriptive information about the document.
     * [`new Meta()`](#new_Meta_new)
     * [`.setCreator(creator)`](#Meta+setCreator) ⇒ [<code>Meta</code>](#Meta)
     * [`.getCreator()`](#Meta+getCreator) ⇒ <code>string</code> \| <code>undefined</code>
-    * [`.getCreationDate()`](#Meta+getCreationDate) ⇒ <code>number</code>
+    * [`.getCreationDate()`](#Meta+getCreationDate) ⇒ <code>Date</code>
     * [`.setDate(date)`](#Meta+setDate) ⇒ [<code>Meta</code>](#Meta)
-    * [`.getDate()`](#Meta+getDate) ⇒ <code>number</code> \| <code>undefined</code>
+    * [`.getDate()`](#Meta+getDate) ⇒ <code>Date</code> \| <code>undefined</code>
     * [`.setDescription(description)`](#Meta+setDescription) ⇒ [<code>Meta</code>](#Meta)
     * [`.getDescription()`](#Meta+getDescription) ⇒ <code>string</code> \| <code>undefined</code>
     * [`.getEditingCycles()`](#Meta+getEditingCycles) ⇒ <code>number</code>
@@ -134,14 +175,13 @@ It is used to set descriptive information about the document.
     * [`.setLanguage(language)`](#Meta+setLanguage) ⇒ [<code>Meta</code>](#Meta)
     * [`.getLanguage()`](#Meta+getLanguage) ⇒ <code>string</code> \| <code>undefined</code>
     * [`.setPrintDate(printDate)`](#Meta+setPrintDate) ⇒ [<code>Meta</code>](#Meta)
-    * [`.getPrintDate()`](#Meta+getPrintDate) ⇒ <code>number</code> \| <code>undefined</code>
+    * [`.getPrintDate()`](#Meta+getPrintDate) ⇒ <code>Date</code> \| <code>undefined</code>
     * [`.setPrintedBy(printedBy)`](#Meta+setPrintedBy) ⇒ [<code>Meta</code>](#Meta)
     * [`.getPrintedBy()`](#Meta+getPrintedBy) ⇒ <code>string</code> \| <code>undefined</code>
     * [`.setSubject(subject)`](#Meta+setSubject) ⇒ [<code>Meta</code>](#Meta)
     * [`.getSubject()`](#Meta+getSubject) ⇒ <code>string</code> \| <code>undefined</code>
     * [`.setTitle(title)`](#Meta+setTitle) ⇒ [<code>Meta</code>](#Meta)
     * [`.getTitle()`](#Meta+getTitle) ⇒ <code>string</code> \| <code>undefined</code>
-    * [`.toXml(document, root)`](#Meta+toXml)
 
 
 * * *
@@ -213,13 +253,13 @@ meta.getCreator();               // 'Lisa Simpson'
 
 <a name="Meta+getCreationDate"></a>
 
-### `meta.getCreationDate()` ⇒ <code>number</code>
+### `meta.getCreationDate()` ⇒ <code>Date</code>
 The `getCreationDate()` method returns the UTC timestamp specifying the date and time when a document was created.
 
 The creation date is initialized with the UTC timestamp of the moment the `Meta` instance was created.
 
 **Return value**  
-<code>number</code> - The UTC timestamp specifying the date and time when a document was created
+<code>Date</code> - A `Date` instance specifying the date and time when a document was created
 
 **Example**  
 ```js
@@ -236,9 +276,9 @@ meta.getCreationDate();  // 1585742400000
 The `setDate()` method sets the date and time when the document was last modified.
 
 #### Parameters
-- date <code>number</code> | <code>undefined</code>  
-The UTC timestamp specifying the date and time when the document was last modified
-                                 or `undefined` to unset the date
+- date <code>Date</code> | <code>undefined</code>  
+A `Date` instance specifying the date and time when the document was last modified
+                               or `undefined` to unset the date
 
 **Return value**  
 [<code>Meta</code>](#Meta) - The `Meta` object
@@ -246,7 +286,7 @@ The UTC timestamp specifying the date and time when the document was last modifi
 **Example**  
 ```js
 const meta = new Meta();
-meta.setDate(Date.now()); // 2020-07-23 13:37:00
+meta.setDate(new Date()); // 2020-07-23 13:37:00
 ```
 **Since**: 0.6.0  
 
@@ -254,18 +294,18 @@ meta.setDate(Date.now()); // 2020-07-23 13:37:00
 
 <a name="Meta+getDate"></a>
 
-### `meta.getDate()` ⇒ <code>number</code> \| <code>undefined</code>
+### `meta.getDate()` ⇒ <code>Date</code> \| <code>undefined</code>
 The `getDate()` method returns the date and time when the document was last modified.
 
 **Return value**  
-<code>number</code> \| <code>undefined</code> - The UTC timestamp specifying the date and time when the document was last modified
-                              or `undefined` if the date is not set
+<code>Date</code> \| <code>undefined</code> - A `Date` instance specifying the date and time when the document was last modified
+                            or `undefined` if the date is not set
 
 **Example**  
 ```js
 const meta = new Meta();
 meta.getDate();           // undefined
-meta.setDate(Date.now()); // 2020-07-23 13:37:00
+meta.setDate(new Date()); // 2020-07-23 13:37:00
 meta.getDate();           // 1595511420000
 ```
 **Since**: 0.6.0  
@@ -528,9 +568,9 @@ meta.getLanguage();        // 'en-US'
 The `setPrintDate()` method sets the date and time when the document was last printed.
 
 #### Parameters
-- printDate <code>number</code> | <code>undefined</code>  
-The UTC timestamp specifying the date and time when the document was last
-                                      printed or `undefined` to unset the print date
+- printDate <code>Date</code> | <code>undefined</code>  
+A `Date` instance specifying the date and time when the document was last
+                                    printed or `undefined` to unset the print date
 
 **Return value**  
 [<code>Meta</code>](#Meta) - The `Meta` object
@@ -538,7 +578,7 @@ The UTC timestamp specifying the date and time when the document was last
 **Example**  
 ```js
 const meta = new Meta();
-meta.setPrintDate(Date.now()); // 2020-07-23 13:37:00
+meta.setPrintDate(new Date()); // 2020-07-23 13:37:00
 ```
 **Since**: 0.6.0  
 
@@ -546,18 +586,18 @@ meta.setPrintDate(Date.now()); // 2020-07-23 13:37:00
 
 <a name="Meta+getPrintDate"></a>
 
-### `meta.getPrintDate()` ⇒ <code>number</code> \| <code>undefined</code>
+### `meta.getPrintDate()` ⇒ <code>Date</code> \| <code>undefined</code>
 The `getPrintDate()` method returns the date and time when the document was last printed.
 
 **Return value**  
-<code>number</code> \| <code>undefined</code> - The UTC timestamp specifying the date and time when the document was last printed
-                              or `undefined` if the print date is not set
+<code>Date</code> \| <code>undefined</code> - A `Date` instance specifying the date and time when the document was last printed
+                            or `undefined` if the print date is not set
 
 **Example**  
 ```js
 const meta = new Meta();
 meta.getPrintDate();           // undefined
-meta.setPrintDate(Date.now()); // 2020-07-23 13:37:00
+meta.setPrintDate(new Date()); // 2020-07-23 13:37:00
 meta.getPrintDate();           // 1595511420000
 ```
 **Since**: 0.6.0  
@@ -689,18 +729,916 @@ meta.getTitle();                           // 'Memoirs of Homer Simpson'
 
 * * *
 
-<a name="Meta+toXml"></a>
+<a name="TextBody"></a>
 
-### `meta.toXml(document, root)`
-Transforms the text style into Open Document Format.
+## TextBody
+This class represents the content of a text document.
+
+**Since**: 0.7.0  
+
+* [TextBody](#TextBody)
+    * [`.addHeading([text], [level])`](#TextBody+addHeading) ⇒ [<code>Heading</code>](#Heading)
+    * [`.addList()`](#TextBody+addList) ⇒ [<code>List</code>](#List)
+    * [`.addParagraph([text])`](#TextBody+addParagraph) ⇒ [<code>Paragraph</code>](#Paragraph)
+
+
+* * *
+
+<a name="TextBody+addHeading"></a>
+
+### `textBody.addHeading([text], [level])` ⇒ [<code>Heading</code>](#Heading)
+Adds a heading at the end of the document.
+If a text is given, this will be set as text content of the heading.
 
 #### Parameters
-- document <code>Document</code>  
-The XML document
-- root <code>Element</code>  
-The root node in the DOM
+- [text] <code>string</code>  
+The text content of the heading
+- [level] <code>number</code> <code> = 1</code>  
+The heading level; defaults to 1 if omitted
 
+**Return value**  
+[<code>Heading</code>](#Heading) - The newly added heading
+
+**Since**: 0.7.0  
+
+* * *
+
+<a name="TextBody+addList"></a>
+
+### `textBody.addList()` ⇒ [<code>List</code>](#List)
+Adds an empty list at the end of the document.
+
+**Return value**  
+[<code>List</code>](#List) - The newly added list
+
+**Since**: 0.7.0  
+
+* * *
+
+<a name="TextBody+addParagraph"></a>
+
+### `textBody.addParagraph([text])` ⇒ [<code>Paragraph</code>](#Paragraph)
+Adds a paragraph at the end of the document.
+If a text is given, this will be set as text content of the paragraph.
+
+#### Parameters
+- [text] <code>string</code>  
+The text content of the paragraph
+
+**Return value**  
+[<code>Paragraph</code>](#Paragraph) - The newly added paragraph
+
+**Since**: 0.7.0  
+
+* * *
+
+<a name="TextDocument"></a>
+
+## TextDocument
+This class represents a text document in OpenDocument format.
+
+**Since**: 0.1.0  
+
+* [TextDocument](#TextDocument)
+    * [`.getBody()`](#TextDocument+getBody) ⇒ [<code>TextBody</code>](#TextBody)
+    * [`.declareFont(name, fontFamily, fontPitch)`](#TextDocument+declareFont) ⇒ <code>FontFace</code>
+    * [`.getFonts()`](#TextDocument+getFonts) ⇒ <code>Array.&lt;FontFace&gt;</code>
+    * [`.getMeta()`](#TextDocument+getMeta) ⇒ [<code>Meta</code>](#Meta)
+    * [`.saveFlat(filePath)`](#TextDocument+saveFlat) ⇒ <code>Promise.&lt;void&gt;</code>
+    * ~~[`.toString()`](#TextDocument+toString) ⇒ <code>string</code>~~
+
+
+* * *
+
+<a name="TextDocument+getBody"></a>
+
+### `textDocument.getBody()` ⇒ [<code>TextBody</code>](#TextBody)
+The `getBody()` method returns the content of the document.
+
+**Return value**  
+[<code>TextBody</code>](#TextBody) - A `TextBody` object that holds the content of the document
+
+**Example**  
+```js
+new TextDocument()
+  .getBody()
+  .addHeading('My first document');
+```
+**Since**: 0.7.0  
+
+* * *
+
+<a name="TextDocument+declareFont"></a>
+
+### `textDocument.declareFont(name, fontFamily, fontPitch)` ⇒ <code>FontFace</code>
+The `declareFont` method creates a font face to be used in the document.
+
+**Note: There is no check whether the font exists.
+In order to be displayed properly, the font must be present on the target system.**
+
+#### Parameters
+- name <code>string</code>  
+The name of the font; this name must be set to a [ParagraphStyle](#ParagraphStyle)
+- fontFamily <code>string</code>  
+The name of the font family
+- fontPitch <code>FontPitch</code>  
+The pitch of the font
+
+**Return value**  
+<code>FontFace</code> - The declared `FontFace` object
+
+**Example**  
+```js
+new TextDocument()
+  .declareFont("FreeSans", "FreeSans", FontPitch.Variable);
+```
+**Since**: 0.4.0  
+
+* * *
+
+<a name="TextDocument+getFonts"></a>
+
+### `textDocument.getFonts()` ⇒ <code>Array.&lt;FontFace&gt;</code>
+The `getFonts()` method returns all font face declarations for the document.
+
+**Return value**  
+<code>Array.&lt;FontFace&gt;</code> - A copy of the list of font face declarations for the document
+
+**Example**  
+```js
+const document = new TextDocument();
+document.declareFont("FreeSans", "FreeSans", FontPitch.Variable);
+document.getFonts();
+```
+**Since**: 0.7.0  
+
+* * *
+
+<a name="TextDocument+getMeta"></a>
+
+### `textDocument.getMeta()` ⇒ [<code>Meta</code>](#Meta)
+The `getMeta()` method returns the metadata of the document.
+
+**Return value**  
+[<code>Meta</code>](#Meta) - An object holding the metadata of the document
+
+**See**: [Meta](#Meta)  
+**Example**  
+```js
+new TextDocument.getMeta()
+  .setCreator('Homer Simpson');
+```
 **Since**: 0.6.0  
+
+* * *
+
+<a name="TextDocument+saveFlat"></a>
+
+### `textDocument.saveFlat(filePath)` ⇒ <code>Promise.&lt;void&gt;</code>
+The `saveFlat()` method converts the document into an XML string and stores it in flat open document xml format.
+
+#### Parameters
+- filePath <code>string</code>  
+The file path to write to
+
+**Example**  
+```js
+new TextDocument()
+  .saveFlat("/home/homer/document.fodt");
+```
+**Since**: 0.1.0  
+
+* * *
+
+<a name="TextDocument+toString"></a>
+
+### ~~`textDocument.toString()` ⇒ <code>string</code>~~
+***Deprecated***
+
+Returns the string representation of this document in flat open document xml format.
+
+**Return value**  
+<code>string</code> - The string representation of this document
+
+**Since**: 0.1.0  
+
+* * *
+
+<a name="Heading"></a>
+
+## Heading ⇐ [<code>Paragraph</code>](#Paragraph)
+This class represents a heading in a document.
+
+It is used to structure a document into multiple sections.
+A chapter or section begins with a heading and extends to the next heading at the same or higher level.
+
+**Extends**: [<code>Paragraph</code>](#Paragraph)  
+**Since**: 0.1.0  
+
+* [Heading](#Heading) ⇐ [<code>Paragraph</code>](#Paragraph)
+    * [`new Heading([text], [level])`](#new_Heading_new)
+    * [`.setLevel(level)`](#Heading+setLevel) ⇒ [<code>Heading</code>](#Heading)
+    * [`.getLevel()`](#Heading+getLevel) ⇒ <code>number</code>
+    * [`.addText(text)`](#Paragraph+addText) ⇒ [<code>Paragraph</code>](#Paragraph)
+    * [`.getText()`](#Paragraph+getText) ⇒ <code>string</code>
+    * [`.setText(text)`](#Paragraph+setText) ⇒ [<code>Paragraph</code>](#Paragraph)
+    * [`.addHyperlink(text, uri)`](#Paragraph+addHyperlink) ⇒ [<code>Hyperlink</code>](#Hyperlink)
+    * [`.addImage(path)`](#Paragraph+addImage) ⇒ [<code>Image</code>](#Image)
+    * [`.setStyle(style)`](#Paragraph+setStyle) ⇒ [<code>Paragraph</code>](#Paragraph)
+    * [`.getStyle()`](#Paragraph+getStyle) ⇒ <code>IParagraphStyle</code> \| <code>undefined</code>
+
+
+* * *
+
+<a name="new_Heading_new"></a>
+
+### `new Heading([text], [level])`
+Creates a `Heading` instance that represents a heading in a document.
+
+#### Parameters
+- [text] <code>string</code> <code> = &quot;&#x27;&#x27;&quot;</code>  
+The text content of the heading; defaults to an empty string if omitted
+- [level] <code>number</code> <code> = 1</code>  
+The level of the heading, starting with `1`; defaults to `1` if omitted
+
+**Example**  
+```js
+document.getBody().addHeading("First Headline", 1);
+```
+**Example**  
+```js
+document.getBody().addHeading()
+  .setText("Second Headline")
+  .setLevel(2);
+```
+
+* * *
+
+<a name="Heading+setLevel"></a>
+
+### `heading.setLevel(level)` ⇒ [<code>Heading</code>](#Heading)
+The `setLevel()` method sets the level of the heading, starting with `1`.
+If an illegal value is provided, then the heading is assumed to be at level `1`.
+
+#### Parameters
+- level <code>number</code>  
+The level of the heading, starting with `1`
+
+**Return value**  
+[<code>Heading</code>](#Heading) - The `Heading` object
+
+**Since**: 0.1.0  
+
+* * *
+
+<a name="Heading+getLevel"></a>
+
+### `heading.getLevel()` ⇒ <code>number</code>
+The `getLevel()` method returns the level of the heading.
+
+**Return value**  
+<code>number</code> - The level of the heading
+
+**Since**: 0.1.0  
+
+* * *
+
+<a name="Paragraph+addText"></a>
+
+### `heading.addText(text)` ⇒ [<code>Paragraph</code>](#Paragraph)
+Appends the specified text to the end of the paragraph.
+
+#### Parameters
+- text <code>string</code>  
+The additional text content
+
+**Return value**  
+[<code>Paragraph</code>](#Paragraph) - The `Paragraph` object
+
+**Example**  
+```js
+new Paragraph("Some text")      // Some text
+  .addText("\nEven more text"); // Some text\nEven more text
+```
+**Since**: 0.1.0  
+
+* * *
+
+<a name="Paragraph+getText"></a>
+
+### `heading.getText()` ⇒ <code>string</code>
+Returns the text content of the paragraph.
+Note: This will only return the text; other elements and markup will be omitted.
+
+**Return value**  
+<code>string</code> - The text content of the paragraph
+
+**Example**  
+```js
+const paragraph = new Paragraph("Some text, ");
+paragraph.addHyperlink("some linked text");
+paragraph.addText(", even more text");
+paragraph.getText(); // Some text, some linked text, even more text
+```
+**Since**: 0.1.0  
+
+* * *
+
+<a name="Paragraph+setText"></a>
+
+### `heading.setText(text)` ⇒ [<code>Paragraph</code>](#Paragraph)
+Sets the text content of the paragraph.
+Note: This will replace any existing content of the paragraph.
+
+#### Parameters
+- text <code>string</code>  
+The new text content
+
+**Return value**  
+[<code>Paragraph</code>](#Paragraph) - The `Paragraph` object
+
+**Example**  
+```js
+new Paragraph("Some text")     // Some text
+  .setText("Some other text"); // Some other text
+```
+**Since**: 0.1.0  
+
+* * *
+
+<a name="Paragraph+addHyperlink"></a>
+
+### `heading.addHyperlink(text, uri)` ⇒ [<code>Hyperlink</code>](#Hyperlink)
+Appends the specified text as hyperlink to the end of the paragraph.
+
+#### Parameters
+- text <code>string</code>  
+The text content of the hyperlink
+- uri <code>string</code>  
+The target URI of the hyperlink
+
+**Return value**  
+[<code>Hyperlink</code>](#Hyperlink) - The added `Hyperlink` object
+
+**Example**  
+```js
+new Paragraph("Some text, ")         // Some text,
+  .addHyperlink("some linked text"); // Some text, some linked text
+```
+**Since**: 0.3.0  
+
+* * *
+
+<a name="Paragraph+addImage"></a>
+
+### `heading.addImage(path)` ⇒ [<code>Image</code>](#Image)
+Appends the image of the denoted path to the end of the paragraph.
+The current paragraph will be set as anchor for the image.
+
+#### Parameters
+- path <code>string</code>  
+The path to the image file
+
+**Return value**  
+[<code>Image</code>](#Image) - The added `Image` object
+
+**Example**  
+```js
+new Paragraph("Some text")
+  .addImage("/home/homer/myself.png");
+```
+**Since**: 0.3.0  
+
+* * *
+
+<a name="Paragraph+setStyle"></a>
+
+### `heading.setStyle(style)` ⇒ [<code>Paragraph</code>](#Paragraph)
+Sets the new style of the paragraph.
+To reset the style, `undefined` must be given.
+
+#### Parameters
+- style <code>IParagraphStyle</code> | <code>undefined</code>  
+The new style or `undefined` to reset the style
+
+**Return value**  
+[<code>Paragraph</code>](#Paragraph) - The `Paragraph` object
+
+**Example**  
+```js
+new Paragraph("Some text")
+  .setStyle(new ParagraphStyle());
+```
+**Since**: 0.3.0  
+
+* * *
+
+<a name="Paragraph+getStyle"></a>
+
+### `heading.getStyle()` ⇒ <code>IParagraphStyle</code> \| <code>undefined</code>
+Returns the style of the paragraph.
+
+**Return value**  
+<code>IParagraphStyle</code> \| <code>undefined</code> - The style of the paragraph or `undefined` if no style was set
+
+**Example**  
+```js
+const paragraph = new Paragraph("Some text");
+paragraph.getStyle();                     // undefined
+paragraph.setStyle(new ParagraphStyle());
+paragraph.getStyle();                     // previously set style
+```
+**Since**: 0.3.0  
+
+* * *
+
+<a name="Hyperlink"></a>
+
+## Hyperlink
+This class represents a hyperlink in a paragraph.
+
+**Since**: 0.3.0  
+
+* [Hyperlink](#Hyperlink)
+    * [`new Hyperlink(text, uri)`](#new_Hyperlink_new)
+    * [`.setURI(uri)`](#Hyperlink+setURI) ⇒ [<code>Hyperlink</code>](#Hyperlink)
+    * [`.getURI()`](#Hyperlink+getURI) ⇒ <code>string</code>
+
+
+* * *
+
+<a name="new_Hyperlink_new"></a>
+
+### `new Hyperlink(text, uri)`
+Creates a hyperlink
+
+#### Parameters
+- text <code>string</code>  
+The text content of the hyperlink
+- uri <code>string</code>  
+The target URI of the hyperlink
+
+**Example**  
+```js
+document.getBody()
+  .addParagraph('This is a ')
+  .addHyperlink('link', 'https://example.com/');
+```
+
+* * *
+
+<a name="Hyperlink+setURI"></a>
+
+### `hyperlink.setURI(uri)` ⇒ [<code>Hyperlink</code>](#Hyperlink)
+The `setURI()` method sets the target URI for this hyperlink.
+If an illegal value is provided, the value will be ignored.
+
+#### Parameters
+- uri <code>string</code>  
+The target URI of this hyperlink
+
+**Return value**  
+[<code>Hyperlink</code>](#Hyperlink) - The `Hyperlink` object
+
+**Example**  
+```js
+const hyperlink = new Hyperlink('My website', 'https://example.com/');
+hyperlink.setURI('https://github.com'); // https://github.com
+hyperlink.setURI('');                   // https://github.com
+```
+**Since**: 0.3.0  
+
+* * *
+
+<a name="Hyperlink+getURI"></a>
+
+### `hyperlink.getURI()` ⇒ <code>string</code>
+The `getURI()` method returns the target URI of this hyperlink.
+
+**Return value**  
+<code>string</code> - The target URI of this hyperlink
+
+**Example**  
+```js
+const hyperlink = new Hyperlink('My website', 'https://example.com/');
+hyperlink.getURI();                     // https://example.com
+hyperlink.setURI('https://github.com');
+hyperlink.getURI();                     // https://github.com
+```
+**Since**: 0.3.0  
+
+* * *
+
+<a name="List"></a>
+
+## List
+This class represents a list and may contain any number list items.
+
+**Since**: 0.2.0  
+
+* [List](#List)
+    * [`new List()`](#new_List_new)
+    * [`.addItem([item])`](#List+addItem) ⇒ [<code>ListItem</code>](#ListItem)
+    * [`.insertItem(position, item)`](#List+insertItem) ⇒ [<code>ListItem</code>](#ListItem)
+    * [`.getItem(position)`](#List+getItem) ⇒ [<code>ListItem</code>](#ListItem) \| <code>undefined</code>
+    * [`.getItems()`](#List+getItems) ⇒ [<code>Array.&lt;ListItem&gt;</code>](#ListItem)
+    * [`.removeItemAt(position)`](#List+removeItemAt) ⇒ [<code>ListItem</code>](#ListItem) \| <code>undefined</code>
+    * [`.clear()`](#List+clear) ⇒ [<code>List</code>](#List)
+    * [`.size()`](#List+size) ⇒ <code>number</code>
+
+
+* * *
+
+<a name="new_List_new"></a>
+
+### `new List()`
+Creates a `List` instance that represents a list.
+
+**Example**  
+```js
+const list = document.getBody().addList();
+list.addItem("First item");
+list.addItem("Second item");
+list.insertItem(1, "After first item")
+list.removeItemAt(2);
+```
+
+* * *
+
+<a name="List+addItem"></a>
+
+### `list.addItem([item])` ⇒ [<code>ListItem</code>](#ListItem)
+The `addItem()` method adds a new list item with the specified text or adds the specified item to the list.
+
+#### Parameters
+- [item] <code>string</code> | [<code>ListItem</code>](#ListItem)  
+The text content of the new item or the item to add
+
+**Return value**  
+[<code>ListItem</code>](#ListItem) - The added `ListItem` object
+
+**Example**  
+```js
+const list = new List();
+list.addItem("First item");
+list.addItem(new ListItem("Second item"));
+```
+**Since**: 0.2.0  
+
+* * *
+
+<a name="List+insertItem"></a>
+
+### `list.insertItem(position, item)` ⇒ [<code>ListItem</code>](#ListItem)
+The `insertItem` method inserts a new list item with the specified text
+or inserts the specified item at the specified position.
+The item is inserted before the item at the specified position.
+
+If the position is greater than the current number items, the new item is appended at the end of the list.
+If the position is negative, the new item is inserted as first element.
+
+#### Parameters
+- position <code>number</code>  
+The index at which to insert the list item (starting from 0).
+- item <code>string</code> | [<code>ListItem</code>](#ListItem)  
+The text content of the new item or the item to insert
+
+**Return value**  
+[<code>ListItem</code>](#ListItem) - The inserted `ListItem` object
+
+**Example**  
+```js
+const list = new List();
+list.addItem("First item");             // "First item"
+list.addItem("Second item");            // "First item", "Second item"
+list.insertItem(1, "After first item"); // "First item", "After first item", "Second item"
+```
+**Since**: 0.2.0  
+
+* * *
+
+<a name="List+getItem"></a>
+
+### `list.getItem(position)` ⇒ [<code>ListItem</code>](#ListItem) \| <code>undefined</code>
+The `getItem()` method returns the item at the specified position in the list.
+If an invalid position is given, undefined is returned.
+
+#### Parameters
+- position <code>number</code>  
+The index of the requested list item (starting from 0).
+
+**Return value**  
+[<code>ListItem</code>](#ListItem) \| <code>undefined</code> - The `ListItem` object at the specified position
+or `undefined` if there is no list item at the specified position
+
+**Example**  
+```js
+const list = new List();
+list.addItem("First item");
+list.addItem("Second item");
+list.getItem(1);             // "Second item"
+list.getItem(2);             // undefined
+```
+**Since**: 0.2.0  
+
+* * *
+
+<a name="List+getItems"></a>
+
+### `list.getItems()` ⇒ [<code>Array.&lt;ListItem&gt;</code>](#ListItem)
+The `getItems()` method returns all list items.
+
+**Return value**  
+[<code>Array.&lt;ListItem&gt;</code>](#ListItem) - A copy of the list of `ListItem` objects
+
+**Example**  
+```js
+const list = new List();
+list.getItems();             // []
+list.addItem("First item");
+list.addItem("Second item");
+list.getItems();             // ["First item", "Second item"]
+```
+**Since**: 0.2.0  
+
+* * *
+
+<a name="List+removeItemAt"></a>
+
+### `list.removeItemAt(position)` ⇒ [<code>ListItem</code>](#ListItem) \| <code>undefined</code>
+The `removeItemAt()` method removes the list item from the specified position.
+
+#### Parameters
+- position <code>number</code>  
+The index of the list item to remove (starting from 0).
+
+**Return value**  
+[<code>ListItem</code>](#ListItem) \| <code>undefined</code> - The removed `ListItem` object
+or undefined if there is no list item at the specified position
+
+**Example**  
+```js
+const list = new List();
+list.addItem("First item");
+list.addItem("Second item");
+list.removeItemAt(0);        // "First item"
+list.getItems();             // ["Second item"]
+list.removeItemAt(2);        // undefined
+```
+**Since**: 0.2.0  
+
+* * *
+
+<a name="List+clear"></a>
+
+### `list.clear()` ⇒ [<code>List</code>](#List)
+The `clear()` method removes all items from the list.
+
+**Return value**  
+[<code>List</code>](#List) - The `List` object
+
+**Example**  
+```js
+const list = new List();
+list.addItem("First item");  // "First item"
+list.addItem("Second item"); // "First item", "Second item"
+list.clear();                // -
+```
+**Since**: 0.2.0  
+
+* * *
+
+<a name="List+size"></a>
+
+### `list.size()` ⇒ <code>number</code>
+The `size()` method returns the number of items in the list.
+
+**Return value**  
+<code>number</code> - The number of items in this list
+
+**Example**  
+```js
+const list = new List();
+list.size();                 // 0
+list.addItem("First item");
+list.addItem("Second item");
+list.size();                 // 2
+```
+**Since**: 0.2.0  
+
+* * *
+
+<a name="ListItem"></a>
+
+## ListItem
+This class represents an item in a list.
+
+**Since**: 0.2.0  
+
+* * *
+
+<a name="new_ListItem_new"></a>
+
+### `new ListItem([text])`
+Creates a `ListItem` instance that represents an item in a list.
+
+#### Parameters
+- [text] <code>string</code> <code> = &quot;\&quot;\&quot;&quot;</code>  
+The text content of the list item; defaults to an empty string if omitted
+
+**Example**  
+```js
+const list = document.getBody()
+  .addList()
+  .addItem("First item");
+```
+
+* * *
+
+<a name="Paragraph"></a>
+
+## Paragraph
+This class represents a paragraph.
+
+**Since**: 0.1.0  
+
+* [Paragraph](#Paragraph)
+    * [`new Paragraph([text])`](#new_Paragraph_new)
+    * [`.addText(text)`](#Paragraph+addText) ⇒ [<code>Paragraph</code>](#Paragraph)
+    * [`.getText()`](#Paragraph+getText) ⇒ <code>string</code>
+    * [`.setText(text)`](#Paragraph+setText) ⇒ [<code>Paragraph</code>](#Paragraph)
+    * [`.addHyperlink(text, uri)`](#Paragraph+addHyperlink) ⇒ [<code>Hyperlink</code>](#Hyperlink)
+    * [`.addImage(path)`](#Paragraph+addImage) ⇒ [<code>Image</code>](#Image)
+    * [`.setStyle(style)`](#Paragraph+setStyle) ⇒ [<code>Paragraph</code>](#Paragraph)
+    * [`.getStyle()`](#Paragraph+getStyle) ⇒ <code>IParagraphStyle</code> \| <code>undefined</code>
+
+
+* * *
+
+<a name="new_Paragraph_new"></a>
+
+### `new Paragraph([text])`
+Creates a `Paragraph` instance.
+
+#### Parameters
+- [text] <code>string</code>  
+The text content of the paragraph; defaults to an empty string if omitted
+
+**Example**  
+```js
+document.getBody().addParagraph("Some text")
+  .addText("\nEven more text")
+  .addImage("/home/homer/myself.png");
+```
+
+* * *
+
+<a name="Paragraph+addText"></a>
+
+### `paragraph.addText(text)` ⇒ [<code>Paragraph</code>](#Paragraph)
+Appends the specified text to the end of the paragraph.
+
+#### Parameters
+- text <code>string</code>  
+The additional text content
+
+**Return value**  
+[<code>Paragraph</code>](#Paragraph) - The `Paragraph` object
+
+**Example**  
+```js
+new Paragraph("Some text")      // Some text
+  .addText("\nEven more text"); // Some text\nEven more text
+```
+**Since**: 0.1.0  
+
+* * *
+
+<a name="Paragraph+getText"></a>
+
+### `paragraph.getText()` ⇒ <code>string</code>
+Returns the text content of the paragraph.
+Note: This will only return the text; other elements and markup will be omitted.
+
+**Return value**  
+<code>string</code> - The text content of the paragraph
+
+**Example**  
+```js
+const paragraph = new Paragraph("Some text, ");
+paragraph.addHyperlink("some linked text");
+paragraph.addText(", even more text");
+paragraph.getText(); // Some text, some linked text, even more text
+```
+**Since**: 0.1.0  
+
+* * *
+
+<a name="Paragraph+setText"></a>
+
+### `paragraph.setText(text)` ⇒ [<code>Paragraph</code>](#Paragraph)
+Sets the text content of the paragraph.
+Note: This will replace any existing content of the paragraph.
+
+#### Parameters
+- text <code>string</code>  
+The new text content
+
+**Return value**  
+[<code>Paragraph</code>](#Paragraph) - The `Paragraph` object
+
+**Example**  
+```js
+new Paragraph("Some text")     // Some text
+  .setText("Some other text"); // Some other text
+```
+**Since**: 0.1.0  
+
+* * *
+
+<a name="Paragraph+addHyperlink"></a>
+
+### `paragraph.addHyperlink(text, uri)` ⇒ [<code>Hyperlink</code>](#Hyperlink)
+Appends the specified text as hyperlink to the end of the paragraph.
+
+#### Parameters
+- text <code>string</code>  
+The text content of the hyperlink
+- uri <code>string</code>  
+The target URI of the hyperlink
+
+**Return value**  
+[<code>Hyperlink</code>](#Hyperlink) - The added `Hyperlink` object
+
+**Example**  
+```js
+new Paragraph("Some text, ")         // Some text,
+  .addHyperlink("some linked text"); // Some text, some linked text
+```
+**Since**: 0.3.0  
+
+* * *
+
+<a name="Paragraph+addImage"></a>
+
+### `paragraph.addImage(path)` ⇒ [<code>Image</code>](#Image)
+Appends the image of the denoted path to the end of the paragraph.
+The current paragraph will be set as anchor for the image.
+
+#### Parameters
+- path <code>string</code>  
+The path to the image file
+
+**Return value**  
+[<code>Image</code>](#Image) - The added `Image` object
+
+**Example**  
+```js
+new Paragraph("Some text")
+  .addImage("/home/homer/myself.png");
+```
+**Since**: 0.3.0  
+
+* * *
+
+<a name="Paragraph+setStyle"></a>
+
+### `paragraph.setStyle(style)` ⇒ [<code>Paragraph</code>](#Paragraph)
+Sets the new style of the paragraph.
+To reset the style, `undefined` must be given.
+
+#### Parameters
+- style <code>IParagraphStyle</code> | <code>undefined</code>  
+The new style or `undefined` to reset the style
+
+**Return value**  
+[<code>Paragraph</code>](#Paragraph) - The `Paragraph` object
+
+**Example**  
+```js
+new Paragraph("Some text")
+  .setStyle(new ParagraphStyle());
+```
+**Since**: 0.3.0  
+
+* * *
+
+<a name="Paragraph+getStyle"></a>
+
+### `paragraph.getStyle()` ⇒ <code>IParagraphStyle</code> \| <code>undefined</code>
+Returns the style of the paragraph.
+
+**Return value**  
+<code>IParagraphStyle</code> \| <code>undefined</code> - The style of the paragraph or `undefined` if no style was set
+
+**Example**  
+```js
+const paragraph = new Paragraph("Some text");
+paragraph.getStyle();                     // undefined
+paragraph.setStyle(new ParagraphStyle());
+paragraph.getStyle();                     // previously set style
+```
+**Since**: 0.3.0  
 
 * * *
 
@@ -716,8 +1654,8 @@ This class represents a Color.
     * _instance_
         * [`.toHex()`](#Color+toHex) ⇒ <code>string</code>
     * _static_
-        * [`.fromHex(value)`](#Color.fromHex) ⇒ [<code>Color</code>](#Color) \| <code>undefined</code>
-        * [`.fromRgb(red, green, blue)`](#Color.fromRgb) ⇒ [<code>Color</code>](#Color) \| <code>undefined</code>
+        * [`.fromHex(value)`](#Color.fromHex) ⇒ [<code>Color</code>](#Color) \| <code>never</code>
+        * [`.fromRgb(red, green, blue)`](#Color.fromRgb) ⇒ [<code>Color</code>](#Color) \| <code>never</code>
 
 
 * * *
@@ -752,7 +1690,7 @@ The toHex() method returns a string representing the color as hex string.
 
 <a name="Color.fromHex"></a>
 
-### `Color.fromHex(value)` ⇒ [<code>Color</code>](#Color) \| <code>undefined</code>
+### `Color.fromHex(value)` ⇒ [<code>Color</code>](#Color) \| <code>never</code>
 The `Color.fromHex()` method parses a string argument and returns a color.
 The string is expected to be in `#rrggbb` or `rrggbb` format.
 
@@ -761,8 +1699,11 @@ The string is expected to be in `#rrggbb` or `rrggbb` format.
 The value you want to parse
 
 **Return value**  
-[<code>Color</code>](#Color) \| <code>undefined</code> - A color parsed from the given value.
-If the value cannot be converted to a color, `undefined` is returned.
+[<code>Color</code>](#Color) \| <code>never</code> - A color parsed from the given value
+
+**Throws**:
+
+- <code>Error</code> If the value cannot be converted to a color
 
 **Since**: 0.4.0  
 
@@ -770,7 +1711,7 @@ If the value cannot be converted to a color, `undefined` is returned.
 
 <a name="Color.fromRgb"></a>
 
-### `Color.fromRgb(red, green, blue)` ⇒ [<code>Color</code>](#Color) \| <code>undefined</code>
+### `Color.fromRgb(red, green, blue)` ⇒ [<code>Color</code>](#Color) \| <code>never</code>
 The `Color.fromRgb()` method returns a color with the channel arguments.
 
 #### Parameters
@@ -782,8 +1723,11 @@ The green channel of the color with a range of 0...255
 The blue channel of the color with a range of 0...255
 
 **Return value**  
-[<code>Color</code>](#Color) \| <code>undefined</code> - A color parsed from the given value.
-If any channel is outside the allowable range, `undefined` is returned.
+[<code>Color</code>](#Color) \| <code>never</code> - A color parsed from the given value
+
+**Throws**:
+
+- <code>Error</code> If any channel is outside the allowable range
 
 **Since**: 0.4.0  
 
@@ -1172,594 +2116,6 @@ The XML document
 The parent node in the DOM (`style:tab-stops`)
 
 **Since**: 0.3.0  
-
-* * *
-
-<a name="Heading"></a>
-
-## Heading
-This class represents a heading.
-
-**Since**: 0.1.0  
-
-* [Heading](#Heading)
-    * [`new Heading([text], [level])`](#new_Heading_new)
-    * [`.setLevel(level)`](#Heading+setLevel)
-    * [`.getLevel()`](#Heading+getLevel) ⇒ <code>number</code>
-    * [`.createElement()`](#Heading+createElement)
-
-
-* * *
-
-<a name="new_Heading_new"></a>
-
-### `new Heading([text], [level])`
-Creates a heading
-
-#### Parameters
-- [text] <code>string</code>  
-The text content of the heading
-- [level] <code>number</code>  
-The heading level; defaults to 1 if omitted
-
-
-* * *
-
-<a name="Heading+setLevel"></a>
-
-### `heading.setLevel(level)`
-Sets the level of this heading.
-
-#### Parameters
-- level <code>number</code>  
-The heading level
-
-**Since**: 0.1.0  
-
-* * *
-
-<a name="Heading+getLevel"></a>
-
-### `heading.getLevel()` ⇒ <code>number</code>
-Returns the level of this heading.
-
-**Return value**  
-<code>number</code> - The heading level
-
-**Since**: 0.1.0  
-
-* * *
-
-<a name="Heading+createElement"></a>
-
-### `heading.createElement()`
-
-* * *
-
-<a name="Hyperlink"></a>
-
-## Hyperlink
-This class represents a hyperlink in a paragraph.
-
-**Since**: 0.3.0  
-
-* [Hyperlink](#Hyperlink)
-    * [`new Hyperlink(text, uri)`](#new_Hyperlink_new)
-    * [`.setURI(uri)`](#Hyperlink+setURI)
-    * [`.getURI()`](#Hyperlink+getURI) ⇒ <code>string</code>
-    * [`.toXml()`](#Hyperlink+toXml)
-
-
-* * *
-
-<a name="new_Hyperlink_new"></a>
-
-### `new Hyperlink(text, uri)`
-Creates a hyperlink
-
-#### Parameters
-- text <code>string</code>  
-The text content of the hyperlink
-- uri <code>string</code>  
-The target URI of the hyperlink
-
-
-* * *
-
-<a name="Hyperlink+setURI"></a>
-
-### `hyperlink.setURI(uri)`
-Sets the target URI for this hyperlink.
-
-#### Parameters
-- uri <code>string</code>  
-The new target URI
-
-**Since**: 0.3.0  
-
-* * *
-
-<a name="Hyperlink+getURI"></a>
-
-### `hyperlink.getURI()` ⇒ <code>string</code>
-Returns the target URI of this hyperlink.
-
-**Return value**  
-<code>string</code> - The target URI
-
-**Since**: 0.3.0  
-
-* * *
-
-<a name="Hyperlink+toXml"></a>
-
-### `hyperlink.toXml()`
-
-* * *
-
-<a name="List"></a>
-
-## List
-This class represents a list.
-It can contain multiple list items.
-
-**Since**: 0.2.0  
-
-* [List](#List)
-    * [`new List()`](#new_List_new)
-    * [`.addItem([item])`](#List+addItem) ⇒ [<code>ListItem</code>](#ListItem)
-    * [`.insertItem(position, item)`](#List+insertItem) ⇒ [<code>ListItem</code>](#ListItem)
-    * [`.getItem(position)`](#List+getItem) ⇒ [<code>ListItem</code>](#ListItem) \| <code>undefined</code>
-    * [`.getItems()`](#List+getItems) ⇒ [<code>Array.&lt;ListItem&gt;</code>](#ListItem)
-    * [`.removeItemAt(position)`](#List+removeItemAt) ⇒ [<code>ListItem</code>](#ListItem) \| <code>undefined</code>
-    * [`.clear()`](#List+clear)
-    * [`.size()`](#List+size) ⇒ <code>number</code>
-    * [`.toXml()`](#List+toXml)
-
-
-* * *
-
-<a name="new_List_new"></a>
-
-### `new List()`
-Creates a list
-
-
-* * *
-
-<a name="List+addItem"></a>
-
-### `list.addItem([item])` ⇒ [<code>ListItem</code>](#ListItem)
-Adds a new list item with the specified text or adds the specified item to the list.
-
-#### Parameters
-- [item] <code>string</code> | [<code>ListItem</code>](#ListItem)  
-The text content of the new item or the item to add
-
-**Return value**  
-[<code>ListItem</code>](#ListItem) - The newly added list item
-
-**Since**: 0.2.0  
-
-* * *
-
-<a name="List+insertItem"></a>
-
-### `list.insertItem(position, item)` ⇒ [<code>ListItem</code>](#ListItem)
-Inserts a new list item with the specified text or inserts the specified item at the specified position.
-The item is inserted before the item at the specified position.
-
-#### Parameters
-- position <code>number</code>  
-The index at which to insert the list item (starting from 0).
-- item <code>string</code> | [<code>ListItem</code>](#ListItem)  
-The text content of the new item or the item to insert
-
-**Return value**  
-[<code>ListItem</code>](#ListItem) - The newly added list item
-
-**Since**: 0.2.0  
-
-* * *
-
-<a name="List+getItem"></a>
-
-### `list.getItem(position)` ⇒ [<code>ListItem</code>](#ListItem) \| <code>undefined</code>
-Returns the item at the specified position in this list.
-If an invalid position is given, undefined is returned.
-
-#### Parameters
-- position <code>number</code>  
-The index of the requested the list item (starting from 0).
-
-**Return value**  
-[<code>ListItem</code>](#ListItem) \| <code>undefined</code> - The list item at the specified position
-or undefined if there is no list item at the specified position
-
-**Since**: 0.2.0  
-
-* * *
-
-<a name="List+getItems"></a>
-
-### `list.getItems()` ⇒ [<code>Array.&lt;ListItem&gt;</code>](#ListItem)
-Returns all list items.
-
-**Return value**  
-[<code>Array.&lt;ListItem&gt;</code>](#ListItem) - A copy of the list of list items
-
-**Since**: 0.2.0  
-
-* * *
-
-<a name="List+removeItemAt"></a>
-
-### `list.removeItemAt(position)` ⇒ [<code>ListItem</code>](#ListItem) \| <code>undefined</code>
-Removes the list item from the specified position.
-
-#### Parameters
-- position <code>number</code>  
-The index of the list item to remove (starting from 0).
-
-**Return value**  
-[<code>ListItem</code>](#ListItem) \| <code>undefined</code> - The removed list item
-or undefined if there is no list item at the specified position
-
-**Since**: 0.2.0  
-
-* * *
-
-<a name="List+clear"></a>
-
-### `list.clear()`
-Removes all items from this list.
-
-**Since**: 0.2.0  
-
-* * *
-
-<a name="List+size"></a>
-
-### `list.size()` ⇒ <code>number</code>
-Returns the number of items in this list.
-
-**Return value**  
-<code>number</code> - The number of items in this list
-
-**Since**: 0.2.0  
-
-* * *
-
-<a name="List+toXml"></a>
-
-### `list.toXml()`
-
-* * *
-
-<a name="ListItem"></a>
-
-## ListItem
-This class represents an item in a list.
-
-**Since**: 0.2.0  
-
-* [ListItem](#ListItem)
-    * [`new ListItem([text])`](#new_ListItem_new)
-    * [`.toXml()`](#ListItem+toXml)
-
-
-* * *
-
-<a name="new_ListItem_new"></a>
-
-### `new ListItem([text])`
-Creates a list item
-
-#### Parameters
-- [text] <code>string</code>  
-The text content of the list item
-
-
-* * *
-
-<a name="ListItem+toXml"></a>
-
-### `listItem.toXml()`
-
-* * *
-
-<a name="Paragraph"></a>
-
-## Paragraph
-This class represents a paragraph.
-
-**Since**: 0.1.0  
-
-* [Paragraph](#Paragraph)
-    * [`new Paragraph([text])`](#new_Paragraph_new)
-    * [`.addText(text)`](#Paragraph+addText)
-    * [`.getText()`](#Paragraph+getText) ⇒ <code>string</code>
-    * [`.setText(text)`](#Paragraph+setText)
-    * [`.addHyperlink(text, uri)`](#Paragraph+addHyperlink) ⇒ [<code>Hyperlink</code>](#Hyperlink)
-    * [`.addImage(path)`](#Paragraph+addImage) ⇒ [<code>Image</code>](#Image)
-    * [`.setStyle(style)`](#Paragraph+setStyle)
-    * [`.getStyle()`](#Paragraph+getStyle) ⇒ <code>IParagraphStyle</code> \| <code>undefined</code>
-    * [`.createElement(document)`](#Paragraph+createElement) ⇒ <code>Element</code>
-    * [`.toXml()`](#Paragraph+toXml)
-
-
-* * *
-
-<a name="new_Paragraph_new"></a>
-
-### `new Paragraph([text])`
-Creates a paragraph
-
-#### Parameters
-- [text] <code>string</code>  
-The text content of the paragraph
-
-
-* * *
-
-<a name="Paragraph+addText"></a>
-
-### `paragraph.addText(text)`
-Appends the specified text to the end of this paragraph.
-
-#### Parameters
-- text <code>string</code>  
-The additional text content
-
-**Since**: 0.1.0  
-
-* * *
-
-<a name="Paragraph+getText"></a>
-
-### `paragraph.getText()` ⇒ <code>string</code>
-Returns the text content of this paragraph.
-Note: This will only return the text; other elements and markup will be omitted.
-
-**Return value**  
-<code>string</code> - The text content of this paragraph
-
-**Since**: 0.1.0  
-
-* * *
-
-<a name="Paragraph+setText"></a>
-
-### `paragraph.setText(text)`
-Sets the text content of this paragraph.
-Note: This will replace any existing content of the paragraph.
-
-#### Parameters
-- text <code>string</code>  
-The new text content
-
-**Since**: 0.1.0  
-
-* * *
-
-<a name="Paragraph+addHyperlink"></a>
-
-### `paragraph.addHyperlink(text, uri)` ⇒ [<code>Hyperlink</code>](#Hyperlink)
-Appends the specified text as hyperlink to the end of this paragraph.
-
-#### Parameters
-- text <code>string</code>  
-The text content of the hyperlink
-- uri <code>string</code>  
-The target URI of the hyperlink
-
-**Return value**  
-[<code>Hyperlink</code>](#Hyperlink) - The newly added hyperlink
-
-**Since**: 0.3.0  
-
-* * *
-
-<a name="Paragraph+addImage"></a>
-
-### `paragraph.addImage(path)` ⇒ [<code>Image</code>](#Image)
-Appends the image of the denoted path to the end of this paragraph.
-The current paragraph will be set as anchor for the image.
-
-#### Parameters
-- path <code>string</code>  
-The path to the image file
-
-**Return value**  
-[<code>Image</code>](#Image) - The newly added image
-
-**Since**: 0.3.0  
-
-* * *
-
-<a name="Paragraph+setStyle"></a>
-
-### `paragraph.setStyle(style)`
-Sets the new style of this paragraph.
-To reset the style, `undefined` must be given.
-
-#### Parameters
-- style <code>IParagraphStyle</code> | <code>undefined</code>  
-The new style or `undefined` to reset the style
-
-**Since**: 0.3.0  
-
-* * *
-
-<a name="Paragraph+getStyle"></a>
-
-### `paragraph.getStyle()` ⇒ <code>IParagraphStyle</code> \| <code>undefined</code>
-Returns the style of this paragraph.
-
-**Return value**  
-<code>IParagraphStyle</code> \| <code>undefined</code> - The style of the paragraph or `undefined` if no style was set
-
-**Since**: 0.3.0  
-
-* * *
-
-<a name="Paragraph+createElement"></a>
-
-### `paragraph.createElement(document)` ⇒ <code>Element</code>
-Creates the paragraph element.
-
-#### Parameters
-- document <code>Document</code>  
-The XML document
-
-**Return value**  
-<code>Element</code> - The DOM element representing this paragraph
-
-**Since**: 0.1.0  
-
-* * *
-
-<a name="Paragraph+toXml"></a>
-
-### `paragraph.toXml()`
-
-* * *
-
-<a name="TextDocument"></a>
-
-## TextDocument
-This class represents an empty ODF text document.
-
-**Since**: 0.1.0  
-
-* [TextDocument](#TextDocument)
-    * [`.getMeta()`](#TextDocument+getMeta) ⇒ [<code>Meta</code>](#Meta)
-    * [`.declareFont(name, fontFamily, fontPitch)`](#TextDocument+declareFont)
-    * [`.addHeading([text], [level])`](#TextDocument+addHeading) ⇒ [<code>Heading</code>](#Heading)
-    * [`.addList()`](#TextDocument+addList) ⇒ [<code>List</code>](#List)
-    * [`.addParagraph([text])`](#TextDocument+addParagraph) ⇒ [<code>Paragraph</code>](#Paragraph)
-    * [`.saveFlat(filePath)`](#TextDocument+saveFlat) ⇒ <code>Promise.&lt;void&gt;</code>
-    * ~~[`.toString()`](#TextDocument+toString) ⇒ <code>string</code>~~
-    * [`.toXml()`](#TextDocument+toXml)
-
-
-* * *
-
-<a name="TextDocument+getMeta"></a>
-
-### `textDocument.getMeta()` ⇒ [<code>Meta</code>](#Meta)
-The `getMeta()` method returns the metadata of the document.
-
-**Return value**  
-[<code>Meta</code>](#Meta) - An object holding the metadata of the document
-
-**See**: [Meta](#Meta)  
-**Example**  
-```js
-document.getMeta().setCreator('Lisa Simpson');
-```
-**Since**: 0.6.0  
-
-* * *
-
-<a name="TextDocument+declareFont"></a>
-
-### `textDocument.declareFont(name, fontFamily, fontPitch)`
-Declares a font to be used in the document.
-
-**Note: There is no check whether the font exists.
-In order to be displayed properly, the font must be present on the target system.**
-
-#### Parameters
-- name <code>string</code>  
-The name of the font; this name must be set to a [ParagraphStyle](#ParagraphStyle)
-- fontFamily <code>string</code>  
-The name of the font family
-- fontPitch <code>FontPitch</code>  
-The ptich of the fonr
-
-**Since**: 0.4.0  
-
-* * *
-
-<a name="TextDocument+addHeading"></a>
-
-### `textDocument.addHeading([text], [level])` ⇒ [<code>Heading</code>](#Heading)
-Adds a heading at the end of the document.
-If a text is given, this will be set as text content of the heading.
-
-#### Parameters
-- [text] <code>string</code>  
-The text content of the heading
-- [level] <code>number</code> <code> = 1</code>  
-The heading level; defaults to 1 if omitted
-
-**Return value**  
-[<code>Heading</code>](#Heading) - The newly added heading
-
-**Since**: 0.1.0  
-
-* * *
-
-<a name="TextDocument+addList"></a>
-
-### `textDocument.addList()` ⇒ [<code>List</code>](#List)
-Adds an empty list at the end of the document.
-
-**Return value**  
-[<code>List</code>](#List) - The newly added list
-
-**Since**: 0.2.0  
-
-* * *
-
-<a name="TextDocument+addParagraph"></a>
-
-### `textDocument.addParagraph([text])` ⇒ [<code>Paragraph</code>](#Paragraph)
-Adds a paragraph at the end of the document.
-If a text is given, this will be set as text content of the paragraph.
-
-#### Parameters
-- [text] <code>string</code>  
-The text content of the paragraph
-
-**Return value**  
-[<code>Paragraph</code>](#Paragraph) - The newly added paragraph
-
-**Since**: 0.1.0  
-
-* * *
-
-<a name="TextDocument+saveFlat"></a>
-
-### `textDocument.saveFlat(filePath)` ⇒ <code>Promise.&lt;void&gt;</code>
-Saves the document in flat open document xml format.
-
-#### Parameters
-- filePath <code>string</code>  
-The file path to write to
-
-**Since**: 0.1.0  
-
-* * *
-
-<a name="TextDocument+toString"></a>
-
-### ~~`textDocument.toString()` ⇒ <code>string</code>~~
-***Deprecated***
-
-Returns the string representation of this document in flat open document xml format.
-
-**Return value**  
-<code>string</code> - The string representation of this document
-
-**Since**: 0.1.0  
-
-* * *
-
-<a name="TextDocument+toXml"></a>
-
-### `textDocument.toXml()`
 
 * * *
 

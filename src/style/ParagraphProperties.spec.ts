@@ -1,10 +1,10 @@
+import { TextDocument } from "../api/office";
+import { Paragraph } from "../api/text";
 import { HorizontalAlignment } from "./HorizontalAlignment";
 import { ParagraphProperties } from "./ParagraphProperties";
 import { ParagraphStyle } from "./ParagraphStyle";
 import { TabStop } from "./TabStop";
 import { TabStopType } from "./TabStopType";
-import { Paragraph } from "../text/Paragraph";
-import { TextDocument } from "../TextDocument";
 
 describe(ParagraphProperties.name, () => {
   let properties: ParagraphProperties;
@@ -16,7 +16,7 @@ describe(ParagraphProperties.name, () => {
     properties = new ParagraphProperties();
 
     document = new TextDocument();
-    paragraph = document.addParagraph();
+    paragraph = document.getBody().addParagraph();
     testStyle = new ParagraphStyle();
   });
 

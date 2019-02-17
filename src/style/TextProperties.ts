@@ -1,5 +1,5 @@
-import { OdfAttributeName } from "../OdfAttributeName";
-import { OdfElementName } from "../OdfElementName";
+import { OdfAttributeName } from "../xml/OdfAttributeName";
+import { OdfElementName } from "../xml/OdfElementName";
 import { Color } from "./Color";
 import { ITextProperties } from "./ITextProperties";
 import { TextTransformation } from "./TextTransformation";

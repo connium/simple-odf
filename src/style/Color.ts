@@ -16,7 +16,7 @@ export class Color {
   public static fromHex(value: string): Color | never {
     const matches = value.match(/^#?([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})$/);
     if (matches === null) {
-      throw new Error('Invalid color value');
+      throw new Error("Invalid color value");
     }
 
     return new Color(parseInt(matches[1], 16), parseInt(matches[2], 16), parseInt(matches[3], 16));
@@ -36,7 +36,7 @@ export class Color {
     if (Color.checkRange(red) && Color.checkRange(green) && Color.checkRange(blue)) {
       return new Color(red, green, blue);
     }
-    throw new Error('Invalid value for a color channel');
+    throw new Error("Invalid value for a color channel");
   }
 
   /**

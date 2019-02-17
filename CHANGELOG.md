@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - **meta:** Use `Date` instead of `number` when dealing with dates
 - **chore:** Update dev dependencies, place test code next to production code, mention contributors in package.json
+- **refactor:** Split API and serialization logic, closes [#60](https://github.com/connium/simple-odf/issues/60)
 
 ## [0.6.0] (2018-10-12)
 ### Added

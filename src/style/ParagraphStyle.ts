@@ -1,6 +1,6 @@
 import { createHash } from "crypto";
-import { OdfAttributeName } from "../OdfAttributeName";
-import { OdfElementName } from "../OdfElementName";
+import { OdfAttributeName } from "../xml/OdfAttributeName";
+import { OdfElementName } from "../xml/OdfElementName";
 import { Color } from "./Color";
 import { HorizontalAlignment } from "./HorizontalAlignment";
 import { IParagraphStyle } from "./IParagraphStyle";

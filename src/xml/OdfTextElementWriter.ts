@@ -1,59 +1,27 @@
-import { OdfElement } from "../OdfElement";
+import { OdfTextElement } from "../api/text/OdfTextElement";
 import { TextElementName } from "./TextElementName";
 
 const SPACE = " ";
 
-/**
- * This class represents text in a paragraph.
- *
- * @since 0.3.0
- * @private
- */
-export class OdfTextElement extends OdfElement {
+export class OdfTextElementWriter {
   /**
-   * Creates a text
-   *
-   * @param {string} text The text content
-   * @since 0.3.0
+   * @inheritdoc
+   * @since 0.7.0
    */
-  public constructor(private text: string) {
-    super();
-  }
-
-  /**
-   * Sets the new text content.
-   *
-   * @param {string} text The new text content
-   * @since 0.3.0
-   */
-  public setText(text: string): void {
-    this.text = text;
-  }
-
-  /**
-   * Returns the text content.
-   *
-   * @returns {string} The text content
-   * @since 0.3.0
-   */
-  public getText(): string {
-    return this.text;
-  }
-
-  /** @inheritDoc */
-  protected toXml(document: Document, parent: Element): void {
-    if (this.text === undefined || this.text === "") {
+  public write(odfText: OdfTextElement, document: Document, parent: Element): void {
+    const text = odfText.getText();
+    if (text === undefined || text === "") {
       return;
     }
 
     let str = "";
-    for (let index = 0; index < this.text.length; index++) {
-      const currentChar = this.text.charAt(index);
+    for (let index = 0; index < text.length; index++) {
+      const currentChar = text.charAt(index);
       switch (currentChar) {
         case SPACE:
           str += currentChar;
 
-          const count = this.findNextNonSpaceCharacter(this.text, index) - 1;
+          const count = this.findNextNonSpaceCharacter(text, index) - 1;
           if (count > 0) {
             this.appendTextNode(document, parent, str);
             this.appendSpaceNode(document, parent, count);

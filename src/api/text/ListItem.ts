@@ -1,9 +1,13 @@
 import { OdfElement } from "../OdfElement";
 import { Paragraph } from "./Paragraph";
-import { TextElementName } from "./TextElementName";
 
 /**
  * This class represents an item in a list.
+ *
+ * @example
+ * const list = document.getBody()
+ *   .addList()
+ *   .addItem("First item");
  *
  * @since 0.2.0
  */
@@ -11,9 +15,12 @@ export class ListItem extends OdfElement {
   private paragraph: Paragraph;
 
   /**
-   * Creates a list item
+   * Creates a `ListItem` instance that represents an item in a list.
    *
-   * @param {string} [text] The text content of the list item
+   * @example
+   * new ListItem("First item");
+   *
+   * @param {string} [text=""] The text content of the list item; defaults to an empty string if omitted
    * @since 0.2.0
    */
   public constructor(text?: string) {
@@ -21,13 +28,5 @@ export class ListItem extends OdfElement {
 
     this.paragraph = new Paragraph(text);
     this.append(this.paragraph);
-  }
-
-  /** @inheritDoc */
-  protected toXml(document: Document, parent: Element): void {
-    const listItemElement = document.createElement(TextElementName.TextListItem);
-    parent.appendChild(listItemElement);
-
-    super.toXml(document, listItemElement);
   }
 }

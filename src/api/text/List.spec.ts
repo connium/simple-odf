@@ -1,34 +1,18 @@
 import { List } from "./List";
 import { ListItem } from "./ListItem";
-import { TextDocument } from "../TextDocument";
 
 describe(List.name, () => {
-  let document: TextDocument;
   let list: List;
   let testItem1: ListItem;
   let testItem2: ListItem;
   let testItem3: ListItem;
 
   beforeEach(() => {
-    document = new TextDocument();
-    list = document.addList();
+    list = new List();
 
     testItem1 = new ListItem("first");
     testItem2 = new ListItem("second");
     testItem3 = new ListItem("third");
-  });
-
-  it("NOT insert an empty list", () => {
-    const documentAsString = document.toString();
-    expect(documentAsString).not.toMatch(/<text:list/);
-  });
-
-  it("insert a list with a list item", () => {
-    list.addItem("first");
-
-    const documentAsString = document.toString();
-    /* tslint:disable-next-line:max-line-length */
-    expect(documentAsString).toMatch(/<text:list><text:list-item><text:p>first<\/text:p><\/text:list-item><\/text:list>/);
   });
 
   describe("#addItem", () => {

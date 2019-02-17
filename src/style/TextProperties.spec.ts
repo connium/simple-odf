@@ -1,10 +1,10 @@
+import { TextDocument } from "../api/office";
+import { Paragraph } from "../api/text";
 import { Color } from "./Color";
 import { ParagraphStyle } from "./ParagraphStyle";
 import { TextProperties } from "./TextProperties";
 import { TextTransformation } from "./TextTransformation";
 import { Typeface } from "./Typeface";
-import { Paragraph } from "../text/Paragraph";
-import { TextDocument } from "../TextDocument";
 
 describe(TextProperties.name, () => {
   let properties: TextProperties;
@@ -16,7 +16,7 @@ describe(TextProperties.name, () => {
     properties = new TextProperties();
 
     document = new TextDocument();
-    paragraph = document.addParagraph("test");
+    paragraph = document.getBody().addParagraph("test");
     testStyle = new ParagraphStyle();
   });
 
