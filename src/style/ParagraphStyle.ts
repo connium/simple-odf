@@ -1,16 +1,16 @@
-import { createHash } from "crypto";
-import { OdfAttributeName } from "../xml/OdfAttributeName";
-import { OdfElementName } from "../xml/OdfElementName";
-import { Color } from "./Color";
-import { HorizontalAlignment } from "./HorizontalAlignment";
-import { IParagraphStyle } from "./IParagraphStyle";
-import { ParagraphProperties } from "./ParagraphProperties";
-import { StyleHelper } from "./StyleHelper";
-import { TabStop } from "./TabStop";
-import { TabStopType } from "./TabStopType";
-import { TextProperties } from "./TextProperties";
-import { TextTransformation } from "./TextTransformation";
-import { Typeface } from "./Typeface";
+import { createHash } from 'crypto';
+import { OdfAttributeName } from '../xml/OdfAttributeName';
+import { OdfElementName } from '../xml/OdfElementName';
+import { Color } from './Color';
+import { HorizontalAlignment } from './HorizontalAlignment';
+import { IParagraphStyle } from './IParagraphStyle';
+import { ParagraphProperties } from './ParagraphProperties';
+import { StyleHelper } from './StyleHelper';
+import { TabStop } from './TabStop';
+import { TabStopType } from './TabStopType';
+import { TextProperties } from './TextProperties';
+import { TextTransformation } from './TextTransformation';
+import { Typeface } from './Typeface';
 
 /**
  * This class represents the style of a paragraph
@@ -24,101 +24,101 @@ export class ParagraphStyle implements IParagraphStyle {
   /**
    * Constructor.
    */
-  public constructor() {
+  public constructor () {
     this.paragraphProperties = new ParagraphProperties();
     this.textProperties = new TextProperties();
   }
 
   /** @inheritDoc */
-  public setColor(color: Color | undefined): void {
+  public setColor (color: Color | undefined): void {
     return this.textProperties.setColor(color);
   }
 
   /** @inheritDoc */
-  public getColor(): Color | undefined {
+  public getColor (): Color | undefined {
     return this.textProperties.getColor();
   }
 
   /** @inheritDoc */
-  public setFontName(name: string): void {
+  public setFontName (name: string): void {
     this.textProperties.setFontName(name);
   }
 
   /** @inheritDoc */
-  public getFontName(): string | undefined {
+  public getFontName (): string | undefined {
     return this.textProperties.getFontName();
   }
 
   /** @inheritDoc */
-  public setFontSize(size: number): void {
+  public setFontSize (size: number): void {
     return this.textProperties.setFontSize(size);
   }
 
   /** @inheritDoc */
-  public getFontSize(): number {
+  public getFontSize (): number {
     return this.textProperties.getFontSize();
   }
 
   /** @inheritDoc */
-  public setTextTransformation(transformation: TextTransformation): void {
+  public setTextTransformation (transformation: TextTransformation): void {
     this.textProperties.setTextTransformation(transformation);
   }
 
   /** @inheritDoc */
-  public getTextTransformation(): TextTransformation {
+  public getTextTransformation (): TextTransformation {
     return this.textProperties.getTextTransformation();
   }
 
   /** @inheritDoc */
-  public setTypeface(typeface: Typeface): void {
+  public setTypeface (typeface: Typeface): void {
     return this.textProperties.setTypeface(typeface);
   }
 
   /** @inheritDoc */
-  public getTypeface(): Typeface {
+  public getTypeface (): Typeface {
     return this.textProperties.getTypeface();
   }
 
   /** @inheritDoc */
-  public setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): void {
+  public setHorizontalAlignment (horizontalAlignment: HorizontalAlignment): void {
     return this.paragraphProperties.setHorizontalAlignment(horizontalAlignment);
   }
 
   /** @inheritDoc */
-  public getHorizontalAlignment(): HorizontalAlignment {
+  public getHorizontalAlignment (): HorizontalAlignment {
     return this.paragraphProperties.getHorizontalAlignment();
   }
 
   /** @inheritDoc */
-  public setPageBreakBefore(): void {
+  public setPageBreakBefore (): void {
     return this.paragraphProperties.setPageBreakBefore();
   }
 
   /** @inheritDoc */
-  public setKeepTogether(keepTogether: boolean = true): void {
+  public setKeepTogether (keepTogether: boolean = true): void {
     return this.paragraphProperties.setKeepTogether(keepTogether);
   }
 
   /** @inheritDoc */
-  public addTabStop(position: number, type: TabStopType): TabStop | undefined;
+  public addTabStop (position: number, type: TabStopType): TabStop | undefined;
   /** @inheritDoc */
-  public addTabStop(tabStop: TabStop): TabStop | undefined;
-  public addTabStop(position: any, type?: any): TabStop | undefined {
+  public addTabStop (tabStop: TabStop): TabStop | undefined;
+  public addTabStop (position: any, type?: any): TabStop | undefined {
     return this.paragraphProperties.addTabStop(position, type);
   }
 
   /** @inheritDoc */
-  public getTabStops(): TabStop[] {
+  public getTabStops (): TabStop[] {
     return this.paragraphProperties.getTabStops();
   }
 
   /** @inheritDoc */
-  public clearTabStops(): void {
+  public clearTabStops (): void {
     return this.paragraphProperties.clearTabStops();
   }
 
   /** @inheritDoc */
-  public toXml(document: Document, parent: Element): void {
+  public toXml (document: Document, parent: Element): void {
     if (this.paragraphProperties.isDefault() === true && this.textProperties.isDefault() === true) {
       return;
     }
@@ -143,26 +143,26 @@ export class ParagraphStyle implements IParagraphStyle {
    * @since 0.4.0
    * @private
    */
-  private getName(): string {
-    const hash = createHash("md5");
+  private getName (): string {
+    const hash = createHash('md5');
 
     // paragraph properties
     hash.update(this.paragraphProperties.getHorizontalAlignment());
-    hash.update((this.paragraphProperties as any).shouldBreakPageBefore ? "pb" : "");
-    hash.update((this.paragraphProperties as any).shouldKeepTogether ? "kt" : "");
+    hash.update((this.paragraphProperties as any).shouldBreakPageBefore ? 'pb' : '');
+    hash.update((this.paragraphProperties as any).shouldKeepTogether ? 'kt' : '');
     this.paragraphProperties.getTabStops().forEach((tabStop: TabStop) => {
       hash.update(`${tabStop.getPosition()}${tabStop.getType()}`);
     });
 
     // text properties
     const color = this.textProperties.getColor();
-    hash.update(color !== undefined ? color.toHex() : "");
-    hash.update(this.textProperties.getFontName() || "");
+    hash.update(color !== undefined ? color.toHex() : '');
+    hash.update(this.textProperties.getFontName() || '');
     hash.update(this.textProperties.getFontSize().toString());
     hash.update(this.textProperties.getTextTransformation());
     hash.update(this.textProperties.getTypeface().toString());
 
-    return hash.digest("hex");
+    return hash.digest('hex');
   }
 
   /**
@@ -173,7 +173,7 @@ export class ParagraphStyle implements IParagraphStyle {
    * @returns {boolean} Returns whether the style with the given name already exists
    * @private
    */
-  private existsStyle(document: Document, styleName: string): boolean {
+  private existsStyle (document: Document, styleName: string): boolean {
     const automaticStylesElement = StyleHelper.getAutomaticStylesElement(document);
 
     if (automaticStylesElement.childNodes.length > 0) {
@@ -198,12 +198,12 @@ export class ParagraphStyle implements IParagraphStyle {
    * @returns {Element} The newly created style element
    * @private
    */
-  private createStyleElement(document: Document, styleName: string): Element {
+  private createStyleElement (document: Document, styleName: string): Element {
     const automaticStylesElement = StyleHelper.getAutomaticStylesElement(document);
 
     const styleElement = document.createElement(OdfElementName.StyleStyle);
     automaticStylesElement.appendChild(styleElement);
-    styleElement.setAttribute(OdfAttributeName.StyleFamily, "paragraph");
+    styleElement.setAttribute(OdfAttributeName.StyleFamily, 'paragraph');
     styleElement.setAttribute(OdfAttributeName.StyleName, styleName);
 
     return styleElement;

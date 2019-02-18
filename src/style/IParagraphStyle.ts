@@ -1,5 +1,5 @@
-import { IParagraphProperties } from "./IParagraphProperties";
-import { ITextProperties } from "./ITextProperties";
+import { IParagraphProperties } from './IParagraphProperties';
+import { ITextProperties } from './ITextProperties';
 
 /**
  * This class represents the style of a paragraph
@@ -14,5 +14,5 @@ export interface IParagraphStyle extends ITextProperties, IParagraphProperties {
    * @param {Element} parent The parent node in the DOM (`text:h` or `text:p`)
    * @since 0.4.0
    */
-  toXml(document: Document, parent: Element): void;
+  toXml (document: Document, parent: Element): void;
 }

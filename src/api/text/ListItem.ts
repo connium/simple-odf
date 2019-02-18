@@ -1,5 +1,5 @@
-import { OdfElement } from "../OdfElement";
-import { Paragraph } from "./Paragraph";
+import { OdfElement } from '../OdfElement';
+import { Paragraph } from './Paragraph';
 
 /**
  * This class represents an item in a list.
@@ -7,7 +7,7 @@ import { Paragraph } from "./Paragraph";
  * @example
  * const list = document.getBody()
  *   .addList()
- *   .addItem("First item");
+ *   .addItem('First item');
  *
  * @since 0.2.0
  */
@@ -18,12 +18,12 @@ export class ListItem extends OdfElement {
    * Creates a `ListItem` instance that represents an item in a list.
    *
    * @example
-   * new ListItem("First item");
+   * new ListItem('First item');
    *
-   * @param {string} [text=""] The text content of the list item; defaults to an empty string if omitted
+   * @param {string} [text=''] The text content of the list item; defaults to an empty string if omitted
    * @since 0.2.0
    */
-  public constructor(text?: string) {
+  public constructor (text?: string) {
     super();
 
     this.paragraph = new Paragraph(text);

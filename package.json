@@ -24,18 +24,17 @@
     "Thomas Parisot",
     "Koen Verheyen"
   ],
-
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
     "preversion": "npm test",
     "postversion": "git push && git push --tags",
     "prepublishOnly": "tsc",
-    "pretest": "npm run lint",
+    "posttest": "npm run lint",
     "test": "jest",
     "watch-test": "jest --watch",
     "coverage": "jest --coverage",
-    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint": "tslint --project tslint.json src/**/*.ts",
     "docs": "rm -r ./lib && tsc && jsdoc2md --name-format --param-list-format list --separators --partial ./jsdoc2md/body.hbs ./jsdoc2md/params-list.hbs ./jsdoc2md/returns.hbs ./jsdoc2md/scope.hbs --files ./lib/api/**/*.js ./lib/style/**/*.js > ./docs/API.md"
   },
   "dependencies": {
@@ -48,7 +47,8 @@
     "jest": "^24.1.0",
     "jsdoc-to-markdown": "^4.0.1",
     "ts-jest": "^23.10.5",
-    "ts-lint": "^4.5.1",
+    "tslint": "^5.12.1",
+    "tslint-config-standard": "^8.0.1",
     "typescript": "^3.3.3"
   },
   "engines": {

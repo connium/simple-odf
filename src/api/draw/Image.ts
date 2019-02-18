@@ -1,6 +1,6 @@
-import { IImageStyle } from "../../style/IImageStyle";
-import { ImageStyle } from "../../style/ImageStyle";
-import { OdfElement } from "../OdfElement";
+import { IImageStyle } from '../../style/IImageStyle';
+import { ImageStyle } from '../../style/ImageStyle';
+import { OdfElement } from '../OdfElement';
 
 /**
  * This class represents an image in a paragraph.
@@ -10,7 +10,7 @@ import { OdfElement } from "../OdfElement";
  * @example
  * document.getBody()
  *   .addParagraph()
- *   .addImage("/home/homer/myself.png")
+ *   .addImage('/home/homer/myself.png')
  *   .getStyle()
  *   .setSize(42, 23);
  *
@@ -23,12 +23,12 @@ export class Image extends OdfElement {
    * Creates an image
    *
    * @example
-   * const image = new Image("/home/homer/myself.png");
+   * const image = new Image('/home/homer/myself.png');
    *
    * @param {string} path Path to the image file that should be embedded
    * @since 0.3.0
    */
-  public constructor(private path: string) {
+  public constructor (private path: string) {
     super();
 
     this.style = new ImageStyle();
@@ -38,13 +38,13 @@ export class Image extends OdfElement {
    * The `getPath()` method returns the path to the image file that should be embedded.
    *
    * @example
-   * const image = new Image("/home/homer/myself.png");
+   * const image = new Image('/home/homer/myself.png');
    * image.getPath(); // '/home/homer/myself.png'
    *
    * @returns {string} The path to the image file
    * @since 0.7.0
    */
-  public getPath(): string {
+  public getPath (): string {
     return this.path;
   }
 
@@ -52,14 +52,14 @@ export class Image extends OdfElement {
    * Sets the new style of this image.
    *
    * @example
-   * const image = new Image("/home/homer/myself.png");
+   * const image = new Image('/home/homer/myself.png');
    * image.setStyle(new ImageStyle());
    *
    * @param {IImageStyle} style The new style
    * @returns {Image} The `Image` object
    * @since 0.5.0
    */
-  public setStyle(style: IImageStyle): Image {
+  public setStyle (style: IImageStyle): Image {
     if (style instanceof ImageStyle) {
       this.style = style;
     }
@@ -71,15 +71,15 @@ export class Image extends OdfElement {
    * Returns the style of this image.
    *
    * @example
-   * const image = new Image("/home/homer/myself.png");
-   * image.getStyle();                // default style
+   * const image = new Image('/home/homer/myself.png');
+   * image.getStyle();                 // default style
    * image.setStyle(new ImageStyle());
-   * image.getStyle();                // previously set style
+   * image.getStyle();                 // previously set style
    *
    * @returns {IImageStyle} The style of the image
    * @since 0.5.0
    */
-  public getStyle(): IImageStyle {
+  public getStyle (): IImageStyle {
     return this.style;
   }
 }

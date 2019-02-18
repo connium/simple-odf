@@ -1,5 +1,5 @@
-import { List } from "./List";
-import { ListItem } from "./ListItem";
+import { List } from './List';
+import { ListItem } from './ListItem';
 
 describe(List.name, () => {
   let list: List;
@@ -10,24 +10,24 @@ describe(List.name, () => {
   beforeEach(() => {
     list = new List();
 
-    testItem1 = new ListItem("first");
-    testItem2 = new ListItem("second");
-    testItem3 = new ListItem("third");
+    testItem1 = new ListItem('first');
+    testItem2 = new ListItem('second');
+    testItem3 = new ListItem('third');
   });
 
-  describe("#addItem", () => {
+  describe('#addItem', () => {
     beforeEach(() => {
-      list.addItem("first");
+      list.addItem('first');
     });
 
-    it("create new item at the end of the list and return the added item", () => {
-      const addedItem = list.addItem("second");
+    it('create new item at the end of the list and return the added item', () => {
+      const addedItem = list.addItem('second');
 
       expect(addedItem).toEqual(testItem2);
       expect(list.getItems()).toEqual([testItem1, testItem2]);
     });
 
-    it("add new item to the end of the list and return the added item", () => {
+    it('add new item to the end of the list and return the added item', () => {
       const addedItem = list.addItem(testItem2);
 
       expect(addedItem).toBe(testItem2);
@@ -35,7 +35,7 @@ describe(List.name, () => {
     });
   });
 
-  describe("#insertItem", () => {
+  describe('#insertItem', () => {
     let itemToAdd: ListItem;
 
     beforeEach(() => {
@@ -43,31 +43,31 @@ describe(List.name, () => {
       list.addItem(testItem2);
       list.addItem(testItem3);
 
-      itemToAdd = new ListItem("new");
+      itemToAdd = new ListItem('new');
     });
 
-    it("insert item at the specified position and return the added item", () => {
-      const insertedItem = list.insertItem(2, "new");
+    it('insert item at the specified position and return the added item', () => {
+      const insertedItem = list.insertItem(2, 'new');
 
       expect(insertedItem).toEqual(itemToAdd);
       expect(list.getItems()).toEqual([testItem1, testItem2, itemToAdd, testItem3]);
     });
 
-    it("add new items to the specified position and return the added item", () => {
+    it('add new items to the specified position and return the added item', () => {
       const insertedItem = list.insertItem(2, itemToAdd);
 
       expect(insertedItem).toBe(itemToAdd);
       expect(list.getItems()).toEqual([testItem1, testItem2, itemToAdd, testItem3]);
     });
 
-    it("insert item at the front of the list if position is negative", () => {
+    it('insert item at the front of the list if position is negative', () => {
       const insertedItem = list.insertItem(-2, itemToAdd);
 
       expect(insertedItem).toBe(itemToAdd);
       expect(list.getItems()).toEqual([itemToAdd, testItem1, testItem2, testItem3]);
     });
 
-    it("insert item at the end of the list if position is larger than the size of the list", () => {
+    it('insert item at the end of the list if position is larger than the size of the list', () => {
       const insertedItem = list.insertItem(10, itemToAdd);
 
       expect(insertedItem).toBe(itemToAdd);
@@ -75,34 +75,34 @@ describe(List.name, () => {
     });
   });
 
-  describe("#getItem", () => {
+  describe('#getItem', () => {
     beforeEach(() => {
       list.addItem(testItem1);
       list.addItem(testItem2);
       list.addItem(testItem3);
     });
 
-    it("get the item at the specified position", () => {
+    it('get the item at the specified position', () => {
       const item = list.getItem(1);
 
       expect(item).toEqual(testItem2);
     });
 
-    it("return undefined if the specified position is less then 0", () => {
+    it('return undefined if the specified position is less then 0', () => {
       const item = list.getItem(-2);
 
       expect(item).toBeUndefined();
     });
 
-    it("return undefined if the specified position is larger than the list size", () => {
+    it('return undefined if the specified position is larger than the list size', () => {
       const item = list.getItem(10);
 
       expect(item).toBeUndefined();
     });
   });
 
-  describe("#getItems", () => {
-    it("return the items in order", () => {
+  describe('#getItems', () => {
+    it('return the items in order', () => {
       list.addItem(testItem1);
       list.addItem(testItem2);
       list.addItem(testItem3);
@@ -113,55 +113,55 @@ describe(List.name, () => {
     });
   });
 
-  describe("#removeItemAt", () => {
+  describe('#removeItemAt', () => {
     beforeEach(() => {
       list.addItem(testItem1);
       list.addItem(testItem2);
       list.addItem(testItem3);
     });
 
-    it("remove the item at the specified position and return it", () => {
+    it('remove the item at the specified position and return it', () => {
       const removedItem = list.removeItemAt(1);
 
       expect(removedItem).toEqual(testItem2);
       expect(list.getItems()).toEqual([testItem1, testItem3]);
     });
 
-    it("return undefined if the specified position is less then 0", () => {
+    it('return undefined if the specified position is less then 0', () => {
       const removedItem = list.removeItemAt(-2);
 
       expect(removedItem).toBeUndefined();
     });
 
-    it("return undefined if the specified position is larger than the list size", () => {
+    it('return undefined if the specified position is larger than the list size', () => {
       const removedItem = list.removeItemAt(10);
 
       expect(removedItem).toBeUndefined();
     });
   });
 
-  describe("#clear", () => {
+  describe('#clear', () => {
     beforeEach(() => {
       list.addItem(testItem1);
       list.addItem(testItem2);
       list.addItem(testItem3);
     });
 
-    it("remove all items from the list", () => {
+    it('remove all items from the list', () => {
       list.clear();
 
       expect(list.size()).toBe(0);
     });
   });
 
-  describe("#size", () => {
+  describe('#size', () => {
     beforeEach(() => {
       list.addItem(testItem1);
       list.addItem(testItem2);
       list.addItem(testItem3);
     });
 
-    it("return the size of the list", () => {
+    it('return the size of the list', () => {
       expect(list.size()).toBe(3);
     });
   });

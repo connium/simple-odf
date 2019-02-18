@@ -1,4 +1,4 @@
 export enum DrawElementName {
-  DrawFrame = "draw:frame",
-  DrawImage = "draw:image",
+  DrawFrame = 'draw:frame',
+  DrawImage = 'draw:image'
 }

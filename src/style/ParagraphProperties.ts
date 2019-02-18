@@ -1,9 +1,9 @@
-import { OdfAttributeName } from "../xml/OdfAttributeName";
-import { OdfElementName } from "../xml/OdfElementName";
-import { HorizontalAlignment } from "./HorizontalAlignment";
-import { IParagraphProperties } from "./IParagraphProperties";
-import { TabStop } from "./TabStop";
-import { TabStopType } from "./TabStopType";
+import { OdfAttributeName } from '../xml/OdfAttributeName';
+import { OdfElementName } from '../xml/OdfElementName';
+import { HorizontalAlignment } from './HorizontalAlignment';
+import { IParagraphProperties } from './IParagraphProperties';
+import { TabStop } from './TabStop';
+import { TabStopType } from './TabStopType';
 
 const DEFAULT_HORIZONTAL_ALIGNMENT = HorizontalAlignment.Default;
 const DEFAULT_PAGE_BREAK = false;
@@ -24,39 +24,39 @@ export class ParagraphProperties implements IParagraphProperties {
   /**
    * Constructor.
    */
-  public constructor() {
+  public constructor () {
     this.horizontalAlignment = DEFAULT_HORIZONTAL_ALIGNMENT;
     this.shouldBreakPageBefore = DEFAULT_PAGE_BREAK;
     this.shouldKeepTogether = DEFAULT_KEEP_TOGETHER;
   }
 
   /** @inheritDoc */
-  public setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): void {
+  public setHorizontalAlignment (horizontalAlignment: HorizontalAlignment): void {
     this.horizontalAlignment = horizontalAlignment;
   }
 
   /** @inheritDoc */
-  public getHorizontalAlignment(): HorizontalAlignment {
+  public getHorizontalAlignment (): HorizontalAlignment {
     return this.horizontalAlignment;
   }
 
   /** @inheritDoc */
-  public setPageBreakBefore(): void {
+  public setPageBreakBefore (): void {
     this.shouldBreakPageBefore = true;
   }
 
   /** @inheritDoc */
-  public setKeepTogether(keepTogether: boolean = true): void {
+  public setKeepTogether (keepTogether: boolean = true): void {
     this.shouldKeepTogether = keepTogether;
   }
 
   /** @inheritDoc */
-  public addTabStop(position: number, type: TabStopType): TabStop | undefined;
+  public addTabStop (position: number, type: TabStopType): TabStop | undefined;
 
   /** @inheritDoc */
-  public addTabStop(tabStop: TabStop): TabStop | undefined;
-  public addTabStop(arg1: number | TabStop, type = TabStopType.Left): TabStop | undefined {
-    const newTabStop = typeof arg1 === "object" ? arg1 : new TabStop(arg1, type);
+  public addTabStop (tabStop: TabStop): TabStop | undefined;
+  public addTabStop (arg1: number | TabStop, type = TabStopType.Left): TabStop | undefined {
+    const newTabStop = typeof arg1 === 'object' ? arg1 : new TabStop(arg1, type);
 
     const existsTabStop = this.tabStops.some((value: TabStop) => {
       return newTabStop.getPosition() === value.getPosition();
@@ -73,12 +73,12 @@ export class ParagraphProperties implements IParagraphProperties {
   }
 
   /** @inheritDoc */
-  public getTabStops(): TabStop[] {
+  public getTabStops (): TabStop[] {
     return Array.from(this.tabStops);
   }
 
   /** @inheritDoc */
-  public clearTabStops(): void {
+  public clearTabStops (): void {
     this.tabStops = [];
   }
 
@@ -88,7 +88,7 @@ export class ParagraphProperties implements IParagraphProperties {
    * @returns {boolean} `true` if the style equals the default style, `false` otherwise
    * @since 0.1.0
    */
-  public isDefault(): boolean {
+  public isDefault (): boolean {
     return (
       this.horizontalAlignment === DEFAULT_HORIZONTAL_ALIGNMENT &&
       this.shouldBreakPageBefore === DEFAULT_PAGE_BREAK &&
@@ -104,7 +104,7 @@ export class ParagraphProperties implements IParagraphProperties {
    * @param {Element} parent The parent node in the DOM (`style:style`)
    * @since 0.1.0
    */
-  public toXml(document: Document, parent: Element): void {
+  public toXml (document: Document, parent: Element): void {
     if (this.isDefault() === true) {
       return;
     }
@@ -123,7 +123,7 @@ export class ParagraphProperties implements IParagraphProperties {
    *
    * @param {Element} paragraphPropertiesElement The element which will take the attribute
    */
-  private setHorizontalAlignmentAttribute(paragraphPropertiesElement: Element): void {
+  private setHorizontalAlignmentAttribute (paragraphPropertiesElement: Element): void {
     if (this.horizontalAlignment !== HorizontalAlignment.Default) {
       paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatTextAlign, this.horizontalAlignment);
     }
@@ -134,9 +134,9 @@ export class ParagraphProperties implements IParagraphProperties {
    *
    * @param {Element} paragraphPropertiesElement The element which will take the attribute
    */
-  private setPageBreakAttribute(paragraphPropertiesElement: Element): void {
+  private setPageBreakAttribute (paragraphPropertiesElement: Element): void {
     if (this.shouldBreakPageBefore === true) {
-      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBreakBefore, "page");
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBreakBefore, 'page');
     }
   }
 
@@ -145,9 +145,9 @@ export class ParagraphProperties implements IParagraphProperties {
    *
    * @param {Element} paragraphPropertiesElement The element which will take the attribute
    */
-  private setKeepTogetherAttribute(paragraphPropertiesElement: Element): void {
+  private setKeepTogetherAttribute (paragraphPropertiesElement: Element): void {
     if (this.shouldKeepTogether === true) {
-      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatKeepTogether, "always");
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatKeepTogether, 'always');
     }
   }
 
@@ -157,7 +157,7 @@ export class ParagraphProperties implements IParagraphProperties {
    * @param {Document} document The XML document
    * @param {Element} paragraphPropertiesElement The element which will be used as parent
    */
-  private setTabStopElements(document: Document, paragraphPropertiesElement: Element): void {
+  private setTabStopElements (document: Document, paragraphPropertiesElement: Element): void {
     if (this.tabStops.length === 0) {
       return;
     }
@@ -173,7 +173,7 @@ export class ParagraphProperties implements IParagraphProperties {
   /**
    * Sorts the tab stops by their position ascending.
    */
-  private sortTabStops(): void {
+  private sortTabStops (): void {
     this.tabStops.sort((a: TabStop, b: TabStop) => {
       return a.getPosition() - b.getPosition();
     });

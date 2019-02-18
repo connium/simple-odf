@@ -1,4 +1,4 @@
 export enum FontPitch {
-  Fixed = "fixed",
-  Variable = "variable",
+  Fixed = 'fixed',
+  Variable = 'variable'
 }

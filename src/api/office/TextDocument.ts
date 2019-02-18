@@ -1,10 +1,10 @@
-import { writeFile } from "fs";
-import { promisify } from "util";
-import { XMLSerializer } from "xmldom";
-import { TextDocumentWriter } from "../../xml/TextDocumentWriter";
-import { Meta } from "../meta";
-import { FontFace, FontPitch } from "../style";
-import { TextBody } from "./TextBody";
+import { writeFile } from 'fs';
+import { promisify } from 'util';
+import { XMLSerializer } from 'xmldom';
+import { TextDocumentWriter } from '../../xml/TextDocumentWriter';
+import { Meta } from '../meta';
+import { FontFace, FontPitch } from '../style';
+import { TextBody } from './TextBody';
 
 export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
 
@@ -13,10 +13,10 @@ export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
  *
  * @example
  * const document = new TextDocument();
- * document.getMeta().setCreator("Homer Simpson");
- * document.declareFont("FreeSans", "FreeSans", FontPitch.Variable);
- * document.getBody().addHeading("My first document");
- * document.saveFlat("/home/homer/document.fodt");
+ * document.getMeta().setCreator('Homer Simpson');
+ * document.declareFont('FreeSans', 'FreeSans', FontPitch.Variable);
+ * document.getBody().addHeading('My first document');
+ * document.saveFlat('/home/homer/document.fodt');
  *
  * @since 0.1.0
  */
@@ -25,7 +25,7 @@ export class TextDocument {
   private fonts: FontFace[];
   private body: TextBody;
 
-  public constructor() {
+  public constructor () {
     this.meta = new Meta();
     this.fonts = [];
     this.body = new TextBody();
@@ -42,7 +42,7 @@ export class TextDocument {
    * @returns {TextBody} A `TextBody` object that holds the content of the document
    * @since 0.7.0
    */
-  public getBody(): TextBody {
+  public getBody (): TextBody {
     return this.body;
   }
 
@@ -54,7 +54,7 @@ export class TextDocument {
    *
    * @example
    * new TextDocument()
-   *   .declareFont("FreeSans", "FreeSans", FontPitch.Variable);
+   *   .declareFont('FreeSans', 'FreeSans', FontPitch.Variable);
    *
    * @param {string} name The name of the font; this name must be set to a {@link ParagraphStyle}
    * @param {string} fontFamily The name of the font family
@@ -62,7 +62,7 @@ export class TextDocument {
    * @returns {FontFace} The declared `FontFace` object
    * @since 0.4.0
    */
-  public declareFont(name: string, fontFamily: string, fontPitch: FontPitch): FontFace {
+  public declareFont (name: string, fontFamily: string, fontPitch: FontPitch): FontFace {
     const fontFace = new FontFace(name, fontFamily, fontPitch);
     this.fonts.push(fontFace);
 
@@ -74,13 +74,13 @@ export class TextDocument {
    *
    * @example
    * const document = new TextDocument();
-   * document.declareFont("FreeSans", "FreeSans", FontPitch.Variable);
+   * document.declareFont('FreeSans', 'FreeSans', FontPitch.Variable);
    * document.getFonts();
    *
    * @returns {FontFace[]} A copy of the list of font face declarations for the document
    * @since 0.7.0
    */
-  public getFonts(): FontFace[] {
+  public getFonts (): FontFace[] {
     return Array.from(this.fonts);
   }
 
@@ -95,7 +95,7 @@ export class TextDocument {
    * @see {@link Meta}
    * @since 0.6.0
    */
-  public getMeta(): Meta {
+  public getMeta (): Meta {
     return this.meta;
   }
 
@@ -104,13 +104,13 @@ export class TextDocument {
    *
    * @example
    * new TextDocument()
-   *   .saveFlat("/home/homer/document.fodt");
+   *   .saveFlat('/home/homer/document.fodt');
    *
    * @param {string} filePath The file path to write to
    * @returns {Promise<void>}
    * @since 0.1.0
    */
-  public saveFlat(filePath: string): Promise<void> {
+  public saveFlat (filePath: string): Promise<void> {
     const writeFileAsync = promisify(writeFile);
     const xml = this.toString();
 
@@ -122,9 +122,8 @@ export class TextDocument {
    *
    * @returns {string} The string representation of this document
    * @since 0.1.0
-   * @deprecated since version 0.3.0; use {@link TextDocument#saveFlat} instead
    */
-  public toString(): string {
+  public toString (): string {
     const document = new TextDocumentWriter().write(this);
 
     return XML_DECLARATION + new XMLSerializer().serializeToString(document);

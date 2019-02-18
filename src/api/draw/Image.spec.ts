@@ -1,9 +1,9 @@
-import { AnchorType } from "../../style/AnchorType";
-import { ImageStyle } from "../../style/ImageStyle";
-import { Image } from "./Image";
+import { AnchorType } from '../../style/AnchorType';
+import { ImageStyle } from '../../style/ImageStyle';
+import { Image } from './Image';
 
 describe(Image.name, () => {
-  const testImagePath = "/some/image.path.png";
+  const testImagePath = '/some/image.path.png';
 
   let image: Image;
 
@@ -11,24 +11,24 @@ describe(Image.name, () => {
     image = new Image(testImagePath);
   });
 
-  describe("path", () => {
-    it("return initial path", () => {
+  describe('path', () => {
+    it('return initial path', () => {
       expect(image.getPath()).toBe(testImagePath);
     });
   });
 
-  describe("style", () => {
+  describe('style', () => {
     let testStyle: ImageStyle;
 
     beforeEach(() => {
       testStyle = new ImageStyle();
     });
 
-    it("return style by default", () => {
+    it('return style by default', () => {
       expect(image.getStyle()).toBeInstanceOf(ImageStyle);
     });
 
-    it("return previous set style", () => {
+    it('return previous set style', () => {
       testStyle.setAnchorType(AnchorType.AsChar);
 
       image.setStyle(testStyle);
@@ -36,9 +36,9 @@ describe(Image.name, () => {
       expect(image.getStyle()).toBe(testStyle);
     });
 
-    it("ignore invalid input", () => {
+    it('ignore invalid input', () => {
       image.setStyle(testStyle);
-      image.setStyle(<any>null);
+      image.setStyle(null as any);
 
       expect(image.getStyle()).toBe(testStyle);
     });

@@ -1,4 +1,4 @@
-import { AnchorType } from "./AnchorType";
+import { AnchorType } from './AnchorType';
 
 /**
  * This class represents the style of an image
@@ -12,7 +12,7 @@ export interface IImageStyle {
    * @param {AnchorType} anchorType The anchor type setting
    * @since 0.5.0
    */
-  setAnchorType(anchorType: AnchorType): void;
+  setAnchorType (anchorType: AnchorType): void;
 
   /**
    * Returns the anchor type setting of this image.
@@ -20,7 +20,7 @@ export interface IImageStyle {
    * @returns {AnchorType} The anchor type setting
    * @since 0.5.0
    */
-  getAnchorType(): AnchorType;
+  getAnchorType (): AnchorType;
 
   /**
    * Sets the target height of the image.
@@ -28,7 +28,7 @@ export interface IImageStyle {
    * @param {number} height The target height of the image in millimeter
    * @since 0.5.0
    */
-  setHeight(height: number): void;
+  setHeight (height: number): void;
 
   /**
    * Returns the target height of the image or `undefined` if no height was set.
@@ -36,7 +36,7 @@ export interface IImageStyle {
    * @returns {number | undefined} The target height of the image in millimeter or `undefined` if no height was set
    * @since 0.5.0
    */
-  getHeight(): number | undefined;
+  getHeight (): number | undefined;
 
   /**
    * Sets the target width of the image.
@@ -44,7 +44,7 @@ export interface IImageStyle {
    * @param {number} width The target width of the image in millimeter
    * @since 0.5.0
    */
-  setWidth(width: number): void;
+  setWidth (width: number): void;
 
   /**
    * Returns the target width of the image or `undefined` if no width was set.
@@ -52,7 +52,7 @@ export interface IImageStyle {
    * @returns {number | undefined} The target width of the image in millimeter or `undefined` if no width was set
    * @since 0.5.0
    */
-  getWidth(): number | undefined;
+  getWidth (): number | undefined;
 
   /**
    * Sets the target size of the image.
@@ -61,7 +61,7 @@ export interface IImageStyle {
    * @param {number} height The target height of the image in millimeter
    * @since 0.5.0
    */
-  setSize(width: number, height: number): void;
+  setSize (width: number, height: number): void;
 
   /**
    * Transforms the image style into Open Document Format.
@@ -69,5 +69,5 @@ export interface IImageStyle {
    * @param {Element} parent The parent node in the DOM (`draw:frame`)
    * @since 0.5.0
    */
-  toXml(parent: Element): void;
+  toXml (parent: Element): void;
 }

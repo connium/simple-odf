@@ -1,14 +1,14 @@
-import { OdfElement } from "../OdfElement";
-import { Heading, List, Paragraph } from "../text";
+import { OdfElement } from '../OdfElement';
+import { Heading, List, Paragraph } from '../text';
 
 /**
  * This class represents the content of a text document.
  *
  * @example
  * const body = document.getBody();
- * body.addHeading("My document");
- * body.addParagraph("This is the first paragraph");
- * body.addHeading("Subheadline", 2);
+ * body.addHeading('My document');
+ * body.addParagraph('This is the first paragraph');
+ * body.addHeading('Subheadline', 2);
  *
  * @since 0.7.0
  */
@@ -22,7 +22,7 @@ export class TextBody extends OdfElement {
    * @returns {Heading} The newly added heading
    * @since 0.7.0
    */
-  public addHeading(text?: string, level = 1): Heading {
+  public addHeading (text?: string, level = 1): Heading {
     const heading = new Heading(text, level);
     this.append(heading);
 
@@ -35,7 +35,7 @@ export class TextBody extends OdfElement {
    * @returns {List} The newly added list
    * @since 0.7.0
    */
-  public addList(): List {
+  public addList (): List {
     const list = new List();
     this.append(list);
 
@@ -50,7 +50,7 @@ export class TextBody extends OdfElement {
    * @returns {Paragraph} The newly added paragraph
    * @since 0.7.0
    */
-  public addParagraph(text?: string): Paragraph {
+  public addParagraph (text?: string): Paragraph {
     const paragraph = new Paragraph(text);
     this.append(paragraph);
 

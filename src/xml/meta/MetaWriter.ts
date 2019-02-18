@@ -1,6 +1,6 @@
-import { Meta } from "../../api/meta";
-import { OdfElementName } from "../OdfElementName";
-import { MetaElementName } from "./MetaElementName";
+import { Meta } from '../../api/meta';
+import { OdfElementName } from '../OdfElementName';
+import { MetaElementName } from './MetaElementName';
 
 /**
  * Transforms a {@link Meta} object into ODF conform XML
@@ -16,7 +16,7 @@ export class MetaWriter {
    * @param {Meta} meta The Meta to serialize
    * @since 0.7.0
    */
-  public write(document: Document, root: Element, meta: Meta): void {
+  public write (document: Document, root: Element, meta: Meta): void {
     const metaElement = document.createElement(OdfElementName.OfficeMeta);
     root.appendChild(metaElement);
 
@@ -43,7 +43,7 @@ export class MetaWriter {
    * @param {Meta} meta The metadata
    * @private
    */
-  private setCreationDateElement(document: Document, metaElement: Element, meta: Meta): void {
+  private setCreationDateElement (document: Document, metaElement: Element, meta: Meta): void {
     const creationDateElement = document.createElement(MetaElementName.MetaCreationDate);
     metaElement.appendChild(creationDateElement);
     creationDateElement.appendChild(document.createTextNode(meta.getCreationDate().toISOString()));
@@ -57,7 +57,7 @@ export class MetaWriter {
    * @param {Meta} meta The metadata
    * @private
    */
-  private setCreatorElement(document: Document, metaElement: Element, meta: Meta): void {
+  private setCreatorElement (document: Document, metaElement: Element, meta: Meta): void {
     const creator = meta.getCreator();
     if (creator === undefined || creator.length === 0) {
       return;
@@ -76,7 +76,7 @@ export class MetaWriter {
    * @param {Meta} meta The metadata
    * @private
    */
-  private setDateElement(document: Document, metaElement: Element, meta: Meta): void {
+  private setDateElement (document: Document, metaElement: Element, meta: Meta): void {
     const date = meta.getDate();
     if (date === undefined) {
       return;
@@ -95,7 +95,7 @@ export class MetaWriter {
    * @param {Meta} meta The metadata
    * @private
    */
-  private setDescriptionElement(document: Document, metaElement: Element, meta: Meta): void {
+  private setDescriptionElement (document: Document, metaElement: Element, meta: Meta): void {
     const description = meta.getDescription();
     if (description === undefined || description.length === 0) {
       return;
@@ -114,7 +114,7 @@ export class MetaWriter {
    * @param {Meta} meta The metadata
    * @private
    */
-  private setEditingCyclesElement(document: Document, metaElement: Element, meta: Meta): void {
+  private setEditingCyclesElement (document: Document, metaElement: Element, meta: Meta): void {
     const editingCyclesElement = document.createElement(MetaElementName.MetaEditingCycles);
     metaElement.appendChild(editingCyclesElement);
     editingCyclesElement.appendChild(document.createTextNode(meta.getEditingCycles().toString()));
@@ -128,7 +128,7 @@ export class MetaWriter {
    * @param {Meta} meta The metadata
    * @private
    */
-  private setGeneratorElement(document: Document, metaElement: Element, meta: Meta): void {
+  private setGeneratorElement (document: Document, metaElement: Element, meta: Meta): void {
     const generatorElement = document.createElement(MetaElementName.MetaGenerator);
     metaElement.appendChild(generatorElement);
     generatorElement.appendChild(document.createTextNode(meta.getGenerator()));
@@ -142,7 +142,7 @@ export class MetaWriter {
    * @param {Meta} meta The metadata
    * @private
    */
-  private setInitialCreatorElement(document: Document, metaElement: Element, meta: Meta): void {
+  private setInitialCreatorElement (document: Document, metaElement: Element, meta: Meta): void {
     const initialCreator = meta.getInitialCreator();
     if (initialCreator === undefined || initialCreator.length === 0) {
       return;
@@ -161,7 +161,7 @@ export class MetaWriter {
    * @param {Meta} meta The metadata
    * @private
    */
-  private setKeywordElements(document: Document, metaElement: Element, meta: Meta): void {
+  private setKeywordElements (document: Document, metaElement: Element, meta: Meta): void {
     meta.getKeywords().forEach((keyword: string) => {
       const subjectElement = document.createElement(MetaElementName.MetaKeyword);
       metaElement.appendChild(subjectElement);
@@ -177,7 +177,7 @@ export class MetaWriter {
    * @param {Meta} meta The metadata
    * @private
    */
-  private setLanguageElement(document: Document, metaElement: Element, meta: Meta): void {
+  private setLanguageElement (document: Document, metaElement: Element, meta: Meta): void {
     const language = meta.getLanguage();
     if (language === undefined || language.length === 0) {
       return;
@@ -196,7 +196,7 @@ export class MetaWriter {
    * @param {Meta} meta The metadata
    * @private
    */
-  private setPrintDateElement(document: Document, metaElement: Element, meta: Meta): void {
+  private setPrintDateElement (document: Document, metaElement: Element, meta: Meta): void {
     const printDate = meta.getPrintDate();
     if (printDate === undefined) {
       return;
@@ -215,7 +215,7 @@ export class MetaWriter {
    * @param {Meta} meta The metadata
    * @private
    */
-  private setPrintedByElement(document: Document, metaElement: Element, meta: Meta): void {
+  private setPrintedByElement (document: Document, metaElement: Element, meta: Meta): void {
     const printedBy = meta.getPrintedBy();
     if (printedBy === undefined || printedBy.length === 0) {
       return;
@@ -233,7 +233,7 @@ export class MetaWriter {
    * @param {Meta} meta The metadata
    * @private
    */
-  private setSubjectElement(document: Document, metaElement: Element, meta: Meta): void {
+  private setSubjectElement (document: Document, metaElement: Element, meta: Meta): void {
     const subject = meta.getSubject();
     if (subject === undefined || subject.length === 0) {
       return;
@@ -252,7 +252,7 @@ export class MetaWriter {
    * @param {Meta} meta The metadata
    * @private
    */
-  private setTitleElement(document: Document, metaElement: Element, meta: Meta): void {
+  private setTitleElement (document: Document, metaElement: Element, meta: Meta): void {
     const title = meta.getTitle();
     if (title === undefined || title.length === 0) {
       return;

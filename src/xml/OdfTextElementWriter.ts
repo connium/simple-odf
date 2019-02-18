@@ -1,20 +1,20 @@
-import { OdfTextElement } from "../api/text/OdfTextElement";
-import { TextElementName } from "./TextElementName";
+import { OdfTextElement } from '../api/text/OdfTextElement';
+import { TextElementName } from './TextElementName';
 
-const SPACE = " ";
+const SPACE = ' ';
 
 export class OdfTextElementWriter {
   /**
    * @inheritdoc
    * @since 0.7.0
    */
-  public write(odfText: OdfTextElement, document: Document, parent: Element): void {
+  public write (odfText: OdfTextElement, document: Document, parent: Element): void {
     const text = odfText.getText();
-    if (text === undefined || text === "") {
+    if (text === undefined || text === '') {
       return;
     }
 
-    let str = "";
+    let str = '';
     for (let index = 0; index < text.length; index++) {
       const currentChar = text.charAt(index);
       switch (currentChar) {
@@ -25,21 +25,21 @@ export class OdfTextElementWriter {
           if (count > 0) {
             this.appendTextNode(document, parent, str);
             this.appendSpaceNode(document, parent, count);
-            str = "";
+            str = '';
             index += count;
           }
           break;
-        case "\n":
+        case '\n':
           this.appendTextNode(document, parent, str);
           this.appendLineBreakNode(document, parent);
-          str = "";
+          str = '';
           break;
-        case "\t":
+        case '\t':
           this.appendTextNode(document, parent, str);
           this.appendTabNode(document, parent);
-          str = "";
+          str = '';
           break;
-        case "\r":
+        case '\r':
           break;
         default:
           str += currentChar;
@@ -58,7 +58,7 @@ export class OdfTextElementWriter {
    * @param {string} text The text value of the text node
    * @since 0.3.0
    */
-  private appendTextNode(document: Document, parent: Element, text: string): void {
+  private appendTextNode (document: Document, parent: Element, text: string): void {
     if (text.length === 0) {
       return;
     }
@@ -76,12 +76,12 @@ export class OdfTextElementWriter {
    * @param {number} count The number of space characters the node should represent
    * @since 0.3.0
    */
-  private appendSpaceNode(document: Document, parent: Element, count: number): void {
+  private appendSpaceNode (document: Document, parent: Element, count: number): void {
     const space = document.createElement(TextElementName.TextSpace);
     parent.appendChild(space);
 
     if (count > 1) {
-      space.setAttribute("c", count.toString(10));
+      space.setAttribute('c', count.toString(10));
     }
   }
 
@@ -92,7 +92,7 @@ export class OdfTextElementWriter {
    * @param {Element} parent The parent node
    * @since 0.3.0
    */
-  private appendTabNode(document: Document, parent: Element): void {
+  private appendTabNode (document: Document, parent: Element): void {
     const tabulation = document.createElement(TextElementName.TextTabulation);
     parent.appendChild(tabulation);
   }
@@ -104,7 +104,7 @@ export class OdfTextElementWriter {
    * @param {Element} parent The parent node
    * @since 0.3.0
    */
-  private appendLineBreakNode(document: Document, parent: Element): void {
+  private appendLineBreakNode (document: Document, parent: Element): void {
     const lineBreak = document.createElement(TextElementName.TextLineBreak);
     parent.appendChild(lineBreak);
   }
@@ -117,7 +117,7 @@ export class OdfTextElementWriter {
    * @returns {number} The number of space characters before the next non-space character
    * @since 0.3.0
    */
-  private findNextNonSpaceCharacter(text: string, offset: number): number {
+  private findNextNonSpaceCharacter (text: string, offset: number): number {
     for (let index = offset; index < text.length; index++) {
       if (text.charAt(index) !== SPACE) {
         return index - offset;
