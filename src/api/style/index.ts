@@ -1,2 +1,2 @@
-export { FontFace } from "./FontFace";
-export { FontPitch } from "./FontPitch";
+export { FontFace } from './FontFace';
+export { FontPitch } from './FontPitch';

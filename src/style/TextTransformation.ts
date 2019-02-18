@@ -1,6 +1,6 @@
 export enum TextTransformation {
-  None = "none",
-  Capitalize = "capitalize",
-  Lowercase = "lowercase",
-  Uppercase = "uppercase",
+  None = 'none',
+  Capitalize = 'capitalize',
+  Lowercase = 'lowercase',
+  Uppercase = 'uppercase'
 }

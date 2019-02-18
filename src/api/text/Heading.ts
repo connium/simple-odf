@@ -1,4 +1,4 @@
-import { Paragraph } from "./Paragraph";
+import { Paragraph } from './Paragraph';
 
 /**
  * This class represents a heading in a document.
@@ -7,11 +7,11 @@ import { Paragraph } from "./Paragraph";
  * A chapter or section begins with a heading and extends to the next heading at the same or higher level.
  *
  * @example
- * document.getBody().addHeading("First Headline", 1);
+ * document.getBody().addHeading('First Headline', 1);
  *
  * @example
  * document.getBody().addHeading()
- *   .setText("Second Headline")
+ *   .setText('Second Headline')
  *   .setLevel(2);
  *
  * @extends {Paragraph}
@@ -24,15 +24,15 @@ export class Heading extends Paragraph {
    * Creates a `Heading` instance that represents a heading in a document.
    *
    * @example
-   * new Heading("First Headline", 1);
-   * new Heading("First Headline");
+   * new Heading('First Headline', 1);
+   * new Heading('First Headline');
    * new Heading();
    *
    * @param {string} [text=''] The text content of the heading; defaults to an empty string if omitted
    * @param {number} [level=1] The level of the heading, starting with `1`; defaults to `1` if omitted
    * @since 0.1.0
    */
-  public constructor(text?: string, private level = Heading.DEFAULT_LEVEL) {
+  public constructor (text?: string, private level = Heading.DEFAULT_LEVEL) {
     super(text);
 
     this.setLevel(level);
@@ -46,7 +46,7 @@ export class Heading extends Paragraph {
    * @returns {Heading} The `Heading` object
    * @since 0.1.0
    */
-  public setLevel(level: number): Heading {
+  public setLevel (level: number): Heading {
     this.level = level > Heading.DEFAULT_LEVEL ? level : Heading.DEFAULT_LEVEL;
 
     return this;
@@ -58,7 +58,7 @@ export class Heading extends Paragraph {
    * @returns {number} The level of the heading
    * @since 0.1.0
    */
-  public getLevel(): number {
+  public getLevel (): number {
     return this.level;
   }
 }

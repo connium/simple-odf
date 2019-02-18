@@ -4,5 +4,5 @@ export enum Typeface {
   Italic,
   Oblique,
   BoldItalic,
-  BoldOblique,
+  BoldOblique
 }

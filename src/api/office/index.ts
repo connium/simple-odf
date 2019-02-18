@@ -1,2 +1,2 @@
-export { TextBody } from "./TextBody";
-export { TextDocument } from "./TextDocument";
+export { TextBody } from './TextBody';
+export { TextDocument } from './TextDocument';

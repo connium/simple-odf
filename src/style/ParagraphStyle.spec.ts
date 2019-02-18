@@ -1,6 +1,6 @@
-import { TextDocument } from "../api/office";
-import { Paragraph } from "../api/text";
-import { ParagraphStyle } from "./ParagraphStyle";
+import { TextDocument } from '../api/office';
+import { Paragraph } from '../api/text';
+import { ParagraphStyle } from './ParagraphStyle';
 
 describe(ParagraphStyle.name, () => {
   let document: TextDocument;
@@ -9,17 +9,17 @@ describe(ParagraphStyle.name, () => {
 
   beforeEach(() => {
     document = new TextDocument();
-    paragraph = document.getBody().addParagraph("test");
+    paragraph = document.getBody().addParagraph('test');
     testStyle = new ParagraphStyle();
   });
 
-  it("not set a style if it is default", () => {
+  it('not set a style if it is default', () => {
     paragraph.setStyle(testStyle);
 
     expect(document.toString()).not.toMatch(/<style:style style:family="paragraph" style:name="([a-z0-9]+)">/);
   });
 
-  it("create `automatic-styles` and `style` elements", () => {
+  it('create `automatic-styles` and `style` elements', () => {
     testStyle.setPageBreakBefore();
 
     paragraph.setStyle(testStyle);
@@ -28,7 +28,7 @@ describe(ParagraphStyle.name, () => {
     expect(document.toString()).toMatch(/<office:automatic-styles><style:style style:family="paragraph" style:name="([a-z0-9]+)">/);
   });
 
-  it("set a style", () => {
+  it('set a style', () => {
     testStyle.setPageBreakBefore();
 
     paragraph.setStyle(testStyle);
@@ -36,7 +36,7 @@ describe(ParagraphStyle.name, () => {
     expect(document.toString()).toMatch(/<style:style style:family="paragraph" style:name="([a-z0-9]+)">/);
   });
 
-  it("not duplicate styles", () => {
+  it('not duplicate styles', () => {
     testStyle.setPageBreakBefore();
 
     paragraph.setStyle(testStyle);

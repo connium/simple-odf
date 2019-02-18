@@ -1,10 +1,10 @@
-import { FontFace } from "./FontFace";
-import { FontPitch } from "./FontPitch";
+import { FontFace } from './FontFace';
+import { FontPitch } from './FontPitch';
 
 describe(FontFace.name, () => {
-  const testFamily = "someFontFamily";
+  const testFamily = 'someFontFamily';
   const testFontPitch = FontPitch.Variable;
-  const testName = "someFontName";
+  const testName = 'someFontName';
 
   let fontFace: FontFace;
 
@@ -12,20 +12,20 @@ describe(FontFace.name, () => {
     fontFace = new FontFace(testName, testFamily, testFontPitch);
   });
 
-  describe("font family", () => {
-    it("return initial font family", () => {
+  describe('font family', () => {
+    it('return initial font family', () => {
       expect(fontFace.getFontFamily()).toBe(testFamily);
     });
   });
 
-  describe("font pitch", () => {
-    it("return initial font pitch", () => {
+  describe('font pitch', () => {
+    it('return initial font pitch', () => {
       expect(fontFace.getFontPitch()).toBe(testFontPitch);
     });
   });
 
-  describe("name", () => {
-    it("return initial name", () => {
+  describe('name', () => {
+    it('return initial name', () => {
       expect(fontFace.getName()).toBe(testName);
     });
   });

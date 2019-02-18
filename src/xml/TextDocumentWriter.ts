@@ -1,12 +1,12 @@
-import { DOMImplementation } from "xmldom";
-import { TextDocument } from "../api/office/TextDocument";
-import { FontFace } from "../api/style";
-import { DomVisitor } from "./DomVisitor";
-import { MetaWriter } from "./meta/MetaWriter";
-import { OdfAttributeName } from "./OdfAttributeName";
-import { OdfElementName } from "./OdfElementName";
+import { DOMImplementation } from 'xmldom';
+import { TextDocument } from '../api/office/TextDocument';
+import { FontFace } from '../api/style';
+import { DomVisitor } from './DomVisitor';
+import { MetaWriter } from './meta/MetaWriter';
+import { OdfAttributeName } from './OdfAttributeName';
+import { OdfElementName } from './OdfElementName';
 
-const OFFICE_VERSION = "1.2";
+const OFFICE_VERSION = '1.2';
 
 /**
  * Transforms a {@link TextDocument} object into ODF conform XML
@@ -21,16 +21,16 @@ export class TextDocumentWriter {
    * @returns {Document} The XML document
    * @since 0.7.0
    */
-  public write(textDocument: TextDocument): Document {
+  public write (textDocument: TextDocument): Document {
     const document = new DOMImplementation().createDocument(
-      "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
+      'urn:oasis:names:tc:opendocument:xmlns:office:1.0',
       OdfElementName.OfficeDocument,
       null);
     const root = document.firstChild as Element;
 
     this.setXmlNamespaces(root);
 
-    root.setAttribute(OdfAttributeName.OfficeMimetype, "application/vnd.oasis.opendocument.text");
+    root.setAttribute(OdfAttributeName.OfficeMimetype, 'application/vnd.oasis.opendocument.text');
     root.setAttribute(OdfAttributeName.OfficeVersion, OFFICE_VERSION);
 
     new MetaWriter().write(document, root, textDocument.getMeta());
@@ -48,15 +48,15 @@ export class TextDocumentWriter {
    * @param {Element} root The root element of the document which will be used as parent
    * @private
    */
-  private setXmlNamespaces(root: Element): void {
-    root.setAttribute("xmlns:dc", "http://purl.org/dc/elements/1.1");
-    root.setAttribute("xmlns:draw", "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0");
-    root.setAttribute("xmlns:fo", "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0");
-    root.setAttribute("xmlns:meta", "urn:oasis:names:tc:opendocument:xmlns:meta:1.0");
-    root.setAttribute("xmlns:style", "urn:oasis:names:tc:opendocument:xmlns:style:1.0");
-    root.setAttribute("xmlns:svg", "urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0");
-    root.setAttribute("xmlns:text", "urn:oasis:names:tc:opendocument:xmlns:text:1.0");
-    root.setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
+  private setXmlNamespaces (root: Element): void {
+    root.setAttribute('xmlns:dc', 'http://purl.org/dc/elements/1.1');
+    root.setAttribute('xmlns:draw', 'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0');
+    root.setAttribute('xmlns:fo', 'urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0');
+    root.setAttribute('xmlns:meta', 'urn:oasis:names:tc:opendocument:xmlns:meta:1.0');
+    root.setAttribute('xmlns:style', 'urn:oasis:names:tc:opendocument:xmlns:style:1.0');
+    root.setAttribute('xmlns:svg', 'urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0');
+    root.setAttribute('xmlns:text', 'urn:oasis:names:tc:opendocument:xmlns:text:1.0');
+    root.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
   }
 
   /**
@@ -66,7 +66,7 @@ export class TextDocumentWriter {
    * @param {Element} root The element which will be used as parent
    * @private
    */
-  private setFontFaceElements(fonts: FontFace[], document: Document, root: Element): void {
+  private setFontFaceElements (fonts: FontFace[], document: Document, root: Element): void {
     if (fonts.length === 0) {
       return;
     }
@@ -77,13 +77,13 @@ export class TextDocumentWriter {
     fonts.forEach((font: FontFace) => {
       const fontFaceElement = document.createElement(OdfElementName.StyleFontFace);
       fontFaceDeclsElement.appendChild(fontFaceElement);
-      fontFaceElement.setAttribute("style:name", font.getName());
+      fontFaceElement.setAttribute('style:name', font.getName());
 
       const fontFamily = font.getFontFamily();
-      const encodedFontFamily = fontFamily.includes(" ") === true ? `'${fontFamily}'` : fontFamily;
-      fontFaceElement.setAttribute("svg:font-family", encodedFontFamily);
+      const encodedFontFamily = fontFamily.includes(' ') === true ? `'${fontFamily}'` : fontFamily;
+      fontFaceElement.setAttribute('svg:font-family', encodedFontFamily);
 
-      fontFaceElement.setAttribute("style:font-pitch", font.getFontPitch());
+      fontFaceElement.setAttribute('style:font-pitch', font.getFontPitch());
     });
   }
 }

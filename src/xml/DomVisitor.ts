@@ -1,19 +1,19 @@
-import { readFileSync } from "fs";
-import { Image } from "../api/draw";
-import { OdfElement } from "../api/OdfElement";
-import { TextBody } from "../api/office";
-import { Heading, Hyperlink, List, ListItem, OdfTextElement, Paragraph } from "../api/text";
-import { DrawElementName } from "./DrawElementName";
-import { OdfAttributeName } from "./OdfAttributeName";
-import { OdfElementName } from "./OdfElementName";
-import { OdfTextElementWriter } from "./OdfTextElementWriter";
-import { TextElementName } from "./TextElementName";
+import { readFileSync } from 'fs';
+import { Image } from '../api/draw';
+import { OdfElement } from '../api/OdfElement';
+import { TextBody } from '../api/office';
+import { Heading, Hyperlink, List, ListItem, OdfTextElement, Paragraph } from '../api/text';
+import { DrawElementName } from './DrawElementName';
+import { OdfAttributeName } from './OdfAttributeName';
+import { OdfElementName } from './OdfElementName';
+import { OdfTextElementWriter } from './OdfTextElementWriter';
+import { TextElementName } from './TextElementName';
 
-const IMAGE_ENCODING = "base64";
-const HYPERLINK_LINK_TYPE = "simple";
+const IMAGE_ENCODING = 'base64';
+const HYPERLINK_LINK_TYPE = 'simple';
 
 export class DomVisitor {
-  public visit(odfElement: OdfElement, document: Document, parent: Element): void {
+  public visit (odfElement: OdfElement, document: Document, parent: Element): void {
     let currentElement: Element;
     if (odfElement instanceof Heading) {
       currentElement = this.visitHeading(odfElement, document, parent);
@@ -38,7 +38,7 @@ export class DomVisitor {
     });
   }
 
-  private visitHeading(heading: Heading, document: Document, parent: Element): Element {
+  private visitHeading (heading: Heading, document: Document, parent: Element): Element {
     const headingElement = document.createElement(TextElementName.TextHeading);
     headingElement.setAttribute(OdfAttributeName.TextOutlineLevel, heading.getLevel().toString(10));
     parent.appendChild(headingElement);
@@ -51,7 +51,7 @@ export class DomVisitor {
     return headingElement;
   }
 
-  private visitHyperlink(hyperlink: Hyperlink, document: Document, parent: Element): Element {
+  private visitHyperlink (hyperlink: Hyperlink, document: Document, parent: Element): Element {
     const hyperlinkElement = document.createElement(TextElementName.TextHyperlink);
     hyperlinkElement.setAttribute(OdfAttributeName.XlinkType, HYPERLINK_LINK_TYPE);
     hyperlinkElement.setAttribute(OdfAttributeName.XlinkHref, hyperlink.getURI());
@@ -62,7 +62,7 @@ export class DomVisitor {
     return hyperlinkElement;
   }
 
-  private visitImage(image: Image, document: Document, parent: Element): Element {
+  private visitImage (image: Image, document: Document, parent: Element): Element {
     const frameElement = document.createElement(DrawElementName.DrawFrame);
     parent.appendChild(frameElement);
 
@@ -73,7 +73,7 @@ export class DomVisitor {
     return frameElement;
   }
 
-  private visitList(list: List, document: Document, parent: Element): Element {
+  private visitList (list: List, document: Document, parent: Element): Element {
     if (list.size() === 0) {
       return parent;
     }
@@ -84,19 +84,19 @@ export class DomVisitor {
     return listElement;
   }
 
-  private visitListItem(document: Document, parent: Element): Element {
+  private visitListItem (document: Document, parent: Element): Element {
     const listItemElement = document.createElement(TextElementName.TextListItem);
     parent.appendChild(listItemElement);
 
     return listItemElement;
   }
 
-  private visitOdfText(odfText: OdfTextElement, document: Document, parent: Element): Element {
+  private visitOdfText (odfText: OdfTextElement, document: Document, parent: Element): Element {
     new OdfTextElementWriter().write(odfText, document, parent);
     return parent;
   }
 
-  private visitParagraph(paragraph: Paragraph, document: Document, parent: Element): Element {
+  private visitParagraph (paragraph: Paragraph, document: Document, parent: Element): Element {
     const paragraphElement = document.createElement(TextElementName.TextParagraph);
     parent.appendChild(paragraphElement);
 
@@ -108,7 +108,7 @@ export class DomVisitor {
     return paragraphElement;
   }
 
-  private visitTextBody(document: Document, parent: Element): Element {
+  private visitTextBody (document: Document, parent: Element): Element {
     const bodyElement = document.createElement(OdfElementName.OfficeBody);
     parent.appendChild(bodyElement);
 
@@ -126,7 +126,7 @@ export class DomVisitor {
    * @param {Image} image The image
    * @private
    */
-  private embedImage(document: Document, frameElement: Element, image: Image): void {
+  private embedImage (document: Document, frameElement: Element, image: Image): void {
     const imageElement = document.createElement(DrawElementName.DrawImage);
     frameElement.appendChild(imageElement);
 

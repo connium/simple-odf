@@ -1,6 +1,6 @@
-import { OdfAttributeName } from "../xml/OdfAttributeName";
-import { OdfElementName } from "../xml/OdfElementName";
-import { TabStopType } from "./TabStopType";
+import { OdfAttributeName } from '../xml/OdfAttributeName';
+import { OdfElementName } from '../xml/OdfElementName';
+import { TabStopType } from './TabStopType';
 
 /**
  * This class represents a tab stop.
@@ -24,7 +24,7 @@ export class TabStop {
    * @param {TabStopType} [type] The type of the tab stop. Defaults to `TabStopType.Left`.
    * @since 0.3.0
    */
-  public constructor(private position: number, private type = TabStopType.Left) {
+  public constructor (private position: number, private type = TabStopType.Left) {
     this.setPosition(position);
   }
 
@@ -35,7 +35,7 @@ export class TabStop {
    * If a negative value is given, the `position` will be set to `0`.
    * @since 0.3.0
    */
-  public setPosition(position: number): void {
+  public setPosition (position: number): void {
     this.position = Math.max(position, 0);
   }
 
@@ -45,7 +45,7 @@ export class TabStop {
    * @returns {number} The position of this tab stop in millimeters
    * @since 0.3.0
    */
-  public getPosition(): number {
+  public getPosition (): number {
     return this.position;
   }
 
@@ -55,7 +55,7 @@ export class TabStop {
    * @param {TabStopType} type The type of the tab stop
    * @since 0.3.0
    */
-  public setType(type: TabStopType): void {
+  public setType (type: TabStopType): void {
     this.type = type;
   }
 
@@ -65,7 +65,7 @@ export class TabStop {
    * @returns {TabStopType} The type of this tab stop
    * @since 0.3.0
    */
-  public getType(): TabStopType {
+  public getType (): TabStopType {
     return this.type;
   }
 
@@ -76,7 +76,7 @@ export class TabStop {
    * @param {Element} parent The parent node in the DOM (`style:tab-stops`)
    * @since 0.3.0
    */
-  public toXml(document: Document, parent: Element): void {
+  public toXml (document: Document, parent: Element): void {
     const tabStopElement = document.createElement(OdfElementName.StyleTabStop);
     parent.appendChild(tabStopElement);
 

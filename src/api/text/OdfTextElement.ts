@@ -1,4 +1,4 @@
-import { OdfElement } from "../OdfElement";
+import { OdfElement } from '../OdfElement';
 
 /**
  * This class represents text in a paragraph.
@@ -13,7 +13,7 @@ export class OdfTextElement extends OdfElement {
    * @param {string} text The text content
    * @since 0.3.0
    */
-  public constructor(private text: string) {
+  public constructor (private text: string) {
     super();
   }
 
@@ -23,7 +23,7 @@ export class OdfTextElement extends OdfElement {
    * @param {string} text The new text content
    * @since 0.3.0
    */
-  public setText(text: string): void {
+  public setText (text: string): void {
     this.text = text;
   }
 
@@ -33,7 +33,7 @@ export class OdfTextElement extends OdfElement {
    * @returns {string} The text content
    * @since 0.3.0
    */
-  public getText(): string {
+  public getText (): string {
     return this.text;
   }
 }

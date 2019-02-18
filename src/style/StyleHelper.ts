@@ -1,4 +1,4 @@
-import { OdfElementName } from "../xml/OdfElementName";
+import { OdfElementName } from '../xml/OdfElementName';
 
 /**
  * Utility class for dealing with styles.
@@ -14,7 +14,7 @@ export class StyleHelper {
    * @returns {Element} The documents `automatic-styles` element
    * @since 0.4.0
    */
-  public static getAutomaticStylesElement(document: Document): Element {
+  public static getAutomaticStylesElement (document: Document): Element {
     const rootNode = document.firstChild as Element;
 
     const automaticStylesElements = rootNode.getElementsByTagName(OdfElementName.OfficeAutomaticStyles);
@@ -34,7 +34,7 @@ export class StyleHelper {
    * @since 0.4.0
    * @private
    */
-  private static createAutomaticStylesElement(document: Document): Element {
+  private static createAutomaticStylesElement (document: Document): Element {
     const rootNode = document.firstChild as Element;
 
     const officeBodyElement = rootNode.getElementsByTagName(OdfElementName.OfficeBody)[0];

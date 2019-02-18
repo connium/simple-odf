@@ -13,10 +13,10 @@ export class Color {
    * @throws {Error} If the value cannot be converted to a color
    * @since 0.4.0
    */
-  public static fromHex(value: string): Color | never {
+  public static fromHex (value: string): Color | never {
     const matches = value.match(/^#?([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})$/);
     if (matches === null) {
-      throw new Error("Invalid color value");
+      throw new Error('Invalid color value');
     }
 
     return new Color(parseInt(matches[1], 16), parseInt(matches[2], 16), parseInt(matches[3], 16));
@@ -32,11 +32,11 @@ export class Color {
    * @throws {Error} If any channel is outside the allowable range
    * @since 0.4.0
    */
-  public static fromRgb(red: number, green: number, blue: number): Color | never {
+  public static fromRgb (red: number, green: number, blue: number): Color | never {
     if (Color.checkRange(red) && Color.checkRange(green) && Color.checkRange(blue)) {
       return new Color(red, green, blue);
     }
-    throw new Error("Invalid value for a color channel");
+    throw new Error('Invalid value for a color channel');
   }
 
   /**
@@ -47,7 +47,7 @@ export class Color {
    * @since 0.4.0
    * @private
    */
-  private static checkRange(value: number): boolean {
+  private static checkRange (value: number): boolean {
     return value >= 0 && value <= 255;
   }
 
@@ -59,13 +59,13 @@ export class Color {
    * @since 0.4.0
    * @private
    */
-  private static numberToHex(value: number): string {
+  private static numberToHex (value: number): string {
     const hexString = value.toString(16);
     if (hexString.length === 2) {
       return hexString;
     }
 
-    return "0" + hexString;
+    return '0' + hexString;
   }
 
   /**
@@ -77,7 +77,7 @@ export class Color {
    * @since 0.4.0
    * @private
    */
-  private constructor(private red: number, private green: number, private blue: number) {
+  private constructor (private red: number, private green: number, private blue: number) {
   }
 
   /**
@@ -86,7 +86,7 @@ export class Color {
    * @returns {string} A hex string representing the color
    * @since 0.4.0
    */
-  public toHex(): string {
+  public toHex (): string {
     return `#${Color.numberToHex(this.red)}${Color.numberToHex(this.green)}${Color.numberToHex(this.blue)}`;
   }
 }
