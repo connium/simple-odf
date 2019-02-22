@@ -99,7 +99,7 @@ xdescribe('integration', () => {
     });
 
     it('font name', () => {
-      document.declareFont('Open Sans', 'Open Sans', FontPitch.Variable);
+      document.getFontFaceDeclarations().create('Open Sans', 'Open Sans', FontPitch.Variable);
 
       const paragraph = body.addParagraph('Open Sans');
       paragraph.setStyle(new ParagraphStyle());

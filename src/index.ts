@@ -5,6 +5,7 @@ export { Image } from './api/draw/Image';
 export { Meta } from './api/meta/Meta';
 
 // office
+export { FontFaceDeclarations } from './api/office/FontFaceDeclarations';
 export { TextBody } from './api/office/TextBody';
 export { TextDocument } from './api/office/TextDocument';
 

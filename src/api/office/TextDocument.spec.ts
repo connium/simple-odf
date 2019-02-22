@@ -1,8 +1,7 @@
 import { readFile, unlink } from 'fs';
 import { promisify } from 'util';
 import { Meta } from '../meta/Meta';
-import { FontFace } from '../style';
-import { FontPitch } from '../style/FontPitch';
+import { FontFaceDeclarations } from './FontFaceDeclarations';
 import { TextBody } from './TextBody';
 import { TextDocument, XML_DECLARATION } from './TextDocument';
 
@@ -26,24 +25,10 @@ describe(TextDocument.name, () => {
   });
 
   describe('font', () => {
-    it('return an empty list of fonts by default', () => {
-      const fonts = document.getFonts();
+    it('return a font face declarations object', () => {
+      const fontFaceDeclarations = document.getFontFaceDeclarations();
 
-      expect(fonts).toEqual([]);
-    });
-
-    it('return a font face object', () => {
-      const font = document.declareFont('Springfield', 'Springfield', FontPitch.Variable);
-
-      expect(font).toBeInstanceOf(FontFace);
-    });
-
-    it('add font face to list of fonts', () => {
-      document.declareFont('Springfield', 'Springfield', FontPitch.Variable);
-
-      const fonts = document.getFonts();
-
-      expect(fonts).toEqual([new FontFace('Springfield', 'Springfield', FontPitch.Variable)]);
+      expect(fontFaceDeclarations).toBeInstanceOf(FontFaceDeclarations);
     });
   });
 

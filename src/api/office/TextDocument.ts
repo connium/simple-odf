@@ -3,7 +3,7 @@ import { promisify } from 'util';
 import { XMLSerializer } from 'xmldom';
 import { TextDocumentWriter } from '../../xml/TextDocumentWriter';
 import { Meta } from '../meta';
-import { FontFace, FontPitch } from '../style';
+import { FontFaceDeclarations } from './FontFaceDeclarations';
 import { TextBody } from './TextBody';
 
 export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
@@ -14,7 +14,7 @@ export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
  * @example
  * const document = new TextDocument();
  * document.getMeta().setCreator('Homer Simpson');
- * document.declareFont('FreeSans', 'FreeSans', FontPitch.Variable);
+ * document.getFontFaceDeclarations().create('FreeSans', 'FreeSans', FontPitch.Variable);
  * document.getBody().addHeading('My first document');
  * document.saveFlat('/home/homer/document.fodt');
  *
@@ -22,12 +22,20 @@ export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
  */
 export class TextDocument {
   private meta: Meta;
-  private fonts: FontFace[];
+  private fontFaceDeclarations: FontFaceDeclarations;
   private body: TextBody;
 
+  /**
+   * Creates a `TextDocument` instance that represents a OpenDocument text document.
+   *
+   * @example
+   * const document = new TextDocument();
+   *
+   * @since 0.1.0
+   */
   public constructor () {
     this.meta = new Meta();
-    this.fonts = [];
+    this.fontFaceDeclarations = new FontFaceDeclarations();
     this.body = new TextBody();
   }
 
@@ -47,52 +55,29 @@ export class TextDocument {
   }
 
   /**
-   * The `declareFont` method creates a font face to be used in the document.
-   *
-   * **Note: There is no check whether the font exists.
-   * In order to be displayed properly, the font must be present on the target system.**
+   * The `getFonts()` method returns the font face declarations of the document.
    *
    * @example
    * new TextDocument()
-   *   .declareFont('FreeSans', 'FreeSans', FontPitch.Variable);
+   *   .getFontFaceDeclarations()
+   *   .create('FreeSans', 'FreeSans', FontPitch.Variable);
    *
-   * @param {string} name The name of the font; this name must be set to a {@link ParagraphStyle}
-   * @param {string} fontFamily The name of the font family
-   * @param {FontPitch} fontPitch The pitch of the font
-   * @returns {FontFace} The declared `FontFace` object
-   * @since 0.4.0
+   * @returns {FontFaceDeclarations} An object holding the font faces of the document
+   * @since 0.8.0
    */
-  public declareFont (name: string, fontFamily: string, fontPitch: FontPitch): FontFace {
-    const fontFace = new FontFace(name, fontFamily, fontPitch);
-    this.fonts.push(fontFace);
-
-    return fontFace;
-  }
-
-  /**
-   * The `getFonts()` method returns all font face declarations for the document.
-   *
-   * @example
-   * const document = new TextDocument();
-   * document.declareFont('FreeSans', 'FreeSans', FontPitch.Variable);
-   * document.getFonts();
-   *
-   * @returns {FontFace[]} A copy of the list of font face declarations for the document
-   * @since 0.7.0
-   */
-  public getFonts (): FontFace[] {
-    return Array.from(this.fonts);
+  public getFontFaceDeclarations (): FontFaceDeclarations {
+    return this.fontFaceDeclarations;
   }
 
   /**
    * The `getMeta()` method returns the metadata of the document.
    *
    * @example
-   * new TextDocument.getMeta()
+   * new TextDocument()
+   *   .getMeta()
    *   .setCreator('Homer Simpson');
    *
    * @returns {Meta} An object holding the metadata of the document
-   * @see {@link Meta}
    * @since 0.6.0
    */
   public getMeta (): Meta {
