@@ -39,6 +39,7 @@ export class Hyperlink extends OdfTextElement {
    * @since 0.3.0
    */
   public setURI (uri: string): Hyperlink {
+    /* tslint:disable-next-line:strict-type-predicates */
     if (typeof uri === 'string' && uri.trim().length > 0) {
       this.uri = uri;
     }

@@ -10,6 +10,7 @@ export class OdfTextElementWriter {
    */
   public write (odfText: OdfTextElement, document: Document, parent: Element): void {
     const text = odfText.getText();
+    /* tslint:disable-next-line:strict-type-predicates */
     if (text === undefined || text === '') {
       return;
     }

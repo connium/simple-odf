@@ -27,14 +27,16 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
+    "build": "tsc -p .",
     "preversion": "npm test",
     "postversion": "git push && git push --tags",
-    "prepublishOnly": "tsc",
+    "prepublishOnly": "npm run build",
+    "pretest": "npm run build",
     "posttest": "npm run lint",
     "test": "jest",
     "watch-test": "jest --watch",
     "coverage": "jest --coverage",
-    "lint": "tslint --project tslint.json src/**/*.ts",
+    "lint": "tslint -c tslint.json --project .",
     "docs": "rm -r ./lib && tsc && jsdoc2md --name-format --param-list-format list --separators --partial ./jsdoc2md/body.hbs ./jsdoc2md/params-list.hbs ./jsdoc2md/returns.hbs ./jsdoc2md/scope.hbs --files ./lib/api/**/*.js ./lib/style/**/*.js > ./docs/API.md"
   },
   "dependencies": {
