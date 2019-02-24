@@ -11,6 +11,7 @@ export { TextDocument } from './api/office/TextDocument';
 
 // style
 export { FontFace } from './api/style/FontFace';
+export { FontFamilyGeneric } from './api/style/FontFamilyGeneric';
 export { FontPitch } from './api/style/FontPitch';
 
 // style (legacy)

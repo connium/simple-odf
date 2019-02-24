@@ -1,3 +1,4 @@
+import { FontFamilyGeneric } from './FontFamilyGeneric';
 import { FontPitch } from './FontPitch';
 
 /**
@@ -8,7 +9,7 @@ import { FontPitch } from './FontPitch';
  *
  * @example
  * const font = document.getFontFaceDeclarations().create('FreeSans', 'FreeSans', FontPitch.Variable);
- * font.setFontFamilyGeneric('swiss');
+ * font.setFontFamilyGeneric(FontFamilyGeneric.Swiss);
  *
  * @since 0.8.0
  */
@@ -16,7 +17,7 @@ export class FontFace {
   private name: string;
   private fontCharset: string | undefined;
   private fontFamily: string | undefined;
-  private fontFamilyGeneric: string | undefined; // roman | swiss | modern | decorative | script | system
+  private fontFamilyGeneric: FontFamilyGeneric | undefined;
   private fontPitch: FontPitch | undefined;
 
   /**
@@ -119,25 +120,17 @@ export class FontFace {
   /**
    * The `setFontFamilyGeneric()` method sets the generic font family name of the font.
    *
-   * Allowed values are:
-   * - `decorative`: the family of decorative fonts.
-   * - `modern`: the family of modern fonts.
-   * - `roman`: the family roman fonts (with serifs).
-   * - `script`: the family of script fonts.
-   * - `swiss`: the family roman fonts (without serifs).
-   * - `system`: the family system fonts.
-   *
    * @example
    * const font = new FontFace('OpenSymbol');
-   * font.setFontFamilyGeneric('system');  // 'system'
-   * font.setFontFamilyGeneric(undefined); // undefined
+   * font.setFontFamilyGeneric(FontFamilyGeneric.System); // 'system'
+   * font.setFontFamilyGeneric(undefined);                // undefined
    *
-   * @param {string | undefined} fontFamilyGeneric The generic font family name
-   *                                               or `undefined` to unset the generic font family name
+   * @param {FontFamilyGeneric | undefined} fontFamilyGeneric The generic font family name
+   *                                                          or `undefined` to unset the generic font family name
    * @returns {FontFace} The `FontFace` object
    * @since 0.8.0
    */
-  public setFontFamilyGeneric (fontFamilyGeneric: string | undefined): FontFace {
+  public setFontFamilyGeneric (fontFamilyGeneric: FontFamilyGeneric | undefined): FontFace {
     /* tslint:disable-next-line:strict-type-predicates */
     if (fontFamilyGeneric === undefined || typeof fontFamilyGeneric === 'string') {
       this.fontFamilyGeneric = fontFamilyGeneric;
@@ -151,15 +144,15 @@ export class FontFace {
    *
    * @example
    * const font = new FontFace('OpenSymbol');
-   * font.getFontFamilyGeneric();         // undefined
-   * font.setFontFamilyGeneric('system');
-   * font.getFontFamilyGeneric();         // 'system'
+   * font.getFontFamilyGeneric();                         // undefined
+   * font.setFontFamilyGeneric(FontFamilyGeneric.System);
+   * font.getFontFamilyGeneric();                         // 'system'
    *
    * @returns {string | undefined} The generic font family name of the font
    *                               or `undefined` if the generic font family name is not set
    * @since 0.8.0
    */
-  public getFontFamilyGeneric (): string | undefined {
+  public getFontFamilyGeneric (): FontFamilyGeneric | undefined {
     return this.fontFamilyGeneric;
   }
 

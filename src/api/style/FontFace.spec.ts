@@ -1,4 +1,5 @@
 import { FontFace } from './FontFace';
+import { FontFamilyGeneric } from './FontFamilyGeneric';
 import { FontPitch } from './FontPitch';
 
 describe(FontFace.name, () => {
@@ -79,7 +80,7 @@ describe(FontFace.name, () => {
   });
 
   describe('font family generic', () => {
-    const testFamilyGeneric = 'system';
+    const testFamilyGeneric = FontFamilyGeneric.System;
 
     it('return undefined by default', () => {
       expect(fontFace.getFontFamilyGeneric()).toBeUndefined();
