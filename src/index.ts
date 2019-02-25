@@ -5,11 +5,13 @@ export { Image } from './api/draw/Image';
 export { Meta } from './api/meta/Meta';
 
 // office
+export { FontFaceDeclarations } from './api/office/FontFaceDeclarations';
 export { TextBody } from './api/office/TextBody';
 export { TextDocument } from './api/office/TextDocument';
 
 // style
 export { FontFace } from './api/style/FontFace';
+export { FontFamilyGeneric } from './api/style/FontFamilyGeneric';
 export { FontPitch } from './api/style/FontPitch';
 
 // style (legacy)

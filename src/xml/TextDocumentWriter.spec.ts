@@ -1,9 +1,9 @@
 import { XMLSerializer } from 'xmldom';
 import { TextDocument } from '../api/office';
-import { FontPitch } from '../api/style';
 import { TextDocumentWriter } from './TextDocumentWriter';
 
 jest.mock('./meta/MetaWriter');
+jest.mock('./office/FontFaceDeclarationsWriter');
 jest.mock('./DomVisitor');
 
 describe(TextDocumentWriter.name, () => {
@@ -54,28 +54,6 @@ describe(TextDocumentWriter.name, () => {
 
     it('add xlink namespace', () => {
       expect(documentAsString).toMatch(/xmlns:xlink="http:\/\/www.w3.org\/1999\/xlink"/);
-    });
-  });
-
-  describe('font face declarations', () => {
-    it('add font declaration to document', () => {
-      textDocument.declareFont('Springfield', 'Springfield', FontPitch.Variable);
-
-      const document = documentWriter.write(textDocument);
-      const documentAsString = new XMLSerializer().serializeToString(document);
-
-      /* tslint:disable-next-line:max-line-length */
-      expect(documentAsString).toMatch(/<office:font-face-decls><style:font-face style:name="Springfield" svg:font-family="Springfield" style:font-pitch="variable"\/><\/office:font-face-decls>/);
-    });
-
-    it('add font declaration to document and wrap font family if it contains spaces', () => {
-      textDocument.declareFont('Homer Simpson', 'Homer Simpson', FontPitch.Fixed);
-
-      const document = documentWriter.write(textDocument);
-      const documentAsString = new XMLSerializer().serializeToString(document);
-
-      /* tslint:disable-next-line:max-line-length */
-      expect(documentAsString).toMatch(/<office:font-face-decls><style:font-face style:name="Homer Simpson" svg:font-family="'Homer Simpson'" style:font-pitch="fixed"\/><\/office:font-face-decls>/);
     });
   });
 });

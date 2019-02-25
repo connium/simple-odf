@@ -2,6 +2,7 @@
   "defaultSeverity": "error",
   "extends": "tslint-config-standard",
   "rules": {
-    "semicolon": [true, "always"]
+    "semicolon": [true, "always"],
+    "max-line-length": { "options": 120 }
   }
 }
