@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - **font:** extend font declaration
 
+### Fixed
+- **document:** Document title is not recognized by LibreOffice, closes [#68](https://github.com/connium/simple-odf/issues/68)
+
 ## [0.7.0] (2019-02-19)
 ### Added
 - **chore:** Add automatically created API documentation, closes [#16](https://github.com/connium/simple-odf/issues/16)

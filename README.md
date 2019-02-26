@@ -47,9 +47,10 @@ style1.setKeepTogether();
 p1.setStyle(style1);
 // font usage
 document.getFontFaceDeclarations().create('Open Sans', 'Open Sans', simpleOdf.FontPitch.Variable);
-const p2 = body.addParagraph('It always seems impossible until it\'s done.');
 const style2 = new simpleOdf.ParagraphStyle();
-style1.setFontName('Open Sans');
+style2.setFontName('Open Sans');
+const p2 = body.addParagraph('It always seems impossible until it\'s done.');
+p2.setStyle(style2);
 
 body.addHeading('Credits', 2);
 
