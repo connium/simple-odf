@@ -25,7 +25,7 @@ describe(TextDocumentWriter.name, () => {
     });
 
     it('add dc namespace', () => {
-      expect(documentAsString).toMatch(/xmlns:dc="http:\/\/purl.org\/dc\/elements\/1.1"/);
+      expect(documentAsString).toMatch(/xmlns:dc="http:\/\/purl.org\/dc\/elements\/1.1\/"/);
     });
 
     it('add draw namespace', () => {

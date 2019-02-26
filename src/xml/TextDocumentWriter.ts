@@ -49,7 +49,7 @@ export class TextDocumentWriter {
    * @private
    */
   private setXmlNamespaces (root: Element): void {
-    root.setAttribute('xmlns:dc', 'http://purl.org/dc/elements/1.1');
+    root.setAttribute('xmlns:dc', 'http://purl.org/dc/elements/1.1/');
     root.setAttribute('xmlns:draw', 'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0');
     root.setAttribute('xmlns:fo', 'urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0');
     root.setAttribute('xmlns:meta', 'urn:oasis:names:tc:opendocument:xmlns:meta:1.0');
