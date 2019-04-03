@@ -63,6 +63,8 @@ list.addItem('just write like you would do in a full-blown editor');
 document.saveFlat('/home/homer/My_first_document.fodf');
 ```
 
+See the [examples](./examples/README.md) for more details on how to use the library.
+
 ## Documentation
 
 Learn more about the [OASIS Open Document Format](http://docs.oasis-open.org/office/v1.2/OpenDocument-v1.2.html).

@@ -1,6 +1,5 @@
 .vscode/
 coverage/
-examples/
 lib/
 node_modules/
 example.spec.ts
