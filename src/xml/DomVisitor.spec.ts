@@ -1,25 +1,35 @@
 /* tslint:disable:max-line-length */
 import { join } from 'path';
 import { DOMImplementation, XMLSerializer } from 'xmldom';
-import { Image } from '../api/draw';
+import { Image, AnchorType } from '../api/draw';
 import { Heading, Hyperlink, List, Paragraph } from '../api/text';
-import { ParagraphStyle } from '../style/ParagraphStyle';
 import { DomVisitor } from './DomVisitor';
 import { OdfElementName } from './OdfElementName';
+import { AutomaticStyles } from '../api/office';
+import { ParagraphStyle } from '../api/style';
 
-fdescribe(DomVisitor.name, () => {
+class AutomaticStylesMock extends AutomaticStyles {
+  public getName (): string {
+    return 'P23';
+  }
+}
+
+describe(DomVisitor.name, () => {
   describe('#visit', () => {
     const testText = 'some text';
 
     let domVisitor: DomVisitor;
     let testDocument: Document;
     let testRoot: Element;
+    let automaticStyles: AutomaticStylesMock;
 
     beforeEach(() => {
       testDocument = new DOMImplementation().createDocument('someNameSpace', OdfElementName.OfficeDocument, null);
       testRoot = testDocument.firstChild as Element;
 
-      domVisitor = new DomVisitor();
+      automaticStyles = new AutomaticStylesMock();
+
+      domVisitor = new DomVisitor(automaticStyles);
     });
 
     describe('#visitHeading', () => {
@@ -36,15 +46,22 @@ fdescribe(DomVisitor.name, () => {
         expect(documentAsString).toMatch(/<text:h text:outline-level="2">some text<\/text:h>/);
       });
 
-      it('call `toXml` on a style if a style is set', () => {
-        const testStyle = new ParagraphStyle();
-        const styleToXmlSpy = jest.spyOn(testStyle, 'toXml');
-
-        heading.setStyle(testStyle);
+      it('add a heading with a common style', () => {
+        heading.setStyleName('testStyleName');
 
         domVisitor.visit(heading, testDocument, testRoot);
 
-        expect(styleToXmlSpy).toHaveBeenCalledWith(testDocument, expect.any(Object));
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+        expect(documentAsString).toMatch(/<text:h text:outline-level="2" text:style-name="testStyleName">some text<\/text:h>/);
+      });
+
+      it('add a heading with an automatic style', () => {
+        heading.setStyle(new ParagraphStyle());
+
+        domVisitor.visit(heading, testDocument, testRoot);
+
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+        expect(documentAsString).toMatch(/<text:h text:outline-level="2" text:style-name="P23">some text<\/text:h>/);
       });
     });
 
@@ -67,14 +84,33 @@ fdescribe(DomVisitor.name, () => {
       let image: Image;
 
       beforeEach(() => {
-        image = new Image(join(__dirname, '..', '..', 'test', 'data', 'ODF.png'));
+        image = new Image(join(__dirname, '..', '..', 'test', 'data', 'ODF.png'))
+          .setAnchorType(AnchorType.AsChar);
       });
 
       it('add a draw frame with image and base64 encoded image', () => {
         domVisitor.visit(image, testDocument, testRoot);
 
         const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<draw:frame text:anchor-type="paragraph"><draw:image><office:binary-data>.*<\/office:binary-data><\/draw:image><\/draw:frame>/);
+        expect(documentAsString).toMatch(/<draw:frame text:anchor-type="as-char"><draw:image><office:binary-data>.*<\/office:binary-data><\/draw:image><\/draw:frame>/);
+      });
+
+      it('add a draw frame with image and set height', () => {
+        image.setHeight(23);
+
+        domVisitor.visit(image, testDocument, testRoot);
+
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+        expect(documentAsString).toMatch(/<draw:frame text:anchor-type="as-char" svg:height="23mm"><draw:image><office:binary-data>.*<\/office:binary-data><\/draw:image><\/draw:frame>/);
+      });
+
+      it('add a draw frame with image and set width', () => {
+        image.setWidth(42);
+
+        domVisitor.visit(image, testDocument, testRoot);
+
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+        expect(documentAsString).toMatch(/<draw:frame text:anchor-type="as-char" svg:width="42mm"><draw:image><office:binary-data>.*<\/office:binary-data><\/draw:image><\/draw:frame>/);
       });
     });
 
@@ -170,15 +206,22 @@ fdescribe(DomVisitor.name, () => {
         expect(documentAsString).toMatch(/<text:p>some text<\/text:p>/);
       });
 
-      it('call `toXml` on a style if a style is set', () => {
-        const testStyle = new ParagraphStyle();
-        const styleToXmlSpy = jest.spyOn(testStyle, 'toXml');
-
-        paragraph.setStyle(testStyle);
+      it('add a paragraph with a common style', () => {
+        paragraph.setStyleName('testStyleName');
 
         domVisitor.visit(paragraph, testDocument, testRoot);
 
-        expect(styleToXmlSpy).toHaveBeenCalledWith(testDocument, expect.any(Object));
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+        expect(documentAsString).toMatch(/<text:p text:style-name="testStyleName">some text<\/text:p>/);
+      });
+
+      it('add a paragraph with an automatic style', () => {
+        paragraph.setStyle(new ParagraphStyle());
+
+        domVisitor.visit(paragraph, testDocument, testRoot);
+
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+        expect(documentAsString).toMatch(/<text:p text:style-name="P23">some text<\/text:p>/);
       });
     });
   });

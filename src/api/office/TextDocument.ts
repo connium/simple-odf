@@ -3,6 +3,7 @@ import { promisify } from 'util';
 import { XMLSerializer } from 'xmldom';
 import { TextDocumentWriter } from '../../xml/TextDocumentWriter';
 import { Meta } from '../meta';
+import { CommonStyles } from './CommonStyles';
 import { FontFaceDeclarations } from './FontFaceDeclarations';
 import { TextBody } from './TextBody';
 
@@ -23,6 +24,7 @@ export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
 export class TextDocument {
   private meta: Meta;
   private fontFaceDeclarations: FontFaceDeclarations;
+  private commonStyles: CommonStyles;
   private body: TextBody;
 
   /**
@@ -36,6 +38,7 @@ export class TextDocument {
   public constructor () {
     this.meta = new Meta();
     this.fontFaceDeclarations = new FontFaceDeclarations();
+    this.commonStyles = new CommonStyles();
     this.body = new TextBody();
   }
 
@@ -52,6 +55,21 @@ export class TextDocument {
    */
   public getBody (): TextBody {
     return this.body;
+  }
+
+  /**
+   * The `getCommonStyles()` method returns the named styles of the document.
+   *
+   * @example
+   * new TextDocument()
+   *   .getCommonStyles()
+   *   .createParagraphStyle('Summary');
+   *
+   * @returns {CommonStyles} A `CommonStyles` object that holds the named styles of the document
+   * @since 0.9.0
+   */
+  public getCommonStyles (): CommonStyles {
+    return this.commonStyles;
   }
 
   /**

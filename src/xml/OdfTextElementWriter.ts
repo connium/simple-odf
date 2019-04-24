@@ -1,4 +1,4 @@
-import { OdfTextElement } from '../api/text/OdfTextElement';
+import { OdfTextElement } from '../api/text';
 import { TextElementName } from './TextElementName';
 
 const SPACE = ' ';

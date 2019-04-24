@@ -5,6 +5,7 @@ export enum OdfElementName {
   OfficeDocument = 'office:document',
   OfficeFontFaceDeclarations = 'office:font-face-decls',
   OfficeMeta = 'office:meta',
+  OfficeStyles = 'office:styles',
   OfficeText = 'office:text',
 
   StyleFontFace = 'style:font-face',

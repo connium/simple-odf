@@ -1,16 +1,10 @@
 import { unlink } from 'fs';
 import { join } from 'path';
 import { promisify } from 'util';
+import { AnchorType } from '../src/api/draw';
 import { TextBody, TextDocument } from '../src/api/office';
-import { FontPitch } from '../src/api/style';
-import { AnchorType } from '../src/style/AnchorType';
-import { Color } from '../src/style/Color';
-import { HorizontalAlignment } from '../src/style/HorizontalAlignment';
-import { ParagraphStyle } from '../src/style/ParagraphStyle';
-import { TabStop } from '../src/style/TabStop';
-import { TabStopType } from '../src/style/TabStopType';
-import { TextTransformation } from '../src/style/TextTransformation';
-import { Typeface } from '../src/style/Typeface';
+import { Color, FontPitch, HorizontalAlignment, ParagraphStyle, TabStop, TabStopType } from '../src/api/style';
+import { TextTransformation, Typeface } from '../src/api/style';
 
 const FILEPATH = './integration.fodt';
 
@@ -50,8 +44,8 @@ xdescribe('integration', () => {
     paragraph.setStyle(style);
 
     const image = paragraph.addImage(join(__dirname, 'data', 'ODF.png'));
-    image.getStyle().setAnchorType(AnchorType.AsChar);
-    image.getStyle().setSize(29.4, 36.5);
+    image.setAnchorType(AnchorType.AsChar);
+    image.setSize(29.4, 36.5);
   });
 
   it('add heading', () => {

@@ -1,6 +1,5 @@
-import { IParagraphStyle } from '../../style/IParagraphStyle';
-import { ParagraphStyle } from '../../style/ParagraphStyle';
 import { Image } from '../draw';
+import { ParagraphStyle } from '../style';
 import { OdfElement } from '../OdfElement';
 import { Hyperlink } from './Hyperlink';
 import { OdfTextElement } from './OdfTextElement';
@@ -16,7 +15,8 @@ import { OdfTextElement } from './OdfTextElement';
  * @since 0.1.0
  */
 export class Paragraph extends OdfElement {
-  private style: IParagraphStyle | undefined;
+  private style: ParagraphStyle | undefined;
+  private styleName: string | undefined;
 
   /**
    * Creates a `Paragraph` instance.
@@ -141,18 +141,18 @@ export class Paragraph extends OdfElement {
    * Sets the new style of the paragraph.
    * To reset the style, `undefined` must be given.
    *
+   * If style and style name are both set, the custom style will be set and the common style will be ignored.
+   *
    * @example
    * new Paragraph('Some text')
    *   .setStyle(new ParagraphStyle());
    *
-   * @param {IParagraphStyle | undefined} style The new style or `undefined` to reset the style
+   * @param {ParagraphStyle | undefined} style The new style or `undefined` to reset the style
    * @returns {Paragraph} The `Paragraph` object
    * @since 0.3.0
    */
-  public setStyle (style: IParagraphStyle | undefined): Paragraph {
-    if (style instanceof ParagraphStyle) {
-      this.style = style;
-    }
+  public setStyle (style: ParagraphStyle | undefined): Paragraph {
+    this.style = style;
 
     return this;
   }
@@ -166,11 +166,47 @@ export class Paragraph extends OdfElement {
    * paragraph.setStyle(new ParagraphStyle());
    * paragraph.getStyle();                     // previously set style
    *
-   * @returns {IParagraphStyle | undefined} The style of the paragraph or `undefined` if no style was set
+   * @returns {ParagraphStyle | undefined} The style of the paragraph or `undefined` if no style was set
    * @since 0.3.0
    */
-  public getStyle (): IParagraphStyle | undefined {
+  public getStyle (): ParagraphStyle | undefined {
     return this.style;
+  }
+
+  /**
+   * Sets the name of the common style that should be applied to the paragraph.
+   * To reset the common style, `undefined` must be given.
+   *
+   * If style and style name are both set, the custom style will be set and the common style will be ignored.
+   *
+   * @example
+   * new Paragraph('Some text')
+   *   .setStyleName('Summary');
+   *
+   * @param {string | undefined} styleName The name of the common style or `undefined` to reset the common style
+   * @returns {Paragraph} The `Paragraph` object
+   * @since 0.9.0
+   */
+  public setStyleName (styleName: string | undefined): Paragraph {
+    this.styleName = styleName;
+
+    return this;
+  }
+
+  /**
+   * Returns the name of the common style of the paragraph.
+   *
+   * @example
+   * const paragraph = new Paragraph('Some text');
+   * paragraph.getStyleName();         // undefined
+   * paragraph.setStyleName('Summary);
+   * paragraph.getStyleName();         // 'Summary'
+   *
+   * @returns {string | undefined} The name of the common style or `undefined` if no common style was set
+   * @since 0.3.0
+   */
+  public getStyleName (): string | undefined {
+    return this.styleName;
   }
 
   /**
