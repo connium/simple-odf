@@ -2,7 +2,7 @@ import { ParagraphStyle } from '../style';
 import { CommonStyles } from './CommonStyles';
 
 describe(CommonStyles.name, () => {
-  const testStyleName = 'someStyleName';
+  const testStyleName = 'some style name';
 
   let commonStyles: CommonStyles;
 
@@ -21,19 +21,19 @@ describe(CommonStyles.name, () => {
       expect(styles[0]).toBe(style1);
     });
 
-    it('get previously created style', () => {
-      const style1 = commonStyles.createParagraphStyle(testStyleName);
-      const style2 = commonStyles.get(testStyleName);
+    it('get name of previously created style', () => {
+      const style = commonStyles.createParagraphStyle(testStyleName);
+      const styleName = commonStyles.getName(testStyleName);
 
-      expect(style1).toBe(style2);
+      expect(styleName).toBe(style.getName());
     });
 
     it('return undefined if unknown style is requested', () => {
       commonStyles.createParagraphStyle(testStyleName);
 
-      const style = commonStyles.get('unknownStyleName');
+      const styleName = commonStyles.getName('unknownStyleName');
 
-      expect(style).toBeUndefined();
+      expect(styleName).toBeUndefined();
     });
   });
 

@@ -45,21 +45,23 @@ export class CommonStyles implements IStyles {
   }
 
   /**
-   * The `get()` method returns a style with the specified style.
+   * The `getName()` method returns the unique name of the style with the specified display name.
    *
    * @example
    * const commonStyles = new CommonStyles();
-   * commonStyles.createParagraphStyle('Summary');
-   * commonStyles.get('UnknownStyle'); // undefined
-   * commonStyles.get('Summary');      // Summary style
+   * commonStyles.createParagraphStyle('Heading 1');
+   * commonStyles.getName('UnknownStyle'); // undefined
+   * commonStyles.getName('Heading 1');    // Heading_20_1
    *
-   * @param {string} name The name of the requested style
-   * @returns {T | undefined} The `Style` object associated with the specified name
-   * or `undefined` if there is no style with this name
+   * @param {string} displayName The display name of the requested style
+   * @returns {string | undefined} The unique name of the style with the specified display name
+   * or `undefined` if there is no style with this display name
    * @since 0.9.0
    */
-  public get<T extends Style> (name: string): T | undefined {
-    return this.styles.get(name) as T;
+  public getName (displayName: string): string | undefined {
+    const style = this.styles.get(displayName);
+
+    return style !== undefined ? style.getName() : undefined;
   }
 
   /** @inheritdoc */

@@ -139,6 +139,7 @@ export class TextDocumentWriter {
     automaticStyles: AutomaticStyles,
     document: Document,
     root: Element): void {
-    new DomVisitor(automaticStyles).visit(textDocument.getBody(), document, root);
+    new DomVisitor(textDocument.getCommonStyles(), automaticStyles)
+      .visit(textDocument.getBody(), document, root);
   }
 }

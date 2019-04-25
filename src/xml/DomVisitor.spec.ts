@@ -5,12 +5,18 @@ import { Image, AnchorType } from '../api/draw';
 import { Heading, Hyperlink, List, Paragraph } from '../api/text';
 import { DomVisitor } from './DomVisitor';
 import { OdfElementName } from './OdfElementName';
-import { AutomaticStyles } from '../api/office';
+import { AutomaticStyles, CommonStyles } from '../api/office';
 import { ParagraphStyle } from '../api/style';
 
 class AutomaticStylesMock extends AutomaticStyles {
   public getName (): string {
     return 'P23';
+  }
+}
+
+class CommonStylesMock extends CommonStyles {
+  public getName (): string {
+    return 'encodedTestStyleName';
   }
 }
 
@@ -21,15 +27,17 @@ describe(DomVisitor.name, () => {
     let domVisitor: DomVisitor;
     let testDocument: Document;
     let testRoot: Element;
+    let commonStyles: CommonStylesMock;
     let automaticStyles: AutomaticStylesMock;
 
     beforeEach(() => {
       testDocument = new DOMImplementation().createDocument('someNameSpace', OdfElementName.OfficeDocument, null);
       testRoot = testDocument.firstChild as Element;
 
+      commonStyles = new CommonStylesMock();
       automaticStyles = new AutomaticStylesMock();
 
-      domVisitor = new DomVisitor(automaticStyles);
+      domVisitor = new DomVisitor(commonStyles, automaticStyles);
     });
 
     describe('#visitHeading', () => {
@@ -52,7 +60,7 @@ describe(DomVisitor.name, () => {
         domVisitor.visit(heading, testDocument, testRoot);
 
         const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<text:h text:outline-level="2" text:style-name="testStyleName">some text<\/text:h>/);
+        expect(documentAsString).toMatch(/<text:h text:outline-level="2" text:style-name="encodedTestStyleName">some text<\/text:h>/);
       });
 
       it('add a heading with an automatic style', () => {
@@ -212,7 +220,7 @@ describe(DomVisitor.name, () => {
         domVisitor.visit(paragraph, testDocument, testRoot);
 
         const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<text:p text:style-name="testStyleName">some text<\/text:p>/);
+        expect(documentAsString).toMatch(/<text:p text:style-name="encodedTestStyleName">some text<\/text:p>/);
       });
 
       it('add a paragraph with an automatic style', () => {

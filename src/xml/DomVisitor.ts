@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { Image } from '../api/draw';
 import { OdfElement } from '../api/OdfElement';
-import { AutomaticStyles, TextBody } from '../api/office';
+import { AutomaticStyles, CommonStyles, TextBody } from '../api/office';
 import { Heading, Hyperlink, List, ListItem, OdfTextElement, Paragraph } from '../api/text';
 import { DrawElementName } from './DrawElementName';
 import { OdfAttributeName } from './OdfAttributeName';
@@ -13,7 +13,7 @@ const IMAGE_ENCODING = 'base64';
 const HYPERLINK_LINK_TYPE = 'simple';
 
 export class DomVisitor {
-  public constructor (private automaticStyles: AutomaticStyles) {
+  public constructor (private commonStyles: CommonStyles, private automaticStyles: AutomaticStyles) {
   }
 
   public visit (odfElement: OdfElement, document: Document, parent: Element): void {
@@ -126,16 +126,27 @@ export class DomVisitor {
   }
 
   private setStyleName (odfElement: Heading | Paragraph, domElement: Element): void {
-    const style = odfElement.getStyle();
-    let styleName = odfElement.getStyleName();
+    let styleName = this.getAutomaticStyleName(odfElement);
 
-    if (style !== undefined) {
-      styleName = this.automaticStyles.getName(style);
+    if (styleName === undefined) {
+      styleName = this.getCommonStyleName(odfElement);
     }
 
     if (styleName !== undefined) {
       domElement.setAttribute(OdfAttributeName.TextStyleName, styleName);
     }
+  }
+
+  private getAutomaticStyleName (odfElement: Heading | Paragraph): string | undefined {
+    const style = odfElement.getStyle();
+
+    return style !== undefined ? this.automaticStyles.getName(style) : undefined;
+  }
+
+  private getCommonStyleName (odfElement: Heading | Paragraph): string | undefined {
+    const styleName = odfElement.getStyleName();
+
+    return styleName !== undefined ? this.commonStyles.getName(styleName) : undefined;
   }
 
   /**
