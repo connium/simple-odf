@@ -9,6 +9,8 @@ import { Typeface } from './Typeface';
  * To format the text of a paragraph either the paragraphs test style must be altered
  * or a new text style is set to the paragraph.
  *
+ * TODO improve documentation
+ *
  * @example
  * // alter the text style of a paragraph to use a bold typeface
  * paragraph.getTextStyle().setTypeface(Typeface.Bold);

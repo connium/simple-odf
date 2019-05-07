@@ -4,6 +4,8 @@ import { TextDocumentWriter } from './TextDocumentWriter';
 
 jest.mock('./meta/MetaWriter');
 jest.mock('./office/FontFaceDeclarationsWriter');
+jest.mock('./office/StylesWriter');
+jest.mock('./AutomaticStyleVisitor');
 jest.mock('./DomVisitor');
 
 describe(TextDocumentWriter.name, () => {

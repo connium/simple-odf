@@ -1,6 +1,5 @@
-import { ParagraphStyle } from '../../style/ParagraphStyle';
-import { TextTransformation } from '../../style/TextTransformation';
 import { Image } from '../draw';
+import { ParagraphStyle, TextTransformation } from '../style';
 import { Hyperlink } from './Hyperlink';
 import { Paragraph } from './Paragraph';
 
@@ -83,12 +82,19 @@ describe(Paragraph.name, () => {
 
       expect(paragraph.getStyle()).toBe(testStyle);
     });
+  });
 
-    it('ignore invalid input', () => {
-      paragraph.setStyle(testStyle);
-      paragraph.setStyle(null as any);
+  describe('style name', () => {
+    const testStyleName = 'someStyleName';
 
-      expect(paragraph.getStyle()).toBe(testStyle);
+    it('return undefined by default', () => {
+      expect(paragraph.getStyleName()).toBeUndefined();
+    });
+
+    it('return previous set style name', () => {
+      paragraph.setStyleName(testStyleName);
+
+      expect(paragraph.getStyleName()).toBe(testStyleName);
     });
   });
 });

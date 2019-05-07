@@ -1,5 +1,3 @@
-import { OdfAttributeName } from '../xml/OdfAttributeName';
-import { OdfElementName } from '../xml/OdfElementName';
 import { TabStopType } from './TabStopType';
 
 /**
@@ -67,22 +65,5 @@ export class TabStop {
    */
   public getType (): TabStopType {
     return this.type;
-  }
-
-  /**
-   * Transforms the tab stop into Open Document Format.
-   *
-   * @param {Document} document The XML document
-   * @param {Element} parent The parent node in the DOM (`style:tab-stops`)
-   * @since 0.3.0
-   */
-  public toXml (document: Document, parent: Element): void {
-    const tabStopElement = document.createElement(OdfElementName.StyleTabStop);
-    parent.appendChild(tabStopElement);
-
-    tabStopElement.setAttribute(OdfAttributeName.StylePosition, `${this.position}mm`);
-    if (this.type !== TabStopType.Left) {
-      tabStopElement.setAttribute(OdfAttributeName.StyleType, this.type);
-    }
   }
 }

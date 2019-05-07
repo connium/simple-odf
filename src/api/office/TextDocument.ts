@@ -3,6 +3,7 @@ import { promisify } from 'util';
 import { XMLSerializer } from 'xmldom';
 import { TextDocumentWriter } from '../../xml/TextDocumentWriter';
 import { Meta } from '../meta';
+import { CommonStyles } from './CommonStyles';
 import { FontFaceDeclarations } from './FontFaceDeclarations';
 import { TextBody } from './TextBody';
 
@@ -15,6 +16,7 @@ export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
  * const document = new TextDocument();
  * document.getMeta().setCreator('Homer Simpson');
  * document.getFontFaceDeclarations().create('FreeSans', 'FreeSans', FontPitch.Variable);
+ * document.getCommonStyles().createParagraphStyle('Summary');
  * document.getBody().addHeading('My first document');
  * document.saveFlat('/home/homer/document.fodt');
  *
@@ -23,6 +25,7 @@ export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
 export class TextDocument {
   private meta: Meta;
   private fontFaceDeclarations: FontFaceDeclarations;
+  private commonStyles: CommonStyles;
   private body: TextBody;
 
   /**
@@ -36,6 +39,7 @@ export class TextDocument {
   public constructor () {
     this.meta = new Meta();
     this.fontFaceDeclarations = new FontFaceDeclarations();
+    this.commonStyles = new CommonStyles();
     this.body = new TextBody();
   }
 
@@ -55,7 +59,22 @@ export class TextDocument {
   }
 
   /**
-   * The `getFonts()` method returns the font face declarations of the document.
+   * The `getCommonStyles()` method returns the named styles of the document.
+   *
+   * @example
+   * new TextDocument()
+   *   .getCommonStyles()
+   *   .createParagraphStyle('Summary');
+   *
+   * @returns {CommonStyles} A `CommonStyles` object that holds the named styles of the document
+   * @since 0.9.0
+   */
+  public getCommonStyles (): CommonStyles {
+    return this.commonStyles;
+  }
+
+  /**
+   * The `getFontFaceDeclarations()` method returns the font face declarations of the document.
    *
    * @example
    * new TextDocument()

@@ -1,46 +1,79 @@
-import { AnchorType } from '../../style/AnchorType';
-import { ImageStyle } from '../../style/ImageStyle';
+import { AnchorType } from './AnchorType';
 import { Image } from './Image';
 
 describe(Image.name, () => {
-  const testImagePath = '/some/image.path.png';
+  const testHeight = 23;
+  const testPath = '/some/image.path.png';
+  const testWidth = 42;
 
   let image: Image;
 
   beforeEach(() => {
-    image = new Image(testImagePath);
+    image = new Image(testPath);
+  });
+
+  describe('anchor type', () => {
+    it('return `Paragraph` by default', () => {
+      expect(image.getAnchorType()).toBe(AnchorType.Paragraph);
+    });
+
+    it('return previously set anchor type', () => {
+      const testAnchorType = AnchorType.AsChar;
+
+      image.setAnchorType(testAnchorType);
+
+      expect(image.getAnchorType()).toBe(testAnchorType);
+    });
+  });
+
+  describe('height', () => {
+    it('return undefined by default', () => {
+      expect(image.getHeight()).toBeUndefined();
+    });
+
+    it('return previously set height', () => {
+      image.setHeight(testHeight);
+
+      expect(image.getHeight()).toBe(testHeight);
+    });
+
+    it('set a minimum height', () => {
+      image.setHeight(-23);
+
+      expect(image.getHeight()).toBe(1);
+    });
   });
 
   describe('path', () => {
     it('return initial path', () => {
-      expect(image.getPath()).toBe(testImagePath);
+      expect(image.getPath()).toBe(testPath);
     });
   });
 
-  describe('style', () => {
-    let testStyle: ImageStyle;
+  describe('size', () => {
+    it('set width and height', () => {
+      image.setSize(testWidth, testHeight);
 
-    beforeEach(() => {
-      testStyle = new ImageStyle();
+      expect(image.getHeight()).toBe(testHeight);
+      expect(image.getWidth()).toBe(testWidth);
+    });
+  });
+
+  describe('width', () => {
+    it('return undefined by default', () => {
+      expect(image.getWidth()).toBeUndefined();
     });
 
-    it('return style by default', () => {
-      expect(image.getStyle()).toBeInstanceOf(ImageStyle);
+    it('return previously set width', () => {
+      image.setWidth(testWidth);
+
+      expect(image.getWidth()).toBe(testWidth);
     });
 
-    it('return previous set style', () => {
-      testStyle.setAnchorType(AnchorType.AsChar);
+    it('set a minimum width', () => {
+      image.setWidth(-23);
 
-      image.setStyle(testStyle);
-
-      expect(image.getStyle()).toBe(testStyle);
-    });
-
-    it('ignore invalid input', () => {
-      image.setStyle(testStyle);
-      image.setStyle(null as any);
-
-      expect(image.getStyle()).toBe(testStyle);
+      expect(image.getWidth()).toBe(1);
     });
   });
 });

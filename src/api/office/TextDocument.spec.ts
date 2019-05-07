@@ -1,6 +1,7 @@
 import { readFile, unlink } from 'fs';
 import { promisify } from 'util';
-import { Meta } from '../meta/Meta';
+import { Meta } from '../meta';
+import { CommonStyles } from './CommonStyles';
 import { FontFaceDeclarations } from './FontFaceDeclarations';
 import { TextBody } from './TextBody';
 import { TextDocument, XML_DECLARATION } from './TextDocument';
@@ -21,6 +22,14 @@ describe(TextDocument.name, () => {
       const body = document.getBody();
 
       expect(body).toBeInstanceOf(TextBody);
+    });
+  });
+
+  describe('common styles', () => {
+    it('return a common styles object', () => {
+      const commonStyles = document.getCommonStyles();
+
+      expect(commonStyles).toBeInstanceOf(CommonStyles);
     });
   });
 

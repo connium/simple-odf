@@ -5,6 +5,8 @@ import { TabStopType } from './TabStopType';
 /**
  * This class represents the styling properties of a paragraph.
  *
+ * TODO improve documentation
+ *
  * @since 0.4.0
  */
 export interface IParagraphProperties {
@@ -29,7 +31,7 @@ export interface IParagraphProperties {
    *
    * @since 0.1.0
    */
-  setPageBreakBefore (): void;
+  setPageBreakBefore (shouldBreakPageBefore?: boolean): void;
 
   /**
    * Keeps paragraph lines on the same page (page break before paragraph if necessary).

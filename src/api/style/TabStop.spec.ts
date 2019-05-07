@@ -1,5 +1,3 @@
-import { TextDocument } from '../api/office';
-import { ParagraphStyle } from './ParagraphStyle';
 import { TabStop } from './TabStop';
 import { TabStopType } from './TabStopType';
 
@@ -81,26 +79,6 @@ describe(TabStop.name, () => {
 
     it('return the current position', () => {
       expect(tabStop.getType()).toBe(TabStopType.Center);
-    });
-  });
-
-  describe('#toXml', () => {
-    it('return the current position', () => {
-      const document = new TextDocument();
-      const paragraph = document.getBody().addParagraph();
-      const style = new ParagraphStyle();
-
-      style.addTabStop(new TabStop(2, TabStopType.Center));
-      style.addTabStop(new TabStop(4, TabStopType.Char));
-      style.addTabStop(new TabStop(6, TabStopType.Left));
-      style.addTabStop(new TabStop(8, TabStopType.Right));
-      paragraph.setStyle(style);
-
-      const documentAsString = document.toString();
-      expect(documentAsString).toMatch(/<style:tab-stop style:position="2mm" style:type="center"\/>/);
-      expect(documentAsString).toMatch(/<style:tab-stop style:position="4mm" style:type="char"\/>/);
-      expect(documentAsString).toMatch(/<style:tab-stop style:position="6mm"\/>/);
-      expect(documentAsString).toMatch(/<style:tab-stop style:position="8mm" style:type="right"\/>/);
     });
   });
 });

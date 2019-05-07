@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { Image } from '../api/draw';
 import { OdfElement } from '../api/OdfElement';
-import { TextBody } from '../api/office';
+import { AutomaticStyles, CommonStyles, TextBody } from '../api/office';
 import { Heading, Hyperlink, List, ListItem, OdfTextElement, Paragraph } from '../api/text';
 import { DrawElementName } from './DrawElementName';
 import { OdfAttributeName } from './OdfAttributeName';
@@ -13,6 +13,9 @@ const IMAGE_ENCODING = 'base64';
 const HYPERLINK_LINK_TYPE = 'simple';
 
 export class DomVisitor {
+  public constructor (private commonStyles: CommonStyles, private automaticStyles: AutomaticStyles) {
+  }
+
   public visit (odfElement: OdfElement, document: Document, parent: Element): void {
     let currentElement: Element;
     if (odfElement instanceof Heading) {
@@ -43,10 +46,7 @@ export class DomVisitor {
     headingElement.setAttribute(OdfAttributeName.TextOutlineLevel, heading.getLevel().toString(10));
     parent.appendChild(headingElement);
 
-    const style = heading.getStyle();
-    if (style !== undefined) {
-      style.toXml(document, headingElement);
-    }
+    this.setStyleName(heading, headingElement);
 
     return headingElement;
   }
@@ -64,11 +64,21 @@ export class DomVisitor {
 
   private visitImage (image: Image, document: Document, parent: Element): Element {
     const frameElement = document.createElement(DrawElementName.DrawFrame);
+    frameElement.setAttribute(OdfAttributeName.TextAnchorType, image.getAnchorType());
+
+    const width = image.getWidth();
+    if (width !== undefined) {
+      frameElement.setAttribute(OdfAttributeName.SvgWidth, width + 'mm');
+    }
+
+    const height = image.getHeight();
+    if (height !== undefined) {
+      frameElement.setAttribute(OdfAttributeName.SvgHeight, height + 'mm');
+    }
+
     parent.appendChild(frameElement);
 
     this.embedImage(document, frameElement, image);
-
-    image.getStyle().toXml(frameElement);
 
     return frameElement;
   }
@@ -100,10 +110,7 @@ export class DomVisitor {
     const paragraphElement = document.createElement(TextElementName.TextParagraph);
     parent.appendChild(paragraphElement);
 
-    const style = paragraph.getStyle();
-    if (style !== undefined) {
-      style.toXml(document, paragraphElement);
-    }
+    this.setStyleName(paragraph, paragraphElement);
 
     return paragraphElement;
   }
@@ -116,6 +123,30 @@ export class DomVisitor {
     bodyElement.appendChild(textElement);
 
     return textElement;
+  }
+
+  private setStyleName (odfElement: Heading | Paragraph, domElement: Element): void {
+    let styleName = this.getAutomaticStyleName(odfElement);
+
+    if (styleName === undefined) {
+      styleName = this.getCommonStyleName(odfElement);
+    }
+
+    if (styleName !== undefined) {
+      domElement.setAttribute(OdfAttributeName.TextStyleName, styleName);
+    }
+  }
+
+  private getAutomaticStyleName (odfElement: Heading | Paragraph): string | undefined {
+    const style = odfElement.getStyle();
+
+    return style !== undefined ? this.automaticStyles.getName(style) : undefined;
+  }
+
+  private getCommonStyleName (odfElement: Heading | Paragraph): string | undefined {
+    const styleName = odfElement.getStyleName();
+
+    return styleName !== undefined ? this.commonStyles.getName(styleName) : undefined;
   }
 
   /**
