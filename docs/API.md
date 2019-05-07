@@ -9,11 +9,37 @@
 <dd><p>This class represents the metadata of a document.</p>
 <p>It is used to set descriptive information about the document.</p>
 </dd>
+<dt><a href="#CommonStyles">CommonStyles</a></dt>
+<dd><p>This class contains common styles of a document.</p>
+<p>It is used to manage the named styles that are used in the document.</p>
+</dd>
+<dt><a href="#FontFaceDeclarations">FontFaceDeclarations</a></dt>
+<dd><p>This class contains all font face declarations of a document.</p>
+<p>It is used to manage the fonts that are used in the document.</p>
+</dd>
 <dt><a href="#TextBody">TextBody</a></dt>
 <dd><p>This class represents the content of a text document.</p>
 </dd>
 <dt><a href="#TextDocument">TextDocument</a></dt>
 <dd><p>This class represents a text document in OpenDocument format.</p>
+</dd>
+<dt><a href="#Color">Color</a></dt>
+<dd><p>This class represents a Color.</p>
+</dd>
+<dt><a href="#FontFace">FontFace</a></dt>
+<dd><p>This class represents a font face declaration.</p>
+<p>It is used to describe the characteristics of a font which is used in the document.
+The unique name of a font can be used inside styles to select a font face declaration.</p>
+</dd>
+<dt><a href="#Style">Style</a></dt>
+<dd><p>This class represents a style.</p>
+<p>It is used to specify the formatting of a document or a portion of a document.
+The unique name of a style can be used to apply a formatting to elements.</p>
+</dd>
+<dt><a href="#TabStop">TabStop</a></dt>
+<dd><p>This class represents a tab stop.</p>
+<p>Tab stops are used to align text in a paragraph.
+To become effective they must be set to the style of the respective paragraph.</p>
 </dd>
 <dt><a href="#Heading">Heading</a> ⇐ <code><a href="#Paragraph">Paragraph</a></code></dt>
 <dd><p>This class represents a heading in a document.</p>
@@ -32,23 +58,6 @@ A chapter or section begins with a heading and extends to the next heading at th
 <dt><a href="#Paragraph">Paragraph</a></dt>
 <dd><p>This class represents a paragraph.</p>
 </dd>
-<dt><a href="#Color">Color</a></dt>
-<dd><p>This class represents a Color.</p>
-</dd>
-<dt><a href="#ImageStyle">ImageStyle</a></dt>
-<dd><p>This class represents the style of an image</p>
-</dd>
-<dt><a href="#ParagraphStyle">ParagraphStyle</a></dt>
-<dd><p>This class represents the style of a paragraph</p>
-</dd>
-<dt><a href="#StyleHelper">StyleHelper</a></dt>
-<dd><p>Utility class for dealing with styles.</p>
-</dd>
-<dt><a href="#TabStop">TabStop</a></dt>
-<dd><p>This class represents a tab stop.</p>
-<p>Tab stops are used to align text in a paragraph.
-To become effective they must be set to the style of the respective paragraph.</p>
-</dd>
 </dl>
 
 <a name="Image"></a>
@@ -62,9 +71,14 @@ It is used to embed image data in BASE64 encoding.
 
 * [Image](#Image)
     * [`new Image(path)`](#new_Image_new)
+    * [`.setAnchorType(anchorType)`](#Image+setAnchorType) ⇒ [<code>Image</code>](#Image)
+    * [`.getAnchorType()`](#Image+getAnchorType) ⇒ <code>AnchorType</code>
+    * [`.setHeight(height)`](#Image+setHeight) ⇒ [<code>Image</code>](#Image)
+    * [`.getHeight()`](#Image+getHeight) ⇒ <code>number</code> \| <code>undefined</code>
     * [`.getPath()`](#Image+getPath) ⇒ <code>string</code>
-    * [`.setStyle(style)`](#Image+setStyle) ⇒ [<code>Image</code>](#Image)
-    * [`.getStyle()`](#Image+getStyle) ⇒ <code>IImageStyle</code>
+    * [`.setSize(width, height)`](#Image+setSize) ⇒ [<code>Image</code>](#Image)
+    * [`.setWidth(width)`](#Image+setWidth) ⇒ [<code>Image</code>](#Image)
+    * [`.getWidth()`](#Image+getWidth) ⇒ <code>number</code> \| <code>undefined</code>
 
 
 * * *
@@ -82,10 +96,93 @@ Path to the image file that should be embedded
 ```js
 document.getBody()
   .addParagraph()
-  .addImage("/home/homer/myself.png")
-  .getStyle()
+  .addImage('/home/homer/myself.png')
+  .setAnchorType(AnchorType.AsChar);
   .setSize(42, 23);
 ```
+
+* * *
+
+<a name="Image+setAnchorType"></a>
+
+### `image.setAnchorType(anchorType)` ⇒ [<code>Image</code>](#Image)
+The `setAnchorType()` method sets the anchor type setting of this image.
+
+#### Parameters
+- anchorType <code>AnchorType</code>  
+The anchor type setting
+
+**Return value**  
+[<code>Image</code>](#Image) - The `Image` object
+
+**Example**  
+```js
+const image = new Image('/home/homer/myself.png');
+image.setAnchorType(AnchorType.AsChar);
+```
+**Since**: 0.9.0  
+
+* * *
+
+<a name="Image+getAnchorType"></a>
+
+### `image.getAnchorType()` ⇒ <code>AnchorType</code>
+The `getAnchorType()` method returns the anchor type setting of this image.
+
+**Return value**  
+<code>AnchorType</code> - The anchor type setting
+
+**Example**  
+```js
+const image = new Image('/home/homer/myself.png');
+image.getAnchorType();                  // AnchorType.Paragraph
+image.setAnchorType(AnchorType.AsChar);
+image.getAnchorType();                  // AnchorType.AsChar
+```
+**Since**: 0.9.0  
+
+* * *
+
+<a name="Image+setHeight"></a>
+
+### `image.setHeight(height)` ⇒ [<code>Image</code>](#Image)
+The `setHeight` method sets the target height of the image in millimeter.
+
+If the provided value is too small, the height will be set to the minimal size `1`.
+
+#### Parameters
+- height <code>number</code>  
+The target height of the image in millimeter
+
+**Return value**  
+[<code>Image</code>](#Image) - The `Image` object
+
+**Example**  
+```js
+const image = new Image('/home/homer/myself.png');
+image.setHeight(42);  // 42
+image.setHeight(-23); // 1
+```
+**Since**: 0.9.0  
+
+* * *
+
+<a name="Image+getHeight"></a>
+
+### `image.getHeight()` ⇒ <code>number</code> \| <code>undefined</code>
+The `getHeight()` method returns the target height of the image or `undefined` if no height was set.
+
+**Return value**  
+<code>number</code> \| <code>undefined</code> - The target height of the image in millimeter or `undefined` if no height was set
+
+**Example**  
+```js
+const image = new Image('/home/homer/myself.png');
+image.getHeight();   // undefined
+image.setHeight(42);
+image.getHeight();   // 42
+```
+**Since**: 0.9.0  
 
 * * *
 
@@ -99,50 +196,79 @@ The `getPath()` method returns the path to the image file that should be embedde
 
 **Example**  
 ```js
-const image = new Image("/home/homer/myself.png");
+const image = new Image('/home/homer/myself.png');
 image.getPath(); // '/home/homer/myself.png'
 ```
 **Since**: 0.7.0  
 
 * * *
 
-<a name="Image+setStyle"></a>
+<a name="Image+setSize"></a>
 
-### `image.setStyle(style)` ⇒ [<code>Image</code>](#Image)
-Sets the new style of this image.
+### `image.setSize(width, height)` ⇒ [<code>Image</code>](#Image)
+The `setSize()` method sets the target width and height of the image.
+
+If any provided value is too small, it will be set to the minimal size `1`.
 
 #### Parameters
-- style <code>IImageStyle</code>  
-The new style
+- width <code>number</code>  
+The target width of the image in millimeter
+- height <code>number</code>  
+The target height of the image in millimeter
 
 **Return value**  
 [<code>Image</code>](#Image) - The `Image` object
 
 **Example**  
 ```js
-const image = new Image("/home/homer/myself.png");
-image.setStyle(new ImageStyle());
+const image = new Image('/home/homer/myself.png');
+image.setSize(42, 23);   // w:42, h:32
+image.setWidth(42, -23); // w:42, h:1
 ```
-**Since**: 0.5.0  
+**Since**: 0.9.0  
 
 * * *
 
-<a name="Image+getStyle"></a>
+<a name="Image+setWidth"></a>
 
-### `image.getStyle()` ⇒ <code>IImageStyle</code>
-Returns the style of this image.
+### `image.setWidth(width)` ⇒ [<code>Image</code>](#Image)
+The `setWidth` method sets the target width of the image in millimeter.
+
+If the provided value is too small, the width will be set to the minimal size `1`.
+
+#### Parameters
+- width <code>number</code>  
+The target width of the image in millimeter
 
 **Return value**  
-<code>IImageStyle</code> - The style of the image
+[<code>Image</code>](#Image) - The `Image` object
 
 **Example**  
 ```js
-const image = new Image("/home/homer/myself.png");
-image.getStyle();                // default style
-image.setStyle(new ImageStyle());
-image.getStyle();                // previously set style
+const image = new Image('/home/homer/myself.png');
+image.setWidth(42);  // 42
+image.setWidth(-23); // 1
 ```
-**Since**: 0.5.0  
+**Since**: 0.9.0  
+
+* * *
+
+<a name="Image+getWidth"></a>
+
+### `image.getWidth()` ⇒ <code>number</code> \| <code>undefined</code>
+The `getWidth()` method returns the target width of the image or `undefined` if no width was set.
+
+**Return value**  
+<code>number</code> \| <code>undefined</code> - The target width of the image in millimeter or `undefined` if no width was set
+
+**Example**  
+```js
+const image = new Image('/home/homer/myself.png');
+image.getWidth();   // undefined
+image.setWidth(42);
+image.getWidth();   // 42
+```
+**Since**: 0.9.0  
 
 * * *
 
@@ -197,13 +323,13 @@ and sets the username of the currently effective user as initial creator.
 **Example**  
 ```js
 document.getMeta()
-  .setCreator("Homer Simpson")
-  .setTitle("Node.js meets ODF")
-  .setSubject("ODF document creation")
-  .addKeyword("Node.js")
-  .addKeyword("Open Document Format")
-  .setDescription("ODF text document created with Node.js powered by simple-odf")
-  .setLanguage("en-US");
+  .setCreator('Homer Simpson')
+  .setTitle('Node.js meets ODF')
+  .setSubject('ODF document creation')
+  .addKeyword('Node.js')
+  .addKeyword('Open Document Format')
+  .setDescription('ODF text document created with Node.js powered by simple-odf')
+  .setLanguage('en-US');
 ```
 
 * * *
@@ -729,6 +855,203 @@ meta.getTitle();                           // 'Memoirs of Homer Simpson'
 
 * * *
 
+<a name="CommonStyles"></a>
+
+## CommonStyles
+This class contains common styles of a document.
+
+It is used to manage the named styles that are used in the document.
+
+**Since**: 0.9.0  
+
+* [CommonStyles](#CommonStyles)
+    * [`new CommonStyles()`](#new_CommonStyles_new)
+    * [`.createParagraphStyle(name)`](#CommonStyles+createParagraphStyle) ⇒ <code>ParagraphStyle</code>
+    * [`.getName(displayName)`](#CommonStyles+getName) ⇒ <code>string</code> \| <code>undefined</code>
+    * [`.getAll()`](#CommonStyles+getAll)
+
+
+* * *
+
+<a name="new_CommonStyles_new"></a>
+
+### `new CommonStyles()`
+Creates a `CommonStyles` instance that represents the common styles of a document.
+
+**Example**  
+```js
+document.getCommonStyles()
+  .createParagraphStyle('Summary');
+```
+
+* * *
+
+<a name="CommonStyles+createParagraphStyle"></a>
+
+### `commonStyles.createParagraphStyle(name)` ⇒ <code>ParagraphStyle</code>
+The `createParagraphStyle()` method creates a new `ParagraphStyle` instance with the given name.
+If a style with this name already exists, the existing style will be returned.
+
+#### Parameters
+- name <code>string</code>  
+The unique name for the style
+
+**Return value**  
+<code>ParagraphStyle</code> - A new `ParagraphStyle` instance with the specified name
+or an existing style, if one with the specified name exists
+
+**Example**  
+```js
+const commonStyles = new CommonStyles();
+commonStyles.createParagraphStyle('Summary');
+```
+**Since**: 0.9.0  
+
+* * *
+
+<a name="CommonStyles+getName"></a>
+
+### `commonStyles.getName(displayName)` ⇒ <code>string</code> \| <code>undefined</code>
+The `getName()` method returns the unique name of the style with the specified display name.
+
+#### Parameters
+- displayName <code>string</code>  
+The display name of the requested style
+
+**Return value**  
+<code>string</code> \| <code>undefined</code> - The unique name of the style with the specified display name
+or `undefined` if there is no style with this display name
+
+**Example**  
+```js
+const commonStyles = new CommonStyles();
+commonStyles.createParagraphStyle('Heading 1');
+commonStyles.getName('UnknownStyle'); // undefined
+commonStyles.getName('Heading 1');    // Heading_20_1
+```
+**Since**: 0.9.0  
+
+* * *
+
+<a name="CommonStyles+getAll"></a>
+
+### `commonStyles.getAll()`
+
+* * *
+
+<a name="FontFaceDeclarations"></a>
+
+## FontFaceDeclarations
+This class contains all font face declarations of a document.
+
+It is used to manage the fonts that are used in the document.
+
+**Since**: 0.8.0  
+
+* [FontFaceDeclarations](#FontFaceDeclarations)
+    * [`.create(name, [fontFamily], [fontPitch])`](#FontFaceDeclarations+create) ⇒ [<code>FontFace</code>](#FontFace)
+    * [`.get(name)`](#FontFaceDeclarations+get) ⇒ [<code>FontFace</code>](#FontFace) \| <code>undefined</code>
+    * [`.getAll()`](#FontFaceDeclarations+getAll) ⇒ [<code>Array.&lt;FontFace&gt;</code>](#FontFace)
+    * [`.delete(name)`](#FontFaceDeclarations+delete) ⇒ [<code>Meta</code>](#Meta)
+
+
+* * *
+
+<a name="FontFaceDeclarations+create"></a>
+
+### `fontFaceDeclarations.create(name, [fontFamily], [fontPitch])` ⇒ [<code>FontFace</code>](#FontFace)
+Creates a [FontFace](#FontFace) object with the given name.
+If a font with this name already exists, the existing font will be returned.
+
+#### Parameters
+- name <code>string</code>  
+The unique name for the font
+- [fontFamily] <code>string</code>  
+The name of the font family
+- [fontPitch] <code>FontPitch</code>  
+Indicator whether the font has a fixed or variable width
+
+**Return value**  
+[<code>FontFace</code>](#FontFace) - A new `FontFace` object with the specified properties
+or an existing font face, if one with the specified name exists
+
+**Example**  
+```js
+const fontFaceDeclarations = new FontFaceDeclarations();
+fontFaceDeclarations.create('FreeSans', 'FreeSans', FontPitch.Variable);
+```
+**Since**: 0.8.0  
+
+* * *
+
+<a name="FontFaceDeclarations+get"></a>
+
+### `fontFaceDeclarations.get(name)` ⇒ [<code>FontFace</code>](#FontFace) \| <code>undefined</code>
+The `get()` method returns a specified element from a Map object.
+
+#### Parameters
+- name <code>string</code>  
+The name of the requested font
+
+**Return value**  
+[<code>FontFace</code>](#FontFace) \| <code>undefined</code> - The `FontFace` object associated with the specified name
+or `undefined` if there is no font with this name
+
+**Example**  
+```js
+const fontFaceDeclarations = new FontFaceDeclarations();
+fontFaceDeclarations.create('FreeSans');
+fontFaceDeclarations.get('UnknownFont'); // undefined
+fontFaceDeclarations.get('FreeSans');    // FreeSans font
+```
+**Since**: 0.8.0  
+
+* * *
+
+<a name="FontFaceDeclarations+getAll"></a>
+
+### `fontFaceDeclarations.getAll()` ⇒ [<code>Array.&lt;FontFace&gt;</code>](#FontFace)
+The `getAll()` method returns a new `Array` object that contains the fonts of the document.
+
+**Return value**  
+[<code>Array.&lt;FontFace&gt;</code>](#FontFace) - A new `Array` object that contains the fonts of the document
+
+**Example**  
+```js
+const fontFaceDeclarations = new FontFaceDeclarations();
+fontFaceDeclarations.create('FreeSans');
+fontFaceDeclarations.create('Symbol');
+fontFaceDeclarations.getAll();           // [FreeSans, Symbol]
+```
+**Since**: 0.8.0  
+
+* * *
+
+<a name="FontFaceDeclarations+delete"></a>
+
+### `fontFaceDeclarations.delete(name)` ⇒ [<code>Meta</code>](#Meta)
+The `delete()` method removes the specified font from the font face declarations.
+
+#### Parameters
+- name <code>string</code>  
+The name of the font to remove from the font face declarations
+
+**Return value**  
+[<code>Meta</code>](#Meta) - The `Meta` object
+
+**Example**  
+```js
+var myMap = new Map();
+const fontFaceDeclarations = new FontFaceDeclarations();
+fontFaceDeclarations.create('FreeSans');
+fontFaceDeclarations.create('Symbol');
+fontFaceDeclarations.delete('FreeSans');
+fontFaceDeclarations.get('FreeSans');    // undefined
+```
+**Since**: 0.8.0  
+
+* * *
+
 <a name="TextBody"></a>
 
 ## TextBody
@@ -800,13 +1123,31 @@ This class represents a text document in OpenDocument format.
 **Since**: 0.1.0  
 
 * [TextDocument](#TextDocument)
+    * [`new TextDocument()`](#new_TextDocument_new)
     * [`.getBody()`](#TextDocument+getBody) ⇒ [<code>TextBody</code>](#TextBody)
-    * [`.declareFont(name, fontFamily, fontPitch)`](#TextDocument+declareFont) ⇒ <code>FontFace</code>
-    * [`.getFonts()`](#TextDocument+getFonts) ⇒ <code>Array.&lt;FontFace&gt;</code>
+    * [`.getCommonStyles()`](#TextDocument+getCommonStyles) ⇒ [<code>CommonStyles</code>](#CommonStyles)
+    * [`.getFontFaceDeclarations()`](#TextDocument+getFontFaceDeclarations) ⇒ [<code>FontFaceDeclarations</code>](#FontFaceDeclarations)
     * [`.getMeta()`](#TextDocument+getMeta) ⇒ [<code>Meta</code>](#Meta)
     * [`.saveFlat(filePath)`](#TextDocument+saveFlat) ⇒ <code>Promise.&lt;void&gt;</code>
-    * ~~[`.toString()`](#TextDocument+toString) ⇒ <code>string</code>~~
+    * [`.toString()`](#TextDocument+toString) ⇒ <code>string</code>
 
+
+* * *
+
+<a name="new_TextDocument_new"></a>
+
+### `new TextDocument()`
+Creates a `TextDocument` instance that represents a OpenDocument text document.
+
+**Example**  
+```js
+const document = new TextDocument();
+document.getMeta().setCreator('Homer Simpson');
+document.getFontFaceDeclarations().create('FreeSans', 'FreeSans', FontPitch.Variable);
+document.getCommonStyles().createParagraphStyle('Summary');
+document.getBody().addHeading('My first document');
+document.saveFlat('/home/homer/document.fodt');
+```
 
 * * *
 
@@ -828,49 +1169,39 @@ new TextDocument()
 
 * * *
 
-<a name="TextDocument+declareFont"></a>
+<a name="TextDocument+getCommonStyles"></a>
 
-### `textDocument.declareFont(name, fontFamily, fontPitch)` ⇒ <code>FontFace</code>
-The `declareFont` method creates a font face to be used in the document.
-
-**Note: There is no check whether the font exists.
-In order to be displayed properly, the font must be present on the target system.**
-
-#### Parameters
-- name <code>string</code>  
-The name of the font; this name must be set to a [ParagraphStyle](#ParagraphStyle)
-- fontFamily <code>string</code>  
-The name of the font family
-- fontPitch <code>FontPitch</code>  
-The pitch of the font
+### `textDocument.getCommonStyles()` ⇒ [<code>CommonStyles</code>](#CommonStyles)
+The `getCommonStyles()` method returns the named styles of the document.
 
 **Return value**  
-<code>FontFace</code> - The declared `FontFace` object
+[<code>CommonStyles</code>](#CommonStyles) - A `CommonStyles` object that holds the named styles of the document
 
 **Example**  
 ```js
 new TextDocument()
-  .declareFont("FreeSans", "FreeSans", FontPitch.Variable);
+  .getCommonStyles()
+  .createParagraphStyle('Summary');
 ```
-**Since**: 0.4.0  
+**Since**: 0.9.0  
 
 * * *
 
-<a name="TextDocument+getFonts"></a>
+<a name="TextDocument+getFontFaceDeclarations"></a>
 
-### `textDocument.getFonts()` ⇒ <code>Array.&lt;FontFace&gt;</code>
-The `getFonts()` method returns all font face declarations for the document.
+### `textDocument.getFontFaceDeclarations()` ⇒ [<code>FontFaceDeclarations</code>](#FontFaceDeclarations)
+The `getFontFaceDeclarations()` method returns the font face declarations of the document.
 
 **Return value**  
-<code>Array.&lt;FontFace&gt;</code> - A copy of the list of font face declarations for the document
+[<code>FontFaceDeclarations</code>](#FontFaceDeclarations) - An object holding the font faces of the document
 
 **Example**  
 ```js
-const document = new TextDocument();
-document.declareFont("FreeSans", "FreeSans", FontPitch.Variable);
-document.getFonts();
+new TextDocument()
+  .getFontFaceDeclarations()
+  .create('FreeSans', 'FreeSans', FontPitch.Variable);
 ```
-**Since**: 0.7.0  
+**Since**: 0.8.0  
 
 * * *
 
@@ -882,10 +1213,10 @@ The `getMeta()` method returns the metadata of the document.
 **Return value**  
 [<code>Meta</code>](#Meta) - An object holding the metadata of the document
 
-**See**: [Meta](#Meta)  
 **Example**  
 ```js
-new TextDocument.getMeta()
+new TextDocument()
+  .getMeta()
   .setCreator('Homer Simpson');
 ```
 **Since**: 0.6.0  
@@ -904,7 +1235,7 @@ The file path to write to
 **Example**  
 ```js
 new TextDocument()
-  .saveFlat("/home/homer/document.fodt");
+  .saveFlat('/home/homer/document.fodt');
 ```
 **Since**: 0.1.0  
 
@@ -912,15 +1243,566 @@ new TextDocument()
 
 <a name="TextDocument+toString"></a>
 
-### ~~`textDocument.toString()` ⇒ <code>string</code>~~
-***Deprecated***
-
+### `textDocument.toString()` ⇒ <code>string</code>
 Returns the string representation of this document in flat open document xml format.
 
 **Return value**  
 <code>string</code> - The string representation of this document
 
 **Since**: 0.1.0  
+
+* * *
+
+<a name="Color"></a>
+
+## Color
+This class represents a Color.
+
+**Since**: 0.4.0  
+
+* [Color](#Color)
+    * [`new Color(red, green, blue)`](#new_Color_new)
+    * _instance_
+        * [`.toHex()`](#Color+toHex) ⇒ <code>string</code>
+    * _static_
+        * [`.fromHex(value)`](#Color.fromHex) ⇒ [<code>Color</code>](#Color) \| <code>never</code>
+        * [`.fromRgb(red, green, blue)`](#Color.fromRgb) ⇒ [<code>Color</code>](#Color) \| <code>never</code>
+
+
+* * *
+
+<a name="new_Color_new"></a>
+
+### `new Color(red, green, blue)`
+Creates a new color with the specified channel values.
+
+#### Parameters
+- red <code>number</code>  
+The red channel of the color
+- green <code>number</code>  
+The green channel of the color
+- blue <code>number</code>  
+The blue channel of the color
+
+
+* * *
+
+<a name="Color+toHex"></a>
+
+### `color.toHex()` ⇒ <code>string</code>
+The toHex() method returns a string representing the color as hex string.
+
+**Return value**  
+<code>string</code> - A hex string representing the color
+
+**Since**: 0.4.0  
+
+* * *
+
+<a name="Color.fromHex"></a>
+
+### `Color.fromHex(value)` ⇒ [<code>Color</code>](#Color) \| <code>never</code>
+The `Color.fromHex()` method parses a string argument and returns a color.
+The string is expected to be in `#rrggbb` or `rrggbb` format.
+
+#### Parameters
+- value <code>string</code>  
+The value you want to parse
+
+**Return value**  
+[<code>Color</code>](#Color) \| <code>never</code> - A color parsed from the given value
+
+**Throws**:
+
+- <code>Error</code> If the value cannot be converted to a color
+
+**Since**: 0.4.0  
+
+* * *
+
+<a name="Color.fromRgb"></a>
+
+### `Color.fromRgb(red, green, blue)` ⇒ [<code>Color</code>](#Color) \| <code>never</code>
+The `Color.fromRgb()` method returns a color with the channel arguments.
+
+#### Parameters
+- red <code>number</code>  
+The red channel of the color with a range of 0...255
+- green <code>number</code>  
+The green channel of the color with a range of 0...255
+- blue <code>number</code>  
+The blue channel of the color with a range of 0...255
+
+**Return value**  
+[<code>Color</code>](#Color) \| <code>never</code> - A color parsed from the given value
+
+**Throws**:
+
+- <code>Error</code> If any channel is outside the allowable range
+
+**Since**: 0.4.0  
+
+* * *
+
+<a name="FontFace"></a>
+
+## FontFace
+This class represents a font face declaration.
+
+It is used to describe the characteristics of a font which is used in the document.
+The unique name of a font can be used inside styles to select a font face declaration.
+
+**Since**: 0.8.0  
+
+* [FontFace](#FontFace)
+    * [`new FontFace(name, [fontFamily], [fontPitch])`](#new_FontFace_new)
+    * [`.setCharset(fontCharset)`](#FontFace+setCharset) ⇒ [<code>FontFace</code>](#FontFace)
+    * [`.getCharset()`](#FontFace+getCharset) ⇒ <code>string</code> \| <code>undefined</code>
+    * [`.setFontFamily(fontFamily)`](#FontFace+setFontFamily) ⇒ [<code>FontFace</code>](#FontFace)
+    * [`.getFontFamily()`](#FontFace+getFontFamily) ⇒ <code>string</code> \| <code>undefined</code>
+    * [`.setFontFamilyGeneric(fontFamilyGeneric)`](#FontFace+setFontFamilyGeneric) ⇒ [<code>FontFace</code>](#FontFace)
+    * [`.getFontFamilyGeneric()`](#FontFace+getFontFamilyGeneric) ⇒ <code>string</code> \| <code>undefined</code>
+    * [`.setFontPitch(fontPitch)`](#FontFace+setFontPitch) ⇒ [<code>FontFace</code>](#FontFace)
+    * [`.getFontPitch()`](#FontFace+getFontPitch) ⇒ <code>string</code> \| <code>undefined</code>
+    * [`.getName()`](#FontFace+getName) ⇒ <code>string</code>
+
+
+* * *
+
+<a name="new_FontFace_new"></a>
+
+### `new FontFace(name, [fontFamily], [fontPitch])`
+Creates a `FontFace` instance that represents the characteristics of a font.
+
+#### Parameters
+- name <code>string</code>  
+The unique name for the font
+- [fontFamily] <code>string</code>  
+The name of the font family
+- [fontPitch] <code>FontPitch</code>  
+Indicator whether the font has a fixed or variable width
+
+**Example**  
+```js
+const font = document.getFontFaceDeclarations().create('FreeSans', 'FreeSans', FontPitch.Variable);
+font.setFontFamilyGeneric(FontFamilyGeneric.Swiss);
+```
+
+* * *
+
+<a name="FontFace+setCharset"></a>
+
+### `fontFace.setCharset(fontCharset)` ⇒ [<code>FontFace</code>](#FontFace)
+The `setCharset()` method sets whether the font defines glyphs according to the semantics of Unicode or not.
+
+The value can be `x-symbol` or a character encoding.
+
+If an illegal value is provided, the value will be ignored.
+
+#### Parameters
+- fontCharset <code>string</code> | <code>undefined</code>  
+The charset of the font or `undefined` to unset the charset
+
+**Return value**  
+[<code>FontFace</code>](#FontFace) - The `FontFace` object
+
+**Example**  
+```js
+const font = new FontFace('OpenSymbol', 'OpenSymbol', FontPitch.Variable);
+font.setCharset('x-symbol'); // 'x-symbol'
+font.setCharset('23');       // 'x-symbol'
+font.setCharset(undefined);  // undefined
+```
+**Since**: 0.8.0  
+
+* * *
+
+<a name="FontFace+getCharset"></a>
+
+### `fontFace.getCharset()` ⇒ <code>string</code> \| <code>undefined</code>
+The `getCharset()` method returns whether the font defines glyphs according to the semantics of Unicode or not.
+
+**Return value**  
+<code>string</code> \| <code>undefined</code> - The charset of the font or `undefined` if the charset is not set
+
+**Example**  
+```js
+const font = new FontFace('OpenSymbol', 'OpenSymbol', FontPitch.Variable);
+font.getCharset();           // undefined
+font.setCharset('x-symbol');
+font.getCharset();           // 'x-symbol'
+```
+**Since**: 0.8.0  
+
+* * *
+
+<a name="FontFace+setFontFamily"></a>
+
+### `fontFace.setFontFamily(fontFamily)` ⇒ [<code>FontFace</code>](#FontFace)
+The `setFontFamily()` method sets the font family which is to be used to render the text.
+
+#### Parameters
+- fontFamily <code>string</code> | <code>undefined</code>  
+The font family of the font or `undefined` to unset the font family
+
+**Return value**  
+[<code>FontFace</code>](#FontFace) - The `FontFace` object
+
+**Example**  
+```js
+const font = new FontFace('OpenSymbol');
+font.setFontFamily('OpenSymbol'); // 'OpenSymbol'
+font.setFontFamily(undefined);    // undefined
+```
+**Since**: 0.8.0  
+
+* * *
+
+<a name="FontFace+getFontFamily"></a>
+
+### `fontFace.getFontFamily()` ⇒ <code>string</code> \| <code>undefined</code>
+The `getFontFamily()` method returns the font family which is to be used to render the text.
+
+**Return value**  
+<code>string</code> \| <code>undefined</code> - The font family of the font or `undefined` if the font family is not set
+
+**Example**  
+```js
+const font = new FontFace('OpenSymbol');
+font.setFontFamily('OpenSymbol'); // 'OpenSymbol'
+font.setFontFamily(undefined);    // undefined
+```
+**Since**: 0.8.0  
+
+* * *
+
+<a name="FontFace+setFontFamilyGeneric"></a>
+
+### `fontFace.setFontFamilyGeneric(fontFamilyGeneric)` ⇒ [<code>FontFace</code>](#FontFace)
+The `setFontFamilyGeneric()` method sets the generic font family name of the font.
+
+#### Parameters
+- fontFamilyGeneric <code>FontFamilyGeneric</code> | <code>undefined</code>  
+The generic font family name
+                                                         or `undefined` to unset the generic font family name
+
+**Return value**  
+[<code>FontFace</code>](#FontFace) - The `FontFace` object
+
+**Example**  
+```js
+const font = new FontFace('OpenSymbol');
+font.setFontFamilyGeneric(FontFamilyGeneric.System); // 'system'
+font.setFontFamilyGeneric(undefined);                // undefined
+```
+**Since**: 0.8.0  
+
+* * *
+
+<a name="FontFace+getFontFamilyGeneric"></a>
+
+### `fontFace.getFontFamilyGeneric()` ⇒ <code>string</code> \| <code>undefined</code>
+The `getFontFamilyGeneric()` method returns the generic font family name of the font.
+
+**Return value**  
+<code>string</code> \| <code>undefined</code> - The generic font family name of the font
+                              or `undefined` if the generic font family name is not set
+
+**Example**  
+```js
+const font = new FontFace('OpenSymbol');
+font.getFontFamilyGeneric();                         // undefined
+font.setFontFamilyGeneric(FontFamilyGeneric.System);
+font.getFontFamilyGeneric();                         // 'system'
+```
+**Since**: 0.8.0  
+
+* * *
+
+<a name="FontFace+setFontPitch"></a>
+
+### `fontFace.setFontPitch(fontPitch)` ⇒ [<code>FontFace</code>](#FontFace)
+The `setFontPitch()` method sets whether the font has a fixed or variable width.
+
+#### Parameters
+- fontPitch <code>FontPitch</code> | <code>undefined</code>  
+The pitch of the font or `undefined` to unset the font pitch
+
+**Return value**  
+[<code>FontFace</code>](#FontFace) - The `FontFace` object
+
+**Example**  
+```js
+const font = new FontFace('OpenSymbol');
+font.setFontPitch(FontPitch.Variable); // variable
+font.setFontPitch(undefined);          // undefined
+```
+**Since**: 0.8.0  
+
+* * *
+
+<a name="FontFace+getFontPitch"></a>
+
+### `fontFace.getFontPitch()` ⇒ <code>string</code> \| <code>undefined</code>
+The `getFontPitch()` method returns whether the font has a fixed or variable width.
+
+**Return value**  
+<code>string</code> \| <code>undefined</code> - The pitch of the font or `undefined` if the font pitch is not set
+
+**Example**  
+```js
+const font = new FontFace('OpenSymbol');
+font.getFontPitch();                   // undefined
+font.setFontPitch(FontPitch.Variable);
+font.getFontPitch();                   // variable
+```
+**Since**: 0.8.0  
+
+* * *
+
+<a name="FontFace+getName"></a>
+
+### `fontFace.getName()` ⇒ <code>string</code>
+The `getName()` method returns the unique name of the font.
+
+**Return value**  
+<code>string</code> - A string that identifies the font in this document
+
+**Example**  
+```js
+const font = new FontFace('FreeSans');
+font.getName(); // 'FreeSans'
+```
+**Since**: 0.8.0  
+
+* * *
+
+<a name="Style"></a>
+
+## Style
+This class represents a style.
+
+It is used to specify the formatting of a document or a portion of a document.
+The unique name of a style can be used to apply a formatting to elements.
+
+**Since**: 0.9.0  
+
+* [Style](#Style)
+    * [`new Style(displayName, family)`](#new_Style_new)
+    * [`.setClass(clazz)`](#Style+setClass) ⇒ [<code>Style</code>](#Style)
+    * [`.getClass()`](#Style+getClass) ⇒ <code>string</code> \| <code>undefined</code>
+    * [`.getDisplayName()`](#Style+getDisplayName) ⇒ <code>string</code>
+    * [`.getFamily()`](#Style+getFamily) ⇒ <code>string</code>
+    * [`.getName()`](#Style+getName) ⇒ <code>string</code>
+
+
+* * *
+
+<a name="new_Style_new"></a>
+
+### `new Style(displayName, family)`
+Creates a `Style` instance that represents the formatting of a document or a portion of a document.
+
+#### Parameters
+- displayName <code>string</code>  
+The unique display name for the style
+- family <code>StyleFamily</code>  
+The family of the style
+
+**Example**  
+```js
+document.getStyleManager().createParagraphStyle('Summary');
+document.getBody()
+  .addParagraph('The quick, brown fox jumps over a lazy dog.')
+  .setStyleName('Summary');
+```
+
+* * *
+
+<a name="Style+setClass"></a>
+
+### `style.setClass(clazz)` ⇒ [<code>Style</code>](#Style)
+The `setClass()` method sets the name of the style class.
+
+#### Parameters
+- clazz <code>string</code> | <code>undefined</code>  
+The name of the style class of the style or `undefined` to unset the style class
+
+**Return value**  
+[<code>Style</code>](#Style) - The `Style` object
+
+**Example**  
+```js
+const style = new Style('Text body', StyleFamily.Paragraph);
+style.setClass('text');    // 'text'
+style.setClass(undefined); // undefined
+```
+**Since**: 0.9.0  
+
+* * *
+
+<a name="Style+getClass"></a>
+
+### `style.getClass()` ⇒ <code>string</code> \| <code>undefined</code>
+The `getClass()` method returns name of the style class.
+
+**Return value**  
+<code>string</code> \| <code>undefined</code> - The name of the style class of the style or `undefined` if the style class is not set
+
+**Example**  
+```js
+const style = new Style('Text body', StyleFamily.Paragraph);
+style.getClass();       // undefined
+style.setClass('text');
+style.getClass();       // 'text'
+```
+**Since**: 0.9.0  
+
+* * *
+
+<a name="Style+getDisplayName"></a>
+
+### `style.getDisplayName()` ⇒ <code>string</code>
+The `getDisplayName()` method returns the name of a style as it should appear in the user interface.
+
+**Return value**  
+<code>string</code> - The pretty and user-friendly name of a style
+
+**Example**  
+```js
+const style = new Style('Text body', StyleFamily.Paragraph);
+style.getDisplayName(); // 'Text body'
+```
+**Since**: 0.9.0  
+
+* * *
+
+<a name="Style+getFamily"></a>
+
+### `style.getFamily()` ⇒ <code>string</code>
+The `getFamily()` method returns the family of the style.
+
+**Return value**  
+<code>string</code> - The family of the style
+
+**Example**  
+```js
+const style = new Style('Text body', StyleFamily.Paragraph);
+style.getFamily(); // 'paragraph'
+```
+**Since**: 0.9.0  
+
+* * *
+
+<a name="Style+getName"></a>
+
+### `style.getName()` ⇒ <code>string</code>
+The `getName()` method returns the unique name of the style.
+
+Non-alphanumeric characters in the display name are converted to hexadecimal and wrapped in underscores.
+Thus blanks are converted to `_20_`.
+
+**Return value**  
+<code>string</code> - A string that identifies the style in this document
+
+**Example**  
+```js
+const style = new Style('Text body', StyleFamily.Paragraph);
+style.getName(); // 'Text_20_body'
+```
+**Since**: 0.9.0  
+
+* * *
+
+<a name="TabStop"></a>
+
+## TabStop
+This class represents a tab stop.
+
+Tab stops are used to align text in a paragraph.
+To become effective they must be set to the style of the respective paragraph.
+
+**Since**: 0.3.0  
+
+* [TabStop](#TabStop)
+    * [`new TabStop([position], [type])`](#new_TabStop_new)
+    * [`.setPosition(position)`](#TabStop+setPosition)
+    * [`.getPosition()`](#TabStop+getPosition) ⇒ <code>number</code>
+    * [`.setType(type)`](#TabStop+setType)
+    * [`.getType()`](#TabStop+getType) ⇒ <code>TabStopType</code>
+
+
+* * *
+
+<a name="new_TabStop_new"></a>
+
+### `new TabStop([position], [type])`
+Creates a tab stop to be set to the style of a paragraph.
+
+#### Parameters
+- [position] <code>number</code>  
+The position of the tab stop in millimeters relative to the left margin.
+If a negative value is given, the `position` will be set to `0`.
+- [type] <code>TabStopType</code>  
+The type of the tab stop. Defaults to `TabStopType.Left`.
+
+**Example**  
+```js
+// creates a right aligned tab stop with a distance of 40 mm from the left margin
+const tabStop40 = new TabStop(40, TabStopType.Right);
+paragraph.getStyle().addTabStop(tabStop40);
+```
+
+* * *
+
+<a name="TabStop+setPosition"></a>
+
+### `tabStop.setPosition(position)`
+Sets the position of this tab stop.
+
+#### Parameters
+- position <code>number</code>  
+The position of the tab stop in millimeters relative to the left margin.
+If a negative value is given, the `position` will be set to `0`.
+
+**Since**: 0.3.0  
+
+* * *
+
+<a name="TabStop+getPosition"></a>
+
+### `tabStop.getPosition()` ⇒ <code>number</code>
+Returns the position of this tab stop.
+
+**Return value**  
+<code>number</code> - The position of this tab stop in millimeters
+
+**Since**: 0.3.0  
+
+* * *
+
+<a name="TabStop+setType"></a>
+
+### `tabStop.setType(type)`
+Sets the type of this tab stop.
+
+#### Parameters
+- type <code>TabStopType</code>  
+The type of the tab stop
+
+**Since**: 0.3.0  
+
+* * *
+
+<a name="TabStop+getType"></a>
+
+### `tabStop.getType()` ⇒ <code>TabStopType</code>
+Returns the type of this tab stop.
+
+**Return value**  
+<code>TabStopType</code> - The type of this tab stop
+
+**Since**: 0.3.0  
 
 * * *
 
@@ -945,7 +1827,9 @@ A chapter or section begins with a heading and extends to the next heading at th
     * [`.addHyperlink(text, uri)`](#Paragraph+addHyperlink) ⇒ [<code>Hyperlink</code>](#Hyperlink)
     * [`.addImage(path)`](#Paragraph+addImage) ⇒ [<code>Image</code>](#Image)
     * [`.setStyle(style)`](#Paragraph+setStyle) ⇒ [<code>Paragraph</code>](#Paragraph)
-    * [`.getStyle()`](#Paragraph+getStyle) ⇒ <code>IParagraphStyle</code> \| <code>undefined</code>
+    * [`.getStyle()`](#Paragraph+getStyle) ⇒ <code>ParagraphStyle</code> \| <code>undefined</code>
+    * [`.setStyleName(styleName)`](#Paragraph+setStyleName) ⇒ [<code>Paragraph</code>](#Paragraph)
+    * [`.getStyleName()`](#Paragraph+getStyleName) ⇒ <code>string</code> \| <code>undefined</code>
 
 
 * * *
@@ -963,12 +1847,12 @@ The level of the heading, starting with `1`; defaults to `1` if omitted
 
 **Example**  
 ```js
-document.getBody().addHeading("First Headline", 1);
+document.getBody().addHeading('First Headline', 1);
 ```
 **Example**  
 ```js
 document.getBody().addHeading()
-  .setText("Second Headline")
+  .setText('Second Headline')
   .setLevel(2);
 ```
 
@@ -1017,8 +1901,8 @@ The additional text content
 
 **Example**  
 ```js
-new Paragraph("Some text")      // Some text
-  .addText("\nEven more text"); // Some text\nEven more text
+new Paragraph('Some text')      // Some text
+  .addText('\nEven more text'); // Some text\nEven more text
 ```
 **Since**: 0.1.0  
 
@@ -1035,9 +1919,9 @@ Note: This will only return the text; other elements and markup will be omitted.
 
 **Example**  
 ```js
-const paragraph = new Paragraph("Some text, ");
-paragraph.addHyperlink("some linked text");
-paragraph.addText(", even more text");
+const paragraph = new Paragraph('Some text, ');
+paragraph.addHyperlink('some linked text');
+paragraph.addText(', even more text');
 paragraph.getText(); // Some text, some linked text, even more text
 ```
 **Since**: 0.1.0  
@@ -1059,8 +1943,8 @@ The new text content
 
 **Example**  
 ```js
-new Paragraph("Some text")     // Some text
-  .setText("Some other text"); // Some other text
+new Paragraph('Some text')     // Some text
+  .setText('Some other text'); // Some other text
 ```
 **Since**: 0.1.0  
 
@@ -1082,8 +1966,8 @@ The target URI of the hyperlink
 
 **Example**  
 ```js
-new Paragraph("Some text, ")         // Some text,
-  .addHyperlink("some linked text"); // Some text, some linked text
+new Paragraph('Some text, ')         // Some text,
+  .addHyperlink('some linked text'); // Some text, some linked text
 ```
 **Since**: 0.3.0  
 
@@ -1104,8 +1988,8 @@ The path to the image file
 
 **Example**  
 ```js
-new Paragraph("Some text")
-  .addImage("/home/homer/myself.png");
+new Paragraph('Some text')
+  .addImage('/home/homer/myself.png');
 ```
 **Since**: 0.3.0  
 
@@ -1117,8 +2001,10 @@ new Paragraph("Some text")
 Sets the new style of the paragraph.
 To reset the style, `undefined` must be given.
 
+If style and style name are both set, the custom style will be set and the common style will be ignored.
+
 #### Parameters
-- style <code>IParagraphStyle</code> | <code>undefined</code>  
+- style <code>ParagraphStyle</code> | <code>undefined</code>  
 The new style or `undefined` to reset the style
 
 **Return value**  
@@ -1126,7 +2012,7 @@ The new style or `undefined` to reset the style
 
 **Example**  
 ```js
-new Paragraph("Some text")
+new Paragraph('Some text')
   .setStyle(new ParagraphStyle());
 ```
 **Since**: 0.3.0  
@@ -1135,18 +2021,61 @@ new Paragraph("Some text")
 
 <a name="Paragraph+getStyle"></a>
 
-### `heading.getStyle()` ⇒ <code>IParagraphStyle</code> \| <code>undefined</code>
+### `heading.getStyle()` ⇒ <code>ParagraphStyle</code> \| <code>undefined</code>
 Returns the style of the paragraph.
 
 **Return value**  
-<code>IParagraphStyle</code> \| <code>undefined</code> - The style of the paragraph or `undefined` if no style was set
+<code>ParagraphStyle</code> \| <code>undefined</code> - The style of the paragraph or `undefined` if no style was set
 
 **Example**  
 ```js
-const paragraph = new Paragraph("Some text");
+const paragraph = new Paragraph('Some text');
 paragraph.getStyle();                     // undefined
 paragraph.setStyle(new ParagraphStyle());
 paragraph.getStyle();                     // previously set style
+```
+**Since**: 0.3.0  
+
+* * *
+
+<a name="Paragraph+setStyleName"></a>
+
+### `heading.setStyleName(styleName)` ⇒ [<code>Paragraph</code>](#Paragraph)
+Sets the name of the common style that should be applied to the paragraph.
+To reset the common style, `undefined` must be given.
+
+If style and style name are both set, the custom style will be set and the common style will be ignored.
+
+#### Parameters
+- styleName <code>string</code> | <code>undefined</code>  
+The name of the common style or `undefined` to reset the common style
+
+**Return value**  
+[<code>Paragraph</code>](#Paragraph) - The `Paragraph` object
+
+**Example**  
+```js
+new Paragraph('Some text')
+  .setStyleName('Summary');
+```
+**Since**: 0.9.0  
+
+* * *
+
+<a name="Paragraph+getStyleName"></a>
+
+### `heading.getStyleName()` ⇒ <code>string</code> \| <code>undefined</code>
+Returns the name of the common style of the paragraph.
+
+**Return value**  
+<code>string</code> \| <code>undefined</code> - The name of the common style or `undefined` if no common style was set
+
+**Example**  
+```js
+const paragraph = new Paragraph('Some text');
+paragraph.getStyleName();         // undefined
+paragraph.setStyleName('Summary);
+paragraph.getStyleName();         // 'Summary'
 ```
 **Since**: 0.3.0  
 
@@ -1257,9 +2186,9 @@ Creates a `List` instance that represents a list.
 **Example**  
 ```js
 const list = document.getBody().addList();
-list.addItem("First item");
-list.addItem("Second item");
-list.insertItem(1, "After first item")
+list.addItem('First item');
+list.addItem('Second item');
+list.insertItem(1, 'After first item');
 list.removeItemAt(2);
 ```
 
@@ -1280,8 +2209,8 @@ The text content of the new item or the item to add
 **Example**  
 ```js
 const list = new List();
-list.addItem("First item");
-list.addItem(new ListItem("Second item"));
+list.addItem('First item');
+list.addItem(new ListItem('Second item'));
 ```
 **Since**: 0.2.0  
 
@@ -1309,9 +2238,9 @@ The text content of the new item or the item to insert
 **Example**  
 ```js
 const list = new List();
-list.addItem("First item");             // "First item"
-list.addItem("Second item");            // "First item", "Second item"
-list.insertItem(1, "After first item"); // "First item", "After first item", "Second item"
+list.addItem('First item');             // 'First item'
+list.addItem('Second item');            // 'First item', 'Second item'
+list.insertItem(1, 'After first item'); // 'First item', 'After first item', 'Second item'
 ```
 **Since**: 0.2.0  
 
@@ -1334,9 +2263,9 @@ or `undefined` if there is no list item at the specified position
 **Example**  
 ```js
 const list = new List();
-list.addItem("First item");
-list.addItem("Second item");
-list.getItem(1);             // "Second item"
+list.addItem('First item');
+list.addItem('Second item');
+list.getItem(1);             // 'Second item'
 list.getItem(2);             // undefined
 ```
 **Since**: 0.2.0  
@@ -1355,9 +2284,9 @@ The `getItems()` method returns all list items.
 ```js
 const list = new List();
 list.getItems();             // []
-list.addItem("First item");
-list.addItem("Second item");
-list.getItems();             // ["First item", "Second item"]
+list.addItem('First item');
+list.addItem('Second item');
+list.getItems();             // ['First item', 'Second item']
 ```
 **Since**: 0.2.0  
 
@@ -1379,10 +2308,10 @@ or undefined if there is no list item at the specified position
 **Example**  
 ```js
 const list = new List();
-list.addItem("First item");
-list.addItem("Second item");
-list.removeItemAt(0);        // "First item"
-list.getItems();             // ["Second item"]
+list.addItem('First item');
+list.addItem('Second item');
+list.removeItemAt(0);        // 'First item'
+list.getItems();             // ['Second item']
 list.removeItemAt(2);        // undefined
 ```
 **Since**: 0.2.0  
@@ -1400,8 +2329,8 @@ The `clear()` method removes all items from the list.
 **Example**  
 ```js
 const list = new List();
-list.addItem("First item");  // "First item"
-list.addItem("Second item"); // "First item", "Second item"
+list.addItem('First item');  // 'First item'
+list.addItem('Second item'); // 'First item', 'Second item'
 list.clear();                // -
 ```
 **Since**: 0.2.0  
@@ -1420,8 +2349,8 @@ The `size()` method returns the number of items in the list.
 ```js
 const list = new List();
 list.size();                 // 0
-list.addItem("First item");
-list.addItem("Second item");
+list.addItem('First item');
+list.addItem('Second item');
 list.size();                 // 2
 ```
 **Since**: 0.2.0  
@@ -1443,14 +2372,14 @@ This class represents an item in a list.
 Creates a `ListItem` instance that represents an item in a list.
 
 #### Parameters
-- [text] <code>string</code> <code> = &quot;\&quot;\&quot;&quot;</code>  
+- [text] <code>string</code> <code> = &quot;&#x27;&#x27;&quot;</code>  
 The text content of the list item; defaults to an empty string if omitted
 
 **Example**  
 ```js
 const list = document.getBody()
   .addList()
-  .addItem("First item");
+  .addItem('First item');
 ```
 
 * * *
@@ -1470,7 +2399,9 @@ This class represents a paragraph.
     * [`.addHyperlink(text, uri)`](#Paragraph+addHyperlink) ⇒ [<code>Hyperlink</code>](#Hyperlink)
     * [`.addImage(path)`](#Paragraph+addImage) ⇒ [<code>Image</code>](#Image)
     * [`.setStyle(style)`](#Paragraph+setStyle) ⇒ [<code>Paragraph</code>](#Paragraph)
-    * [`.getStyle()`](#Paragraph+getStyle) ⇒ <code>IParagraphStyle</code> \| <code>undefined</code>
+    * [`.getStyle()`](#Paragraph+getStyle) ⇒ <code>ParagraphStyle</code> \| <code>undefined</code>
+    * [`.setStyleName(styleName)`](#Paragraph+setStyleName) ⇒ [<code>Paragraph</code>](#Paragraph)
+    * [`.getStyleName()`](#Paragraph+getStyleName) ⇒ <code>string</code> \| <code>undefined</code>
 
 
 * * *
@@ -1486,9 +2417,9 @@ The text content of the paragraph; defaults to an empty string if omitted
 
 **Example**  
 ```js
-document.getBody().addParagraph("Some text")
-  .addText("\nEven more text")
-  .addImage("/home/homer/myself.png");
+document.getBody().addParagraph('Some text')
+  .addText('\nEven more text')
+  .addImage('/home/homer/myself.png');
 ```
 
 * * *
@@ -1507,8 +2438,8 @@ The additional text content
 
 **Example**  
 ```js
-new Paragraph("Some text")      // Some text
-  .addText("\nEven more text"); // Some text\nEven more text
+new Paragraph('Some text')      // Some text
+  .addText('\nEven more text'); // Some text\nEven more text
 ```
 **Since**: 0.1.0  
 
@@ -1525,9 +2456,9 @@ Note: This will only return the text; other elements and markup will be omitted.
 
 **Example**  
 ```js
-const paragraph = new Paragraph("Some text, ");
-paragraph.addHyperlink("some linked text");
-paragraph.addText(", even more text");
+const paragraph = new Paragraph('Some text, ');
+paragraph.addHyperlink('some linked text');
+paragraph.addText(', even more text');
 paragraph.getText(); // Some text, some linked text, even more text
 ```
 **Since**: 0.1.0  
@@ -1549,8 +2480,8 @@ The new text content
 
 **Example**  
 ```js
-new Paragraph("Some text")     // Some text
-  .setText("Some other text"); // Some other text
+new Paragraph('Some text')     // Some text
+  .setText('Some other text'); // Some other text
 ```
 **Since**: 0.1.0  
 
@@ -1572,8 +2503,8 @@ The target URI of the hyperlink
 
 **Example**  
 ```js
-new Paragraph("Some text, ")         // Some text,
-  .addHyperlink("some linked text"); // Some text, some linked text
+new Paragraph('Some text, ')         // Some text,
+  .addHyperlink('some linked text'); // Some text, some linked text
 ```
 **Since**: 0.3.0  
 
@@ -1594,8 +2525,8 @@ The path to the image file
 
 **Example**  
 ```js
-new Paragraph("Some text")
-  .addImage("/home/homer/myself.png");
+new Paragraph('Some text')
+  .addImage('/home/homer/myself.png');
 ```
 **Since**: 0.3.0  
 
@@ -1607,8 +2538,10 @@ new Paragraph("Some text")
 Sets the new style of the paragraph.
 To reset the style, `undefined` must be given.
 
+If style and style name are both set, the custom style will be set and the common style will be ignored.
+
 #### Parameters
-- style <code>IParagraphStyle</code> | <code>undefined</code>  
+- style <code>ParagraphStyle</code> | <code>undefined</code>  
 The new style or `undefined` to reset the style
 
 **Return value**  
@@ -1616,7 +2549,7 @@ The new style or `undefined` to reset the style
 
 **Example**  
 ```js
-new Paragraph("Some text")
+new Paragraph('Some text')
   .setStyle(new ParagraphStyle());
 ```
 **Since**: 0.3.0  
@@ -1625,15 +2558,15 @@ new Paragraph("Some text")
 
 <a name="Paragraph+getStyle"></a>
 
-### `paragraph.getStyle()` ⇒ <code>IParagraphStyle</code> \| <code>undefined</code>
+### `paragraph.getStyle()` ⇒ <code>ParagraphStyle</code> \| <code>undefined</code>
 Returns the style of the paragraph.
 
 **Return value**  
-<code>IParagraphStyle</code> \| <code>undefined</code> - The style of the paragraph or `undefined` if no style was set
+<code>ParagraphStyle</code> \| <code>undefined</code> - The style of the paragraph or `undefined` if no style was set
 
 **Example**  
 ```js
-const paragraph = new Paragraph("Some text");
+const paragraph = new Paragraph('Some text');
 paragraph.getStyle();                     // undefined
 paragraph.setStyle(new ParagraphStyle());
 paragraph.getStyle();                     // previously set style
@@ -1642,479 +2575,45 @@ paragraph.getStyle();                     // previously set style
 
 * * *
 
-<a name="Color"></a>
+<a name="Paragraph+setStyleName"></a>
 
-## Color
-This class represents a Color.
+### `paragraph.setStyleName(styleName)` ⇒ [<code>Paragraph</code>](#Paragraph)
+Sets the name of the common style that should be applied to the paragraph.
+To reset the common style, `undefined` must be given.
 
-**Since**: 0.4.0  
-
-* [Color](#Color)
-    * [`new Color(red, green, blue)`](#new_Color_new)
-    * _instance_
-        * [`.toHex()`](#Color+toHex) ⇒ <code>string</code>
-    * _static_
-        * [`.fromHex(value)`](#Color.fromHex) ⇒ [<code>Color</code>](#Color) \| <code>never</code>
-        * [`.fromRgb(red, green, blue)`](#Color.fromRgb) ⇒ [<code>Color</code>](#Color) \| <code>never</code>
-
-
-* * *
-
-<a name="new_Color_new"></a>
-
-### `new Color(red, green, blue)`
-Creates a new color with the specified channel values.
+If style and style name are both set, the custom style will be set and the common style will be ignored.
 
 #### Parameters
-- red <code>number</code>  
-The red channel of the color
-- green <code>number</code>  
-The green channel of the color
-- blue <code>number</code>  
-The blue channel of the color
-
-
-* * *
-
-<a name="Color+toHex"></a>
-
-### `color.toHex()` ⇒ <code>string</code>
-The toHex() method returns a string representing the color as hex string.
+- styleName <code>string</code> | <code>undefined</code>  
+The name of the common style or `undefined` to reset the common style
 
 **Return value**  
-<code>string</code> - A hex string representing the color
-
-**Since**: 0.4.0  
-
-* * *
-
-<a name="Color.fromHex"></a>
-
-### `Color.fromHex(value)` ⇒ [<code>Color</code>](#Color) \| <code>never</code>
-The `Color.fromHex()` method parses a string argument and returns a color.
-The string is expected to be in `#rrggbb` or `rrggbb` format.
-
-#### Parameters
-- value <code>string</code>  
-The value you want to parse
-
-**Return value**  
-[<code>Color</code>](#Color) \| <code>never</code> - A color parsed from the given value
-
-**Throws**:
-
-- <code>Error</code> If the value cannot be converted to a color
-
-**Since**: 0.4.0  
-
-* * *
-
-<a name="Color.fromRgb"></a>
-
-### `Color.fromRgb(red, green, blue)` ⇒ [<code>Color</code>](#Color) \| <code>never</code>
-The `Color.fromRgb()` method returns a color with the channel arguments.
-
-#### Parameters
-- red <code>number</code>  
-The red channel of the color with a range of 0...255
-- green <code>number</code>  
-The green channel of the color with a range of 0...255
-- blue <code>number</code>  
-The blue channel of the color with a range of 0...255
-
-**Return value**  
-[<code>Color</code>](#Color) \| <code>never</code> - A color parsed from the given value
-
-**Throws**:
-
-- <code>Error</code> If any channel is outside the allowable range
-
-**Since**: 0.4.0  
-
-* * *
-
-<a name="ImageStyle"></a>
-
-## ImageStyle
-This class represents the style of an image
-
-**Since**: 0.5.0  
-
-* [ImageStyle](#ImageStyle)
-    * [`new ImageStyle()`](#new_ImageStyle_new)
-    * [`.setAnchorType()`](#ImageStyle+setAnchorType)
-    * [`.getAnchorType()`](#ImageStyle+getAnchorType)
-    * [`.setHeight(height)`](#ImageStyle+setHeight)
-    * [`.getHeight()`](#ImageStyle+getHeight) ⇒ <code>number</code> \| <code>undefined</code>
-    * [`.setWidth(width)`](#ImageStyle+setWidth)
-    * [`.getWidth()`](#ImageStyle+getWidth) ⇒ <code>number</code> \| <code>undefined</code>
-    * [`.setSize(width, height)`](#ImageStyle+setSize)
-    * [`.toXml()`](#ImageStyle+toXml)
-
-
-* * *
-
-<a name="new_ImageStyle_new"></a>
-
-### `new ImageStyle()`
-Constructor.
-
-
-* * *
-
-<a name="ImageStyle+setAnchorType"></a>
-
-### `imageStyle.setAnchorType()`
-
-* * *
-
-<a name="ImageStyle+getAnchorType"></a>
-
-### `imageStyle.getAnchorType()`
-
-* * *
-
-<a name="ImageStyle+setHeight"></a>
-
-### `imageStyle.setHeight(height)`
-Sets the target height of the image.
-
-#### Parameters
-- height <code>number</code>  
-The target height of the image in millimeter
-
-**Since**: 0.5.0  
-
-* * *
-
-<a name="ImageStyle+getHeight"></a>
-
-### `imageStyle.getHeight()` ⇒ <code>number</code> \| <code>undefined</code>
-Returns the target height of the image or `undefined` if no height was set.
-
-**Return value**  
-<code>number</code> \| <code>undefined</code> - The target height of the image in millimeter or `undefined` if no height was set
-
-**Since**: 0.5.0  
-
-* * *
-
-<a name="ImageStyle+setWidth"></a>
-
-### `imageStyle.setWidth(width)`
-Sets the target width of the image.
-
-#### Parameters
-- width <code>number</code>  
-The target width of the image in millimeter
-
-**Since**: 0.5.0  
-
-* * *
-
-<a name="ImageStyle+getWidth"></a>
-
-### `imageStyle.getWidth()` ⇒ <code>number</code> \| <code>undefined</code>
-Returns the target width of the image or `undefined` if no width was set.
-
-**Return value**  
-<code>number</code> \| <code>undefined</code> - The target width of the image in millimeter or `undefined` if no width was set
-
-**Since**: 0.5.0  
-
-* * *
-
-<a name="ImageStyle+setSize"></a>
-
-### `imageStyle.setSize(width, height)`
-Sets the target size of the image.
-
-#### Parameters
-- width <code>number</code>  
-The target width of the image in millimeter
-- height <code>number</code>  
-The target height of the image in millimeter
-
-**Since**: 0.5.0  
-
-* * *
-
-<a name="ImageStyle+toXml"></a>
-
-### `imageStyle.toXml()`
-
-* * *
-
-<a name="ParagraphStyle"></a>
-
-## ParagraphStyle
-This class represents the style of a paragraph
-
-**Since**: 0.4.0  
-
-* [ParagraphStyle](#ParagraphStyle)
-    * [`new ParagraphStyle()`](#new_ParagraphStyle_new)
-    * [`.setColor()`](#ParagraphStyle+setColor)
-    * [`.getColor()`](#ParagraphStyle+getColor)
-    * [`.setFontName()`](#ParagraphStyle+setFontName)
-    * [`.getFontName()`](#ParagraphStyle+getFontName)
-    * [`.setFontSize()`](#ParagraphStyle+setFontSize)
-    * [`.getFontSize()`](#ParagraphStyle+getFontSize)
-    * [`.setTextTransformation()`](#ParagraphStyle+setTextTransformation)
-    * [`.getTextTransformation()`](#ParagraphStyle+getTextTransformation)
-    * [`.setTypeface()`](#ParagraphStyle+setTypeface)
-    * [`.getTypeface()`](#ParagraphStyle+getTypeface)
-    * [`.setHorizontalAlignment()`](#ParagraphStyle+setHorizontalAlignment)
-    * [`.getHorizontalAlignment()`](#ParagraphStyle+getHorizontalAlignment)
-    * [`.setPageBreakBefore()`](#ParagraphStyle+setPageBreakBefore)
-    * [`.setKeepTogether()`](#ParagraphStyle+setKeepTogether)
-    * [`.getTabStops()`](#ParagraphStyle+getTabStops)
-    * [`.clearTabStops()`](#ParagraphStyle+clearTabStops)
-    * [`.toXml()`](#ParagraphStyle+toXml)
-
-
-* * *
-
-<a name="new_ParagraphStyle_new"></a>
-
-### `new ParagraphStyle()`
-Constructor.
-
-
-* * *
-
-<a name="ParagraphStyle+setColor"></a>
-
-### `paragraphStyle.setColor()`
-
-* * *
-
-<a name="ParagraphStyle+getColor"></a>
-
-### `paragraphStyle.getColor()`
-
-* * *
-
-<a name="ParagraphStyle+setFontName"></a>
-
-### `paragraphStyle.setFontName()`
-
-* * *
-
-<a name="ParagraphStyle+getFontName"></a>
-
-### `paragraphStyle.getFontName()`
-
-* * *
-
-<a name="ParagraphStyle+setFontSize"></a>
-
-### `paragraphStyle.setFontSize()`
-
-* * *
-
-<a name="ParagraphStyle+getFontSize"></a>
-
-### `paragraphStyle.getFontSize()`
-
-* * *
-
-<a name="ParagraphStyle+setTextTransformation"></a>
-
-### `paragraphStyle.setTextTransformation()`
-
-* * *
-
-<a name="ParagraphStyle+getTextTransformation"></a>
-
-### `paragraphStyle.getTextTransformation()`
-
-* * *
-
-<a name="ParagraphStyle+setTypeface"></a>
-
-### `paragraphStyle.setTypeface()`
-
-* * *
-
-<a name="ParagraphStyle+getTypeface"></a>
-
-### `paragraphStyle.getTypeface()`
-
-* * *
-
-<a name="ParagraphStyle+setHorizontalAlignment"></a>
-
-### `paragraphStyle.setHorizontalAlignment()`
-
-* * *
-
-<a name="ParagraphStyle+getHorizontalAlignment"></a>
-
-### `paragraphStyle.getHorizontalAlignment()`
-
-* * *
-
-<a name="ParagraphStyle+setPageBreakBefore"></a>
-
-### `paragraphStyle.setPageBreakBefore()`
-
-* * *
-
-<a name="ParagraphStyle+setKeepTogether"></a>
-
-### `paragraphStyle.setKeepTogether()`
-
-* * *
-
-<a name="ParagraphStyle+getTabStops"></a>
-
-### `paragraphStyle.getTabStops()`
-
-* * *
-
-<a name="ParagraphStyle+clearTabStops"></a>
-
-### `paragraphStyle.clearTabStops()`
-
-* * *
-
-<a name="ParagraphStyle+toXml"></a>
-
-### `paragraphStyle.toXml()`
-
-* * *
-
-<a name="StyleHelper"></a>
-
-## StyleHelper
-Utility class for dealing with styles.
-
-**Since**: 0.4.0  
-
-* * *
-
-<a name="StyleHelper.getAutomaticStylesElement"></a>
-
-### `StyleHelper.getAutomaticStylesElement(document)` ⇒ <code>Element</code>
-Returns the `automatic-styles` element of the document.
-If there is no such element yet, it will be created.
-
-#### Parameters
-- document <code>Document</code>  
-The XML document
-
-**Return value**  
-<code>Element</code> - The documents `automatic-styles` element
-
-**Since**: 0.4.0  
-
-* * *
-
-<a name="TabStop"></a>
-
-## TabStop
-This class represents a tab stop.
-
-Tab stops are used to align text in a paragraph.
-To become effective they must be set to the style of the respective paragraph.
-
-**Since**: 0.3.0  
-
-* [TabStop](#TabStop)
-    * [`new TabStop([position], [type])`](#new_TabStop_new)
-    * [`.setPosition(position)`](#TabStop+setPosition)
-    * [`.getPosition()`](#TabStop+getPosition) ⇒ <code>number</code>
-    * [`.setType(type)`](#TabStop+setType)
-    * [`.getType()`](#TabStop+getType) ⇒ <code>TabStopType</code>
-    * [`.toXml(document, parent)`](#TabStop+toXml)
-
-
-* * *
-
-<a name="new_TabStop_new"></a>
-
-### `new TabStop([position], [type])`
-Creates a tab stop to be set to the style of a paragraph.
-
-#### Parameters
-- [position] <code>number</code>  
-The position of the tab stop in millimeters relative to the left margin.
-If a negative value is given, the `position` will be set to `0`.
-- [type] <code>TabStopType</code>  
-The type of the tab stop. Defaults to `TabStopType.Left`.
+[<code>Paragraph</code>](#Paragraph) - The `Paragraph` object
 
 **Example**  
 ```js
-// creates a right aligned tab stop with a distance of 40 mm from the left margin
-const tabStop40 = new TabStop(40, TabStopType.Right);
-paragraph.getStyle().addTabStop(tabStop40);
+new Paragraph('Some text')
+  .setStyleName('Summary');
 ```
+**Since**: 0.9.0  
 
 * * *
 
-<a name="TabStop+setPosition"></a>
+<a name="Paragraph+getStyleName"></a>
 
-### `tabStop.setPosition(position)`
-Sets the position of this tab stop.
-
-#### Parameters
-- position <code>number</code>  
-The position of the tab stop in millimeters relative to the left margin.
-If a negative value is given, the `position` will be set to `0`.
-
-**Since**: 0.3.0  
-
-* * *
-
-<a name="TabStop+getPosition"></a>
-
-### `tabStop.getPosition()` ⇒ <code>number</code>
-Returns the position of this tab stop.
+### `paragraph.getStyleName()` ⇒ <code>string</code> \| <code>undefined</code>
+Returns the name of the common style of the paragraph.
 
 **Return value**  
-<code>number</code> - The position of this tab stop in millimeters
+<code>string</code> \| <code>undefined</code> - The name of the common style or `undefined` if no common style was set
 
-**Since**: 0.3.0  
-
-* * *
-
-<a name="TabStop+setType"></a>
-
-### `tabStop.setType(type)`
-Sets the type of this tab stop.
-
-#### Parameters
-- type <code>TabStopType</code>  
-The type of the tab stop
-
-**Since**: 0.3.0  
-
-* * *
-
-<a name="TabStop+getType"></a>
-
-### `tabStop.getType()` ⇒ <code>TabStopType</code>
-Returns the type of this tab stop.
-
-**Return value**  
-<code>TabStopType</code> - The type of this tab stop
-
-**Since**: 0.3.0  
-
-* * *
-
-<a name="TabStop+toXml"></a>
-
-### `tabStop.toXml(document, parent)`
-Transforms the tab stop into Open Document Format.
-
-#### Parameters
-- document <code>Document</code>  
-The XML document
-- parent <code>Element</code>  
-The parent node in the DOM (`style:tab-stops`)
-
+**Example**  
+```js
+const paragraph = new Paragraph('Some text');
+paragraph.getStyleName();         // undefined
+paragraph.setStyleName('Summary);
+paragraph.getStyleName();         // 'Summary'
+```
 **Since**: 0.3.0  
 
 * * *

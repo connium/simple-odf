@@ -16,6 +16,7 @@ export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
  * const document = new TextDocument();
  * document.getMeta().setCreator('Homer Simpson');
  * document.getFontFaceDeclarations().create('FreeSans', 'FreeSans', FontPitch.Variable);
+ * document.getCommonStyles().createParagraphStyle('Summary');
  * document.getBody().addHeading('My first document');
  * document.saveFlat('/home/homer/document.fodt');
  *
@@ -73,7 +74,7 @@ export class TextDocument {
   }
 
   /**
-   * The `getFonts()` method returns the font face declarations of the document.
+   * The `getFontFaceDeclarations()` method returns the font face declarations of the document.
    *
    * @example
    * new TextDocument()

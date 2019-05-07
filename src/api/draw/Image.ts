@@ -39,9 +39,14 @@ export class Image extends OdfElement {
   }
 
   /**
-   * Sets the anchor type setting of this image.
+   * The `setAnchorType()` method sets the anchor type setting of this image.
+   *
+   * @example
+   * const image = new Image('/home/homer/myself.png');
+   * image.setAnchorType(AnchorType.AsChar);
    *
    * @param {AnchorType} anchorType The anchor type setting
+   * @returns {Image} The `Image` object
    * @since 0.9.0
    */
   public setAnchorType (anchorType: AnchorType): Image {
@@ -51,7 +56,13 @@ export class Image extends OdfElement {
   }
 
   /**
-   * Returns the anchor type setting of this image.
+   * The `getAnchorType()` method returns the anchor type setting of this image.
+   *
+   * @example
+   * const image = new Image('/home/homer/myself.png');
+   * image.getAnchorType();                  // AnchorType.Paragraph
+   * image.setAnchorType(AnchorType.AsChar);
+   * image.getAnchorType();                  // AnchorType.AsChar
    *
    * @returns {AnchorType} The anchor type setting
    * @since 0.9.0
@@ -61,9 +72,17 @@ export class Image extends OdfElement {
   }
 
   /**
-   * Sets the target height of the image.
+   * The `setHeight` method sets the target height of the image in millimeter.
+   *
+   * If the provided value is too small, the height will be set to the minimal size `1`.
+   *
+   * @example
+   * const image = new Image('/home/homer/myself.png');
+   * image.setHeight(42);  // 42
+   * image.setHeight(-23); // 1
    *
    * @param {number} height The target height of the image in millimeter
+   * @returns {Image} The `Image` object
    * @since 0.9.0
    */
   public setHeight (height: number): Image {
@@ -73,7 +92,13 @@ export class Image extends OdfElement {
   }
 
   /**
-   * Returns the target height of the image or `undefined` if no height was set.
+   * The `getHeight()` method returns the target height of the image or `undefined` if no height was set.
+   *
+   * @example
+   * const image = new Image('/home/homer/myself.png');
+   * image.getHeight();   // undefined
+   * image.setHeight(42);
+   * image.getHeight();   // 42
    *
    * @returns {number | undefined} The target height of the image in millimeter or `undefined` if no height was set
    * @since 0.9.0
@@ -97,10 +122,18 @@ export class Image extends OdfElement {
   }
 
   /**
-   * Sets the target size of the image.
+   * The `setSize()` method sets the target width and height of the image.
+   *
+   * If any provided value is too small, it will be set to the minimal size `1`.
+   *
+   * @example
+   * const image = new Image('/home/homer/myself.png');
+   * image.setSize(42, 23);   // w:42, h:32
+   * image.setWidth(42, -23); // w:42, h:1
    *
    * @param {number} width The target width of the image in millimeter
    * @param {number} height The target height of the image in millimeter
+   * @returns {Image} The `Image` object
    * @since 0.9.0
    */
   public setSize (width: number, height: number): Image {
@@ -111,9 +144,17 @@ export class Image extends OdfElement {
   }
 
   /**
-   * Sets the target width of the image.
+   * The `setWidth` method sets the target width of the image in millimeter.
+   *
+   * If the provided value is too small, the width will be set to the minimal size `1`.
+   *
+   * @example
+   * const image = new Image('/home/homer/myself.png');
+   * image.setWidth(42);  // 42
+   * image.setWidth(-23); // 1
    *
    * @param {number} width The target width of the image in millimeter
+   * @returns {Image} The `Image` object
    * @since 0.9.0
    */
   public setWidth (width: number): Image {
@@ -123,7 +164,13 @@ export class Image extends OdfElement {
   }
 
   /**
-   * Returns the target width of the image or `undefined` if no width was set.
+   * The `getWidth()` method returns the target width of the image or `undefined` if no width was set.
+   *
+   * @example
+   * const image = new Image('/home/homer/myself.png');
+   * image.getWidth();   // undefined
+   * image.setWidth(42);
+   * image.getWidth();   // 42
    *
    * @returns {number | undefined} The target width of the image in millimeter or `undefined` if no width was set
    * @since 0.9.0

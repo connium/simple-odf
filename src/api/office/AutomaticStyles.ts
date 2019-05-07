@@ -3,19 +3,57 @@ import { Style, StyleFamily, ParagraphStyle } from '../style';
 import { IStyles } from './IStyles';
 
 interface IStyleInformation {
-  style: Style;
-  name: string;
+  readonly style: Style;
+  readonly name: string;
 }
 
+/**
+ * This class represents the automatic styles of a document.
+ *
+ * An automatic style contains formatting properties that are considered to be dedicated to a single element.
+ *
+ * @example
+ * const automaticStyles = new AutomaticStyles();
+ * automaticStyles.add(new ParagraphStyle());
+ * automaticStyles.getName(new ParagraphStyle());
+ * automaticStyles.getAll();
+ *
+ * @since 0.9.0
+ * @private
+ */
 export class AutomaticStyles implements IStyles {
   private styles: Map<string, IStyleInformation>;
   private paragraphStyleCounter: number;
 
+  /**
+   * Creates a `AutomaticStyles` instance that represents the automatic styles of a document.
+   *
+   * @example
+   * const automaticStyles = new AutomaticStyles();
+   *
+   * @since 0.9.0
+   */
   public constructor () {
     this.styles = new Map();
     this.paragraphStyleCounter = 0;
   }
 
+  /**
+   * The `add()` method adds the given style to the list of automatic styles and a unique name will be assigned to it.
+   *
+   * If an equal style already was added the current style will be ignored.
+   *
+   * @example
+   * const automaticStyles = new AutomaticStyles();
+   * const style1 = new ParagraphStyle();
+   * const style2 = new ParagraphStyle().setFontSize(23);
+   * automaticStyles.add(style1); // 'P1'
+   * automaticStyles.add(style2); // 'P2'
+   * automaticStyles.add(style1); // ignore
+   *
+   * @param {Style} style The style which should be added to the list of automatic styles
+   * @since 0.9.0
+   */
   public add (style: Style): void {
     const hash = this.getHash(style);
 
@@ -26,7 +64,23 @@ export class AutomaticStyles implements IStyles {
     this.styles.set(hash, { style: style, name: `P${++this.paragraphStyleCounter}` });
   }
 
-  public getName (style: Style): string {
+  /**
+   * The `getName()` method returns the unique name of the given style.
+   *
+   * @example
+   * const automaticStyles = new AutomaticStyles();
+   * const style1 = new ParagraphStyle();
+   * const style2 = new ParagraphStyle().setFontSize(23);
+   * automaticStyles.add(style1);
+   * automaticStyles.getName(style1); // 'P1'
+   * automaticStyles.getName(style2); // error
+   *
+   * @param {Style} style The style for which the unique name is being requested
+   * @returns {string | never} The unique name of the style
+   * @throws {Error} If the style has not been added to the list of automatic styles
+   * @since 0.9.0
+   */
+  public getName (style: Style): string | never {
     const hash = this.getHash(style);
     const styleInformation = this.styles.get(hash);
 
@@ -44,6 +98,12 @@ export class AutomaticStyles implements IStyles {
       .map((styleInformation) => styleInformation.style);
   }
 
+  /**
+   * The `getHash()` method returns a representative hash for a given style.
+   *
+   * @param {Style} style The style for which a representative hash is being requested
+   * @returns {string} The hash representing the given style
+   */
   private getHash (style: Style): string {
     const hash = createHash('md5');
 

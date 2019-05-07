@@ -15,12 +15,20 @@ import { IStyles } from './IStyles';
 export class CommonStyles implements IStyles {
   private styles: Map<string, Style>;
 
+  /**
+   * Creates a `CommonStyles` instance that represents the common styles of a document.
+   *
+   * @example
+   * const commonStyles = new CommonStyles();
+   *
+   * @since 0.9.0
+   */
   public constructor () {
     this.styles = new Map();
   }
 
   /**
-   * Creates a {@link ParagraphStyle} object with the given name.
+   * The `createParagraphStyle()` method creates a new `ParagraphStyle` instance with the given name.
    * If a style with this name already exists, the existing style will be returned.
    *
    * @example
@@ -28,8 +36,9 @@ export class CommonStyles implements IStyles {
    * commonStyles.createParagraphStyle('Summary');
    *
    * @param {string} name The unique name for the style
-   * @returns {ParagraphStyle} A new `ParagraphStyle` object with the specified name
+   * @returns {ParagraphStyle} A new `ParagraphStyle` instance with the specified name
    * or an existing style, if one with the specified name exists
+   * @since 0.9.0
    */
   public createParagraphStyle (name: string): ParagraphStyle {
     let style = this.styles.get(name);
