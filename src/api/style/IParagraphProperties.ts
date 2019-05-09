@@ -1,4 +1,5 @@
 import { HorizontalAlignment } from './HorizontalAlignment';
+import { PageBreak } from './PageBreak';
 import { TabStop } from './TabStop';
 import { TabStopType } from './TabStopType';
 
@@ -27,18 +28,35 @@ export interface IParagraphProperties {
   getHorizontalAlignment (): HorizontalAlignment;
 
   /**
-   * Inserts a new page break to the document before the corresponding element.
-   *
-   * @since 0.1.0
-   */
-  setPageBreakBefore (shouldBreakPageBefore?: boolean): void;
-
-  /**
    * Keeps paragraph lines on the same page (page break before paragraph if necessary).
    *
    * @since 0.6.0
    */
   setKeepTogether (keepTogether?: boolean): void;
+
+  /**
+   * Returns whether the lines of the paragraph should be kept together.
+   *
+   * @returns {boolean} `true` if the paragraph lines should be kept together, `false` otherwise
+   * @since 0.9.0
+   */
+  getKeepTogether (): boolean;
+
+  /**
+   * Sets the page break setting of the paragraph.
+   *
+   * @param {PageBreak} pageBreak The page break setting
+   * @since 0.9.0
+   */
+  setPageBreak (pageBreak: PageBreak): void;
+
+  /**
+   * Returns the page break setting of the paragraph.
+   *
+   * @returns {PageBreak} The page break setting
+   * @since 0.9.0
+   */
+  getPageBreak (): PageBreak;
 
   /**
    * Adds a new tab stop to this style.

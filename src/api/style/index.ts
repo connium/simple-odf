@@ -3,6 +3,7 @@ export { FontFace } from './FontFace';
 export { FontFamilyGeneric } from './FontFamilyGeneric';
 export { FontPitch } from './FontPitch';
 export { HorizontalAlignment } from './HorizontalAlignment';
+export { PageBreak } from './PageBreak';
 export { ParagraphProperties } from './ParagraphProperties';
 export { ParagraphStyle } from './ParagraphStyle';
 export { Style } from './Style';

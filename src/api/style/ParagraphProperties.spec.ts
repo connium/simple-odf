@@ -1,4 +1,5 @@
 import { HorizontalAlignment } from './HorizontalAlignment';
+import { PageBreak } from './PageBreak';
 import { ParagraphProperties } from './ParagraphProperties';
 import { TabStop } from './TabStop';
 import { TabStopType } from './TabStopType';
@@ -39,18 +40,18 @@ describe(ParagraphProperties.name, () => {
   });
 
   describe('page break', () => {
-    it('return false by default', () => {
-      expect(properties.getPageBreakBefore()).toBe(false);
+    it('return None by default', () => {
+      expect(properties.getPageBreak()).toBe(PageBreak.None);
     });
 
     it('return previously set state', () => {
-      properties.setPageBreakBefore();
+      properties.setPageBreak(PageBreak.Before);
 
-      expect(properties.getPageBreakBefore()).toBe(true);
+      expect(properties.getPageBreak()).toBe(PageBreak.Before);
 
-      properties.setPageBreakBefore(false);
+      properties.setPageBreak(PageBreak.After);
 
-      expect(properties.getPageBreakBefore()).toBe(false);
+      expect(properties.getPageBreak()).toBe(PageBreak.After);
     });
   });
 

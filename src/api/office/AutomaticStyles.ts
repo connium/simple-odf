@@ -116,7 +116,7 @@ export class AutomaticStyles implements IStyles {
       // paragraph properties
       hash.update(paragraphStyle.getHorizontalAlignment());
       hash.update(paragraphStyle.getKeepTogether() ? 'kt' : '');
-      hash.update(paragraphStyle.getPageBreakBefore() ? 'pbb' : '');
+      hash.update(paragraphStyle.getPageBreak().toString());
       paragraphStyle.getTabStops().forEach((tabStop) => {
         hash.update(`tab${tabStop.getPosition()}${tabStop.getType()}`);
       });

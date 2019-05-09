@@ -1,8 +1,8 @@
 import { DOMImplementation, XMLSerializer } from 'xmldom';
 import { CommonStyles, AutomaticStyles } from '../../api/office';
-import { Color, HorizontalAlignment, ParagraphStyle, TextTransformation, Typeface, TabStop } from '../../api/style';
+import { Color, HorizontalAlignment, PageBreak, ParagraphStyle, TextTransformation, Typeface } from '../../api/style';
 // tslint:disable-next-line:no-duplicate-imports
-import { TabStopType } from '../../api/style';
+import { TabStop, TabStopType } from '../../api/style';
 import { OdfElementName } from '../OdfElementName';
 import { StylesWriter } from './StylesWriter';
 
@@ -96,12 +96,21 @@ describe(StylesWriter.name, () => {
       });
 
       it('set page break before', () => {
-        testStyle.setPageBreakBefore(true);
+        testStyle.setPageBreak(PageBreak.Before);
 
         stylesWriter.write(commonStyles, testDocument, testRoot);
         const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
         expect(documentAsString).toMatch(/<style:paragraph-properties fo:break-before="page"\/>/);
+      });
+
+      it('set page break after', () => {
+        testStyle.setPageBreak(PageBreak.After);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:break-after="page"\/>/);
       });
 
       it('set tab stops', () => {

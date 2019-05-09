@@ -1,21 +1,22 @@
 import { HorizontalAlignment } from './HorizontalAlignment';
 import { IParagraphProperties } from './IParagraphProperties';
+import { PageBreak } from './PageBreak';
 import { TabStopType } from './TabStopType';
 import { TabStop } from './TabStop';
 
 const DEFAULT_HORIZONTAL_ALIGNMENT = HorizontalAlignment.Default;
-const DEFAULT_PAGE_BREAK = false;
+const DEFAULT_PAGE_BREAK = PageBreak.None;
 const DEFAULT_KEEP_TOGETHER = false;
 
 export class ParagraphProperties implements IParagraphProperties {
   private horizontalAlignment: HorizontalAlignment;
-  private shouldBreakPageBefore: boolean;
+  private pageBreak: PageBreak;
   private shouldKeepTogether: boolean;
   private tabStops: TabStop[] = [];
 
   public constructor () {
     this.horizontalAlignment = DEFAULT_HORIZONTAL_ALIGNMENT;
-    this.shouldBreakPageBefore = DEFAULT_PAGE_BREAK;
+    this.pageBreak = DEFAULT_PAGE_BREAK;
     this.shouldKeepTogether = DEFAULT_KEEP_TOGETHER;
   }
 
@@ -40,13 +41,13 @@ export class ParagraphProperties implements IParagraphProperties {
   }
 
   /** @inheritdoc */
-  public setPageBreakBefore (shouldBreakPageBefore = true): void {
-    this.shouldBreakPageBefore = shouldBreakPageBefore;
+  public setPageBreak (pageBreak: PageBreak): void {
+    this.pageBreak = pageBreak;
   }
 
   /** @inheritdoc */
-  public getPageBreakBefore (): boolean {
-    return this.shouldBreakPageBefore;
+  public getPageBreak (): PageBreak {
+    return this.pageBreak;
   }
 
   /** @inheritdoc */

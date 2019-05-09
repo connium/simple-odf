@@ -3,8 +3,8 @@ import { join } from 'path';
 import { promisify } from 'util';
 import { AnchorType } from '../src/api/draw';
 import { TextBody, TextDocument } from '../src/api/office';
-import { Color, FontPitch, HorizontalAlignment, ParagraphStyle, TabStop, TabStopType } from '../src/api/style';
-import { TextTransformation, Typeface } from '../src/api/style';
+import { Color, FontPitch, HorizontalAlignment, PageBreak, ParagraphStyle, TabStop } from '../src/api/style';
+import { TabStopType, TextTransformation, Typeface } from '../src/api/style';
 
 const FILEPATH = './integration.fodt';
 
@@ -59,7 +59,7 @@ xdescribe('integration', () => {
   describe('paragraph formatting', () => {
     it('page break', () => {
       const style = new ParagraphStyle();
-      style.setPageBreakBefore();
+      style.setPageBreak(PageBreak.Before);
 
       const heading = body.addHeading('Paragraph Formatting', 2);
       heading.setStyle(style);
@@ -94,7 +94,7 @@ xdescribe('integration', () => {
   describe('text formatting', () => {
     beforeAll(() => {
       const style = new ParagraphStyle();
-      style.setPageBreakBefore();
+      style.setPageBreak(PageBreak.Before);
 
       const heading = body.addHeading('Text Formatting', 2);
       heading.setStyle(style);
@@ -145,7 +145,7 @@ xdescribe('integration', () => {
 
   it('hyperlink', () => {
     const style = new ParagraphStyle();
-    style.setPageBreakBefore();
+    style.setPageBreak(PageBreak.Before);
 
     const heading = body.addHeading('Hyperlink', 2);
     heading.setStyle(style);
@@ -157,7 +157,7 @@ xdescribe('integration', () => {
 
   it('list', () => {
     const style = new ParagraphStyle();
-    style.setPageBreakBefore();
+    style.setPageBreak(PageBreak.Before);
 
     const heading = body.addHeading('List', 2);
     heading.setStyle(style);
