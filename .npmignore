@@ -3,10 +3,10 @@
 coverage/
 docs/
 examples/
-jsdoc2md/
 lib/test/
 src/
 test/
+tools/
 
 .bettercodehub.yml
 .travis.yml

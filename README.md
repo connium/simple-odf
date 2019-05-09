@@ -1,6 +1,6 @@
 # simple-odf 
 
-Open Document Format made easy using pure JavaScript and Node.js
+simple-odf is a library for creating Open Document Format text files using Typescript/JavaScript and Node.js.
 
 [![Build Status](https://travis-ci.com/connium/simple-odf.svg?branch=master)](https://travis-ci.com/connium/simple-odf)
 [![Version](https://img.shields.io/npm/v/simple-odf.svg)](https://www.npmjs.com/package/simple-odf)
@@ -9,7 +9,25 @@ Open Document Format made easy using pure JavaScript and Node.js
 [![Known Vulnerabilities](https://snyk.io/test/github/connium/simple-odf/badge.svg)](https://snyk.io/test/github/connium/simple-odf)
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+## Table of Contents
+
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installing](#installing)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+  - [Pull Requests](#pull-requests)
+- [Versioning](#versioning)
+- [Credits](#credits)
+- [License](#license)
+
 ## Getting Started
+
+### Prerequisites
+
+Before you begin, make sure your development environment includes Node.js and an npm package manager.
+
+### Installing
 
 Install simple-odf using [`npm`](https://www.npmjs.com/):
 
@@ -75,6 +93,10 @@ Learn more about the [OASIS Open Document Format](http://docs.oasis-open.org/off
 
 If you want to contribute to simple-odf, you are very welcome. Send issues and pull requests with your ideas.
 
+<!--
+Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+-->
+
 ### Pull Requests
 
 *Before* submitting a pull request, please make sure the following is done...
@@ -106,6 +128,14 @@ If you want to contribute to simple-odf, you are very welcome. Send issues and p
    npm test -- --watch
    ```
 
-### License
+## Versioning
 
-By contributing to simple-odf, you agree that your contributions will be licensed under its [MIT license](./LICENSE).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/connium/simple-odf/releases).
+
+## Credits
+
+This project exists thanks to all the [contributors](https://github.com/connium/simple-odf/graphs/contributors) who participate in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.

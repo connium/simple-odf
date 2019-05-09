@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **style:** add common styles
 - **docs:** add a realistic example
 
+### Changed
+- **chore:** improve repository structure
+
 ## [0.8.0] (2019-02-26)
 ### Added
 - **font:** extend font declaration
