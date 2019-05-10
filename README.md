@@ -44,8 +44,8 @@ const document = new simpleOdf.TextDocument();
 const body = document.getBody();
 
 const image = body.addParagraph().addImage('/home/homer/myself.png');
-image.getStyle().setAnchorType(simpleOdf.AnchorType.AsChar);
-image.getStyle().setSize(29.4, 36.5);
+image.setAnchorType(simpleOdf.AnchorType.AsChar);
+image.setSize(29.4, 36.5);
 
 body.addHeading('Welcome to simple-odf');
 
@@ -60,7 +60,7 @@ style1.setTextTransformation(simpleOdf.TextTransformation.Uppercase);
 style1.setTypeface(simpleOdf.Typeface.Bold);
 // paragraph formatting
 style1.setHorizontalAlignment(simpleOdf.HorizontalAlignment.Center);
-style1.setPageBreakBefore();
+style1.setPageBreak(simpleOdf.PageBreak.Before);
 style1.setKeepTogether();
 p1.setStyle(style1);
 // font usage

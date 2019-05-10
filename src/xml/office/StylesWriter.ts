@@ -1,5 +1,5 @@
 import { AutomaticStyles, CommonStyles, IStyles } from '../../api/office';
-import { HorizontalAlignment, ParagraphStyle, Style, StyleFamily, TabStopType } from '../../api/style';
+import { HorizontalAlignment, ParagraphStyle, Style, StyleFamily, TabStopType, PageBreak } from '../../api/style';
 // tslint:disable-next-line:no-duplicate-imports
 import { TextTransformation, Typeface } from '../../api/style';
 import { OdfAttributeName } from '../OdfAttributeName';
@@ -76,8 +76,15 @@ export class StylesWriter {
       paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatKeepTogether, 'always');
     }
 
-    if (style.getPageBreakBefore() === true) {
-      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBreakBefore, 'page');
+    switch (style.getPageBreak()) {
+      case PageBreak.Before:
+        paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBreakBefore, 'page');
+        break;
+      case PageBreak.After:
+        paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBreakAfter, 'page');
+        break;
+      default:
+        break;
     }
 
     const tabStops = style.getTabStops();

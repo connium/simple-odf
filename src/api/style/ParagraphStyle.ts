@@ -2,6 +2,7 @@ import { Color } from './Color';
 import { HorizontalAlignment } from './HorizontalAlignment';
 import { IParagraphProperties } from './IParagraphProperties';
 import { ITextProperties } from './ITextProperties';
+import { PageBreak } from './PageBreak';
 import { ParagraphProperties } from './ParagraphProperties';
 import { Style } from './Style';
 import { StyleFamily } from './StyleFamily';
@@ -49,15 +50,15 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
   }
 
   /** @inheritdoc */
-  public setPageBreakBefore (shouldBreakPageBefore = true): ParagraphStyle {
-    this.paragraphProperties.setPageBreakBefore(shouldBreakPageBefore);
+  public setPageBreak (pageBreak: PageBreak): ParagraphStyle {
+    this.paragraphProperties.setPageBreak(pageBreak);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getPageBreakBefore (): boolean {
-    return this.paragraphProperties.getPageBreakBefore();
+  public getPageBreak (): PageBreak {
+    return this.paragraphProperties.getPageBreak();
   }
 
   /** @inheritdoc */

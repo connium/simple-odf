@@ -17,6 +17,7 @@ export { FontFace } from './api/style/FontFace';
 export { FontFamilyGeneric } from './api/style/FontFamilyGeneric';
 export { FontPitch } from './api/style/FontPitch';
 export { HorizontalAlignment } from './api/style/HorizontalAlignment';
+export { PageBreak } from './api/style/PageBreak';
 export { ParagraphStyle } from './api/style/ParagraphStyle';
 export { Style } from './api/style/Style';
 export { StyleFamily } from './api/style/StyleFamily';
