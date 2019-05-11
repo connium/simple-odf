@@ -76,6 +76,10 @@ export class StylesWriter {
       paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatKeepTogether, 'always');
     }
 
+    if (style.getKeepWithNext() === true) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatKeepWithNext, 'always');
+    }
+
     switch (style.getPageBreak()) {
       case PageBreak.Before:
         paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBreakBefore, 'page');

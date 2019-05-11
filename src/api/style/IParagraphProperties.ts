@@ -43,6 +43,21 @@ export interface IParagraphProperties {
   getKeepTogether (): boolean;
 
   /**
+   * TODO
+   *
+   * @since 0.9.0
+   */
+  setKeepWithNext (keepWithNext?: boolean): void;
+
+  /**
+   * TODO
+   *
+   * @returns {boolean} `true` TODO, `false` otherwise
+   * @since 0.9.0
+   */
+  getKeepWithNext (): boolean;
+
+  /**
    * Sets the page break setting of the paragraph.
    *
    * @param {PageBreak} pageBreak The page break setting

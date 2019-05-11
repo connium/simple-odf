@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - **style:** add common styles
 - **style:** allow page break to be before or after a paragraph, closes [#31](https://github.com/connium/simple-odf/issues/31)
+- **style:** add keep-with-next flag
 - **docs:** add a realistic example
 
 ### Changed

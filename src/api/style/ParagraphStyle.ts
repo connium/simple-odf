@@ -50,6 +50,18 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
   }
 
   /** @inheritdoc */
+  public setKeepWithNext (keepWithNext = true): ParagraphStyle {
+    this.paragraphProperties.setKeepWithNext(keepWithNext);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getKeepWithNext (): boolean {
+    return this.paragraphProperties.getKeepWithNext();
+  }
+
+  /** @inheritdoc */
   public setPageBreak (pageBreak: PageBreak): ParagraphStyle {
     this.paragraphProperties.setPageBreak(pageBreak);
 
