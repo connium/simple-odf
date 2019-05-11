@@ -7,17 +7,20 @@ import { TabStop } from './TabStop';
 const DEFAULT_HORIZONTAL_ALIGNMENT = HorizontalAlignment.Default;
 const DEFAULT_PAGE_BREAK = PageBreak.None;
 const DEFAULT_KEEP_TOGETHER = false;
+const DEFAULT_KEEP_WITH_NEXT = false;
 
 export class ParagraphProperties implements IParagraphProperties {
   private horizontalAlignment: HorizontalAlignment;
   private pageBreak: PageBreak;
   private shouldKeepTogether: boolean;
+  private shouldKeepWithNext: boolean;
   private tabStops: TabStop[] = [];
 
   public constructor () {
     this.horizontalAlignment = DEFAULT_HORIZONTAL_ALIGNMENT;
     this.pageBreak = DEFAULT_PAGE_BREAK;
     this.shouldKeepTogether = DEFAULT_KEEP_TOGETHER;
+    this.shouldKeepWithNext = DEFAULT_KEEP_WITH_NEXT;
   }
 
   /** @inheritdoc */
@@ -38,6 +41,16 @@ export class ParagraphProperties implements IParagraphProperties {
   /** @inheritdoc */
   public getKeepTogether (): boolean {
     return this.shouldKeepTogether;
+  }
+
+  /** @inheritdoc */
+  setKeepWithNext (keepWithNext = true): void {
+    this.shouldKeepWithNext = keepWithNext;
+  }
+
+  /** @inheritdoc */
+  getKeepWithNext (): boolean {
+    return this.shouldKeepWithNext;
   }
 
   /** @inheritdoc */

@@ -39,6 +39,22 @@ describe(ParagraphProperties.name, () => {
     });
   });
 
+  describe('keep with next', () => {
+    it('return false by default', () => {
+      expect(properties.getKeepWithNext()).toBe(false);
+    });
+
+    it('return previously set state', () => {
+      properties.setKeepWithNext();
+
+      expect(properties.getKeepWithNext()).toBe(true);
+
+      properties.setKeepWithNext(false);
+
+      expect(properties.getKeepWithNext()).toBe(false);
+    });
+  });
+
   describe('page break', () => {
     it('return None by default', () => {
       expect(properties.getPageBreak()).toBe(PageBreak.None);

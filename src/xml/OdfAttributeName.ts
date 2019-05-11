@@ -2,6 +2,7 @@ export enum OdfAttributeName {
   FormatBreakAfter = 'fo:break-after',
   FormatBreakBefore = 'fo:break-before',
   FormatKeepTogether = 'fo:keep-together',
+  FormatKeepWithNext = 'fo:keep-with-next',
   FormatColor = 'fo:color',
   FormatFontSize = 'fo:font-size',
   FormatFontStyle = 'fo:font-style',

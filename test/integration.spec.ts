@@ -65,11 +65,19 @@ xdescribe('integration', () => {
       heading.setStyle(style);
     });
 
+    it('keep with next', () => {
+      const style = new ParagraphStyle();
+      style.setKeepWithNext();
+
+      const heading = body.addParagraph('Keep together with next paragraph');
+      heading.setStyle(style);
+    });
+
     it('keep together', () => {
       const style = new ParagraphStyle();
       style.setKeepTogether();
 
-      const heading = body.addParagraph('Paragraph Formatting');
+      const heading = body.addParagraph('Do\nnot\nsplit\nthis\nparagraph');
       heading.setStyle(style);
     });
 

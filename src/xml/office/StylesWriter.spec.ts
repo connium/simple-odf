@@ -95,6 +95,15 @@ describe(StylesWriter.name, () => {
         expect(documentAsString).toMatch(/<style:paragraph-properties fo:keep-together="always"\/>/);
       });
 
+      it('set keep with next', () => {
+        testStyle.setKeepWithNext(true);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:keep-with-next="always"\/>/);
+      });
+
       it('set page break before', () => {
         testStyle.setPageBreak(PageBreak.Before);
 
