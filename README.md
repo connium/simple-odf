@@ -87,6 +87,7 @@ See the [examples](./examples/README.md) for more details on how to use the libr
 
 Learn more about the [OASIS Open Document Format](http://docs.oasis-open.org/office/v1.2/OpenDocument-v1.2.html).
 
+- [Features](./docs/Features.md)
 - [API reference](./docs/API.md)
 
 ## Contributing

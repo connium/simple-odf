@@ -1,12 +1,14 @@
+// tslint:disable:no-duplicate-imports
 import { AutomaticStyles, CommonStyles, IStyles } from '../../api/office';
 import { HorizontalAlignment, ParagraphStyle, Style, StyleFamily, TabStopType, PageBreak } from '../../api/style';
-// tslint:disable-next-line:no-duplicate-imports
-import { TextTransformation, Typeface } from '../../api/style';
+import { TextTransformation, Typeface, VerticalAlignment } from '../../api/style';
 import { OdfAttributeName } from '../OdfAttributeName';
 import { OdfElementName } from '../OdfElementName';
 
 /**
  * Transforms a {@link StyleManager} object into ODF conform XML
+ *
+ * NOTE: The properties are set in the order of their appearance in the Realx NG schema.
  *
  * @since 0.9.0
  */
@@ -68,6 +70,23 @@ export class StylesWriter {
     const paragraphPropertiesElement = document.createElement(OdfElementName.StyleParagraphProperties);
     parent.appendChild(paragraphPropertiesElement);
 
+    const lineHeight = style.getLineHeight();
+    switch (typeof lineHeight) {
+      case 'number':
+        paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatLineHeight, lineHeight + 'mm');
+        break;
+      case 'string':
+        paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatLineHeight, lineHeight);
+        break;
+      default:
+        break;
+    }
+
+    const lineHeightAtLeast = style.getLineHeightAtLeast();
+    if (lineHeightAtLeast !== undefined) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.StyleLineHeightAtLeast, lineHeightAtLeast + 'mm');
+    }
+
     if (style.getHorizontalAlignment() !== HorizontalAlignment.Default) {
       paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatTextAlign, style.getHorizontalAlignment());
     }
@@ -76,8 +95,14 @@ export class StylesWriter {
       paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatKeepTogether, 'always');
     }
 
-    if (style.getKeepWithNext() === true) {
-      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatKeepWithNext, 'always');
+    const widows = style.getWidows();
+    if (widows !== undefined) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatWidows, widows.toString(10));
+    }
+
+    const orphans = style.getOrphans();
+    if (orphans !== undefined) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatOrphans, orphans.toString(10));
     }
 
     switch (style.getPageBreak()) {
@@ -89,6 +114,19 @@ export class StylesWriter {
         break;
       default:
         break;
+    }
+
+    const backgroundColor = style.getBackgroundColor();
+    if (backgroundColor !== undefined) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBackgroundColor, backgroundColor.toHex());
+    }
+
+    if (style.getKeepWithNext() === true) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatKeepWithNext, 'always');
+    }
+
+    if (style.getVerticalAlignment() !== VerticalAlignment.Default) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.StyleVerticalAlign, style.getVerticalAlignment());
     }
 
     const tabStops = style.getTabStops();
@@ -103,7 +141,7 @@ export class StylesWriter {
       const tabStopElement = document.createElement(OdfElementName.StyleTabStop);
       parent.appendChild(tabStopElement);
 
-      tabStopElement.setAttribute(OdfAttributeName.StylePosition, `${tabStop.getPosition()}mm`);
+      tabStopElement.setAttribute(OdfAttributeName.StylePosition, tabStop.getPosition() + 'mm');
       if (tabStop.getType() !== TabStopType.Left) {
         tabStopElement.setAttribute(OdfAttributeName.StyleType, tabStop.getType());
       }

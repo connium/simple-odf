@@ -2,7 +2,7 @@ import { DOMImplementation, XMLSerializer } from 'xmldom';
 import { CommonStyles, AutomaticStyles } from '../../api/office';
 import { Color, HorizontalAlignment, PageBreak, ParagraphStyle, TextTransformation, Typeface } from '../../api/style';
 // tslint:disable-next-line:no-duplicate-imports
-import { TabStop, TabStopType } from '../../api/style';
+import { TabStop, TabStopType, VerticalAlignment } from '../../api/style';
 import { OdfElementName } from '../OdfElementName';
 import { StylesWriter } from './StylesWriter';
 
@@ -77,6 +77,15 @@ describe(StylesWriter.name, () => {
         testStyle = commonStyles.createParagraphStyle('Summary');
       });
 
+      it('set background color', () => {
+        testStyle.setBackgroundColor(Color.fromRgb(1, 2, 3));
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:background-color="#010203"\/>/);
+      });
+
       it('set horizontal alignment', () => {
         testStyle.setHorizontalAlignment(HorizontalAlignment.Center);
 
@@ -104,6 +113,42 @@ describe(StylesWriter.name, () => {
         expect(documentAsString).toMatch(/<style:paragraph-properties fo:keep-with-next="always"\/>/);
       });
 
+      it('set line height as fix value', () => {
+        testStyle.setLineHeight(23);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:line-height="23mm"\/>/);
+      });
+
+      it('set line height as percentage', () => {
+        testStyle.setLineHeight('42%');
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:line-height="42%"\/>/);
+      });
+
+      it('set line height at least', () => {
+        testStyle.setLineHeightAtLeast(23);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties style:line-height-at-least="23mm"\/>/);
+      });
+
+      it('set orphans', () => {
+        testStyle.setOrphans(23);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:orphans="23"\/>/);
+      });
+
       it('set page break before', () => {
         testStyle.setPageBreak(PageBreak.Before);
 
@@ -120,6 +165,24 @@ describe(StylesWriter.name, () => {
         const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
         expect(documentAsString).toMatch(/<style:paragraph-properties fo:break-after="page"\/>/);
+      });
+
+      it('set vertical alignment', () => {
+        testStyle.setVerticalAlignment(VerticalAlignment.Middle);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties style:vertical-align="middle"\/>/);
+      });
+
+      it('set widows', () => {
+        testStyle.setWidows(23);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:widows="23"\/>/);
       });
 
       it('set tab stops', () => {

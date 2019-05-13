@@ -1,7 +1,9 @@
+import { Color } from './Color';
 import { HorizontalAlignment } from './HorizontalAlignment';
 import { PageBreak } from './PageBreak';
 import { TabStop } from './TabStop';
 import { TabStopType } from './TabStopType';
+import { VerticalAlignment } from './VerticalAlignment';
 
 /**
  * This class represents the styling properties of a paragraph.
@@ -11,6 +13,16 @@ import { TabStopType } from './TabStopType';
  * @since 0.4.0
  */
 export interface IParagraphProperties {
+  /**
+   * @since 0.9.0
+   */
+  setBackgroundColor (color: Color | undefined): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getBackgroundColor (): Color | undefined;
+
   /**
    * Sets the horizontal alignment setting of this paragraph.
    *
@@ -43,19 +55,44 @@ export interface IParagraphProperties {
   getKeepTogether (): boolean;
 
   /**
-   * TODO
-   *
    * @since 0.9.0
    */
   setKeepWithNext (keepWithNext?: boolean): void;
 
   /**
-   * TODO
-   *
-   * @returns {boolean} `true` TODO, `false` otherwise
    * @since 0.9.0
    */
   getKeepWithNext (): boolean;
+
+  /**
+   * @since 0.9.0
+   */
+  setLineHeight (lineHeight: number | string | undefined): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getLineHeight (): number | string | undefined;
+
+  /**
+   * @since 0.9.0
+   */
+  setLineHeightAtLeast (minimumLineHeight: number | undefined): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getLineHeightAtLeast (): number | undefined;
+
+  /**
+   * @since 0.9.0
+   */
+  setOrphans (orphans: number | undefined): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getOrphans (): number | undefined;
 
   /**
    * Sets the page break setting of the paragraph.
@@ -72,6 +109,26 @@ export interface IParagraphProperties {
    * @since 0.9.0
    */
   getPageBreak (): PageBreak;
+
+  /**
+   * @since 0.9.0
+   */
+  setVerticalAlignment (verticalAlignment: VerticalAlignment): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getVerticalAlignment (): VerticalAlignment;
+
+  /**
+   * @since 0.9.0
+   */
+  setWidows (widows: number | undefined): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getWidows (): number | undefined;
 
   /**
    * Adds a new tab stop to this style.

@@ -13,3 +13,4 @@ export { TabStopType } from './TabStopType';
 export { TextProperties } from './TextProperties';
 export { TextTransformation } from './TextTransformation';
 export { Typeface } from './Typeface';
+export { VerticalAlignment } from './VerticalAlignment';

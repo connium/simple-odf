@@ -1,14 +1,30 @@
+import { Color } from './Color';
 import { HorizontalAlignment } from './HorizontalAlignment';
 import { PageBreak } from './PageBreak';
 import { ParagraphProperties } from './ParagraphProperties';
 import { TabStop } from './TabStop';
 import { TabStopType } from './TabStopType';
+import { VerticalAlignment } from './VerticalAlignment';
 
 describe(ParagraphProperties.name, () => {
   let properties: ParagraphProperties;
 
   beforeEach(() => {
     properties = new ParagraphProperties();
+  });
+
+  describe('background color', () => {
+    it('return undefined by default', () => {
+      expect(properties.getBackgroundColor()).toBeUndefined();
+    });
+
+    it('return previously set alignment', () => {
+      const testColor = Color.fromRgb(1, 2, 3);
+
+      properties.setBackgroundColor(testColor);
+
+      expect(properties.getBackgroundColor()).toBe(testColor);
+    });
   });
 
   describe('horizontal alignment', () => {
@@ -55,6 +71,99 @@ describe(ParagraphProperties.name, () => {
     });
   });
 
+  describe('line height', () => {
+    const testLineHeightNumber = 23;
+    const testLineHeightPercent = '42%';
+
+    it('return undefined by default', () => {
+      expect(properties.getLineHeight()).toBeUndefined();
+    });
+
+    it('return previously set state', () => {
+      properties.setLineHeight(testLineHeightNumber);
+
+      expect(properties.getLineHeight()).toBe(testLineHeightNumber);
+
+      properties.setLineHeight(testLineHeightPercent);
+
+      expect(properties.getLineHeight()).toBe(testLineHeightPercent);
+
+      properties.setLineHeight(undefined);
+
+      expect(properties.getLineHeight()).toBeUndefined();
+    });
+
+    it('ignore invalid value', () => {
+      properties.setLineHeight(testLineHeightNumber);
+
+      properties.setLineHeight(0);
+
+      expect(properties.getLineHeight()).toBe(testLineHeightNumber);
+
+      properties.setLineHeight('42$');
+
+      expect(properties.getLineHeight()).toBe(testLineHeightNumber);
+    });
+  });
+
+  describe('line height at least', () => {
+    const testLineHeight = 23;
+
+    it('return undefined by default', () => {
+      expect(properties.getLineHeightAtLeast()).toBeUndefined();
+    });
+
+    it('return previously set state', () => {
+      properties.setLineHeightAtLeast(testLineHeight);
+
+      expect(properties.getLineHeightAtLeast()).toBe(testLineHeight);
+
+      properties.setLineHeightAtLeast(undefined);
+
+      expect(properties.getLineHeightAtLeast()).toBeUndefined();
+    });
+
+    it('ignore invalid value', () => {
+      properties.setLineHeightAtLeast(testLineHeight);
+
+      properties.setLineHeightAtLeast(0);
+
+      expect(properties.getLineHeightAtLeast()).toBe(testLineHeight);
+    });
+  });
+
+  describe('orphans', () => {
+    const testOrphans = 23;
+
+    it('return undefined by default', () => {
+      expect(properties.getOrphans()).toBeUndefined();
+    });
+
+    it('return previously set state', () => {
+      properties.setOrphans(testOrphans);
+
+      expect(properties.getOrphans()).toBe(testOrphans);
+
+      properties.setOrphans(undefined);
+
+      expect(properties.getOrphans()).toBeUndefined();
+    });
+
+    it('use truncated value', () => {
+      properties.setOrphans(23.42);
+
+      expect(properties.getOrphans()).toBe(testOrphans);
+    });
+
+    it('ignore invalid value', () => {
+      properties.setOrphans(testOrphans);
+
+      properties.setOrphans(-23);
+
+      expect(properties.getOrphans()).toBe(testOrphans);
+    });
+  });
+
   describe('page break', () => {
     it('return None by default', () => {
       expect(properties.getPageBreak()).toBe(PageBreak.None);
@@ -68,6 +177,50 @@ describe(ParagraphProperties.name, () => {
       properties.setPageBreak(PageBreak.After);
 
       expect(properties.getPageBreak()).toBe(PageBreak.After);
+    });
+  });
+
+  describe('vertical alignment', () => {
+    it('return Default by default', () => {
+      expect(properties.getVerticalAlignment()).toBe(VerticalAlignment.Default);
+    });
+
+    it('return previously set alignment', () => {
+      properties.setVerticalAlignment(VerticalAlignment.Middle);
+
+      expect(properties.getVerticalAlignment()).toBe(VerticalAlignment.Middle);
+    });
+  });
+
+  describe('widows', () => {
+    const testWidows = 23;
+
+    it('return undefined by default', () => {
+      expect(properties.getWidows()).toBeUndefined();
+    });
+
+    it('return previously set state', () => {
+      properties.setWidows(testWidows);
+
+      expect(properties.getWidows()).toBe(testWidows);
+
+      properties.setWidows(undefined);
+
+      expect(properties.getWidows()).toBeUndefined();
+    });
+
+    it('use truncated value', () => {
+      properties.setWidows(23.42);
+
+      expect(properties.getWidows()).toBe(testWidows);
+    });
+
+    it('ignore invalid value', () => {
+      properties.setWidows(testWidows);
+
+      properties.setWidows(-23);
+
+      expect(properties.getWidows()).toBe(testWidows);
     });
   });
 

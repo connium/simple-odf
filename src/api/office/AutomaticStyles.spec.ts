@@ -1,4 +1,4 @@
-import { ParagraphStyle } from '../style';
+import { ParagraphStyle, TabStopType } from '../style';
 import { AutomaticStyles } from './AutomaticStyles';
 
 describe(AutomaticStyles.name, () => {
@@ -9,6 +9,7 @@ describe(AutomaticStyles.name, () => {
   beforeEach(() => {
     testStyle1 = new ParagraphStyle();
     testStyle2 = new ParagraphStyle().setFontSize(23);
+    testStyle2.addTabStop(42, TabStopType.Right);
 
     automaticStyles = new AutomaticStyles();
   });

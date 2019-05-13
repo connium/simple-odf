@@ -1,19 +1,29 @@
+import { isNonNegativeNumber, isPercent } from '../util';
+import { Color } from './Color';
 import { HorizontalAlignment } from './HorizontalAlignment';
 import { IParagraphProperties } from './IParagraphProperties';
 import { PageBreak } from './PageBreak';
 import { TabStopType } from './TabStopType';
 import { TabStop } from './TabStop';
+import { VerticalAlignment } from './VerticalAlignment';
 
 const DEFAULT_HORIZONTAL_ALIGNMENT = HorizontalAlignment.Default;
-const DEFAULT_PAGE_BREAK = PageBreak.None;
 const DEFAULT_KEEP_TOGETHER = false;
 const DEFAULT_KEEP_WITH_NEXT = false;
+const DEFAULT_PAGE_BREAK = PageBreak.None;
+const DEFAULT_VERTICAL_ALIGNMENT = VerticalAlignment.Default;
 
 export class ParagraphProperties implements IParagraphProperties {
+  private backgroundColor: Color | undefined;
   private horizontalAlignment: HorizontalAlignment;
+  private lineHeight: number | string | undefined;
+  private minimumLineHeight: number | undefined;
+  private orphans: number | undefined;
   private pageBreak: PageBreak;
   private shouldKeepTogether: boolean;
   private shouldKeepWithNext: boolean;
+  private verticalAlignment: VerticalAlignment;
+  private widows: number | undefined;
   private tabStops: TabStop[] = [];
 
   public constructor () {
@@ -21,6 +31,17 @@ export class ParagraphProperties implements IParagraphProperties {
     this.pageBreak = DEFAULT_PAGE_BREAK;
     this.shouldKeepTogether = DEFAULT_KEEP_TOGETHER;
     this.shouldKeepWithNext = DEFAULT_KEEP_WITH_NEXT;
+    this.verticalAlignment = DEFAULT_VERTICAL_ALIGNMENT;
+  }
+
+  /** @inheritdoc */
+  public setBackgroundColor (color: Color | undefined): void {
+    this.backgroundColor = color;
+  }
+
+  /** @inheritdoc */
+  public getBackgroundColor (): Color | undefined {
+    return this.backgroundColor;
   }
 
   /** @inheritdoc */
@@ -44,13 +65,56 @@ export class ParagraphProperties implements IParagraphProperties {
   }
 
   /** @inheritdoc */
-  setKeepWithNext (keepWithNext = true): void {
+  public setKeepWithNext (keepWithNext = true): void {
     this.shouldKeepWithNext = keepWithNext;
   }
 
   /** @inheritdoc */
-  getKeepWithNext (): boolean {
+  public getKeepWithNext (): boolean {
     return this.shouldKeepWithNext;
+  }
+
+  /** @inheritdoc */
+  public setLineHeight (lineHeight: number | string | undefined): void {
+    if (isNonNegativeNumber(lineHeight) || isPercent(lineHeight) || lineHeight === undefined) {
+      this.lineHeight = lineHeight;
+      this.minimumLineHeight = undefined;
+    }
+  }
+
+  /** @inheritdoc */
+  public getLineHeight (): number | string | undefined {
+    return this.lineHeight;
+  }
+
+  /** @inheritdoc */
+  public setLineHeightAtLeast (minimumLineHeight: number | undefined): void {
+    if (isNonNegativeNumber(minimumLineHeight) || minimumLineHeight === undefined) {
+      this.minimumLineHeight = minimumLineHeight;
+      this.lineHeight = undefined;
+    }
+  }
+
+  /** @inheritdoc */
+  public getLineHeightAtLeast (): number | undefined {
+    return this.minimumLineHeight;
+  }
+
+  /** @inheritdoc */
+  public setOrphans (orphans: number | undefined): void {
+    if (isNonNegativeNumber(orphans)) {
+      this.orphans = Math.trunc(orphans as number);
+      return;
+    }
+
+    if (orphans === undefined) {
+      this.orphans = orphans;
+    }
+  }
+
+  /** @inheritdoc */
+  public getOrphans (): number | undefined {
+    return this.orphans;
   }
 
   /** @inheritdoc */
@@ -61,6 +125,33 @@ export class ParagraphProperties implements IParagraphProperties {
   /** @inheritdoc */
   public getPageBreak (): PageBreak {
     return this.pageBreak;
+  }
+
+  /** @inheritdoc */
+  public setVerticalAlignment (verticalAlignment: VerticalAlignment): void {
+    this.verticalAlignment = verticalAlignment;
+  }
+
+  /** @inheritdoc */
+  public getVerticalAlignment (): VerticalAlignment {
+    return this.verticalAlignment;
+  }
+
+  /** @inheritdoc */
+  public setWidows (widows: number | undefined): void {
+    if (isNonNegativeNumber(widows)) {
+      this.widows = Math.trunc(widows as number);
+      return;
+    }
+
+    if (widows === undefined) {
+      this.widows = widows;
+    }
+  }
+
+  /** @inheritdoc */
+  public getWidows (): number | undefined {
+    return this.widows;
   }
 
   /** @inheritdoc */

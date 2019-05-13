@@ -25,6 +25,7 @@ export { TabStop } from './api/style/TabStop';
 export { TabStopType } from './api/style/TabStopType';
 export { TextTransformation } from './api/style/TextTransformation';
 export { Typeface } from './api/style/Typeface';
+export { VerticalAlignment } from './api/style/VerticalAlignment';
 
 // text
 export { Heading } from './api/text/Heading';
