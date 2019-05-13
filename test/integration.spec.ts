@@ -1,10 +1,11 @@
+// tslint:disable:no-duplicate-imports
 import { unlink } from 'fs';
 import { join } from 'path';
 import { promisify } from 'util';
 import { AnchorType } from '../src/api/draw';
 import { TextBody, TextDocument } from '../src/api/office';
 import { Color, FontPitch, HorizontalAlignment, PageBreak, ParagraphStyle, TabStop } from '../src/api/style';
-import { TabStopType, TextTransformation, Typeface } from '../src/api/style';
+import { TabStopType, TextTransformation, Typeface, VerticalAlignment } from '../src/api/style';
 
 const FILEPATH = './integration.fodt';
 
@@ -65,12 +66,20 @@ xdescribe('integration', () => {
       heading.setStyle(style);
     });
 
-    it('keep with next', () => {
+    it('background color', () => {
       const style = new ParagraphStyle();
-      style.setKeepWithNext();
+      style.setBackgroundColor(Color.fromRgb(0, 255, 0));
 
-      const heading = body.addParagraph('Keep together with next paragraph');
+      const heading = body.addParagraph('Some text with green colored background');
       heading.setStyle(style);
+    });
+
+    it('align text', () => {
+      const style = new ParagraphStyle();
+      style.setHorizontalAlignment(HorizontalAlignment.Center);
+
+      const paragraph = body.addParagraph('Some centered text');
+      paragraph.setStyle(style);
     });
 
     it('keep together', () => {
@@ -81,12 +90,52 @@ xdescribe('integration', () => {
       heading.setStyle(style);
     });
 
-    it('align text', () => {
+    it('keep with next', () => {
       const style = new ParagraphStyle();
-      style.setHorizontalAlignment(HorizontalAlignment.Center);
+      style.setKeepWithNext();
+
+      const heading = body.addParagraph('Keep together with next paragraph');
+      heading.setStyle(style);
+    });
+
+    it('line height', () => {
+      const style = new ParagraphStyle();
+      style.setLineHeight('120%');
+
+      const heading = body.addParagraph('Some text with 120% line height');
+      heading.setStyle(style);
+    });
+
+    it('line height at least', () => {
+      const style = new ParagraphStyle();
+      style.setLineHeightAtLeast(40);
+
+      const heading = body.addParagraph('Some text with minimum line height of 40 mm');
+      heading.setStyle(style);
+    });
+
+    it('orphans', () => {
+      const style = new ParagraphStyle();
+      style.setOrphans(2);
+
+      const heading = body.addParagraph('Break paragraph after 2 lines of text at the earliest');
+      heading.setStyle(style);
+    });
+
+    it('vertical align text', () => {
+      const style = new ParagraphStyle();
+      style.setVerticalAlignment(VerticalAlignment.Middle);
 
       const paragraph = body.addParagraph('Some centered text');
       paragraph.setStyle(style);
+    });
+
+    it('widows', () => {
+      const style = new ParagraphStyle();
+      style.setWidows(2);
+
+      const heading = body.addParagraph('Write at least 2 lines of text after a break of the paragraph');
+      heading.setStyle(style);
     });
 
     it('tab stops', () => {

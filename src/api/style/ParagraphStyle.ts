@@ -11,6 +11,7 @@ import { TabStopType } from './TabStopType';
 import { TextProperties } from './TextProperties';
 import { TextTransformation } from './TextTransformation';
 import { Typeface } from './Typeface';
+import { VerticalAlignment } from './VerticalAlignment';
 
 export class ParagraphStyle extends Style implements IParagraphProperties, ITextProperties {
   private paragraphProperties: ParagraphProperties;
@@ -24,6 +25,18 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
   }
 
   // paragraph properties
+
+  /** @inheritdoc */
+  public setBackgroundColor (color: Color | undefined): ParagraphStyle {
+    this.paragraphProperties.setBackgroundColor(color);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getBackgroundColor (): Color | undefined {
+    return this.paragraphProperties.getBackgroundColor();
+  }
 
   /** @inheritdoc */
   public setHorizontalAlignment (horizontalAlignment: HorizontalAlignment): ParagraphStyle {
@@ -62,6 +75,42 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
   }
 
   /** @inheritdoc */
+  public setLineHeight (lineHeight: number | string | undefined): ParagraphStyle {
+    this.paragraphProperties.setLineHeight(lineHeight);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getLineHeight (): number | string | undefined {
+    return this.paragraphProperties.getLineHeight();
+  }
+
+  /** @inheritdoc */
+  public setLineHeightAtLeast (minimumLineHeight: number | undefined): ParagraphStyle {
+    this.paragraphProperties.setLineHeightAtLeast(minimumLineHeight);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getLineHeightAtLeast (): number | undefined {
+    return this.paragraphProperties.getLineHeightAtLeast();
+  }
+
+  /** @inheritdoc */
+  public setOrphans (orphans: number | undefined): ParagraphStyle {
+    this.paragraphProperties.setOrphans(orphans);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getOrphans (): number | undefined {
+    return this.paragraphProperties.getOrphans();
+  }
+
+  /** @inheritdoc */
   public setPageBreak (pageBreak: PageBreak): ParagraphStyle {
     this.paragraphProperties.setPageBreak(pageBreak);
 
@@ -71,6 +120,30 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
   /** @inheritdoc */
   public getPageBreak (): PageBreak {
     return this.paragraphProperties.getPageBreak();
+  }
+
+  /** @inheritdoc */
+  public setVerticalAlignment (verticalAlignment: VerticalAlignment): ParagraphStyle {
+    this.paragraphProperties.setVerticalAlignment(verticalAlignment);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getVerticalAlignment (): VerticalAlignment {
+    return this.paragraphProperties.getVerticalAlignment();
+  }
+
+  /** @inheritdoc */
+  public setWidows (widows: number | undefined): ParagraphStyle {
+    this.paragraphProperties.setWidows(widows);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getWidows (): number | undefined {
+    return this.paragraphProperties.getWidows();
   }
 
   /** @inheritdoc */

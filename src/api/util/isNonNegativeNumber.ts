@@ -1,0 +1,10 @@
+/**
+ * The `isNonNegativeNumber` method returns whether the given value is a non-negative number.
+ *
+ * @param {any} value The value that is to be checked
+ * @returns {boolean} `true` if the given value is a non-negative number, `false` otherwise
+ * @private
+ */
+export function isNonNegativeNumber (value: any): boolean {
+  return typeof value === 'number' && value > 0;
+}

@@ -114,9 +114,17 @@ export class AutomaticStyles implements IStyles {
       const paragraphStyle = style as ParagraphStyle;
 
       // paragraph properties
+      const backgroundColor = paragraphStyle.getBackgroundColor();
+      hash.update(backgroundColor !== undefined ? backgroundColor.toHex() : '');
       hash.update(paragraphStyle.getHorizontalAlignment());
       hash.update(paragraphStyle.getKeepTogether() ? 'kt' : '');
+      hash.update(paragraphStyle.getKeepWithNext() ? 'kwn' : '');
+      hash.update('lh' + (paragraphStyle.getLineHeight() || ''));
+      hash.update('lhal' + (paragraphStyle.getLineHeightAtLeast() || ''));
+      hash.update('orphans' + (paragraphStyle.getOrphans() || ''));
       hash.update(paragraphStyle.getPageBreak().toString());
+      hash.update(paragraphStyle.getVerticalAlignment());
+      hash.update('widows' + (paragraphStyle.getWidows() || ''));
       paragraphStyle.getTabStops().forEach((tabStop) => {
         hash.update(`tab${tabStop.getPosition()}${tabStop.getType()}`);
       });
