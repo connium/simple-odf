@@ -132,6 +132,52 @@ describe(ParagraphProperties.name, () => {
     });
   });
 
+  describe('margin', () => {
+    const testMarginBottom = 13.37;
+    const testMarginLeft = 23.42;
+    const testMarginRight = 12.34;
+    const testMarginTop = 98.76;
+
+    it('return 0 by default', () => {
+      expect(properties.getMarginBottom()).toBe(0);
+      expect(properties.getMarginLeft()).toBe(0);
+      expect(properties.getMarginRight()).toBe(0);
+      expect(properties.getMarginTop()).toBe(0);
+    });
+
+    it('return previously set margin', () => {
+      properties.setMarginBottom(testMarginBottom);
+      properties.setMarginLeft(testMarginLeft);
+      properties.setMarginRight(testMarginRight);
+      properties.setMarginTop(testMarginTop);
+
+      expect(properties.getMarginBottom()).toBe(testMarginBottom);
+      expect(properties.getMarginLeft()).toBe(testMarginLeft);
+      expect(properties.getMarginRight()).toBe(testMarginRight);
+      expect(properties.getMarginTop()).toBe(testMarginTop);
+    });
+
+    it('return previously set margin (set once)', () => {
+      properties.setMargins(testMarginLeft, testMarginRight, testMarginTop, testMarginBottom);
+
+      expect(properties.getMarginBottom()).toBe(testMarginBottom);
+      expect(properties.getMarginLeft()).toBe(testMarginLeft);
+      expect(properties.getMarginRight()).toBe(testMarginRight);
+      expect(properties.getMarginTop()).toBe(testMarginTop);
+    });
+
+    it('ignore invalid value', () => {
+      properties.setMarginBottom(testMarginBottom);
+      properties.setMarginTop(testMarginTop);
+
+      properties.setMarginBottom(0);
+      properties.setMarginTop(0);
+
+      expect(properties.getMarginBottom()).toBe(testMarginBottom);
+      expect(properties.getMarginTop()).toBe(testMarginTop);
+    });
+  });
+
   describe('orphans', () => {
     const testOrphans = 23;
 
@@ -177,6 +223,20 @@ describe(ParagraphProperties.name, () => {
       properties.setPageBreak(PageBreak.After);
 
       expect(properties.getPageBreak()).toBe(PageBreak.After);
+    });
+  });
+
+  describe('text indent', () => {
+    it('return 0 by default', () => {
+      expect(properties.getTextIndent()).toBe(0);
+    });
+
+    it('return previously set indent', () => {
+      const testIndent = 23.42;
+
+      properties.setTextIndent(testIndent);
+
+      expect(properties.getTextIndent()).toBe(testIndent);
     });
   });
 

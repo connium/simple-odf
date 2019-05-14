@@ -99,6 +99,61 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
   }
 
   /** @inheritdoc */
+  public setMarginBottom (margin: number): ParagraphStyle {
+    this.paragraphProperties.setMarginBottom(margin);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getMarginBottom (): number {
+    return this.paragraphProperties.getMarginBottom();
+  }
+
+  /** @inheritdoc */
+  public setMarginLeft (margin: number): ParagraphStyle {
+    this.paragraphProperties.setMarginLeft(margin);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getMarginLeft (): number {
+    return this.paragraphProperties.getMarginLeft();
+  }
+
+  /** @inheritdoc */
+  public setMarginRight (margin: number): ParagraphStyle {
+    this.paragraphProperties.setMarginRight(margin);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getMarginRight (): number {
+    return this.paragraphProperties.getMarginRight();
+  }
+
+  /** @inheritdoc */
+  public setMarginTop (margin: number): ParagraphStyle {
+    this.paragraphProperties.setMarginTop(margin);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getMarginTop (): number {
+    return this.paragraphProperties.getMarginTop();
+  }
+
+  /** @inheritdoc */
+  public setMargins (marginLeft: number, marginRight: number, marginTop: number, marginBottom: number): ParagraphStyle {
+    this.paragraphProperties.setMargins(marginLeft, marginRight, marginTop, marginBottom);
+
+    return this;
+  }
+
+  /** @inheritdoc */
   public setOrphans (orphans: number | undefined): ParagraphStyle {
     this.paragraphProperties.setOrphans(orphans);
 
@@ -120,6 +175,18 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
   /** @inheritdoc */
   public getPageBreak (): PageBreak {
     return this.paragraphProperties.getPageBreak();
+  }
+
+  /** @inheritdoc */
+  public setTextIndent (textIndent: number): ParagraphStyle {
+    this.paragraphProperties.setTextIndent(textIndent);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getTextIndent (): number {
+    return this.paragraphProperties.getTextIndent();
   }
 
   /** @inheritdoc */

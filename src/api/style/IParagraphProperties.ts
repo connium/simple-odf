@@ -87,6 +87,51 @@ export interface IParagraphProperties {
   /**
    * @since 0.9.0
    */
+  setMarginBottom (margin: number): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getMarginBottom (): number;
+
+  /**
+   * @since 0.9.0
+   */
+  setMarginLeft (margin: number): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getMarginLeft (): number;
+
+  /**
+   * @since 0.9.0
+   */
+  setMarginRight (margin: number): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getMarginRight (): number;
+
+  /**
+   * @since 0.9.0
+   */
+  setMarginTop (margin: number): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getMarginTop (): number;
+
+  /**
+   * @since 0.9.0
+   */
+  setMargins (marginLeft: number, marginRight: number, marginTop: number, marginBottom: number): void;
+
+  /**
+   * @since 0.9.0
+   */
   setOrphans (orphans: number | undefined): void;
 
   /**
@@ -109,6 +154,16 @@ export interface IParagraphProperties {
    * @since 0.9.0
    */
   getPageBreak (): PageBreak;
+
+  /**
+   * @since 0.9.0
+   */
+  setTextIndent (textIndent: number): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getTextIndent (): number;
 
   /**
    * @since 0.9.0

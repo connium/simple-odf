@@ -39,22 +39,24 @@ describe(TextProperties.name, () => {
   });
 
   describe('#font size', () => {
+    const testFontSize = 23;
+
     it('return default font size', () => {
       expect(properties.getFontSize()).toBe(12);
     });
 
     it('return previously set font size', () => {
-      const testFontSize = 23;
-
       properties.setFontSize(testFontSize);
 
       expect(properties.getFontSize()).toBe(testFontSize);
     });
 
-    it('set a minimum font size', () => {
+    it('ignore invalid value', () => {
+      properties.setFontSize(testFontSize);
+
       properties.setFontSize(-42);
 
-      expect(properties.getFontSize()).toBe(2);
+      expect(properties.getFontSize()).toBe(testFontSize);
     });
   });
 

@@ -70,8 +70,8 @@ xdescribe('integration', () => {
       const style = new ParagraphStyle();
       style.setBackgroundColor(Color.fromRgb(0, 255, 0));
 
-      const heading = body.addParagraph('Some text with green colored background');
-      heading.setStyle(style);
+      const paragraph = body.addParagraph('Some text with green colored background');
+      paragraph.setStyle(style);
     });
 
     it('align text', () => {
@@ -86,47 +86,72 @@ xdescribe('integration', () => {
       const style = new ParagraphStyle();
       style.setKeepTogether();
 
-      const heading = body.addParagraph('Do\nnot\nsplit\nthis\nparagraph');
-      heading.setStyle(style);
+      const paragraph = body.addParagraph('Do\nnot\nsplit\nthis\nparagraph');
+      paragraph.setStyle(style);
     });
 
     it('keep with next', () => {
       const style = new ParagraphStyle();
       style.setKeepWithNext();
 
-      const heading = body.addParagraph('Keep together with next paragraph');
-      heading.setStyle(style);
+      const paragraph = body.addParagraph('Keep together with next paragraph');
+      paragraph.setStyle(style);
     });
 
     it('line height', () => {
       const style = new ParagraphStyle();
       style.setLineHeight('120%');
 
-      const heading = body.addParagraph('Some text with 120% line height');
-      heading.setStyle(style);
+      const paragraph = body.addParagraph('Some text with 120% line height');
+      paragraph.setStyle(style);
     });
 
     it('line height at least', () => {
       const style = new ParagraphStyle();
       style.setLineHeightAtLeast(40);
 
-      const heading = body.addParagraph('Some text with minimum line height of 40 mm');
-      heading.setStyle(style);
+      const paragraph = body.addParagraph('Some text with minimum line height of 40 mm');
+      paragraph.setStyle(style);
+    });
+
+    it('margin', () => {
+      const style1 = new ParagraphStyle();
+      style1.setMarginLeft(10);
+      style1.setMarginRight(20);
+      style1.setMarginTop(30);
+      style1.setMarginBottom(40);
+
+      const paragraph1 = body.addParagraph('Some text with margins on all four sides');
+      paragraph1.setStyle(style1);
+
+      const style2 = new ParagraphStyle();
+      style2.setMargins(10, 20, 30, 40);
+
+      const paragraph2 = body.addParagraph('Some other text with margins on all four sides but set at the same time');
+      paragraph2.setStyle(style2);
     });
 
     it('orphans', () => {
       const style = new ParagraphStyle();
       style.setOrphans(2);
 
-      const heading = body.addParagraph('Break paragraph after 2 lines of text at the earliest');
-      heading.setStyle(style);
+      const paragraph = body.addParagraph('Break paragraph after 2 lines of text at the earliest');
+      paragraph.setStyle(style);
+    });
+
+    it('text indent', () => {
+      const style = new ParagraphStyle();
+      style.setTextIndent(23);
+
+      const paragraph = body.addParagraph('First line is indented\nwhile the others are not');
+      paragraph.setStyle(style);
     });
 
     it('vertical align text', () => {
       const style = new ParagraphStyle();
       style.setVerticalAlignment(VerticalAlignment.Middle);
 
-      const paragraph = body.addParagraph('Some centered text');
+      const paragraph = body.addParagraph('Some vertically centered text');
       paragraph.setStyle(style);
     });
 
@@ -134,8 +159,8 @@ xdescribe('integration', () => {
       const style = new ParagraphStyle();
       style.setWidows(2);
 
-      const heading = body.addParagraph('Write at least 2 lines of text after a break of the paragraph');
-      heading.setStyle(style);
+      const paragraph = body.addParagraph('Write at least 2 lines of text after a break of the paragraph');
+      paragraph.setStyle(style);
     });
 
     it('tab stops', () => {

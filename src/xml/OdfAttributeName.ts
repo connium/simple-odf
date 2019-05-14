@@ -9,8 +9,13 @@ export enum OdfAttributeName {
   FormatKeepTogether = 'fo:keep-together',
   FormatKeepWithNext = 'fo:keep-with-next',
   FormatLineHeight = 'fo:line-height',
+  FormatMarginBottom = 'fo:margin-bottom',
+  FormatMarginLeft = 'fo:margin-left',
+  FormatMarginRight = 'fo:margin-right',
+  FormatMarginTop = 'fo:margin-top',
   FormatOrphans = 'fo:orphans',
   FormatTextAlign = 'fo:text-align',
+  FormatTextIndent = 'fo:text-indent',
   FormatTextTransform = 'fo:text-transform',
   FormatWidows = 'fo:widows',
 

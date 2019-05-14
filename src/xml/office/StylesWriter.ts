@@ -105,6 +105,31 @@ export class StylesWriter {
       paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatOrphans, orphans.toString(10));
     }
 
+    const marginLeft = style.getMarginLeft();
+    if (marginLeft !== 0) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatMarginLeft, marginLeft.toString(10) + 'mm');
+    }
+
+    const marginRight = style.getMarginRight();
+    if (marginRight !== 0) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatMarginRight, marginRight.toString(10) + 'mm');
+    }
+
+    const textIndent = style.getTextIndent();
+    if (textIndent !== 0) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatTextIndent, textIndent.toString(10) + 'mm');
+    }
+
+    const marginTop = style.getMarginTop();
+    if (marginTop !== 0) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatMarginTop, marginTop.toString(10) + 'mm');
+    }
+
+    const marginBottom = style.getMarginBottom();
+    if (marginBottom !== 0) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatMarginBottom, marginBottom.toString(10) + 'mm');
+    }
+
     switch (style.getPageBreak()) {
       case PageBreak.Before:
         paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBreakBefore, 'page');

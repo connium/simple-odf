@@ -10,8 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - **style:** add common styles
 - **style:** allow page break to be before or after a paragraph, closes [#31](https://github.com/connium/simple-odf/issues/31)
-- **style:** add keep-with-next flag
-- **style:** add orphan & widdow control, paragraph background, line height
+- **style:** add keep-with-next flag to paragraph style
+- **style:** add orphan & widow control, paragraph background, line height to paragraph style
+- **style:** add margin settings to paragraph style
 - **docs:** add a realistic example
 
 ### Changed

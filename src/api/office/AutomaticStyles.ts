@@ -121,8 +121,13 @@ export class AutomaticStyles implements IStyles {
       hash.update(paragraphStyle.getKeepWithNext() ? 'kwn' : '');
       hash.update('lh' + (paragraphStyle.getLineHeight() || ''));
       hash.update('lhal' + (paragraphStyle.getLineHeightAtLeast() || ''));
+      hash.update('margin-bottom' + paragraphStyle.getMarginBottom());
+      hash.update('margin-left' + paragraphStyle.getMarginLeft());
+      hash.update('margin-right' + paragraphStyle.getMarginRight());
+      hash.update('margin-top' + paragraphStyle.getMarginTop());
       hash.update('orphans' + (paragraphStyle.getOrphans() || ''));
       hash.update(paragraphStyle.getPageBreak().toString());
+      hash.update('text-indent' + paragraphStyle.getTextIndent());
       hash.update(paragraphStyle.getVerticalAlignment());
       hash.update('widows' + (paragraphStyle.getWidows() || ''));
       paragraphStyle.getTabStops().forEach((tabStop) => {
