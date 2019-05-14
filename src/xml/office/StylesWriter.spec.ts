@@ -140,6 +140,42 @@ describe(StylesWriter.name, () => {
         expect(documentAsString).toMatch(/<style:paragraph-properties style:line-height-at-least="23mm"\/>/);
       });
 
+      it('set margin bottom', () => {
+        testStyle.setMarginBottom(23.42);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:margin-bottom="23.42mm"\/>/);
+      });
+
+      it('set margin left', () => {
+        testStyle.setMarginLeft(23.42);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:margin-left="23.42mm"\/>/);
+      });
+
+      it('set margin right', () => {
+        testStyle.setMarginRight(23.42);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:margin-right="23.42mm"\/>/);
+      });
+
+      it('set margin top', () => {
+        testStyle.setMarginTop(23.42);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:margin-top="23.42mm"\/>/);
+      });
+
       it('set orphans', () => {
         testStyle.setOrphans(23);
 
@@ -165,6 +201,15 @@ describe(StylesWriter.name, () => {
         const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
         expect(documentAsString).toMatch(/<style:paragraph-properties fo:break-after="page"\/>/);
+      });
+
+      it('set text indent', () => {
+        testStyle.setTextIndent(23.42);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:text-indent="23.42mm"\/>/);
       });
 
       it('set vertical alignment', () => {

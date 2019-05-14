@@ -10,27 +10,39 @@ import { VerticalAlignment } from './VerticalAlignment';
 const DEFAULT_HORIZONTAL_ALIGNMENT = HorizontalAlignment.Default;
 const DEFAULT_KEEP_TOGETHER = false;
 const DEFAULT_KEEP_WITH_NEXT = false;
+const DEFAULT_MARGIN = 0;
 const DEFAULT_PAGE_BREAK = PageBreak.None;
+const DEFAULT_TEXT_INDENT = 0;
 const DEFAULT_VERTICAL_ALIGNMENT = VerticalAlignment.Default;
 
 export class ParagraphProperties implements IParagraphProperties {
   private backgroundColor: Color | undefined;
   private horizontalAlignment: HorizontalAlignment;
   private lineHeight: number | string | undefined;
+  private marginBottom: number;
+  private marginLeft: number;
+  private marginRight: number;
+  private marginTop: number;
   private minimumLineHeight: number | undefined;
   private orphans: number | undefined;
   private pageBreak: PageBreak;
   private shouldKeepTogether: boolean;
   private shouldKeepWithNext: boolean;
+  private textIndent: number;
   private verticalAlignment: VerticalAlignment;
   private widows: number | undefined;
   private tabStops: TabStop[] = [];
 
   public constructor () {
     this.horizontalAlignment = DEFAULT_HORIZONTAL_ALIGNMENT;
+    this.marginBottom = DEFAULT_MARGIN;
+    this.marginLeft = DEFAULT_MARGIN;
+    this.marginRight = DEFAULT_MARGIN;
+    this.marginTop = DEFAULT_MARGIN;
     this.pageBreak = DEFAULT_PAGE_BREAK;
     this.shouldKeepTogether = DEFAULT_KEEP_TOGETHER;
     this.shouldKeepWithNext = DEFAULT_KEEP_WITH_NEXT;
+    this.textIndent = DEFAULT_TEXT_INDENT;
     this.verticalAlignment = DEFAULT_VERTICAL_ALIGNMENT;
   }
 
@@ -101,6 +113,58 @@ export class ParagraphProperties implements IParagraphProperties {
   }
 
   /** @inheritdoc */
+  setMarginBottom (margin: number): void {
+    if (isNonNegativeNumber(margin)) {
+      this.marginBottom = margin;
+    }
+  }
+
+  /** @inheritdoc */
+  getMarginBottom (): number {
+    return this.marginBottom;
+  }
+
+  /** @inheritdoc */
+  setMarginLeft (margin: number): void {
+    this.marginLeft = margin;
+  }
+
+  /** @inheritdoc */
+  getMarginLeft (): number {
+    return this.marginLeft;
+  }
+
+  /** @inheritdoc */
+  setMarginRight (margin: number): void {
+    this.marginRight = margin;
+  }
+
+  /** @inheritdoc */
+  getMarginRight (): number {
+    return this.marginRight;
+  }
+
+  /** @inheritdoc */
+  setMarginTop (margin: number): void {
+    if (isNonNegativeNumber(margin)) {
+      this.marginTop = margin;
+    }
+  }
+
+  /** @inheritdoc */
+  getMarginTop (): number {
+    return this.marginTop;
+  }
+
+  /** @inheritdoc */
+  setMargins (marginLeft: number, marginRight: number, marginTop: number, marginBottom: number): void {
+    this.setMarginLeft(marginLeft);
+    this.setMarginRight(marginRight);
+    this.setMarginTop(marginTop);
+    this.setMarginBottom(marginBottom);
+  }
+
+  /** @inheritdoc */
   public setOrphans (orphans: number | undefined): void {
     if (isNonNegativeNumber(orphans)) {
       this.orphans = Math.trunc(orphans as number);
@@ -125,6 +189,16 @@ export class ParagraphProperties implements IParagraphProperties {
   /** @inheritdoc */
   public getPageBreak (): PageBreak {
     return this.pageBreak;
+  }
+
+  /** @inheritdoc */
+  setTextIndent (textIndent: number): void {
+    this.textIndent = textIndent;
+  }
+
+  /** @inheritdoc */
+  getTextIndent (): number {
+    return this.textIndent;
   }
 
   /** @inheritdoc */

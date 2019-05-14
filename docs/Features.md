@@ -19,9 +19,9 @@
   - :heavy_check_mark: Font color
   - :heavy_check_mark: Effects
   - :x: Relief
-  - :soon: Overlining
-  - :soon: Strikethrough
-  - :soon: Underlining
+  - :construction: Overlining
+  - :construction: Strikethrough
+  - :construction: Underlining
 - Position
   - :x: Position
   - :x: Rotation & scaling
@@ -40,31 +40,31 @@
 
 ### Paragraph
 - Indents & spacing
-  - :soon: Indent
-  - :soon: Spacing
-  - :construction: Line spacing
+  - :heavy_check_mark: Indent
+  - :heavy_check_mark: Spacing
+  - :heavy_check_mark: Line spacing
 - Alignment
   - :heavy_check_mark: horizontal
-  - :construction: vertical
+  - :heavy_check_mark: vertical
 - Text flow
   - :x: Hyphenation
   - :heavy_check_mark: Breaks
-  - :construction: Options
+  - :heavy_check_mark: Break control
 - Outline & numbering
   - :x: Outline
   - :x: Numbering
   - :x: Line numbering
 - Tabs
   - :heavy_check_mark: Type
-  - :soon: Fill character
+  - :construction: Fill character
 - Drop caps
 - Borders
-  - :soon: Line arrangement
-  - :soon: Line
+  - :construction: Line arrangement
+  - :construction: Line
   - :x: Spacing to contents
   - :x: Shadow style
-- Area
-  - :construction: Color
+- Background
+  - :heavy_check_mark: Color
   - :x: Gradient
   - :x: Hatching
   - :x: Bitmap
@@ -76,7 +76,7 @@
   - :heavy_check_mark: tab
   - :heavy_check_mark: line break
   - :x: hyphen
-  - :soon: span
+  - :x: span
   - :construction: hyperlink
   - :x: number
 - :construction: List
@@ -95,7 +95,6 @@
 
 <!--
 :x:
-:soon:
 :construction:
 :heavy_check_mark:
 -->

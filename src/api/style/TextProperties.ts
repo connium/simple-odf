@@ -1,9 +1,9 @@
+import { isPositiveLength } from '../util';
 import { Color } from './Color';
 import { ITextProperties } from './ITextProperties';
 import { TextTransformation } from './TextTransformation';
 import { Typeface } from './Typeface';
 
-const MINIMAL_FONT_SIZE = 2;
 const DEFAULT_FONT_SIZE = 12;
 const DEFAULT_TRANSFORMATION = TextTransformation.None;
 const DEFAULT_TYPEFACE = Typeface.Normal;
@@ -55,7 +55,9 @@ export class TextProperties implements ITextProperties {
 
   /** @inheritDoc */
   public setFontSize (size: number): void {
-    this.fontSize = Math.max(size, MINIMAL_FONT_SIZE);
+    if (isPositiveLength(size)) {
+      this.fontSize = size;
+    }
   }
 
   /** @inheritDoc */
