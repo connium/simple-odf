@@ -1,5 +1,6 @@
 import { Color } from './Color';
 import { HorizontalAlignment } from './HorizontalAlignment';
+import { HorizontalAlignmentLastLine } from './HorizontalAlignmentLastLine';
 import { PageBreak } from './PageBreak';
 import { ParagraphProperties } from './ParagraphProperties';
 import { TabStop } from './TabStop';
@@ -36,6 +37,18 @@ describe(ParagraphProperties.name, () => {
       properties.setHorizontalAlignment(HorizontalAlignment.Center);
 
       expect(properties.getHorizontalAlignment()).toBe(HorizontalAlignment.Center);
+    });
+  });
+
+  describe('horizontal alignment last line', () => {
+    it('return `Default` by default', () => {
+      expect(properties.getHorizontalAlignmentLastLine()).toBe(HorizontalAlignment.Default);
+    });
+
+    it('return previously set alignment', () => {
+      properties.setHorizontalAlignmentLastLine(HorizontalAlignmentLastLine.Center);
+
+      expect(properties.getHorizontalAlignmentLastLine()).toBe(HorizontalAlignmentLastLine.Center);
     });
   });
 
@@ -129,6 +142,24 @@ describe(ParagraphProperties.name, () => {
       properties.setLineHeightAtLeast(0);
 
       expect(properties.getLineHeightAtLeast()).toBe(testLineHeight);
+    });
+  });
+
+  describe('line spacing', () => {
+    const testLineSpacing = 23;
+
+    it('return undefined by default', () => {
+      expect(properties.getLineSpacing()).toBeUndefined();
+    });
+
+    it('return previously set state', () => {
+      properties.setLineSpacing(testLineSpacing);
+
+      expect(properties.getLineSpacing()).toBe(testLineSpacing);
+
+      properties.setLineSpacing(undefined);
+
+      expect(properties.getLineSpacing()).toBeUndefined();
     });
   });
 

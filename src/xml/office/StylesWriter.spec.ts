@@ -1,8 +1,8 @@
+// tslint:disable:no-duplicate-imports
 import { DOMImplementation, XMLSerializer } from 'xmldom';
 import { CommonStyles, AutomaticStyles } from '../../api/office';
-import { Color, HorizontalAlignment, PageBreak, ParagraphStyle, TextTransformation, Typeface } from '../../api/style';
-// tslint:disable-next-line:no-duplicate-imports
-import { TabStop, TabStopType, VerticalAlignment } from '../../api/style';
+import { Color, HorizontalAlignment, HorizontalAlignmentLastLine, PageBreak, ParagraphStyle } from '../../api/style';
+import { TextTransformation, Typeface, TabStop, TabStopType, VerticalAlignment } from '../../api/style';
 import { OdfElementName } from '../OdfElementName';
 import { StylesWriter } from './StylesWriter';
 
@@ -34,7 +34,7 @@ describe(StylesWriter.name, () => {
       stylesWriter.write(commonStyles, testDocument, testRoot);
       const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-      /* tslint:disable-next-line:max-line-length */
+      // tslint:disable-next-line:max-line-length
       expect(documentAsString).toMatch(/<office:styles><style:style style:name="Summary" style:display-name="Summary" style:family="paragraph">.*<\/style:style><\/office:styles>/);
     });
 
@@ -45,7 +45,7 @@ describe(StylesWriter.name, () => {
       stylesWriter.write(automaticStyles, testDocument, testRoot);
       const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-      /* tslint:disable-next-line:max-line-length */
+      // tslint:disable-next-line:max-line-length
       expect(documentAsString).toMatch(/<office:automatic-styles><style:style style:name="P1" style:family="paragraph">.*<\/style:style><\/office:automatic-styles>/);
     });
 
@@ -56,7 +56,7 @@ describe(StylesWriter.name, () => {
       stylesWriter.write(commonStyles, testDocument, testRoot);
       const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-      /* tslint:disable-next-line:max-line-length */
+      // tslint:disable-next-line:max-line-length
       expect(documentAsString).toMatch(/<office:styles><style:style style:name="Summary" style:display-name="Summary" style:family="paragraph" style:class="someClass">.*<\/style:style><\/office:styles>/);
     });
 
@@ -66,7 +66,7 @@ describe(StylesWriter.name, () => {
       stylesWriter.write(commonStyles, testDocument, testRoot);
       const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-      /* tslint:disable-next-line:max-line-length */
+      // tslint:disable-next-line:max-line-length
       expect(documentAsString).toMatch(/<office:styles><style:style style:name="Summary" style:display-name="Summary" style:family="paragraph"><style:paragraph-properties\/><style:text-properties\/><\/style:style><\/office:styles>/);
     });
 
@@ -93,6 +93,24 @@ describe(StylesWriter.name, () => {
         const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
         expect(documentAsString).toMatch(/<style:paragraph-properties fo:text-align="center"\/>/);
+      });
+
+      it('set horizontal alignment of last line if horizontal alignment is justify', () => {
+        testStyle.setHorizontalAlignmentLastLine(HorizontalAlignmentLastLine.Center);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        let documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).not.toMatch(/fo:text-align-last/);
+
+        testStyle.setHorizontalAlignment(HorizontalAlignment.Justify);
+        testStyle.setHorizontalAlignmentLastLine(HorizontalAlignmentLastLine.Center);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        // tslint:disable-next-line:max-line-length
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:text-align="justify" fo:text-align-last="center"\/>/);
       });
 
       it('set keep together', () => {
@@ -138,6 +156,15 @@ describe(StylesWriter.name, () => {
         const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
         expect(documentAsString).toMatch(/<style:paragraph-properties style:line-height-at-least="23mm"\/>/);
+      });
+
+      it('set line spacing', () => {
+        testStyle.setLineSpacing(23);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties style:line-spacing="23mm"\/>/);
       });
 
       it('set margin bottom', () => {

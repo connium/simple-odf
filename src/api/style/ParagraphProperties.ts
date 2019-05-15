@@ -1,24 +1,19 @@
 import { isNonNegativeNumber, isPercent } from '../util';
 import { Color } from './Color';
 import { HorizontalAlignment } from './HorizontalAlignment';
+import { HorizontalAlignmentLastLine } from './HorizontalAlignmentLastLine';
 import { IParagraphProperties } from './IParagraphProperties';
 import { PageBreak } from './PageBreak';
 import { TabStopType } from './TabStopType';
 import { TabStop } from './TabStop';
 import { VerticalAlignment } from './VerticalAlignment';
 
-const DEFAULT_HORIZONTAL_ALIGNMENT = HorizontalAlignment.Default;
-const DEFAULT_KEEP_TOGETHER = false;
-const DEFAULT_KEEP_WITH_NEXT = false;
-const DEFAULT_MARGIN = 0;
-const DEFAULT_PAGE_BREAK = PageBreak.None;
-const DEFAULT_TEXT_INDENT = 0;
-const DEFAULT_VERTICAL_ALIGNMENT = VerticalAlignment.Default;
-
 export class ParagraphProperties implements IParagraphProperties {
   private backgroundColor: Color | undefined;
   private horizontalAlignment: HorizontalAlignment;
+  private horizontalAlignmentLastLine: HorizontalAlignmentLastLine;
   private lineHeight: number | string | undefined;
+  private lineSpacing: number | undefined;
   private marginBottom: number;
   private marginLeft: number;
   private marginRight: number;
@@ -34,16 +29,17 @@ export class ParagraphProperties implements IParagraphProperties {
   private tabStops: TabStop[] = [];
 
   public constructor () {
-    this.horizontalAlignment = DEFAULT_HORIZONTAL_ALIGNMENT;
-    this.marginBottom = DEFAULT_MARGIN;
-    this.marginLeft = DEFAULT_MARGIN;
-    this.marginRight = DEFAULT_MARGIN;
-    this.marginTop = DEFAULT_MARGIN;
-    this.pageBreak = DEFAULT_PAGE_BREAK;
-    this.shouldKeepTogether = DEFAULT_KEEP_TOGETHER;
-    this.shouldKeepWithNext = DEFAULT_KEEP_WITH_NEXT;
-    this.textIndent = DEFAULT_TEXT_INDENT;
-    this.verticalAlignment = DEFAULT_VERTICAL_ALIGNMENT;
+    this.horizontalAlignment = HorizontalAlignment.Default;
+    this.horizontalAlignmentLastLine = HorizontalAlignmentLastLine.Default;
+    this.marginBottom = 0;
+    this.marginLeft = 0;
+    this.marginRight = 0;
+    this.marginTop = 0;
+    this.pageBreak = PageBreak.None;
+    this.shouldKeepTogether = false;
+    this.shouldKeepWithNext = false;
+    this.textIndent = 0;
+    this.verticalAlignment = VerticalAlignment.Default;
   }
 
   /** @inheritdoc */
@@ -64,6 +60,16 @@ export class ParagraphProperties implements IParagraphProperties {
   /** @inheritdoc */
   public getHorizontalAlignment (): HorizontalAlignment {
     return this.horizontalAlignment;
+  }
+
+  /** @inheritdoc */
+  public setHorizontalAlignmentLastLine (horizontalAlignment: HorizontalAlignmentLastLine): void {
+    this.horizontalAlignmentLastLine = horizontalAlignment;
+  }
+
+  /** @inheritdoc */
+  public getHorizontalAlignmentLastLine (): HorizontalAlignmentLastLine {
+    return this.horizontalAlignmentLastLine;
   }
 
   /** @inheritdoc */
@@ -90,7 +96,6 @@ export class ParagraphProperties implements IParagraphProperties {
   public setLineHeight (lineHeight: number | string | undefined): void {
     if (isNonNegativeNumber(lineHeight) || isPercent(lineHeight) || lineHeight === undefined) {
       this.lineHeight = lineHeight;
-      this.minimumLineHeight = undefined;
     }
   }
 
@@ -103,7 +108,6 @@ export class ParagraphProperties implements IParagraphProperties {
   public setLineHeightAtLeast (minimumLineHeight: number | undefined): void {
     if (isNonNegativeNumber(minimumLineHeight) || minimumLineHeight === undefined) {
       this.minimumLineHeight = minimumLineHeight;
-      this.lineHeight = undefined;
     }
   }
 
@@ -113,51 +117,61 @@ export class ParagraphProperties implements IParagraphProperties {
   }
 
   /** @inheritdoc */
-  setMarginBottom (margin: number): void {
+  public setLineSpacing (lineSpacing: number | undefined): void {
+    this.lineSpacing = lineSpacing;
+  }
+
+  /** @inheritdoc */
+  public getLineSpacing (): number | undefined {
+    return this.lineSpacing;
+  }
+
+  /** @inheritdoc */
+  public setMarginBottom (margin: number): void {
     if (isNonNegativeNumber(margin)) {
       this.marginBottom = margin;
     }
   }
 
   /** @inheritdoc */
-  getMarginBottom (): number {
+  public getMarginBottom (): number {
     return this.marginBottom;
   }
 
   /** @inheritdoc */
-  setMarginLeft (margin: number): void {
+  public setMarginLeft (margin: number): void {
     this.marginLeft = margin;
   }
 
   /** @inheritdoc */
-  getMarginLeft (): number {
+  public getMarginLeft (): number {
     return this.marginLeft;
   }
 
   /** @inheritdoc */
-  setMarginRight (margin: number): void {
+  public setMarginRight (margin: number): void {
     this.marginRight = margin;
   }
 
   /** @inheritdoc */
-  getMarginRight (): number {
+  public getMarginRight (): number {
     return this.marginRight;
   }
 
   /** @inheritdoc */
-  setMarginTop (margin: number): void {
+  public setMarginTop (margin: number): void {
     if (isNonNegativeNumber(margin)) {
       this.marginTop = margin;
     }
   }
 
   /** @inheritdoc */
-  getMarginTop (): number {
+  public getMarginTop (): number {
     return this.marginTop;
   }
 
   /** @inheritdoc */
-  setMargins (marginLeft: number, marginRight: number, marginTop: number, marginBottom: number): void {
+  public setMargins (marginLeft: number, marginRight: number, marginTop: number, marginBottom: number): void {
     this.setMarginLeft(marginLeft);
     this.setMarginRight(marginRight);
     this.setMarginTop(marginTop);
@@ -192,12 +206,12 @@ export class ParagraphProperties implements IParagraphProperties {
   }
 
   /** @inheritdoc */
-  setTextIndent (textIndent: number): void {
+  public setTextIndent (textIndent: number): void {
     this.textIndent = textIndent;
   }
 
   /** @inheritdoc */
-  getTextIndent (): number {
+  public getTextIndent (): number {
     return this.textIndent;
   }
 

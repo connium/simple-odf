@@ -117,10 +117,12 @@ export class AutomaticStyles implements IStyles {
       const backgroundColor = paragraphStyle.getBackgroundColor();
       hash.update(backgroundColor !== undefined ? backgroundColor.toHex() : '');
       hash.update(paragraphStyle.getHorizontalAlignment());
+      hash.update(paragraphStyle.getHorizontalAlignmentLastLine());
       hash.update(paragraphStyle.getKeepTogether() ? 'kt' : '');
       hash.update(paragraphStyle.getKeepWithNext() ? 'kwn' : '');
       hash.update('lh' + (paragraphStyle.getLineHeight() || ''));
       hash.update('lhal' + (paragraphStyle.getLineHeightAtLeast() || ''));
+      hash.update('ls' + (paragraphStyle.getLineSpacing() || ''));
       hash.update('margin-bottom' + paragraphStyle.getMarginBottom());
       hash.update('margin-left' + paragraphStyle.getMarginLeft());
       hash.update('margin-right' + paragraphStyle.getMarginRight());
