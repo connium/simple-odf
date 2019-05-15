@@ -1,7 +1,7 @@
 // tslint:disable:no-duplicate-imports
 import { AutomaticStyles, CommonStyles, IStyles } from '../../api/office';
-import { HorizontalAlignment, ParagraphStyle, Style, StyleFamily, TabStopType, PageBreak } from '../../api/style';
-import { TextTransformation, Typeface, VerticalAlignment } from '../../api/style';
+import { HorizontalAlignment, HorizontalAlignmentLastLine, PageBreak, ParagraphStyle, Style } from '../../api/style';
+import { StyleFamily, TabStopType, TextTransformation, Typeface, VerticalAlignment } from '../../api/style';
 import { OdfAttributeName } from '../OdfAttributeName';
 import { OdfElementName } from '../OdfElementName';
 
@@ -87,8 +87,20 @@ export class StylesWriter {
       paragraphPropertiesElement.setAttribute(OdfAttributeName.StyleLineHeightAtLeast, lineHeightAtLeast + 'mm');
     }
 
-    if (style.getHorizontalAlignment() !== HorizontalAlignment.Default) {
-      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatTextAlign, style.getHorizontalAlignment());
+    const lineSpacing = style.getLineSpacing();
+    if (lineSpacing !== undefined) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.StyleLineSpacing, lineSpacing + 'mm');
+    }
+
+    const horizontalAlignment = style.getHorizontalAlignment();
+    if (horizontalAlignment !== HorizontalAlignment.Default) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatTextAlign, horizontalAlignment);
+    }
+
+    const horizontalAlignmentLastLine = style.getHorizontalAlignmentLastLine();
+    if (horizontalAlignment === HorizontalAlignment.Justify
+      && horizontalAlignmentLastLine !== HorizontalAlignmentLastLine.Default) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatTextAlignLast, horizontalAlignmentLastLine);
     }
 
     if (style.getKeepTogether() === true) {

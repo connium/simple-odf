@@ -4,8 +4,9 @@ import { join } from 'path';
 import { promisify } from 'util';
 import { AnchorType } from '../src/api/draw';
 import { TextBody, TextDocument } from '../src/api/office';
-import { Color, FontPitch, HorizontalAlignment, PageBreak, ParagraphStyle, TabStop } from '../src/api/style';
-import { TabStopType, TextTransformation, Typeface, VerticalAlignment } from '../src/api/style';
+import { Color, FontPitch, HorizontalAlignment, HorizontalAlignmentLastLine, PageBreak } from '../src/api/style';
+import { ParagraphStyle, TabStop, TabStopType, TextTransformation, Typeface } from '../src/api/style';
+import { VerticalAlignment } from '../src/api/style';
 
 const FILEPATH = './integration.fodt';
 
@@ -82,6 +83,16 @@ xdescribe('integration', () => {
       paragraph.setStyle(style);
     });
 
+    it('align text of last line', () => {
+      const style = new ParagraphStyle();
+      style.setHorizontalAlignment(HorizontalAlignment.Justify);
+      style.setHorizontalAlignmentLastLine(HorizontalAlignmentLastLine.Center);
+
+      const paragraph = body.addParagraph('Some justified text'
+        + ' (with a lot of text to make sure it does not fit into a single line) with a centered last line');
+      paragraph.setStyle(style);
+    });
+
     it('keep together', () => {
       const style = new ParagraphStyle();
       style.setKeepTogether();
@@ -111,6 +122,14 @@ xdescribe('integration', () => {
       style.setLineHeightAtLeast(40);
 
       const paragraph = body.addParagraph('Some text with minimum line height of 40 mm');
+      paragraph.setStyle(style);
+    });
+
+    it('line spacing', () => {
+      const style = new ParagraphStyle();
+      style.setLineSpacing(20);
+
+      const paragraph = body.addParagraph('Some text with line spacinh of 20 mm');
       paragraph.setStyle(style);
     });
 

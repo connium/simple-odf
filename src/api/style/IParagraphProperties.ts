@@ -1,5 +1,6 @@
 import { Color } from './Color';
 import { HorizontalAlignment } from './HorizontalAlignment';
+import { HorizontalAlignmentLastLine } from './HorizontalAlignmentLastLine';
 import { PageBreak } from './PageBreak';
 import { TabStop } from './TabStop';
 import { TabStopType } from './TabStopType';
@@ -38,6 +39,16 @@ export interface IParagraphProperties {
    * @since 0.2.0
    */
   getHorizontalAlignment (): HorizontalAlignment;
+
+  /**
+   * @since 0.9.0
+   */
+  setHorizontalAlignmentLastLine (horizontalAlignment: HorizontalAlignmentLastLine): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getHorizontalAlignmentLastLine (): HorizontalAlignmentLastLine;
 
   /**
    * Keeps paragraph lines on the same page (page break before paragraph if necessary).
@@ -83,6 +94,16 @@ export interface IParagraphProperties {
    * @since 0.9.0
    */
   getLineHeightAtLeast (): number | undefined;
+
+  /**
+   * @since 0.9.0
+   */
+  setLineSpacing (lineSpacing: number | undefined): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getLineSpacing (): number | undefined;
 
   /**
    * @since 0.9.0

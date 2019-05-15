@@ -1,5 +1,6 @@
 import { Color } from './Color';
 import { HorizontalAlignment } from './HorizontalAlignment';
+import { HorizontalAlignmentLastLine } from './HorizontalAlignmentLastLine';
 import { IParagraphProperties } from './IParagraphProperties';
 import { ITextProperties } from './ITextProperties';
 import { PageBreak } from './PageBreak';
@@ -51,6 +52,18 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
   }
 
   /** @inheritdoc */
+  public setHorizontalAlignmentLastLine (horizontalAlignment: HorizontalAlignmentLastLine): ParagraphStyle {
+    this.paragraphProperties.setHorizontalAlignmentLastLine(horizontalAlignment);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getHorizontalAlignmentLastLine (): HorizontalAlignmentLastLine {
+    return this.paragraphProperties.getHorizontalAlignmentLastLine();
+  }
+
+  /** @inheritdoc */
   public setKeepTogether (keepTogether = true): ParagraphStyle {
     this.paragraphProperties.setKeepTogether(keepTogether);
 
@@ -96,6 +109,18 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
   /** @inheritdoc */
   public getLineHeightAtLeast (): number | undefined {
     return this.paragraphProperties.getLineHeightAtLeast();
+  }
+
+  /** @inheritdoc */
+  public setLineSpacing (lineSpacing: number | undefined): ParagraphStyle {
+    this.paragraphProperties.setLineSpacing(lineSpacing);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getLineSpacing (): number | undefined {
+    return this.paragraphProperties.getLineSpacing();
   }
 
   /** @inheritdoc */
