@@ -191,6 +191,65 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
   }
 
   /** @inheritdoc */
+  public setPaddingBottom (padding: number): ParagraphStyle {
+    this.paragraphProperties.setPaddingBottom(padding);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getPaddingBottom (): number {
+    return this.paragraphProperties.getPaddingBottom();
+  }
+
+  /** @inheritdoc */
+  public setPaddingLeft (padding: number): ParagraphStyle {
+    this.paragraphProperties.setPaddingLeft(padding);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getPaddingLeft (): number {
+    return this.paragraphProperties.getPaddingLeft();
+  }
+
+  /** @inheritdoc */
+  public setPaddingRight (padding: number): ParagraphStyle {
+    this.paragraphProperties.setPaddingRight(padding);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getPaddingRight (): number {
+    return this.paragraphProperties.getPaddingRight();
+  }
+
+  /** @inheritdoc */
+  public setPaddingTop (padding: number): ParagraphStyle {
+    this.paragraphProperties.setPaddingTop(padding);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getPaddingTop (): number {
+    return this.paragraphProperties.getPaddingTop();
+  }
+
+  /** @inheritdoc */
+  public setPaddings (
+    paddingLeft: number,
+    paddingRight: number,
+    paddingTop: number,
+    paddingBottom: number): ParagraphStyle {
+    this.paragraphProperties.setPaddings(paddingLeft, paddingRight, paddingTop, paddingBottom);
+
+    return this;
+  }
+
+  /** @inheritdoc */
   public setPageBreak (pageBreak: PageBreak): ParagraphStyle {
     this.paragraphProperties.setPageBreak(pageBreak);
 

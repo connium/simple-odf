@@ -161,6 +161,51 @@ export interface IParagraphProperties {
   getOrphans (): number | undefined;
 
   /**
+   * @since 0.9.0
+   */
+  setPaddingBottom (padding: number): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getPaddingBottom (): number;
+
+  /**
+   * @since 0.9.0
+   */
+  setPaddingLeft (padding: number): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getPaddingLeft (): number;
+
+  /**
+   * @since 0.9.0
+   */
+  setPaddingRight (padding: number): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getPaddingRight (): number;
+
+  /**
+   * @since 0.9.0
+   */
+  setPaddingTop (padding: number): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getPaddingTop (): number;
+
+  /**
+   * @since 0.9.0
+   */
+  setPaddings (paddingLeft: number, paddingRight: number, paddingTop: number, paddingBottom: number): void;
+
+  /**
    * Sets the page break setting of the paragraph.
    *
    * @param {PageBreak} pageBreak The page break setting

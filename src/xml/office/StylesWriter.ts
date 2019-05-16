@@ -158,6 +158,26 @@ export class StylesWriter {
       paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBackgroundColor, backgroundColor.toHex());
     }
 
+    const paddingLeft = style.getPaddingLeft();
+    if (paddingLeft !== 0) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatPaddingLeft, paddingLeft.toString(10) + 'mm');
+    }
+
+    const paddingRight = style.getPaddingRight();
+    if (paddingRight !== 0) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatPaddingRight, paddingRight.toString(10) + 'mm');
+    }
+
+    const paddingTop = style.getPaddingTop();
+    if (paddingTop !== 0) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatPaddingTop, paddingTop.toString(10) + 'mm');
+    }
+
+    const paddingBottom = style.getPaddingBottom();
+    if (paddingBottom !== 0) {
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatPaddingBottom, paddingBottom.toString(10) + 'mm');
+    }
+
     if (style.getKeepWithNext() === true) {
       paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatKeepWithNext, 'always');
     }

@@ -158,6 +158,23 @@ xdescribe('integration', () => {
       paragraph.setStyle(style);
     });
 
+    it('padding', () => {
+      const style1 = new ParagraphStyle();
+      style1.setPaddingLeft(10);
+      style1.setPaddingRight(20);
+      style1.setPaddingTop(30);
+      style1.setPaddingBottom(40);
+
+      const paragraph1 = body.addParagraph('Some text with padding on all four sides');
+      paragraph1.setStyle(style1);
+
+      const style2 = new ParagraphStyle();
+      style2.setPaddings(10, 20, 30, 40);
+
+      const paragraph2 = body.addParagraph('Some other text with padding on all four sides but set at the same time');
+      paragraph2.setStyle(style2);
+    });
+
     it('text indent', () => {
       const style = new ParagraphStyle();
       style.setTextIndent(23);
