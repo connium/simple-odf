@@ -1,7 +1,8 @@
 // tslint:disable:no-duplicate-imports
 import { AutomaticStyles, CommonStyles, IStyles } from '../../api/office';
-import { HorizontalAlignment, HorizontalAlignmentLastLine, PageBreak, ParagraphStyle, Style } from '../../api/style';
-import { StyleFamily, TabStopType, TextTransformation, Typeface, VerticalAlignment } from '../../api/style';
+import { FontVariant, HorizontalAlignment, HorizontalAlignmentLastLine, PageBreak } from '../../api/style';
+import { ParagraphStyle, Style, StyleFamily, TabStopType, TextTransformation, Typeface } from '../../api/style';
+import { VerticalAlignment } from '../../api/style';
 import { OdfAttributeName } from '../OdfAttributeName';
 import { OdfElementName } from '../OdfElementName';
 
@@ -211,6 +212,11 @@ export class StylesWriter {
     const textPropertiesElement = document.createElement(OdfElementName.StyleTextProperties);
     parent.appendChild(textPropertiesElement);
 
+    const fontVariant = style.getFontVariant();
+    if (fontVariant !== FontVariant.Normal) {
+      textPropertiesElement.setAttribute(OdfAttributeName.FormatFontVariant, fontVariant);
+    }
+
     const textTransformation = style.getTextTransformation();
     if (textTransformation !== TextTransformation.None) {
       textPropertiesElement.setAttribute(OdfAttributeName.FormatTextTransform, textTransformation);
@@ -244,6 +250,11 @@ export class StylesWriter {
       || typeface === Typeface.BoldItalic
       || typeface === Typeface.BoldOblique) {
       textPropertiesElement.setAttribute(OdfAttributeName.FormatFontWeight, 'bold');
+    }
+
+    const backgroundColor = style.getBackgroundColor();
+    if (backgroundColor !== undefined && !(style instanceof ParagraphStyle)) {
+      textPropertiesElement.setAttribute(OdfAttributeName.FormatBackgroundColor, backgroundColor.toHex());
     }
 
     return textPropertiesElement;

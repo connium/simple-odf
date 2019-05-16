@@ -1,8 +1,8 @@
 // tslint:disable:no-duplicate-imports
 import { DOMImplementation, XMLSerializer } from 'xmldom';
 import { CommonStyles, AutomaticStyles } from '../../api/office';
-import { Color, HorizontalAlignment, HorizontalAlignmentLastLine, PageBreak, ParagraphStyle } from '../../api/style';
-import { TextTransformation, Typeface, TabStop, TabStopType, VerticalAlignment } from '../../api/style';
+import { Color, FontVariant, HorizontalAlignment, HorizontalAlignmentLastLine, PageBreak } from '../../api/style';
+import { ParagraphStyle, TextTransformation, Typeface, TabStop, TabStopType, VerticalAlignment } from '../../api/style';
 import { OdfElementName } from '../OdfElementName';
 import { StylesWriter } from './StylesWriter';
 
@@ -341,6 +341,15 @@ describe(StylesWriter.name, () => {
         const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
         expect(documentAsString).toMatch(/<style:text-properties fo:font-size="23pt"\/>/);
+      });
+
+      it('set font variant', () => {
+        testStyle.setFontVariant(FontVariant.SmallCaps);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:text-properties fo:font-variant="small-caps"\/>/);
       });
 
       it('set text transformation', () => {

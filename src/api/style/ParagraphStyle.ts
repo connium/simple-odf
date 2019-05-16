@@ -1,4 +1,5 @@
 import { Color } from './Color';
+import { FontVariant } from './FontVariant';
 import { HorizontalAlignment } from './HorizontalAlignment';
 import { HorizontalAlignmentLastLine } from './HorizontalAlignmentLastLine';
 import { IParagraphProperties } from './IParagraphProperties';
@@ -361,6 +362,18 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
     this.textProperties.setTextTransformation(transformation);
 
     return this;
+  }
+
+  /** @inheritDoc */
+  public setFontVariant (fontVariant: FontVariant): ParagraphStyle {
+    this.textProperties.setFontVariant(fontVariant);
+
+    return this;
+  }
+
+  /** @inheritDoc */
+  public getFontVariant (): FontVariant {
+    return this.textProperties.getFontVariant();
   }
 
   /** @inheritDoc */

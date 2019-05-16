@@ -145,6 +145,7 @@ export class AutomaticStyles implements IStyles {
       hash.update(color !== undefined ? color.toHex() : '');
       hash.update(paragraphStyle.getFontName() || '');
       hash.update(paragraphStyle.getFontSize().toString());
+      hash.update(paragraphStyle.getFontVariant());
       hash.update(paragraphStyle.getTextTransformation());
       hash.update(paragraphStyle.getTypeface().toString());
     }

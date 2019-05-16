@@ -1,12 +1,9 @@
 import { isPositiveLength } from '../util';
 import { Color } from './Color';
+import { FontVariant } from './FontVariant';
 import { ITextProperties } from './ITextProperties';
 import { TextTransformation } from './TextTransformation';
 import { Typeface } from './Typeface';
-
-const DEFAULT_FONT_SIZE = 12;
-const DEFAULT_TRANSFORMATION = TextTransformation.None;
-const DEFAULT_TYPEFACE = Typeface.Normal;
 
 /**
  * This class represents the style of some text.
@@ -16,9 +13,11 @@ const DEFAULT_TYPEFACE = Typeface.Normal;
  * @private
  */
 export class TextProperties implements ITextProperties {
+  private backgroundColor: Color | undefined;
   private color: Color | undefined;
   private fontName: string | undefined;
   private fontSize: number;
+  private fontVariant: FontVariant;
   private transformation: TextTransformation;
   private typeface: Typeface;
 
@@ -28,9 +27,20 @@ export class TextProperties implements ITextProperties {
    * @since 0.4.0
    */
   public constructor () {
-    this.fontSize = DEFAULT_FONT_SIZE;
-    this.transformation = DEFAULT_TRANSFORMATION;
-    this.typeface = DEFAULT_TYPEFACE;
+    this.fontSize = 12;
+    this.fontVariant = FontVariant.Normal;
+    this.transformation = TextTransformation.None;
+    this.typeface = Typeface.Normal;
+  }
+
+  /** @inheritDoc */
+  public setBackgroundColor (color: Color | undefined): void {
+    this.backgroundColor = color;
+  }
+
+  /** @inheritDoc */
+  public getBackgroundColor (): Color | undefined {
+    return this.backgroundColor;
   }
 
   /** @inheritDoc */
@@ -63,6 +73,16 @@ export class TextProperties implements ITextProperties {
   /** @inheritDoc */
   public getFontSize (): number {
     return this.fontSize;
+  }
+
+  /** @inheritDoc */
+  public setFontVariant (fontVariant: FontVariant): void {
+    this.fontVariant = fontVariant;
+  }
+
+  /** @inheritDoc */
+  public getFontVariant (): FontVariant {
+    return this.fontVariant;
   }
 
   /** @inheritDoc */
