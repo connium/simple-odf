@@ -212,6 +212,42 @@ describe(StylesWriter.name, () => {
         expect(documentAsString).toMatch(/<style:paragraph-properties fo:orphans="23"\/>/);
       });
 
+      it('set padding bottom', () => {
+        testStyle.setPaddingBottom(23.42);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:padding-bottom="23.42mm"\/>/);
+      });
+
+      it('set padding left', () => {
+        testStyle.setPaddingLeft(23.42);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:padding-left="23.42mm"\/>/);
+      });
+
+      it('set padding right', () => {
+        testStyle.setPaddingRight(23.42);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:padding-right="23.42mm"\/>/);
+      });
+
+      it('set padding top', () => {
+        testStyle.setPaddingTop(23.42);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:padding-top="23.42mm"\/>/);
+      });
+
       it('set page break before', () => {
         testStyle.setPageBreak(PageBreak.Before);
 

@@ -128,6 +128,10 @@ export class AutomaticStyles implements IStyles {
       hash.update('margin-right' + paragraphStyle.getMarginRight());
       hash.update('margin-top' + paragraphStyle.getMarginTop());
       hash.update('orphans' + (paragraphStyle.getOrphans() || ''));
+      hash.update('padding-bottom' + paragraphStyle.getPaddingBottom());
+      hash.update('padding-left' + paragraphStyle.getPaddingLeft());
+      hash.update('padding-right' + paragraphStyle.getPaddingRight());
+      hash.update('padding-top' + paragraphStyle.getPaddingTop());
       hash.update(paragraphStyle.getPageBreak().toString());
       hash.update('text-indent' + paragraphStyle.getTextIndent());
       hash.update(paragraphStyle.getVerticalAlignment());

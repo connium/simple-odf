@@ -20,6 +20,10 @@ export class ParagraphProperties implements IParagraphProperties {
   private marginTop: number;
   private minimumLineHeight: number | undefined;
   private orphans: number | undefined;
+  private paddingBottom: number;
+  private paddingLeft: number;
+  private paddingRight: number;
+  private paddingTop: number;
   private pageBreak: PageBreak;
   private shouldKeepTogether: boolean;
   private shouldKeepWithNext: boolean;
@@ -35,6 +39,10 @@ export class ParagraphProperties implements IParagraphProperties {
     this.marginLeft = 0;
     this.marginRight = 0;
     this.marginTop = 0;
+    this.paddingBottom = 0;
+    this.paddingLeft = 0;
+    this.paddingRight = 0;
+    this.paddingTop = 0;
     this.pageBreak = PageBreak.None;
     this.shouldKeepTogether = false;
     this.shouldKeepWithNext = false;
@@ -193,6 +201,62 @@ export class ParagraphProperties implements IParagraphProperties {
   /** @inheritdoc */
   public getOrphans (): number | undefined {
     return this.orphans;
+  }
+
+  /** @inheritdoc */
+  public setPaddingBottom (padding: number): void {
+    if (isNonNegativeNumber(padding)) {
+      this.paddingBottom = padding;
+    }
+  }
+
+  /** @inheritdoc */
+  public getPaddingBottom (): number {
+    return this.paddingBottom;
+  }
+
+  /** @inheritdoc */
+  public setPaddingLeft (padding: number): void {
+    if (isNonNegativeNumber(padding)) {
+      this.paddingLeft = padding;
+    }
+  }
+
+  /** @inheritdoc */
+  public getPaddingLeft (): number {
+    return this.paddingLeft;
+  }
+
+  /** @inheritdoc */
+  public setPaddingRight (padding: number): void {
+    if (isNonNegativeNumber(padding)) {
+      this.paddingRight = padding;
+    }
+  }
+
+  /** @inheritdoc */
+  public getPaddingRight (): number {
+    return this.paddingRight;
+  }
+
+  /** @inheritdoc */
+  public setPaddingTop (padding: number): void {
+    if (isNonNegativeNumber(padding)) {
+      this.paddingTop = padding;
+    }
+  }
+
+  /** @inheritdoc */
+  public getPaddingTop (): number {
+    return this.paddingTop;
+  }
+
+  /** @inheritdoc */
+  public setPaddings (paddingLeft: number, paddingRight: number, paddingTop: number, paddingBottom: number): void {
+    this.setPaddingLeft(paddingLeft);
+    this.setPaddingRight(paddingRight);
+    this.setPaddingTop(paddingTop);
+    this.setPaddingBottom(paddingBottom);
   }
 
   /** @inheritdoc */

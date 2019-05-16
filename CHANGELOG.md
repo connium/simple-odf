@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **style:** add orphan & widow control, paragraph background, line height to paragraph style
 - **style:** add margin settings to paragraph style
 - **style:** add horizontal alignment of last line and line spacing to paragraph style
+- **style:** add padding settings to paragraph style
 - **docs:** add a realistic example
 
 ### Changed

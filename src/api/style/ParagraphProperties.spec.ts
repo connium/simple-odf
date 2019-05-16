@@ -241,6 +241,58 @@ describe(ParagraphProperties.name, () => {
     });
   });
 
+  describe('padding', () => {
+    const testPaddingBottom = 13.37;
+    const testPaddingLeft = 23.42;
+    const testPaddingRight = 12.34;
+    const testPaddingTop = 98.76;
+
+    it('return 0 by default', () => {
+      expect(properties.getPaddingBottom()).toBe(0);
+      expect(properties.getPaddingLeft()).toBe(0);
+      expect(properties.getPaddingRight()).toBe(0);
+      expect(properties.getPaddingTop()).toBe(0);
+    });
+
+    it('return previously set padding', () => {
+      properties.setPaddingBottom(testPaddingBottom);
+      properties.setPaddingLeft(testPaddingLeft);
+      properties.setPaddingRight(testPaddingRight);
+      properties.setPaddingTop(testPaddingTop);
+
+      expect(properties.getPaddingBottom()).toBe(testPaddingBottom);
+      expect(properties.getPaddingLeft()).toBe(testPaddingLeft);
+      expect(properties.getPaddingRight()).toBe(testPaddingRight);
+      expect(properties.getPaddingTop()).toBe(testPaddingTop);
+    });
+
+    it('return previously set padding (set once)', () => {
+      properties.setPaddings(testPaddingLeft, testPaddingRight, testPaddingTop, testPaddingBottom);
+
+      expect(properties.getPaddingBottom()).toBe(testPaddingBottom);
+      expect(properties.getPaddingLeft()).toBe(testPaddingLeft);
+      expect(properties.getPaddingRight()).toBe(testPaddingRight);
+      expect(properties.getPaddingTop()).toBe(testPaddingTop);
+    });
+
+    it('ignore invalid value', () => {
+      properties.setPaddingBottom(testPaddingBottom);
+      properties.setPaddingLeft(testPaddingLeft);
+      properties.setPaddingRight(testPaddingRight);
+      properties.setPaddingTop(testPaddingTop);
+
+      properties.setPaddingBottom(-1);
+      properties.setPaddingLeft(-2);
+      properties.setPaddingRight(-3);
+      properties.setPaddingTop(-4);
+
+      expect(properties.getPaddingBottom()).toBe(testPaddingBottom);
+      expect(properties.getPaddingLeft()).toBe(testPaddingLeft);
+      expect(properties.getPaddingRight()).toBe(testPaddingRight);
+      expect(properties.getPaddingTop()).toBe(testPaddingTop);
+    });
+  });
+
   describe('page break', () => {
     it('return None by default', () => {
       expect(properties.getPageBreak()).toBe(PageBreak.None);
