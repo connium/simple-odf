@@ -4,8 +4,8 @@ import { join } from 'path';
 import { promisify } from 'util';
 import { AnchorType } from '../src/api/draw';
 import { TextBody, TextDocument } from '../src/api/office';
-import { Color, FontPitch, HorizontalAlignment, HorizontalAlignmentLastLine, PageBreak } from '../src/api/style';
-import { ParagraphStyle, TabStop, TabStopType, TextTransformation, Typeface } from '../src/api/style';
+import { Color, FontPitch, FontVariant, HorizontalAlignment, HorizontalAlignmentLastLine } from '../src/api/style';
+import { PageBreak, ParagraphStyle, TabStop, TabStopType, TextTransformation, Typeface } from '../src/api/style';
 import { VerticalAlignment } from '../src/api/style';
 
 const FILEPATH = './integration.fodt';
@@ -241,6 +241,14 @@ xdescribe('integration', () => {
       style.setFontSize(8);
 
       const paragraph = body.addParagraph('Some small text');
+      paragraph.setStyle(style);
+    });
+
+    it('font variant', () => {
+      const style = new ParagraphStyle();
+      style.setFontVariant(FontVariant.SmallCaps);
+
+      const paragraph = body.addParagraph('Some text using small-caps');
       paragraph.setStyle(style);
     });
 

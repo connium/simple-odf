@@ -2,6 +2,7 @@ export { Color } from './Color';
 export { FontFace } from './FontFace';
 export { FontFamilyGeneric } from './FontFamilyGeneric';
 export { FontPitch } from './FontPitch';
+export { FontVariant } from './FontVariant';
 export { HorizontalAlignment } from './HorizontalAlignment';
 export { HorizontalAlignmentLastLine } from './HorizontalAlignmentLastLine';
 export { PageBreak } from './PageBreak';

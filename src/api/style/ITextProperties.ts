@@ -1,4 +1,5 @@
 import { Color } from './Color';
+import { FontVariant } from './FontVariant';
 import { TextTransformation } from './TextTransformation';
 import { Typeface } from './Typeface';
 
@@ -29,6 +30,16 @@ import { Typeface } from './Typeface';
  * @since 0.4.0
  */
 export interface ITextProperties {
+  /**
+   * @since 0.9.0
+   */
+  setBackgroundColor (color: Color | undefined): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getBackgroundColor (): Color | undefined;
+
   /**
    * Sets the font color that will be applied to the text.
    * To reset the color, `undefined` must be given.
@@ -78,6 +89,16 @@ export interface ITextProperties {
    * @since 0.4.0
    */
   getFontSize (): number;
+
+  /**
+   * @since 0.9.0
+   */
+  setFontVariant (fontVariant: FontVariant): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getFontVariant (): FontVariant;
 
   /**
    * Sets the transformation that will be applied to the text.

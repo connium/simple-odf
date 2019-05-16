@@ -1,4 +1,5 @@
 import { Color } from './Color';
+import { FontVariant } from './FontVariant';
 import { TextProperties } from './TextProperties';
 import { TextTransformation } from './TextTransformation';
 import { Typeface } from './Typeface';
@@ -8,6 +9,20 @@ describe(TextProperties.name, () => {
 
   beforeEach(() => {
     properties = new TextProperties();
+  });
+
+  describe('background color', () => {
+    it('return undefined by default', () => {
+      expect(properties.getBackgroundColor()).toBeUndefined();
+    });
+
+    it('return previously set alignment', () => {
+      const testColor = Color.fromRgb(1, 2, 3);
+
+      properties.setBackgroundColor(testColor);
+
+      expect(properties.getBackgroundColor()).toBe(testColor);
+    });
   });
 
   describe('color', () => {
@@ -57,6 +72,20 @@ describe(TextProperties.name, () => {
       properties.setFontSize(-42);
 
       expect(properties.getFontSize()).toBe(testFontSize);
+    });
+  });
+
+  describe('font variant', () => {
+    it('return Normal by default', () => {
+      expect(properties.getFontVariant()).toBe(FontVariant.Normal);
+    });
+
+    it('return previously set font variant', () => {
+      const testFontVariant = FontVariant.SmallCaps;
+
+      properties.setFontVariant(testFontVariant);
+
+      expect(properties.getFontVariant()).toBe(testFontVariant);
     });
   });
 

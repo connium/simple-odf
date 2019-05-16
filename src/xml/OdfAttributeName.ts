@@ -5,6 +5,7 @@ export enum OdfAttributeName {
   FormatColor = 'fo:color',
   FormatFontSize = 'fo:font-size',
   FormatFontStyle = 'fo:font-style',
+  FormatFontVariant = 'fo:font-variant',
   FormatFontWeight = 'fo:font-weight',
   FormatKeepTogether = 'fo:keep-together',
   FormatKeepWithNext = 'fo:keep-with-next',
