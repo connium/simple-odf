@@ -144,7 +144,7 @@ xdescribe('integration', () => {
       paragraph1.setStyle(style1);
 
       const style2 = new ParagraphStyle();
-      style2.setMargins(10, 20, 30, 40);
+      style2.setMargin(10, 20, 30, 40);
 
       const paragraph2 = body.addParagraph('Some other text with margins on all four sides but set at the same time');
       paragraph2.setStyle(style2);
@@ -169,7 +169,7 @@ xdescribe('integration', () => {
       paragraph1.setStyle(style1);
 
       const style2 = new ParagraphStyle();
-      style2.setPaddings(10, 20, 30, 40);
+      style2.setPadding(10, 20, 30, 40);
 
       const paragraph2 = body.addParagraph('Some other text with padding on all four sides but set at the same time');
       paragraph2.setStyle(style2);

@@ -179,7 +179,7 @@ export class ParagraphProperties implements IParagraphProperties {
   }
 
   /** @inheritdoc */
-  public setMargins (marginLeft: number, marginRight: number, marginTop: number, marginBottom: number): void {
+  public setMargin (marginLeft: number, marginRight: number, marginTop: number, marginBottom: number): void {
     this.setMarginLeft(marginLeft);
     this.setMarginRight(marginRight);
     this.setMarginTop(marginTop);
@@ -252,7 +252,7 @@ export class ParagraphProperties implements IParagraphProperties {
   }
 
   /** @inheritdoc */
-  public setPaddings (paddingLeft: number, paddingRight: number, paddingTop: number, paddingBottom: number): void {
+  public setPadding (paddingLeft: number, paddingRight: number, paddingTop: number, paddingBottom: number): void {
     this.setPaddingLeft(paddingLeft);
     this.setPaddingRight(paddingRight);
     this.setPaddingTop(paddingTop);

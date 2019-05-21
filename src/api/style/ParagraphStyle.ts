@@ -173,8 +173,8 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
   }
 
   /** @inheritdoc */
-  public setMargins (marginLeft: number, marginRight: number, marginTop: number, marginBottom: number): ParagraphStyle {
-    this.paragraphProperties.setMargins(marginLeft, marginRight, marginTop, marginBottom);
+  public setMargin (marginLeft: number, marginRight: number, marginTop: number, marginBottom: number): ParagraphStyle {
+    this.paragraphProperties.setMargin(marginLeft, marginRight, marginTop, marginBottom);
 
     return this;
   }
@@ -240,12 +240,12 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
   }
 
   /** @inheritdoc */
-  public setPaddings (
+  public setPadding (
     paddingLeft: number,
     paddingRight: number,
     paddingTop: number,
     paddingBottom: number): ParagraphStyle {
-    this.paragraphProperties.setPaddings(paddingLeft, paddingRight, paddingTop, paddingBottom);
+    this.paragraphProperties.setPadding(paddingLeft, paddingRight, paddingTop, paddingBottom);
 
     return this;
   }

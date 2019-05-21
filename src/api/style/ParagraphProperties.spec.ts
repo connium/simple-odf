@@ -189,7 +189,7 @@ describe(ParagraphProperties.name, () => {
     });
 
     it('return previously set margin (set once)', () => {
-      properties.setMargins(testMarginLeft, testMarginRight, testMarginTop, testMarginBottom);
+      properties.setMargin(testMarginLeft, testMarginRight, testMarginTop, testMarginBottom);
 
       expect(properties.getMarginBottom()).toBe(testMarginBottom);
       expect(properties.getMarginLeft()).toBe(testMarginLeft);
@@ -267,7 +267,7 @@ describe(ParagraphProperties.name, () => {
     });
 
     it('return previously set padding (set once)', () => {
-      properties.setPaddings(testPaddingLeft, testPaddingRight, testPaddingTop, testPaddingBottom);
+      properties.setPadding(testPaddingLeft, testPaddingRight, testPaddingTop, testPaddingBottom);
 
       expect(properties.getPaddingBottom()).toBe(testPaddingBottom);
       expect(properties.getPaddingLeft()).toBe(testPaddingLeft);

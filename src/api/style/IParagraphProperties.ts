@@ -148,7 +148,7 @@ export interface IParagraphProperties {
   /**
    * @since 0.9.0
    */
-  setMargins (marginLeft: number, marginRight: number, marginTop: number, marginBottom: number): void;
+  setMargin (marginLeft: number, marginRight: number, marginTop: number, marginBottom: number): void;
 
   /**
    * @since 0.9.0
@@ -203,7 +203,7 @@ export interface IParagraphProperties {
   /**
    * @since 0.9.0
    */
-  setPaddings (paddingLeft: number, paddingRight: number, paddingTop: number, paddingBottom: number): void;
+  setPadding (paddingLeft: number, paddingRight: number, paddingTop: number, paddingBottom: number): void;
 
   /**
    * Sets the page break setting of the paragraph.
