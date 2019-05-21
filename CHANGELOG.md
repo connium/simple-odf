@@ -9,17 +9,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased] (2019-??-??)
 ### Added
 - **style:** add common styles
-- **style(paragraph):** allow page break to be before or after a paragraph, closes [#31](https://github.com/connium/simple-odf/issues/31)
-- **style(paragraph):** add keep-with-next flag to paragraph style
-- **style(paragraph):** add orphan & widow control, paragraph background, line height to paragraph style
-- **style(paragraph):** add margin settings to paragraph style
-- **style(paragraph):** add horizontal alignment of last line and line spacing to paragraph style
-- **style(paragraph):** add padding settings to paragraph style
-- **style(paragraph):** add font variant to paragraph style
+- **style:** allow page break to be before or after a paragraph, closes [#31](https://github.com/connium/simple-odf/issues/31)
+- **style:** add keep-with-next flag to paragraph style
+- **style:** add orphan & widow control, paragraph background, line height to paragraph style
+- **style:** add margin settings to paragraph style
+- **style:** add horizontal alignment of last line and line spacing to paragraph style
+- **style:** add padding settings to paragraph style
+- **style:** add font variant to paragraph style
 - **docs:** add a realistic example
 
 ### Changed
 - **chore:** improve repository structure
+- **chore(ci):** update distribution of Travis CI configuration
 
 ## [0.8.0] (2019-02-26)
 ### Added
