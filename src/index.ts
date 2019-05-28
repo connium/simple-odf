@@ -12,6 +12,8 @@ export { TextBody } from './api/office/TextBody';
 export { TextDocument } from './api/office/TextDocument';
 
 // style
+export { Border } from './api/style/Border';
+export { BorderStyle } from './api/style/BorderStyle';
 export { Color } from './api/style/Color';
 export { FontFace } from './api/style/FontFace';
 export { FontFamilyGeneric } from './api/style/FontFamilyGeneric';

@@ -4,9 +4,9 @@ import { join } from 'path';
 import { promisify } from 'util';
 import { AnchorType } from '../src/api/draw';
 import { TextBody, TextDocument } from '../src/api/office';
-import { Color, FontPitch, FontVariant, HorizontalAlignment, HorizontalAlignmentLastLine } from '../src/api/style';
-import { PageBreak, ParagraphStyle, TabStop, TabStopType, TextTransformation, Typeface } from '../src/api/style';
-import { VerticalAlignment } from '../src/api/style';
+import { BorderStyle, Color, FontPitch, FontVariant, HorizontalAlignment } from '../src/api/style';
+import { HorizontalAlignmentLastLine, PageBreak, ParagraphStyle, TabStop, TabStopType } from '../src/api/style';
+import { TextTransformation, Typeface, VerticalAlignment } from '../src/api/style';
 
 const FILEPATH = './integration.fodt';
 
@@ -72,6 +72,17 @@ xdescribe('integration', () => {
       style.setBackgroundColor(Color.fromRgb(0, 255, 0));
 
       const paragraph = body.addParagraph('Some text with green colored background');
+      paragraph.setStyle(style);
+    });
+
+    it('border', () => {
+      const style = new ParagraphStyle();
+      style.setBorderTop(1, BorderStyle.Dashed, Color.fromRgb(0, 0, 0));
+      style.setBorderBottom(2, BorderStyle.Dotted, Color.fromRgb(255, 0, 0));
+      style.setBorderLeft(3, BorderStyle.Double, Color.fromRgb(0, 255, 0));
+      style.setBorderRight(4, BorderStyle.Solid, Color.fromRgb(0, 0, 255));
+
+      const paragraph = body.addParagraph('Some text with different borders on all sides');
       paragraph.setStyle(style);
     });
 

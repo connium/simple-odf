@@ -1,8 +1,9 @@
 // tslint:disable:no-duplicate-imports
 import { DOMImplementation, XMLSerializer } from 'xmldom';
 import { CommonStyles, AutomaticStyles } from '../../api/office';
-import { Color, FontVariant, HorizontalAlignment, HorizontalAlignmentLastLine, PageBreak } from '../../api/style';
-import { ParagraphStyle, TextTransformation, Typeface, TabStop, TabStopType, VerticalAlignment } from '../../api/style';
+import { BorderStyle, Color, FontVariant, HorizontalAlignment, HorizontalAlignmentLastLine } from '../../api/style';
+import { PageBreak, ParagraphStyle, TextTransformation, Typeface, TabStop, TabStopType } from '../../api/style';
+import { VerticalAlignment } from '../../api/style';
 import { OdfElementName } from '../OdfElementName';
 import { StylesWriter } from './StylesWriter';
 
@@ -84,6 +85,42 @@ describe(StylesWriter.name, () => {
         const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
         expect(documentAsString).toMatch(/<style:paragraph-properties fo:background-color="#010203"\/>/);
+      });
+
+      it('set border bottom', () => {
+        testStyle.setBorderBottom(23.42, BorderStyle.Dashed, Color.fromRgb(1, 2, 3));
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:border-bottom="23.42mm dashed #010203"\/>/);
+      });
+
+      it('set border left', () => {
+        testStyle.setBorderLeft(23.42, BorderStyle.Dotted, Color.fromRgb(1, 2, 3));
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:border-left="23.42mm dotted #010203"\/>/);
+      });
+
+      it('set border right', () => {
+        testStyle.setBorderRight(23.42, BorderStyle.Double, Color.fromRgb(1, 2, 3));
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:border-right="23.42mm double #010203"\/>/);
+      });
+
+      it('set border top', () => {
+        testStyle.setBorderTop(23.42, BorderStyle.Solid, Color.fromRgb(1, 2, 3));
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+        expect(documentAsString).toMatch(/<style:paragraph-properties fo:border-top="23.42mm solid #010203"\/>/);
       });
 
       it('set horizontal alignment', () => {

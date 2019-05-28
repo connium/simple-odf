@@ -1,3 +1,5 @@
+import { Border } from './Border';
+import { BorderStyle } from './BorderStyle';
 import { Color } from './Color';
 import { HorizontalAlignment } from './HorizontalAlignment';
 import { HorizontalAlignmentLastLine } from './HorizontalAlignmentLastLine';
@@ -23,6 +25,76 @@ export interface IParagraphProperties {
    * @since 0.9.0
    */
   getBackgroundColor (): Color | undefined;
+
+  /**
+   * @since 0.9.0
+   */
+  setBorder (width: number, style: BorderStyle, color: Color): void;
+
+  /**
+   * @since 0.9.0
+   */
+  removeBorder (): void;
+
+  /**
+   * @since 0.9.0
+   */
+  setBorderBottom (width: number, style: BorderStyle, color: Color): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getBorderBottom (): Border | undefined;
+
+  /**
+   * @since 0.9.0
+   */
+  removeBorderBottom (): void;
+
+  /**
+   * @since 0.9.0
+   */
+  setBorderLeft (width: number, style: BorderStyle, color: Color): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getBorderLeft (): Border | undefined;
+
+  /**
+   * @since 0.9.0
+   */
+  removeBorderLeft (): void;
+
+  /**
+   * @since 0.9.0
+   */
+  setBorderRight (width: number, style: BorderStyle, color: Color): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getBorderRight (): Border | undefined;
+
+  /**
+   * @since 0.9.0
+   */
+  removeBorderRight (): void;
+
+  /**
+   * @since 0.9.0
+   */
+  setBorderTop (width: number, style: BorderStyle, color: Color): void;
+
+  /**
+   * @since 0.9.0
+   */
+  getBorderTop (): Border | undefined;
+
+  /**
+   * @since 0.9.0
+   */
+  removeBorderTop (): void;
 
   /**
    * Sets the horizontal alignment setting of this paragraph.
@@ -108,6 +180,11 @@ export interface IParagraphProperties {
   /**
    * @since 0.9.0
    */
+  setMargin (marginLeft: number, marginRight: number, marginTop: number, marginBottom: number): void;
+
+  /**
+   * @since 0.9.0
+   */
   setMarginBottom (margin: number): void;
 
   /**
@@ -148,17 +225,17 @@ export interface IParagraphProperties {
   /**
    * @since 0.9.0
    */
-  setMargin (marginLeft: number, marginRight: number, marginTop: number, marginBottom: number): void;
-
-  /**
-   * @since 0.9.0
-   */
   setOrphans (orphans: number | undefined): void;
 
   /**
    * @since 0.9.0
    */
   getOrphans (): number | undefined;
+
+  /**
+   * @since 0.9.0
+   */
+  setPadding (paddingLeft: number, paddingRight: number, paddingTop: number, paddingBottom: number): void;
 
   /**
    * @since 0.9.0
@@ -199,11 +276,6 @@ export interface IParagraphProperties {
    * @since 0.9.0
    */
   getPaddingTop (): number;
-
-  /**
-   * @since 0.9.0
-   */
-  setPadding (paddingLeft: number, paddingRight: number, paddingTop: number, paddingBottom: number): void;
 
   /**
    * Sets the page break setting of the paragraph.

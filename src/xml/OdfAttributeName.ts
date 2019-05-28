@@ -1,5 +1,9 @@
 export enum OdfAttributeName {
   FormatBackgroundColor = 'fo:background-color',
+  FormatBorderBottom = 'fo:border-bottom',
+  FormatBorderLeft = 'fo:border-left',
+  FormatBorderRight = 'fo:border-right',
+  FormatBorderTop = 'fo:border-top',
   FormatBreakAfter = 'fo:break-after',
   FormatBreakBefore = 'fo:break-before',
   FormatColor = 'fo:color',

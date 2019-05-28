@@ -1,3 +1,5 @@
+export { Border } from './Border';
+export { BorderStyle } from './BorderStyle';
 export { Color } from './Color';
 export { FontFace } from './FontFace';
 export { FontFamilyGeneric } from './FontFamilyGeneric';

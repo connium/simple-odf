@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **style:** add horizontal alignment of last line and line spacing to paragraph style
 - **style:** add padding settings to paragraph style
 - **style:** add font variant to paragraph style
+- **style:** add border settings to paragraph style
 - **docs:** add a realistic example
 
 ### Changed

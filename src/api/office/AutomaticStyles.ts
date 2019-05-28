@@ -1,5 +1,5 @@
 import { createHash } from 'crypto';
-import { Style, StyleFamily, ParagraphStyle } from '../style';
+import { Border, ParagraphStyle, Style, StyleFamily } from '../style';
 import { IStyles } from './IStyles';
 
 interface IStyleInformation {
@@ -116,6 +116,10 @@ export class AutomaticStyles implements IStyles {
       // paragraph properties
       const backgroundColor = paragraphStyle.getBackgroundColor();
       hash.update(backgroundColor !== undefined ? backgroundColor.toHex() : '');
+      hash.update('border-bottom' + this.getBorder(paragraphStyle.getBorderBottom()));
+      hash.update('border-left' + this.getBorder(paragraphStyle.getBorderLeft()));
+      hash.update('border-right' + this.getBorder(paragraphStyle.getBorderRight()));
+      hash.update('border-top' + this.getBorder(paragraphStyle.getBorderTop()));
       hash.update(paragraphStyle.getHorizontalAlignment());
       hash.update(paragraphStyle.getHorizontalAlignmentLastLine());
       hash.update(paragraphStyle.getKeepTogether() ? 'kt' : '');
@@ -151,5 +155,9 @@ export class AutomaticStyles implements IStyles {
     }
 
     return hash.digest('hex');
+  }
+
+  private getBorder (border: Border | undefined): string {
+    return border !== undefined ? border.toString() : '';
   }
 }

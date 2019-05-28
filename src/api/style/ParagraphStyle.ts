@@ -1,3 +1,5 @@
+import { Border } from './Border';
+import { BorderStyle } from './BorderStyle';
 import { Color } from './Color';
 import { FontVariant } from './FontVariant';
 import { HorizontalAlignment } from './HorizontalAlignment';
@@ -38,6 +40,96 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
   /** @inheritdoc */
   public getBackgroundColor (): Color | undefined {
     return this.paragraphProperties.getBackgroundColor();
+  }
+
+  /** @inheritdoc */
+  public setBorder (width: number, style: BorderStyle, color: Color): ParagraphStyle {
+    this.paragraphProperties.setBorder(width, style, color);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public removeBorder (): ParagraphStyle {
+    this.paragraphProperties.removeBorder();
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public setBorderBottom (width: number, style: BorderStyle, color: Color): ParagraphStyle {
+    this.paragraphProperties.setBorderBottom(width, style, color);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getBorderBottom (): Border | undefined {
+    return this.paragraphProperties.getBorderBottom();
+  }
+
+  /** @inheritdoc */
+  public removeBorderBottom (): ParagraphStyle {
+    this.paragraphProperties.removeBorderBottom();
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public setBorderLeft (width: number, style: BorderStyle, color: Color): ParagraphStyle {
+    this.paragraphProperties.setBorderLeft(width, style, color);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getBorderLeft (): Border | undefined {
+    return this.paragraphProperties.getBorderLeft();
+  }
+
+  /** @inheritdoc */
+  public removeBorderLeft (): ParagraphStyle {
+    this.paragraphProperties.removeBorderLeft();
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public setBorderRight (width: number, style: BorderStyle, color: Color): ParagraphStyle {
+    this.paragraphProperties.setBorderRight(width, style, color);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getBorderRight (): Border | undefined {
+    return this.paragraphProperties.getBorderRight();
+  }
+
+  /** @inheritdoc */
+  public removeBorderRight (): ParagraphStyle {
+    this.paragraphProperties.removeBorderRight();
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public setBorderTop (width: number, style: BorderStyle, color: Color): ParagraphStyle {
+    this.paragraphProperties.setBorderTop(width, style, color);
+
+    return this;
+  }
+
+  /** @inheritdoc */
+  public getBorderTop (): Border | undefined {
+    return this.paragraphProperties.getBorderTop();
+  }
+
+  /** @inheritdoc */
+  public removeBorderTop (): ParagraphStyle {
+    this.paragraphProperties.removeBorderTop();
+
+    return this;
   }
 
   /** @inheritdoc */

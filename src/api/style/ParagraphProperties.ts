@@ -1,4 +1,6 @@
 import { isNonNegativeNumber, isPercent } from '../util';
+import { Border } from './Border';
+import { BorderStyle } from './BorderStyle';
 import { Color } from './Color';
 import { HorizontalAlignment } from './HorizontalAlignment';
 import { HorizontalAlignmentLastLine } from './HorizontalAlignmentLastLine';
@@ -10,6 +12,10 @@ import { VerticalAlignment } from './VerticalAlignment';
 
 export class ParagraphProperties implements IParagraphProperties {
   private backgroundColor: Color | undefined;
+  private borderBottom: Border | undefined;
+  private borderLeft: Border | undefined;
+  private borderRight: Border | undefined;
+  private borderTop: Border | undefined;
   private horizontalAlignment: HorizontalAlignment;
   private horizontalAlignmentLastLine: HorizontalAlignmentLastLine;
   private lineHeight: number | string | undefined;
@@ -58,6 +64,90 @@ export class ParagraphProperties implements IParagraphProperties {
   /** @inheritdoc */
   public getBackgroundColor (): Color | undefined {
     return this.backgroundColor;
+  }
+
+  /** @inheritdoc */
+  public setBorder (width: number, style: BorderStyle, color: Color): void {
+    this.setBorderBottom(width, style, color);
+    this.setBorderLeft(width, style, color);
+    this.setBorderRight(width, style, color);
+    this.setBorderTop(width, style, color);
+  }
+
+  /** @inheritdoc */
+  public removeBorder (): void {
+    this.removeBorderBottom();
+    this.removeBorderLeft();
+    this.removeBorderRight();
+    this.removeBorderTop();
+  }
+
+  /** @inheritdoc */
+  public setBorderBottom (width: number, style: BorderStyle, color: Color): void {
+    if (isNonNegativeNumber(width)) {
+      this.borderBottom = { width, style, color };
+    }
+  }
+
+  /** @inheritdoc */
+  public getBorderBottom (): Border | undefined {
+    return this.borderBottom;
+  }
+
+  /** @inheritdoc */
+  public removeBorderBottom (): void {
+    this.borderBottom = undefined;
+  }
+
+  /** @inheritdoc */
+  public setBorderLeft (width: number, style: BorderStyle, color: Color): void {
+    if (isNonNegativeNumber(width)) {
+      this.borderLeft = { width, style, color };
+    }
+  }
+
+  /** @inheritdoc */
+  public getBorderLeft (): Border | undefined {
+    return this.borderLeft;
+  }
+
+  /** @inheritdoc */
+  public removeBorderLeft (): void {
+    this.borderLeft = undefined;
+  }
+
+  /** @inheritdoc */
+  public setBorderRight (width: number, style: BorderStyle, color: Color): void {
+    if (isNonNegativeNumber(width)) {
+      this.borderRight = { width, style, color };
+    }
+  }
+
+  /** @inheritdoc */
+  public getBorderRight (): Border | undefined {
+    return this.borderRight;
+  }
+
+  /** @inheritdoc */
+  public removeBorderRight (): void {
+    this.borderRight = undefined;
+  }
+
+  /** @inheritdoc */
+  public setBorderTop (width: number, style: BorderStyle, color: Color): void {
+    if (isNonNegativeNumber(width)) {
+      this.borderTop = { width, style, color };
+    }
+  }
+
+  /** @inheritdoc */
+  public getBorderTop (): Border | undefined {
+    return this.borderTop;
+  }
+
+  /** @inheritdoc */
+  public removeBorderTop (): void {
+    this.borderTop = undefined;
   }
 
   /** @inheritdoc */
