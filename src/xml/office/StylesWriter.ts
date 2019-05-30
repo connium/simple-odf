@@ -221,7 +221,7 @@ export class StylesWriter {
 
     tabStops.forEach((tabStop) => {
       const tabStopElement = document.createElement(OdfElementName.StyleTabStop);
-      parent.appendChild(tabStopElement);
+      tabStopsElement.appendChild(tabStopElement);
 
       tabStopElement.setAttribute(OdfAttributeName.StylePosition, tabStop.getPosition() + 'mm');
       if (tabStop.getType() !== TabStopType.Left) {

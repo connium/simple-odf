@@ -330,19 +330,31 @@ describe(StylesWriter.name, () => {
         expect(documentAsString).toMatch(/<style:paragraph-properties fo:widows="23"\/>/);
       });
 
-      it('set tab stops', () => {
-        testStyle.addTabStop(new TabStop(2, TabStopType.Center));
-        testStyle.addTabStop(new TabStop(4, TabStopType.Char));
-        testStyle.addTabStop(new TabStop(6, TabStopType.Left));
-        testStyle.addTabStop(new TabStop(8, TabStopType.Right));
+      describe('tab stops', () => {
+        it('set tab stop', () => {
+          testStyle.addTabStop(new TabStop(2, TabStopType.Left));
 
-        stylesWriter.write(commonStyles, testDocument, testRoot);
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+          stylesWriter.write(commonStyles, testDocument, testRoot);
+          const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-        expect(documentAsString).toMatch(/<style:tab-stop style:position="2mm" style:type="center"\/>/);
-        expect(documentAsString).toMatch(/<style:tab-stop style:position="4mm" style:type="char"\/>/);
-        expect(documentAsString).toMatch(/<style:tab-stop style:position="6mm"\/>/);
-        expect(documentAsString).toMatch(/<style:tab-stop style:position="8mm" style:type="right"\/>/);
+          // tslint:disable-next-line:max-line-length
+          expect(documentAsString).toMatch(/<style:paragraph-properties><style:tab-stops><style:tab-stop style:position="2mm"\/><\/style:tab-stops><\/style:paragraph-properties>/);
+        });
+
+        it('set tab stop types', () => {
+          testStyle.addTabStop(new TabStop(2, TabStopType.Center));
+          testStyle.addTabStop(new TabStop(4, TabStopType.Char));
+          testStyle.addTabStop(new TabStop(6, TabStopType.Left));
+          testStyle.addTabStop(new TabStop(8, TabStopType.Right));
+
+          stylesWriter.write(commonStyles, testDocument, testRoot);
+          const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+          expect(documentAsString).toMatch(/<style:tab-stop style:position="2mm" style:type="center"\/>/);
+          expect(documentAsString).toMatch(/<style:tab-stop style:position="4mm" style:type="char"\/>/);
+          expect(documentAsString).toMatch(/<style:tab-stop style:position="6mm"\/>/);
+          expect(documentAsString).toMatch(/<style:tab-stop style:position="8mm" style:type="right"\/>/);
+        });
       });
     });
 

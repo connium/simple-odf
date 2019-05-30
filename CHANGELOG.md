@@ -23,6 +23,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **chore:** improve repository structure
 - **chore(ci):** update distribution of Travis CI configuration
 
+### Fixed
+- **fix(style):** tab stop is added as child of style:style element
+
 ## [0.8.0] (2019-02-26)
 ### Added
 - **font:** extend font declaration
