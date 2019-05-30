@@ -1,6 +1,6 @@
 // tslint:disable:no-duplicate-imports
 import { AutomaticStyles, CommonStyles, IStyles } from '../../api/office';
-import { FontVariant, HorizontalAlignment, HorizontalAlignmentLastLine, PageBreak } from '../../api/style';
+import { BorderStyle, FontVariant, HorizontalAlignment, HorizontalAlignmentLastLine, PageBreak } from '../../api/style';
 import { ParagraphStyle, Style, StyleFamily, TabStopType, TextTransformation, Typeface } from '../../api/style';
 import { VerticalAlignment } from '../../api/style';
 import { OdfAttributeName } from '../OdfAttributeName';
@@ -157,6 +157,30 @@ export class StylesWriter {
     const backgroundColor = style.getBackgroundColor();
     if (backgroundColor !== undefined) {
       paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBackgroundColor, backgroundColor.toHex());
+    }
+
+    const borderTop = style.getBorderTop();
+    if (borderTop !== undefined && borderTop.width > 0 && borderTop.style !== BorderStyle.None) {
+      const border = `${borderTop.width}mm ${borderTop.style} ${borderTop.color.toHex()}`;
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBorderTop, border);
+    }
+
+    const borderBottom = style.getBorderBottom();
+    if (borderBottom !== undefined && borderBottom.width > 0 && borderBottom.style !== BorderStyle.None) {
+      const border = `${borderBottom.width}mm ${borderBottom.style} ${borderBottom.color.toHex()}`;
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBorderBottom, border);
+    }
+
+    const borderLeft = style.getBorderLeft();
+    if (borderLeft !== undefined && borderLeft.width > 0 && borderLeft.style !== BorderStyle.None) {
+      const border = `${borderLeft.width}mm ${borderLeft.style} ${borderLeft.color.toHex()}`;
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBorderLeft, border);
+    }
+
+    const borderRight = style.getBorderRight();
+    if (borderRight !== undefined && borderRight.width > 0 && borderRight.style !== BorderStyle.None) {
+      const border = `${borderRight.width}mm ${borderRight.style} ${borderRight.color.toHex()}`;
+      paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatBorderRight, border);
     }
 
     const paddingLeft = style.getPaddingLeft();

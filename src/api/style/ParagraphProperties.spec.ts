@@ -1,3 +1,5 @@
+import { Border } from './Border';
+import { BorderStyle } from './BorderStyle';
 import { Color } from './Color';
 import { HorizontalAlignment } from './HorizontalAlignment';
 import { HorizontalAlignmentLastLine } from './HorizontalAlignmentLastLine';
@@ -25,6 +27,92 @@ describe(ParagraphProperties.name, () => {
       properties.setBackgroundColor(testColor);
 
       expect(properties.getBackgroundColor()).toBe(testColor);
+    });
+  });
+
+  describe('border', () => {
+    const testBorderWidth = 13.37;
+    const testBorderStyle = BorderStyle.Dashed;
+    const testBorderColor = Color.fromRgb(1, 2, 3);
+    const expectedBorder: Border = {
+      width: testBorderWidth,
+      style: testBorderStyle,
+      color: testBorderColor
+    };
+
+    it('return undefined by default', () => {
+      expect(properties.getBorderBottom()).toBeUndefined();
+      expect(properties.getBorderLeft()).toBeUndefined();
+      expect(properties.getBorderRight()).toBeUndefined();
+      expect(properties.getBorderTop()).toBeUndefined();
+    });
+
+    it('return previously set border', () => {
+      const expectedBorderBottom: Border = { width: 0.23, style: BorderStyle.Dashed, color: testBorderColor };
+      const expectedBorderLeft: Border = { width: 13.37, style: BorderStyle.Dotted, color: testBorderColor };
+      const expectedBorderRight: Border = { width: 42.24, style: BorderStyle.Double, color: testBorderColor };
+      const expectedBorderTop: Border = { width: 12.34, style: BorderStyle.Solid, color: testBorderColor };
+
+      properties.setBorderBottom(0.23, BorderStyle.Dashed, testBorderColor);
+      properties.setBorderLeft(13.37, BorderStyle.Dotted, testBorderColor);
+      properties.setBorderRight(42.24, BorderStyle.Double, testBorderColor);
+      properties.setBorderTop(12.34, BorderStyle.Solid, testBorderColor);
+
+      expect(properties.getBorderBottom()).toEqual(expectedBorderBottom);
+      expect(properties.getBorderLeft()).toEqual(expectedBorderLeft);
+      expect(properties.getBorderRight()).toEqual(expectedBorderRight);
+      expect(properties.getBorderTop()).toEqual(expectedBorderTop);
+    });
+
+    it('return previously set border (set once)', () => {
+      properties.setBorder(testBorderWidth, testBorderStyle, testBorderColor);
+
+      expect(properties.getBorderBottom()).toEqual(expectedBorder);
+      expect(properties.getBorderLeft()).toEqual(expectedBorder);
+      expect(properties.getBorderRight()).toEqual(expectedBorder);
+      expect(properties.getBorderTop()).toEqual(expectedBorder);
+    });
+
+    it('ignore invalid value', () => {
+      properties.setBorderBottom(testBorderWidth, testBorderStyle, testBorderColor);
+      properties.setBorderLeft(testBorderWidth, testBorderStyle, testBorderColor);
+      properties.setBorderRight(testBorderWidth, testBorderStyle, testBorderColor);
+      properties.setBorderTop(testBorderWidth, testBorderStyle, testBorderColor);
+
+      properties.setBorderBottom(-0.1, testBorderStyle, testBorderColor);
+      properties.setBorderLeft(-0.1, testBorderStyle, testBorderColor);
+      properties.setBorderRight(-0.1, testBorderStyle, testBorderColor);
+      properties.setBorderTop(-0.1, testBorderStyle, testBorderColor);
+
+      expect(properties.getBorderBottom()).toEqual(expectedBorder);
+      expect(properties.getBorderLeft()).toEqual(expectedBorder);
+      expect(properties.getBorderRight()).toEqual(expectedBorder);
+      expect(properties.getBorderTop()).toEqual(expectedBorder);
+    });
+
+    it('remove previously set border', () => {
+      properties.setBorder(testBorderWidth, testBorderStyle, testBorderColor);
+
+      properties.removeBorderBottom();
+      properties.removeBorderLeft();
+      properties.removeBorderRight();
+      properties.removeBorderTop();
+
+      expect(properties.getBorderBottom()).toBeUndefined();
+      expect(properties.getBorderLeft()).toBeUndefined();
+      expect(properties.getBorderRight()).toBeUndefined();
+      expect(properties.getBorderTop()).toBeUndefined();
+    });
+
+    it('remove previously set border (remove once)', () => {
+      properties.setBorder(testBorderWidth, testBorderStyle, testBorderColor);
+
+      properties.removeBorder();
+
+      expect(properties.getBorderBottom()).toBeUndefined();
+      expect(properties.getBorderLeft()).toBeUndefined();
+      expect(properties.getBorderRight()).toBeUndefined();
+      expect(properties.getBorderTop()).toBeUndefined();
     });
   });
 
@@ -189,7 +277,7 @@ describe(ParagraphProperties.name, () => {
     });
 
     it('return previously set margin (set once)', () => {
-      properties.setMargins(testMarginLeft, testMarginRight, testMarginTop, testMarginBottom);
+      properties.setMargin(testMarginLeft, testMarginRight, testMarginTop, testMarginBottom);
 
       expect(properties.getMarginBottom()).toBe(testMarginBottom);
       expect(properties.getMarginLeft()).toBe(testMarginLeft);
@@ -267,7 +355,7 @@ describe(ParagraphProperties.name, () => {
     });
 
     it('return previously set padding (set once)', () => {
-      properties.setPaddings(testPaddingLeft, testPaddingRight, testPaddingTop, testPaddingBottom);
+      properties.setPadding(testPaddingLeft, testPaddingRight, testPaddingTop, testPaddingBottom);
 
       expect(properties.getPaddingBottom()).toBe(testPaddingBottom);
       expect(properties.getPaddingLeft()).toBe(testPaddingLeft);

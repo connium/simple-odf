@@ -19,15 +19,15 @@
   - :heavy_check_mark: Font color
   - :heavy_check_mark: Effects
   - :x: Relief
-  - :construction: Overlining
-  - :construction: Strikethrough
-  - :construction: Underlining
+  - :x: Overlining
+  - :x: Strikethrough
+  - :x: Underlining
 - Position
   - :x: Position
   - :x: Rotation & scaling
   - :x: Spacing
 - Hyperlink
-  - :heavy_check_mark: Hyperlink
+  - :x: Hyperlink
   - :x: Events
   - :x: Character Styles
 - Highlighting
@@ -61,7 +61,7 @@
 - Borders
   - :construction: Line arrangement
   - :construction: Line
-  - :x: Spacing to contents
+  - :heavy_check_mark: Padding
   - :x: Shadow style
 - Background
   - :heavy_check_mark: Color
