@@ -2,10 +2,10 @@ import { createHash } from 'crypto';
 import { Border, ParagraphStyle, Style, StyleFamily } from '../style';
 import { IStyles } from './IStyles';
 
-interface IStyleInformation {
+type IStyleInformation = {
   readonly style: Style;
   readonly name: string;
-}
+};
 
 /**
  * This class represents the automatic styles of a document.
