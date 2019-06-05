@@ -1,8 +1,8 @@
 // tslint:disable:no-duplicate-imports
 import { AutomaticStyles, CommonStyles, IStyles } from '../../api/office';
 import { BorderStyle, FontVariant, HorizontalAlignment, HorizontalAlignmentLastLine, PageBreak } from '../../api/style';
-import { ParagraphStyle, Style, StyleFamily, TabStopType, TextTransformation, Typeface } from '../../api/style';
-import { VerticalAlignment } from '../../api/style';
+import { ParagraphStyle, Style, StyleFamily, TabStopLeaderStyle, TabStopType } from '../../api/style';
+import { TextTransformation, Typeface, VerticalAlignment } from '../../api/style';
 import { OdfAttributeName } from '../OdfAttributeName';
 import { OdfElementName } from '../OdfElementName';
 
@@ -224,8 +224,24 @@ export class StylesWriter {
       tabStopsElement.appendChild(tabStopElement);
 
       tabStopElement.setAttribute(OdfAttributeName.StylePosition, tabStop.getPosition() + 'mm');
-      if (tabStop.getType() !== TabStopType.Left) {
-        tabStopElement.setAttribute(OdfAttributeName.StyleType, tabStop.getType());
+
+      const type = tabStop.getType();
+      const char = tabStop.getChar();
+      if (type === TabStopType.Char && char !== undefined) {
+        tabStopElement.setAttribute(OdfAttributeName.StyleType, type);
+        tabStopElement.setAttribute(OdfAttributeName.StyleChar, char);
+      } else if (type !== TabStopType.Left) {
+        tabStopElement.setAttribute(OdfAttributeName.StyleType, type);
+      }
+
+      const leaderStyle = tabStop.getLeaderStyle();
+      if (leaderStyle !== TabStopLeaderStyle.None) {
+        tabStopElement.setAttribute(OdfAttributeName.StyleLeaderStyle, leaderStyle);
+      }
+
+      const leaderColor = tabStop.getLeaderColor();
+      if (leaderColor !== undefined) {
+        tabStopElement.setAttribute(OdfAttributeName.StyleLeaderColor, leaderColor.toHex());
       }
     });
 
