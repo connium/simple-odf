@@ -23,9 +23,6 @@
 <dt><a href="#TextDocument">TextDocument</a></dt>
 <dd><p>This class represents a text document in OpenDocument format.</p>
 </dd>
-<dt><a href="#Color">Color</a></dt>
-<dd><p>This class represents a Color.</p>
-</dd>
 <dt><a href="#FontFace">FontFace</a></dt>
 <dd><p>This class represents a font face declaration.</p>
 <p>It is used to describe the characteristics of a font which is used in the document.
@@ -94,11 +91,7 @@ Path to the image file that should be embedded
 
 **Example**  
 ```js
-document.getBody()
-  .addParagraph()
-  .addImage('/home/homer/myself.png')
-  .setAnchorType(AnchorType.AsChar);
-  .setSize(42, 23);
+const image = new Image('/home/homer/myself.png');
 ```
 
 * * *
@@ -322,14 +315,7 @@ and sets the username of the currently effective user as initial creator.
 
 **Example**  
 ```js
-document.getMeta()
-  .setCreator('Homer Simpson')
-  .setTitle('Node.js meets ODF')
-  .setSubject('ODF document creation')
-  .addKeyword('Node.js')
-  .addKeyword('Open Document Format')
-  .setDescription('ODF text document created with Node.js powered by simple-odf')
-  .setLanguage('en-US');
+const meta = new Meta();
 ```
 
 * * *
@@ -880,8 +866,7 @@ Creates a `CommonStyles` instance that represents the common styles of a documen
 
 **Example**  
 ```js
-document.getCommonStyles()
-  .createParagraphStyle('Summary');
+const commonStyles = new CommonStyles();
 ```
 
 * * *
@@ -1142,11 +1127,6 @@ Creates a `TextDocument` instance that represents a OpenDocument text document.
 **Example**  
 ```js
 const document = new TextDocument();
-document.getMeta().setCreator('Homer Simpson');
-document.getFontFaceDeclarations().create('FreeSans', 'FreeSans', FontPitch.Variable);
-document.getCommonStyles().createParagraphStyle('Summary');
-document.getBody().addHeading('My first document');
-document.saveFlat('/home/homer/document.fodt');
 ```
 
 * * *
@@ -1253,97 +1233,6 @@ Returns the string representation of this document in flat open document xml for
 
 * * *
 
-<a name="Color"></a>
-
-## Color
-This class represents a Color.
-
-**Since**: 0.4.0  
-
-* [Color](#Color)
-    * [`new Color(red, green, blue)`](#new_Color_new)
-    * _instance_
-        * [`.toHex()`](#Color+toHex) ⇒ <code>string</code>
-    * _static_
-        * [`.fromHex(value)`](#Color.fromHex) ⇒ [<code>Color</code>](#Color) \| <code>never</code>
-        * [`.fromRgb(red, green, blue)`](#Color.fromRgb) ⇒ [<code>Color</code>](#Color) \| <code>never</code>
-
-
-* * *
-
-<a name="new_Color_new"></a>
-
-### `new Color(red, green, blue)`
-Creates a new color with the specified channel values.
-
-#### Parameters
-- red <code>number</code>  
-The red channel of the color
-- green <code>number</code>  
-The green channel of the color
-- blue <code>number</code>  
-The blue channel of the color
-
-
-* * *
-
-<a name="Color+toHex"></a>
-
-### `color.toHex()` ⇒ <code>string</code>
-The toHex() method returns a string representing the color as hex string.
-
-**Return value**  
-<code>string</code> - A hex string representing the color
-
-**Since**: 0.4.0  
-
-* * *
-
-<a name="Color.fromHex"></a>
-
-### `Color.fromHex(value)` ⇒ [<code>Color</code>](#Color) \| <code>never</code>
-The `Color.fromHex()` method parses a string argument and returns a color.
-The string is expected to be in `#rrggbb` or `rrggbb` format.
-
-#### Parameters
-- value <code>string</code>  
-The value you want to parse
-
-**Return value**  
-[<code>Color</code>](#Color) \| <code>never</code> - A color parsed from the given value
-
-**Throws**:
-
-- <code>Error</code> If the value cannot be converted to a color
-
-**Since**: 0.4.0  
-
-* * *
-
-<a name="Color.fromRgb"></a>
-
-### `Color.fromRgb(red, green, blue)` ⇒ [<code>Color</code>](#Color) \| <code>never</code>
-The `Color.fromRgb()` method returns a color with the channel arguments.
-
-#### Parameters
-- red <code>number</code>  
-The red channel of the color with a range of 0...255
-- green <code>number</code>  
-The green channel of the color with a range of 0...255
-- blue <code>number</code>  
-The blue channel of the color with a range of 0...255
-
-**Return value**  
-[<code>Color</code>](#Color) \| <code>never</code> - A color parsed from the given value
-
-**Throws**:
-
-- <code>Error</code> If any channel is outside the allowable range
-
-**Since**: 0.4.0  
-
-* * *
-
 <a name="FontFace"></a>
 
 ## FontFace
@@ -1384,8 +1273,9 @@ Indicator whether the font has a fixed or variable width
 
 **Example**  
 ```js
-const font = document.getFontFaceDeclarations().create('FreeSans', 'FreeSans', FontPitch.Variable);
-font.setFontFamilyGeneric(FontFamilyGeneric.Swiss);
+const font = new FontFace('FreeSans', 'FreeSans', FontPitch.Variable);
+const font = new FontFace('FreeSans', 'FreeSans');
+const font = new FontFace('FreeSans');
 ```
 
 * * *
@@ -1611,10 +1501,7 @@ The family of the style
 
 **Example**  
 ```js
-document.getStyleManager().createParagraphStyle('Summary');
-document.getBody()
-  .addParagraph('The quick, brown fox jumps over a lazy dog.')
-  .setStyleName('Summary');
+const style = new Style('Summary', StyleFamily.Paragraph);
 ```
 
 * * *
@@ -1725,71 +1612,206 @@ To become effective they must be set to the style of the respective paragraph.
 **Since**: 0.3.0  
 
 * [TabStop](#TabStop)
-    * [`new TabStop([position], [type])`](#new_TabStop_new)
-    * [`.setPosition(position)`](#TabStop+setPosition)
+    * [`new TabStop(position, [type])`](#new_TabStop_new)
+    * [`.getChar()`](#TabStop+getChar) ⇒ <code>string</code> \| <code>undefined</code>
+    * [`.setChar(char)`](#TabStop+setChar) ⇒ [<code>TabStop</code>](#TabStop)
+    * [`.getLeaderColor()`](#TabStop+getLeaderColor) ⇒ [<code>Color</code>](#new_Color_new) \| <code>undefined</code>
+    * [`.setLeaderColor(color)`](#TabStop+setLeaderColor) ⇒ [<code>TabStop</code>](#TabStop)
+    * [`.getLeaderStyle()`](#TabStop+getLeaderStyle) ⇒ <code>TabStopLeaderStyle</code>
+    * [`.setLeaderStyle(leaderStyle)`](#TabStop+setLeaderStyle) ⇒ [<code>TabStop</code>](#TabStop)
     * [`.getPosition()`](#TabStop+getPosition) ⇒ <code>number</code>
-    * [`.setType(type)`](#TabStop+setType)
+    * [`.setPosition(position)`](#TabStop+setPosition) ⇒ [<code>TabStop</code>](#TabStop)
     * [`.getType()`](#TabStop+getType) ⇒ <code>TabStopType</code>
+    * [`.setType(type)`](#TabStop+setType) ⇒ [<code>TabStop</code>](#TabStop)
 
 
 * * *
 
 <a name="new_TabStop_new"></a>
 
-### `new TabStop([position], [type])`
-Creates a tab stop to be set to the style of a paragraph.
-
-#### Parameters
-- [position] <code>number</code>  
-The position of the tab stop in millimeters relative to the left margin.
-If a negative value is given, the `position` will be set to `0`.
-- [type] <code>TabStopType</code>  
-The type of the tab stop. Defaults to `TabStopType.Left`.
-
-**Example**  
-```js
-// creates a right aligned tab stop with a distance of 40 mm from the left margin
-const tabStop40 = new TabStop(40, TabStopType.Right);
-paragraph.getStyle().addTabStop(tabStop40);
-```
-
-* * *
-
-<a name="TabStop+setPosition"></a>
-
-### `tabStop.setPosition(position)`
-Sets the position of this tab stop.
+### `new TabStop(position, [type])`
+Creates a `TabStop` instance that represents the settings of a tab stop.
 
 #### Parameters
 - position <code>number</code>  
 The position of the tab stop in millimeters relative to the left margin.
 If a negative value is given, the `position` will be set to `0`.
+- [type] <code>TabStopType</code> <code> = TabStopType.Left</code>  
+The type of the tab stop
 
-**Since**: 0.3.0  
+**Example**  
+```js
+const tabStop = new TabStop(23);                     // 23mm, TabStopType.Left
+const tabStop = new TabStop(23, TabStopType.Center); // 23mm, TabStopType.Center
+```
+
+* * *
+
+<a name="TabStop+getChar"></a>
+
+### `tabStop.getChar()` ⇒ <code>string</code> \| <code>undefined</code>
+The `getChar()` method returns delimiter character for tab stops of type `char`.
+
+**Return value**  
+<code>string</code> \| <code>undefined</code> - The delimiter character or `undefined` if the delimiter character is not set
+
+**Example**  
+```js
+const tabStop = new TabStop(23, TabStopType.Char);
+tabStop.getChar();    // undefined
+tabStop.setChar('~');
+tabStop.getChar();    // '~'
+```
+**Since**: 0.10.0  
+
+* * *
+
+<a name="TabStop+setChar"></a>
+
+### `tabStop.setChar(char)` ⇒ [<code>TabStop</code>](#TabStop)
+The `setChar()` method sets the delimiter character for tab stops of type `char`.
+
+If an illegal value is provided, the value will be ignored.
+
+#### Parameters
+- char <code>string</code> | <code>undefined</code>  
+The delimiter character or `undefined` to unset the delimiter character
+
+**Return value**  
+[<code>TabStop</code>](#TabStop) - The `TabStop` object
+
+**Example**  
+```js
+const tabStop = new TabStop(23, TabStopType.Char);
+tabStop.setChar('~');       // '~'
+tabStop.setChar('foo');     // '~'
+tabStop.setChar(undefined); // undefined
+```
+**Since**: 0.10.0  
+
+* * *
+
+<a name="TabStop+getLeaderColor"></a>
+
+### `tabStop.getLeaderColor()` ⇒ [<code>Color</code>](#new_Color_new) \| <code>undefined</code>
+The `getLeaderColor()` method returns the color of a leader line.
+
+**Return value**  
+[<code>Color</code>](#new_Color_new) \| <code>undefined</code> - The color of a leader line or `undefined` if the current text color will be used
+
+**Example**  
+```js
+const tabStop = new TabStop(23);
+tabStop.getLeaderColor();                           // `undefined`
+tabStop.setLeaderColor(Color.fromRgb(255, 128, 0));
+tabStop.getLeaderColor();                           // yellow color
+```
+**Since**: 0.10.0  
+
+* * *
+
+<a name="TabStop+setLeaderColor"></a>
+
+### `tabStop.setLeaderColor(color)` ⇒ [<code>TabStop</code>](#TabStop)
+The `setLeaderColor()` method sets the color of a leader line.
+
+#### Parameters
+- color [<code>Color</code>](#new_Color_new) | <code>undefined</code>  
+The color of a leader line or `undefined` if the current text color will be used
+
+**Return value**  
+[<code>TabStop</code>](#TabStop) - The `TabStop` object
+
+**Example**  
+```js
+const tabStop = new TabStop(23);
+tabStop.setLeaderColor(Color.fromRgb(255, 128, 0));
+tabStop.setLeaderColor(undefined);
+```
+**Since**: 0.10.0  
+
+* * *
+
+<a name="TabStop+getLeaderStyle"></a>
+
+### `tabStop.getLeaderStyle()` ⇒ <code>TabStopLeaderStyle</code>
+The `getLeaderStyle()` method returns the style for a leader line.
+
+**Return value**  
+<code>TabStopLeaderStyle</code> - The style for a leader line
+
+**Example**  
+```js
+const tabStop = new TabStop(23);
+tabStop.getLeaderStyle();                          // TabStopLeaderStyle.None
+tabStop.setLeaderStyle(TabStopLeaderStyle.Dotted);
+tabStop.getLeaderStyle();                          // TabStopLeaderStyle.Dotted
+```
+**Since**: 0.10.0  
+
+* * *
+
+<a name="TabStop+setLeaderStyle"></a>
+
+### `tabStop.setLeaderStyle(leaderStyle)` ⇒ [<code>TabStop</code>](#TabStop)
+The `setLeaderStyle()` method sets the style for a leader line.
+
+#### Parameters
+- leaderStyle <code>TabStopLeaderStyle</code>  
+The style for a leader line
+
+**Return value**  
+[<code>TabStop</code>](#TabStop) - The `TabStop` object
+
+**Example**  
+```js
+const tabStop = new TabStop(23);
+tabStop.setLeaderStyle(TabStopLeaderStyle.Dotted);
+```
+**Since**: 0.10.0  
 
 * * *
 
 <a name="TabStop+getPosition"></a>
 
 ### `tabStop.getPosition()` ⇒ <code>number</code>
-Returns the position of this tab stop.
+The `getPosition` method returns the position of the tab stop which is interpreted as being relative
+to the left margin or the left indent.
 
 **Return value**  
-<code>number</code> - The position of this tab stop in millimeters
+<code>number</code> - The position of the tab stop in millimeters
 
+**Example**  
+```js
+const tabStop = new TabStop(23);
+tabStop.getPosition();   // 23
+tabStop.setPosition(42);
+tabStop.getPosition();   // 42
+```
 **Since**: 0.3.0  
 
 * * *
 
-<a name="TabStop+setType"></a>
+<a name="TabStop+setPosition"></a>
 
-### `tabStop.setType(type)`
-Sets the type of this tab stop.
+### `tabStop.setPosition(position)` ⇒ [<code>TabStop</code>](#TabStop)
+The `setPosition` method sets the position of the tab stop which is interpreted as being relative
+to the left margin or the left indent.
 
 #### Parameters
-- type <code>TabStopType</code>  
-The type of the tab stop
+- position <code>number</code>  
+The position of the tab stop in millimeters.
+If a negative value is given, the `position` will be set to `0`.
 
+**Return value**  
+[<code>TabStop</code>](#TabStop) - The `TabStop` object
+
+**Example**  
+```js
+const tabStop = new TabStop(23); // 23 mm
+tabStop.setPosition(42);         // 42 mm
+tabStop.setPosition(-7);         // 0 mm
+```
 **Since**: 0.3.0  
 
 * * *
@@ -1797,11 +1819,39 @@ The type of the tab stop
 <a name="TabStop+getType"></a>
 
 ### `tabStop.getType()` ⇒ <code>TabStopType</code>
-Returns the type of this tab stop.
+The `getType` method returns the type of the tab stop.
 
 **Return value**  
-<code>TabStopType</code> - The type of this tab stop
+<code>TabStopType</code> - The type of the tab stop
 
+**Example**  
+```js
+const tabStop = new TabStop(23);
+font.getType();                   // TabStopType.Left
+font.setType(TabStopType.Center);
+font.getType();                   // TabStopType.Center
+```
+**Since**: 0.3.0  
+
+* * *
+
+<a name="TabStop+setType"></a>
+
+### `tabStop.setType(type)` ⇒ [<code>TabStop</code>](#TabStop)
+The `setType` method sets the type of the tab stop.
+
+#### Parameters
+- type <code>TabStopType</code>  
+The type of the tab stop
+
+**Return value**  
+[<code>TabStop</code>](#TabStop) - The `TabStop` object
+
+**Example**  
+```js
+const tabStop = new TabStop(23);     // TabStopType.Left
+tabStop.setType(TabStopType.Center); // TabStopType.Center
+```
 **Since**: 0.3.0  
 
 * * *
@@ -1847,13 +1897,9 @@ The level of the heading, starting with `1`; defaults to `1` if omitted
 
 **Example**  
 ```js
-document.getBody().addHeading('First Headline', 1);
-```
-**Example**  
-```js
-document.getBody().addHeading()
-  .setText('Second Headline')
-  .setLevel(2);
+new Heading('First Headline', 1);
+new Heading('First Headline');
+new Heading();
 ```
 
 * * *
@@ -1892,6 +1938,7 @@ The `getLevel()` method returns the level of the heading.
 ### `heading.addText(text)` ⇒ [<code>Paragraph</code>](#Paragraph)
 Appends the specified text to the end of the paragraph.
 
+**Overrides**: [<code>addText</code>](#Paragraph+addText)  
 #### Parameters
 - text <code>string</code>  
 The additional text content
@@ -1914,6 +1961,7 @@ new Paragraph('Some text')      // Some text
 Returns the text content of the paragraph.
 Note: This will only return the text; other elements and markup will be omitted.
 
+**Overrides**: [<code>getText</code>](#Paragraph+getText)  
 **Return value**  
 <code>string</code> - The text content of the paragraph
 
@@ -1934,6 +1982,7 @@ paragraph.getText(); // Some text, some linked text, even more text
 Sets the text content of the paragraph.
 Note: This will replace any existing content of the paragraph.
 
+**Overrides**: [<code>setText</code>](#Paragraph+setText)  
 #### Parameters
 - text <code>string</code>  
 The new text content
@@ -1955,6 +2004,7 @@ new Paragraph('Some text')     // Some text
 ### `heading.addHyperlink(text, uri)` ⇒ [<code>Hyperlink</code>](#Hyperlink)
 Appends the specified text as hyperlink to the end of the paragraph.
 
+**Overrides**: [<code>addHyperlink</code>](#Paragraph+addHyperlink)  
 #### Parameters
 - text <code>string</code>  
 The text content of the hyperlink
@@ -1979,6 +2029,7 @@ new Paragraph('Some text, ')         // Some text,
 Appends the image of the denoted path to the end of the paragraph.
 The current paragraph will be set as anchor for the image.
 
+**Overrides**: [<code>addImage</code>](#Paragraph+addImage)  
 #### Parameters
 - path <code>string</code>  
 The path to the image file
@@ -2003,6 +2054,7 @@ To reset the style, `undefined` must be given.
 
 If style and style name are both set, the custom style will be set and the common style will be ignored.
 
+**Overrides**: [<code>setStyle</code>](#Paragraph+setStyle)  
 #### Parameters
 - style <code>ParagraphStyle</code> | <code>undefined</code>  
 The new style or `undefined` to reset the style
@@ -2024,6 +2076,7 @@ new Paragraph('Some text')
 ### `heading.getStyle()` ⇒ <code>ParagraphStyle</code> \| <code>undefined</code>
 Returns the style of the paragraph.
 
+**Overrides**: [<code>getStyle</code>](#Paragraph+getStyle)  
 **Return value**  
 <code>ParagraphStyle</code> \| <code>undefined</code> - The style of the paragraph or `undefined` if no style was set
 
@@ -2046,6 +2099,7 @@ To reset the common style, `undefined` must be given.
 
 If style and style name are both set, the custom style will be set and the common style will be ignored.
 
+**Overrides**: [<code>setStyleName</code>](#Paragraph+setStyleName)  
 #### Parameters
 - styleName <code>string</code> | <code>undefined</code>  
 The name of the common style or `undefined` to reset the common style
@@ -2067,6 +2121,7 @@ new Paragraph('Some text')
 ### `heading.getStyleName()` ⇒ <code>string</code> \| <code>undefined</code>
 Returns the name of the common style of the paragraph.
 
+**Overrides**: [<code>getStyleName</code>](#Paragraph+getStyleName)  
 **Return value**  
 <code>string</code> \| <code>undefined</code> - The name of the common style or `undefined` if no common style was set
 
@@ -2109,9 +2164,7 @@ The target URI of the hyperlink
 
 **Example**  
 ```js
-document.getBody()
-  .addParagraph('This is a ')
-  .addHyperlink('link', 'https://example.com/');
+new Hyperlink('My website', 'https://example.com/');
 ```
 
 * * *
@@ -2185,11 +2238,7 @@ Creates a `List` instance that represents a list.
 
 **Example**  
 ```js
-const list = document.getBody().addList();
-list.addItem('First item');
-list.addItem('Second item');
-list.insertItem(1, 'After first item');
-list.removeItemAt(2);
+new List();
 ```
 
 * * *
@@ -2377,9 +2426,7 @@ The text content of the list item; defaults to an empty string if omitted
 
 **Example**  
 ```js
-const list = document.getBody()
-  .addList()
-  .addItem('First item');
+new ListItem('First item');
 ```
 
 * * *
@@ -2417,9 +2464,8 @@ The text content of the paragraph; defaults to an empty string if omitted
 
 **Example**  
 ```js
-document.getBody().addParagraph('Some text')
-  .addText('\nEven more text')
-  .addImage('/home/homer/myself.png');
+new Paragraph('Some text');
+new Paragraph();
 ```
 
 * * *

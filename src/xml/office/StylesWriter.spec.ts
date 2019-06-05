@@ -2,8 +2,8 @@
 import { DOMImplementation, XMLSerializer } from 'xmldom';
 import { CommonStyles, AutomaticStyles } from '../../api/office';
 import { BorderStyle, Color, FontVariant, HorizontalAlignment, HorizontalAlignmentLastLine } from '../../api/style';
-import { PageBreak, ParagraphStyle, TextTransformation, Typeface, TabStop, TabStopType } from '../../api/style';
-import { VerticalAlignment } from '../../api/style';
+import { PageBreak, ParagraphStyle, TabStop, TabStopLeaderStyle, TabStopType } from '../../api/style';
+import { TextTransformation, Typeface, VerticalAlignment } from '../../api/style';
 import { OdfElementName } from '../OdfElementName';
 import { StylesWriter } from './StylesWriter';
 
@@ -343,7 +343,8 @@ describe(StylesWriter.name, () => {
 
         it('set tab stop types', () => {
           testStyle.addTabStop(new TabStop(2, TabStopType.Center));
-          testStyle.addTabStop(new TabStop(4, TabStopType.Char));
+          testStyle.addTabStop(new TabStop(4, TabStopType.Char).setChar('~'));
+          testStyle.addTabStop(new TabStop(5, TabStopType.Char));
           testStyle.addTabStop(new TabStop(6, TabStopType.Left));
           testStyle.addTabStop(new TabStop(8, TabStopType.Right));
 
@@ -351,9 +352,29 @@ describe(StylesWriter.name, () => {
           const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
           expect(documentAsString).toMatch(/<style:tab-stop style:position="2mm" style:type="center"\/>/);
-          expect(documentAsString).toMatch(/<style:tab-stop style:position="4mm" style:type="char"\/>/);
+          expect(documentAsString).toMatch(/<style:tab-stop style:position="4mm" style:type="char" style:char="~"\/>/);
           expect(documentAsString).toMatch(/<style:tab-stop style:position="6mm"\/>/);
           expect(documentAsString).toMatch(/<style:tab-stop style:position="8mm" style:type="right"\/>/);
+        });
+
+        it('set leader style', () => {
+          testStyle.addTabStop(new TabStop(2, TabStopType.Center).setLeaderStyle(TabStopLeaderStyle.Dotted));
+
+          stylesWriter.write(commonStyles, testDocument, testRoot);
+          const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+          // tslint:disable-next-line:max-line-length
+          expect(documentAsString).toMatch(/<style:tab-stop style:position="2mm" style:type="center" style:leader-style="dotted"\/>/);
+        });
+
+        it('set leader color', () => {
+          testStyle.addTabStop(new TabStop(2, TabStopType.Center).setLeaderColor(Color.fromRgb(1, 2, 3)));
+
+          stylesWriter.write(commonStyles, testDocument, testRoot);
+          const documentAsString = new XMLSerializer().serializeToString(testDocument);
+
+          // tslint:disable-next-line:max-line-length
+          expect(documentAsString).toMatch(/<style:tab-stop style:position="2mm" style:type="center" style:leader-color="#010203"\/>/);
         });
       });
     });

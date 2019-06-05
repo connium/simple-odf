@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased] (2019-??-??)
+### Added
+- **style:** add tab stop character and leader settings to paragraph style
 
 ## [0.9.0] (2019-05-30)
 ### Added

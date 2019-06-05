@@ -1,5 +1,5 @@
 import { createHash } from 'crypto';
-import { Border, ParagraphStyle, Style, StyleFamily } from '../style';
+import { ParagraphStyle, Style, StyleFamily } from '../style';
 import { IStyles } from './IStyles';
 
 type IStyleInformation = {
@@ -114,24 +114,23 @@ export class AutomaticStyles implements IStyles {
       const paragraphStyle = style as ParagraphStyle;
 
       // paragraph properties
-      const backgroundColor = paragraphStyle.getBackgroundColor();
-      hash.update(backgroundColor !== undefined ? backgroundColor.toHex() : '');
-      hash.update('border-bottom' + this.getBorder(paragraphStyle.getBorderBottom()));
-      hash.update('border-left' + this.getBorder(paragraphStyle.getBorderLeft()));
-      hash.update('border-right' + this.getBorder(paragraphStyle.getBorderRight()));
-      hash.update('border-top' + this.getBorder(paragraphStyle.getBorderTop()));
+      hash.update('background-color' + paragraphStyle.getBackgroundColor());
+      hash.update('border-bottom' + paragraphStyle.getBorderBottom());
+      hash.update('border-left' + paragraphStyle.getBorderLeft());
+      hash.update('border-right' + paragraphStyle.getBorderRight());
+      hash.update('border-top' + paragraphStyle.getBorderTop());
       hash.update(paragraphStyle.getHorizontalAlignment());
       hash.update(paragraphStyle.getHorizontalAlignmentLastLine());
       hash.update(paragraphStyle.getKeepTogether() ? 'kt' : '');
       hash.update(paragraphStyle.getKeepWithNext() ? 'kwn' : '');
-      hash.update('lh' + (paragraphStyle.getLineHeight() || ''));
-      hash.update('lhal' + (paragraphStyle.getLineHeightAtLeast() || ''));
-      hash.update('ls' + (paragraphStyle.getLineSpacing() || ''));
+      hash.update('lh' + paragraphStyle.getLineHeight());
+      hash.update('lhal' + paragraphStyle.getLineHeightAtLeast());
+      hash.update('ls' + paragraphStyle.getLineSpacing());
       hash.update('margin-bottom' + paragraphStyle.getMarginBottom());
       hash.update('margin-left' + paragraphStyle.getMarginLeft());
       hash.update('margin-right' + paragraphStyle.getMarginRight());
       hash.update('margin-top' + paragraphStyle.getMarginTop());
-      hash.update('orphans' + (paragraphStyle.getOrphans() || ''));
+      hash.update('orphans' + paragraphStyle.getOrphans());
       hash.update('padding-bottom' + paragraphStyle.getPaddingBottom());
       hash.update('padding-left' + paragraphStyle.getPaddingLeft());
       hash.update('padding-right' + paragraphStyle.getPaddingRight());
@@ -139,14 +138,14 @@ export class AutomaticStyles implements IStyles {
       hash.update(paragraphStyle.getPageBreak().toString());
       hash.update('text-indent' + paragraphStyle.getTextIndent());
       hash.update(paragraphStyle.getVerticalAlignment());
-      hash.update('widows' + (paragraphStyle.getWidows() || ''));
+      hash.update('widows' + paragraphStyle.getWidows());
       paragraphStyle.getTabStops().forEach((tabStop) => {
-        hash.update(`tab${tabStop.getPosition()}${tabStop.getType()}`);
+        // tslint:disable-next-line:max-line-length
+        hash.update(`tab${tabStop.getChar()}${tabStop.getLeaderColor()}${tabStop.getLeaderStyle()}${tabStop.getPosition()}${tabStop.getType()}`);
       });
 
       // text properties
-      const color = paragraphStyle.getColor();
-      hash.update(color !== undefined ? color.toHex() : '');
+      hash.update('color' + paragraphStyle.getColor());
       hash.update(paragraphStyle.getFontName() || '');
       hash.update(paragraphStyle.getFontSize().toString());
       hash.update(paragraphStyle.getFontVariant());
@@ -155,9 +154,5 @@ export class AutomaticStyles implements IStyles {
     }
 
     return hash.digest('hex');
-  }
-
-  private getBorder (border: Border | undefined): string {
-    return border !== undefined ? border.toString() : '';
   }
 }

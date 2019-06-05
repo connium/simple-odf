@@ -32,8 +32,11 @@ export enum OdfAttributeName {
   OfficeMimetype = 'office:mimetype',
   OfficeVersion = 'office:version',
 
+  StyleChar = 'style:char',
   StyleFamily = 'style:family',
   StyleFontName = 'style:font-name',
+  StyleLeaderColor = 'style:leader-color',
+  StyleLeaderStyle = 'style:leader-style',
   StyleLineHeightAtLeast = 'style:line-height-at-least',
   StyleLineSpacing = 'style:line-spacing',
   StyleName = 'style:name',

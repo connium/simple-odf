@@ -13,6 +13,7 @@ export { ParagraphStyle } from './ParagraphStyle';
 export { Style } from './Style';
 export { StyleFamily } from './StyleFamily';
 export { TabStop } from './TabStop';
+export { TabStopLeaderStyle } from './TabStopLeaderStyle';
 export { TabStopType } from './TabStopType';
 export { TextProperties } from './TextProperties';
 export { TextTransformation } from './TextTransformation';

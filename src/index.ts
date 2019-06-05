@@ -26,6 +26,7 @@ export { ParagraphStyle } from './api/style/ParagraphStyle';
 export { Style } from './api/style/Style';
 export { StyleFamily } from './api/style/StyleFamily';
 export { TabStop } from './api/style/TabStop';
+export { TabStopLeaderStyle } from './api/style/TabStopLeaderStyle';
 export { TabStopType } from './api/style/TabStopType';
 export { TextTransformation } from './api/style/TextTransformation';
 export { Typeface } from './api/style/Typeface';
