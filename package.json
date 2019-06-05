@@ -1,6 +1,6 @@
 {
   "name": "simple-odf",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Open Document Format made easy using pure JavaScript and Node.js",
   "keywords": [
     "open",
