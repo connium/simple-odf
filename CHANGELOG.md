@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] (2019-??-??)
 
+## [0.10.1] (2019-07-11)
+### Changed
+- **chore:** update dev dependencies
+
 ## [0.10.0] (2019-06-05)
 ### Added
 - **style:** add tab stop character and leader settings to paragraph style
@@ -30,7 +34,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **chore(ci):** update distribution of Travis CI configuration
 
 ### Fixed
-- **fix(style):** tab stop is added as child of style:style element
+- **style:** tab stop is added as child of style:style element
 
 ## [0.8.0] (2019-02-26)
 ### Added
@@ -123,7 +127,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **paragraph:** Set horizontal alignment
 - **text-document:** Create text documents and save them as flat XML ODF document
 
-[Unreleased]: https://github.com/connium/simple-odf/compare/v0.10.0...HEAD
+[Unreleased]: https://github.com/connium/simple-odf/compare/v0.10.1...HEAD
+[0.10.1]: https://github.com/connium/simple-odf/compare/v0.10.0...v0.10.1
 [0.10.0]: https://github.com/connium/simple-odf/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/connium/simple-odf/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/connium/simple-odf/compare/v0.7.0...v0.8.0
