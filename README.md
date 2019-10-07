@@ -75,8 +75,8 @@ body.addHeading('Credits', 2);
 body.addParagraph('This was quite easy. Do you want to know why?');
 
 const list = body.addList();
-list.addItem('one-liner setup');
-list.addItem('just write like you would do in a full-blown editor');
+list.addItem().addParagraph('one-liner setup');
+list.addItem().addParagraph('just write like you would do in a full-blown editor');
 
 document.saveFlat('/home/homer/My_first_document.fodf');
 ```

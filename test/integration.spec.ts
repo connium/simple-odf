@@ -300,8 +300,9 @@ xdescribe('integration', () => {
     heading.setStyle(style);
 
     const list = body.addList();
-    list.addItem('first item');
-    list.addItem('second item');
+    list.addItem().addHeading('list item heading', 3);
+    list.addItem().addParagraph('first item');
+    list.addItem().addParagraph('second item');
   });
 
   it('save document', async (done) => {

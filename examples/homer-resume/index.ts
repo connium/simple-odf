@@ -40,7 +40,7 @@ jobTitleStyle.setTypeface(Typeface.Bold);
 
 const companyNameStyle = new ParagraphStyle();
 companyNameStyle.setFontName(fontName);
-companyNameStyle.setFontSize(10)
+companyNameStyle.setFontSize(10);
 companyNameStyle.setTypeface(Typeface.Italic);
 
 const defaultStyle = new ParagraphStyle();
@@ -93,8 +93,9 @@ body.addHeading('Nuclear Safety Inspector', 3)
 body.addParagraph('Springfield Nuclear Power Plant, Springfield, USA')
   .setStyle(companyNameStyle);
 const list1 = body.addList();
-list1.addItem('Strengthened safety procedures that resulted in 75% fewer accidents on days I was absent');
-list1.addItem('Pioneered workplace stress-reduction methods that worked for at least one employee');
+// tslint:disable-next-line:max-line-length
+list1.addItem().addParagraph('Strengthened safety procedures that resulted in 75% fewer accidents on days I was absent');
+list1.addItem().addParagraph('Pioneered workplace stress-reduction methods that worked for at least one employee');
 
 body.addParagraph();
 
@@ -105,8 +106,8 @@ body.addHeading('Owner and Chief Driver for Snow-Plowing Business', 3)
 body.addParagraph('Mr. Plow, Springfield, USA')
   .setStyle(companyNameStyle);
 const list2 = body.addList();
-list2.addItem('Boosted business 15% by executing late-night TV marketing campaign');
-list2.addItem('Received key to the city in recognition of the achievements');
+list2.addItem().addParagraph('Boosted business 15% by executing late-night TV marketing campaign');
+list2.addItem().addParagraph('Received key to the city in recognition of the achievements');
 
 body.addParagraph();
 body.addParagraph();
@@ -127,7 +128,7 @@ body.addParagraph('1969-10 - 1973-06')
 body.addHeading('Springfield High School', 3)
   .setStyle(jobTitleStyle);
 const list3 = body.addList();
-list3.addItem('Graduated 4-');
+list3.addItem().addParagraph('Graduated 4-');
 
 body.addParagraph();
 body.addParagraph();

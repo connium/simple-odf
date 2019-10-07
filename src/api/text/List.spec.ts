@@ -10,28 +10,31 @@ describe(List.name, () => {
   beforeEach(() => {
     list = new List();
 
-    testItem1 = new ListItem('first');
-    testItem2 = new ListItem('second');
-    testItem3 = new ListItem('third');
+    testItem1 = new ListItem();
+    testItem2 = new ListItem();
+    testItem3 = new ListItem();
   });
 
   describe('#addItem', () => {
     beforeEach(() => {
-      list.addItem('first');
+      list.addItem();
     });
 
     it('create new item at the end of the list and return the added item', () => {
-      const addedItem = list.addItem('second');
+      const addedItem = list.addItem();
 
-      expect(addedItem).toEqual(testItem2);
-      expect(list.getItems()).toEqual([testItem1, testItem2]);
+      expect(addedItem).toBeInstanceOf(ListItem);
+      expect(list.getItems().length).toBe(2);
     });
 
     it('add new item to the end of the list and return the added item', () => {
-      const addedItem = list.addItem(testItem2);
+      const testItem = new ListItem();
 
-      expect(addedItem).toBe(testItem2);
-      expect(list.getItems()).toEqual([testItem1, testItem2]);
+      const addedItem = list.addItem(testItem);
+
+      expect(addedItem).toBe(testItem);
+      expect(list.getItems().length).toBe(2);
+      expect(list.getItem(1)).toBe(testItem);
     });
   });
 
@@ -43,11 +46,11 @@ describe(List.name, () => {
       list.addItem(testItem2);
       list.addItem(testItem3);
 
-      itemToAdd = new ListItem('new');
+      itemToAdd = new ListItem();
     });
 
     it('insert item at the specified position and return the added item', () => {
-      const insertedItem = list.insertItem(2, 'new');
+      const insertedItem = list.insertItem(2, itemToAdd);
 
       expect(insertedItem).toEqual(itemToAdd);
       expect(list.getItems()).toEqual([testItem1, testItem2, itemToAdd, testItem3]);
