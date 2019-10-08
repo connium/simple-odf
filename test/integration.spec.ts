@@ -10,7 +10,7 @@ import { TextTransformation, Typeface, VerticalAlignment } from '../src/api/styl
 
 const FILEPATH = './integration.fodt';
 
-xdescribe('integration', () => {
+describe('integration', () => {
   let document: TextDocument;
   let body: TextBody;
 
@@ -303,6 +303,11 @@ xdescribe('integration', () => {
     list.addItem().addHeading('list item heading', 3);
     list.addItem().addParagraph('first item');
     list.addItem().addParagraph('second item');
+
+    const sublist = list.addItem().addList();
+    sublist.addItem().addHeading('sublist item heading', 3);
+    sublist.addItem().addParagraph('first subitem');
+    sublist.addItem().addParagraph('second subitem');
   });
 
   it('save document', async (done) => {

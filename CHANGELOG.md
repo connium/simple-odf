@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased] (2019-??-??)
+### Added
+- **list:** implement sublists
+
 ### Changed
 - **list:** text content of a list item cannot be styled, closes [#67](https://github.com/connium/simple-odf/issues/67)
 

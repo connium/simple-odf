@@ -1,4 +1,5 @@
 import { Heading } from './Heading';
+import { List } from './List';
 import { ListItem } from './ListItem';
 import { Paragraph } from './Paragraph';
 
@@ -14,6 +15,14 @@ describe(ListItem.name, () => {
       const heading = listItem.addHeading();
 
       expect(heading).toBeInstanceOf(Heading);
+    });
+  });
+
+  describe('#addList', () => {
+    it('return a list', () => {
+      const list = listItem.addList();
+
+      expect(list).toBeInstanceOf(List);
     });
   });
 
