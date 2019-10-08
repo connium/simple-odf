@@ -10,7 +10,7 @@ import { TextTransformation, Typeface, VerticalAlignment } from '../src/api/styl
 
 const FILEPATH = './integration.fodt';
 
-describe('integration', () => {
+xdescribe('integration', () => {
   let document: TextDocument;
   let body: TextBody;
 
