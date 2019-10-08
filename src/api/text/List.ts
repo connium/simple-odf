@@ -6,9 +6,9 @@ import { ListItem } from './ListItem';
  *
  * @example
  * const list = document.getBody().addList();
- * list.addItem('First item');
- * list.addItem('Second item');
- * list.insertItem(1, 'After first item');
+ * list.addItem();
+ * list.addItem();
+ * list.insertItem(1, new ListItem());
  * list.removeItemAt(2);
  *
  * @since 0.2.0
@@ -27,58 +27,44 @@ export class List extends OdfElement {
   }
 
   /**
-   * The `addItem()` method adds a new list item with the specified text or adds the specified item to the list.
+   * The `addItem()` method adds a new list item or adds the specified item to the list.
    *
    * @example
    * const list = new List();
-   * list.addItem('First item');
-   * list.addItem(new ListItem('Second item'));
+   * list.addItem();
+   * list.addItem(new ListItem());
    *
-   * @param {string | ListItem} [item] The text content of the new item or the item to add
+   * @param {ListItem} [item] The item to add
    * @returns {ListItem} The added `ListItem` object
    * @since 0.2.0
    */
-  public addItem (item?: string | ListItem): ListItem {
-    if (item instanceof ListItem) {
-      this.append(item);
-      return item;
-    }
-
-    const listItem = new ListItem(item);
+  public addItem (item?: ListItem): ListItem {
+    const listItem = item || new ListItem();
     this.append(listItem);
 
     return listItem;
   }
 
   /**
-   * The `insertItem` method inserts a new list item with the specified text
-   * or inserts the specified item at the specified position.
+   * The `insertItem` method inserts the specified item at the specified position.
    * The item is inserted before the item at the specified position.
    *
-   * If the position is greater than the current number items, the new item is appended at the end of the list.
+   * If the position is greater than the current number of items, the new item is appended at the end of the list.
    * If the position is negative, the new item is inserted as first element.
    *
    * @example
    * const list = new List();
-   * list.addItem('First item');             // 'First item'
-   * list.addItem('Second item');            // 'First item', 'Second item'
-   * list.insertItem(1, 'After first item'); // 'First item', 'After first item', 'Second item'
+   * list.addItem();
+   * list.insertItem(0, new ListItem()); // insert before existing item
    *
    * @param {number} position The index at which to insert the list item (starting from 0).
-   * @param {string | ListItem} item The text content of the new item or the item to insert
+   * @param {ListItem} item The item to insert
    * @returns {ListItem} The inserted `ListItem` object
    * @since 0.2.0
    */
-  public insertItem (position: number, item: string | ListItem): ListItem {
-    if (item instanceof ListItem) {
-      this.insert(position, item);
-      return item;
-    }
-
-    const listItem = new ListItem(item);
-    this.insert(position, listItem);
-
-    return listItem;
+  public insertItem (position: number, item: ListItem): ListItem {
+    this.insert(position, item);
+    return item;
   }
 
   /**
@@ -87,10 +73,10 @@ export class List extends OdfElement {
    *
    * @example
    * const list = new List();
-   * list.addItem('First item');
-   * list.addItem('Second item');
-   * list.getItem(1);             // 'Second item'
-   * list.getItem(2);             // undefined
+   * list.addItem();
+   * list.addItem();
+   * list.getItem(1); // second item
+   * list.getItem(2); // undefined
    *
    * @param {number} position The index of the requested list item (starting from 0).
    * @returns {ListItem | undefined} The `ListItem` object at the specified position
@@ -106,10 +92,10 @@ export class List extends OdfElement {
    *
    * @example
    * const list = new List();
-   * list.getItems();             // []
-   * list.addItem('First item');
-   * list.addItem('Second item');
-   * list.getItems();             // ['First item', 'Second item']
+   * list.getItems(); // []
+   * list.addItem();
+   * list.addItem();
+   * list.getItems(); // [first item, second item]
    *
    * @returns {ListItem[]} A copy of the list of `ListItem` objects
    * @since 0.2.0
@@ -123,11 +109,11 @@ export class List extends OdfElement {
    *
    * @example
    * const list = new List();
-   * list.addItem('First item');
-   * list.addItem('Second item');
-   * list.removeItemAt(0);        // 'First item'
-   * list.getItems();             // ['Second item']
-   * list.removeItemAt(2);        // undefined
+   * list.addItem();
+   * list.addItem();
+   * list.removeItemAt(0); // first item
+   * list.getItems();      // [second item]
+   * list.removeItemAt(2); // undefined
    *
    * @param {number} position The index of the list item to remove (starting from 0).
    * @returns {ListItem | undefined} The removed `ListItem` object
@@ -143,9 +129,10 @@ export class List extends OdfElement {
    *
    * @example
    * const list = new List();
-   * list.addItem('First item');  // 'First item'
-   * list.addItem('Second item'); // 'First item', 'Second item'
-   * list.clear();                // -
+   * list.addItem();
+   * list.addItem();
+   * list.clear();
+   * list.getItems(); // []
    *
    * @returns {List} The `List` object
    * @since 0.2.0
@@ -165,10 +152,10 @@ export class List extends OdfElement {
    *
    * @example
    * const list = new List();
-   * list.size();                 // 0
-   * list.addItem('First item');
-   * list.addItem('Second item');
-   * list.size();                 // 2
+   * list.size();    // 0
+   * list.addItem();
+   * list.addItem();
+   * list.size();    // 2
    *
    * @returns {number} The number of items in this list
    * @since 0.2.0

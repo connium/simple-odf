@@ -32,6 +32,10 @@ export class TextBody extends OdfElement {
   /**
    * Adds an empty list at the end of the document.
    *
+   * @example
+   * new TextBody()
+   *   .addList();
+   *
    * @returns {List} The newly added list
    * @since 0.7.0
    */

@@ -136,13 +136,22 @@ describe(DomVisitor.name, () => {
         expect(documentAsString).not.toMatch(/<text:list/);
       });
 
-      it('insert a list with a list item', () => {
-        list.addItem('first');
+      it('insert a list with a list item and a nested heading', () => {
+        list.addItem().addHeading(testText, 2);
 
         domVisitor.visit(list, testDocument, testRoot);
 
         const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<text:list><text:list-item><text:p>first<\/text:p><\/text:list-item><\/text:list>/);
+        expect(documentAsString).toMatch(/<text:list><text:list-item><text:h text:outline-level="2">some text<\/text:h><\/text:list-item><\/text:list>/);
+      });
+
+      it('insert a list with a list item and a nested paragraph', () => {
+        list.addItem().addParagraph(testText);
+
+        domVisitor.visit(list, testDocument, testRoot);
+
+        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+        expect(documentAsString).toMatch(/<text:list><text:list-item><text:p>some text<\/text:p><\/text:list-item><\/text:list>/);
       });
     });
 
