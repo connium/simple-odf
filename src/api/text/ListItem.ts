@@ -1,5 +1,6 @@
 import { OdfElement } from '../OdfElement';
 import { Heading } from './Heading';
+import { List } from './List';
 import { Paragraph } from './Paragraph';
 
 /**
@@ -9,6 +10,7 @@ import { Paragraph } from './Paragraph';
  * const listItem = new ListItem();
  * listItem.addHeading('headline');
  * listItem.addParagraph('paragraph');
+ * const subList = listItem.addList();
  *
  * @since 0.2.0
  */
@@ -39,6 +41,23 @@ export class ListItem extends OdfElement {
     this.append(heading);
 
     return heading;
+  }
+
+  /**
+   * Adds an empty list at the end of the list item.
+   *
+   * @example
+   * new ListItem()
+   *   .addList();
+   *
+   * @returns {List} The newly added list
+   * @since 0.11.0
+   */
+  public addList (): List {
+    const list = new List();
+    this.append(list);
+
+    return list;
   }
 
   /**
