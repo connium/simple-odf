@@ -52,7 +52,6 @@ export class Style {
    * @since 0.9.0
    */
   public setClass (clazz: string | undefined): Style {
-    /* tslint:disable-next-line:strict-type-predicates */
     if (clazz === undefined || typeof clazz === 'string') {
       this.clazz = clazz;
     }

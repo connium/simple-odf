@@ -37,7 +37,7 @@
     "test": "jest",
     "watch-test": "jest --watch",
     "coverage": "jest --coverage",
-    "lint": "eslint ./**/*.ts",
+    "lint": "standardx \"src/**/*.ts\"  \"test/**/*.ts\"",
     "docs": "rm -r ./lib && tsc && jsdoc2md --name-format --param-list-format list --separators --partial ./tools/jsdoc2md/body.hbs ./tools/jsdoc2md/params-list.hbs ./tools/jsdoc2md/returns.hbs ./tools/jsdoc2md/scope.hbs --files ./lib/api/**/*.js > ./docs/API.md"
   },
   "dependencies": {
@@ -49,9 +49,9 @@
     "@types/xmldom": "^0.1.29",
     "@typescript-eslint/eslint-plugin": "^2.3.3",
     "@typescript-eslint/parser": "^2.3.3",
-    "eslint": "^6.5.1",
     "jest": "^24.1.0",
     "jsdoc-to-markdown": "^5.0.0",
+    "standardx": "^5.0.0",
     "ts-jest": "^24.0.2",
     "typescript": "^3.3.3"
   },
@@ -68,5 +68,11 @@
       "js"
     ],
     "collectCoverage": true
+  },
+  "standardx": {
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint/eslint-plugin"
+    ]
   }
 }

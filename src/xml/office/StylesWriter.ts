@@ -1,10 +1,11 @@
-// tslint:disable:no-duplicate-imports
+/* eslint-disable import/no-duplicates */
 import { AutomaticStyles, CommonStyles, IStyles } from '../../api/office';
 import { BorderStyle, FontVariant, HorizontalAlignment, HorizontalAlignmentLastLine, PageBreak } from '../../api/style';
 import { ParagraphStyle, Style, StyleFamily, TabStopLeaderStyle, TabStopType } from '../../api/style';
 import { TextTransformation, Typeface, VerticalAlignment } from '../../api/style';
 import { OdfAttributeName } from '../OdfAttributeName';
 import { OdfElementName } from '../OdfElementName';
+/* eslint-enable import/no-duplicates */
 
 /**
  * Transforms a {@link StyleManager} object into ODF conform XML
@@ -99,8 +100,8 @@ export class StylesWriter {
     }
 
     const horizontalAlignmentLastLine = style.getHorizontalAlignmentLastLine();
-    if (horizontalAlignment === HorizontalAlignment.Justify
-      && horizontalAlignmentLastLine !== HorizontalAlignmentLastLine.Default) {
+    if (horizontalAlignment === HorizontalAlignment.Justify &&
+      horizontalAlignmentLastLine !== HorizontalAlignmentLastLine.Default) {
       paragraphPropertiesElement.setAttribute(OdfAttributeName.FormatTextAlignLast, horizontalAlignmentLastLine);
     }
 
@@ -286,9 +287,7 @@ export class StylesWriter {
       textPropertiesElement.setAttribute(OdfAttributeName.FormatFontStyle, 'oblique');
     }
 
-    if (typeface === Typeface.Bold
-      || typeface === Typeface.BoldItalic
-      || typeface === Typeface.BoldOblique) {
+    if (typeface === Typeface.Bold || typeface === Typeface.BoldItalic || typeface === Typeface.BoldOblique) {
       textPropertiesElement.setAttribute(OdfAttributeName.FormatFontWeight, 'bold');
     }
 

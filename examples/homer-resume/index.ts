@@ -93,7 +93,6 @@ body.addHeading('Nuclear Safety Inspector', 3)
 body.addParagraph('Springfield Nuclear Power Plant, Springfield, USA')
   .setStyle(companyNameStyle);
 const list1 = body.addList();
-// tslint:disable-next-line:max-line-length
 list1.addItem().addParagraph('Strengthened safety procedures that resulted in 75% fewer accidents on days I was absent');
 list1.addItem().addParagraph('Pioneered workplace stress-reduction methods that worked for at least one employee');
 

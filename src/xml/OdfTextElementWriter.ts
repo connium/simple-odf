@@ -10,7 +10,6 @@ export class OdfTextElementWriter {
    */
   public write (odfText: OdfTextElement, document: Document, parent: Element): void {
     const text = odfText.getText();
-    /* tslint:disable-next-line:strict-type-predicates */
     if (text === undefined || text === '') {
       return;
     }
@@ -22,7 +21,7 @@ export class OdfTextElementWriter {
         case SPACE:
           str += currentChar;
 
-          const count = this.findNextNonSpaceCharacter(text, index) - 1;
+          const count = this.findNextNonSpaceCharacter(text, index) - 1; // eslint-disable-line no-case-declarations
           if (count > 0) {
             this.appendTextNode(document, parent, str);
             this.appendSpaceNode(document, parent, count);

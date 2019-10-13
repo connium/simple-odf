@@ -58,7 +58,7 @@ export class FontFace {
    * @since 0.8.0
    */
   public setCharset (fontCharset: string | undefined): FontFace {
-    if (fontCharset === undefined || /^[A-Za-z][A-Za-z0-9._\-]*$/.test(fontCharset) === true) {
+    if (fontCharset === undefined || /^[A-Za-z][A-Za-z0-9._-]*$/.test(fontCharset) === true) {
       this.fontCharset = fontCharset;
     }
 
@@ -94,7 +94,6 @@ export class FontFace {
    * @since 0.8.0
    */
   public setFontFamily (fontFamily: string | undefined): FontFace {
-    /* tslint:disable-next-line:strict-type-predicates */
     if (fontFamily === undefined || typeof fontFamily === 'string') {
       this.fontFamily = fontFamily;
     }
@@ -131,7 +130,6 @@ export class FontFace {
    * @since 0.8.0
    */
   public setFontFamilyGeneric (fontFamilyGeneric: FontFamilyGeneric | undefined): FontFace {
-    /* tslint:disable-next-line:strict-type-predicates */
     if (fontFamilyGeneric === undefined || typeof fontFamilyGeneric === 'string') {
       this.fontFamilyGeneric = fontFamilyGeneric;
     }

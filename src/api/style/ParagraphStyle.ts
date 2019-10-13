@@ -1,3 +1,4 @@
+/* eslint-disable no-dupe-class-members */
 import { Border } from './Border';
 import { BorderStyle } from './BorderStyle';
 import { Color } from './Color';

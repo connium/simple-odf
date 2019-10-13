@@ -23,12 +23,12 @@ describe(MetaWriter.name, () => {
       metaWriter.write(testDocument, testRoot, meta);
 
       const documentAsString = new XMLSerializer().serializeToString(testDocument);
-      const regex = new RegExp('<office:meta>'
-        + '<meta:generator>simple-odf/\\d\\.\\d+\\.\\d+</meta:generator>'
-        + '<meta:initial-creator>' + userInfo().username + '</meta:initial-creator>'
-        + '<meta:creation-date>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z</meta:creation-date>'
-        + '<meta:editing-cycles>1</meta:editing-cycles>'
-        + '</office:meta>');
+      const regex = new RegExp('<office:meta>' +
+        '<meta:generator>simple-odf/\\d\\.\\d+\\.\\d+</meta:generator>' +
+        '<meta:initial-creator>' + userInfo().username + '</meta:initial-creator>' +
+        '<meta:creation-date>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z</meta:creation-date>' +
+        '<meta:editing-cycles>1</meta:editing-cycles>' +
+        '</office:meta>');
       expect(documentAsString).toMatch(regex);
     });
 
@@ -44,11 +44,11 @@ describe(MetaWriter.name, () => {
       metaWriter.write(testDocument, testRoot, meta);
 
       const documentAsString = new XMLSerializer().serializeToString(testDocument);
-      const regex = new RegExp('<office:meta>'
-        + '<meta:generator>simple-odf/\\d\\.\\d+\\.\\d+</meta:generator>'
-        + '<meta:creation-date>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z</meta:creation-date>'
-        + '<meta:editing-cycles>1</meta:editing-cycles>'
-        + '</office:meta>');
+      const regex = new RegExp('<office:meta>' +
+        '<meta:generator>simple-odf/\\d\\.\\d+\\.\\d+</meta:generator>' +
+        '<meta:creation-date>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z</meta:creation-date>' +
+        '<meta:editing-cycles>1</meta:editing-cycles>' +
+        '</office:meta>');
       expect(documentAsString).toMatch(regex);
     });
 
@@ -63,28 +63,27 @@ describe(MetaWriter.name, () => {
         .setPrintDate(new Date(Date.UTC(2021, 3, 1)))
         .setPrintedBy('Maggie Simpson')
         .setSubject('some test subject')
-        .setTitle('some test title')
-        ;
+        .setTitle('some test title');
 
       metaWriter.write(testDocument, testRoot, meta);
 
       const documentAsString = new XMLSerializer().serializeToString(testDocument);
-      const regex = new RegExp('<office:meta>'
-        + '<meta:generator>simple-odf/\\d\\.\\d+\\.\\d+</meta:generator>'
-        + '<dc:title>some test title</dc:title>'
-        + '<dc:description>some test description</dc:description>'
-        + '<dc:subject>some test subject</dc:subject>'
-        + '<meta:keyword>some keyword</meta:keyword>'
-        + '<meta:keyword>some other keyword</meta:keyword>'
-        + '<meta:initial-creator>Marge Simpson</meta:initial-creator>'
-        + '<dc:creator>Homer Simpson</dc:creator>'
-        + '<meta:printed-by>Maggie Simpson</meta:printed-by>'
-        + '<meta:creation-date>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z</meta:creation-date>'
-        + '<dc:date>2020-12-24T13:37:23.042Z</dc:date>'
-        + '<meta:print-date>2021-04-01T00:00:00.000Z</meta:print-date>'
-        + '<dc:language>zu</dc:language>'
-        + '<meta:editing-cycles>1</meta:editing-cycles>'
-        + '</office:meta>');
+      const regex = new RegExp('<office:meta>' +
+        '<meta:generator>simple-odf/\\d\\.\\d+\\.\\d+</meta:generator>' +
+        '<dc:title>some test title</dc:title>' +
+        '<dc:description>some test description</dc:description>' +
+        '<dc:subject>some test subject</dc:subject>' +
+        '<meta:keyword>some keyword</meta:keyword>' +
+        '<meta:keyword>some other keyword</meta:keyword>' +
+        '<meta:initial-creator>Marge Simpson</meta:initial-creator>' +
+        '<dc:creator>Homer Simpson</dc:creator>' +
+        '<meta:printed-by>Maggie Simpson</meta:printed-by>' +
+        '<meta:creation-date>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z</meta:creation-date>' +
+        '<dc:date>2020-12-24T13:37:23.042Z</dc:date>' +
+        '<meta:print-date>2021-04-01T00:00:00.000Z</meta:print-date>' +
+        '<dc:language>zu</dc:language>' +
+        '<meta:editing-cycles>1</meta:editing-cycles>' +
+        '</office:meta>');
       expect(documentAsString).toMatch(regex);
     });
   });

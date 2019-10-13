@@ -1,4 +1,3 @@
-/* tslint:disable:max-line-length */
 import { join } from 'path';
 import { DOMImplementation, XMLSerializer } from 'xmldom';
 import { Image, AnchorType } from '../api/draw';
@@ -186,7 +185,6 @@ describe(DomVisitor.name, () => {
         domVisitor.visit(paragraph, testDocument, testRoot);
 
         const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        /* tslint:disable-next-line:max-line-length */
         expect(documentAsString).toMatch(/<text:p> some <text:s\/>spacey <text:s c="2"\/>text <text:s c="3"\/><\/text:p>/);
       });
 
