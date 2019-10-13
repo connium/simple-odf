@@ -73,7 +73,6 @@ export class Meta {
    * @since 0.6.0
    */
   public setCreator (creator: string | undefined): Meta {
-    /* tslint:disable-next-line:strict-type-predicates */
     if (creator === undefined || typeof creator === 'string') {
       this.creator = creator;
     }
@@ -163,7 +162,6 @@ export class Meta {
    * @since 0.6.0
    */
   public setDescription (description: string | undefined): Meta {
-    /* tslint:disable-next-line:strict-type-predicates */
     if (description === undefined || typeof description === 'string') {
       this.description = description;
     }
@@ -235,7 +233,6 @@ export class Meta {
    * @since 0.6.0
    */
   public setInitialCreator (initialCreator: string | undefined): Meta {
-    /* tslint:disable-next-line:strict-type-predicates */
     if (initialCreator === undefined || typeof initialCreator === 'string') {
       this.initialCreator = initialCreator;
     }
@@ -274,7 +271,6 @@ export class Meta {
    * @since 0.6.0
    */
   public addKeyword (keyword: string): Meta {
-    /* tslint:disable-next-line:strict-type-predicates */
     if (typeof keyword === 'string') {
       this.keywords.push(...keyword.split(','));
     }
@@ -424,7 +420,6 @@ export class Meta {
    * @since 0.6.0
    */
   public setPrintedBy (printedBy: string | undefined): Meta {
-    /* tslint:disable-next-line:strict-type-predicates */
     if (printedBy === undefined || typeof printedBy === 'string') {
       this.printedBy = printedBy;
     }
@@ -462,7 +457,6 @@ export class Meta {
    * @since 0.6.0
    */
   public setSubject (subject: string | undefined): Meta {
-    /* tslint:disable-next-line:strict-type-predicates */
     if (subject === undefined || typeof subject === 'string') {
       this.subject = subject;
     }
@@ -499,7 +493,6 @@ export class Meta {
    * @since 0.6.0
    */
   public setTitle (title: string | undefined): Meta {
-    /* tslint:disable-next-line:strict-type-predicates */
     if (title === undefined || typeof title === 'string') {
       this.title = title;
     }

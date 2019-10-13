@@ -41,7 +41,7 @@ describe(AutomaticStyles.name, () => {
       automaticStyles.add(testStyle1);
 
       expect(() => {
-        automaticStyles.getName(testStyle2)
+        automaticStyles.getName(testStyle2);
       }).toThrow();
     });
   });

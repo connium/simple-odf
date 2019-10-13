@@ -23,7 +23,6 @@ describe(FontFaceDeclarationsWriter.name, () => {
       fontFaceDeclarationsWriter.write(fontFaceDeclarations, testDocument, testRoot);
       const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-      /* tslint:disable-next-line:max-line-length */
       expect(documentAsString).not.toMatch(/office:font-face-decls/);
     });
 
@@ -33,7 +32,6 @@ describe(FontFaceDeclarationsWriter.name, () => {
       fontFaceDeclarationsWriter.write(fontFaceDeclarations, testDocument, testRoot);
       const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-      /* tslint:disable-next-line:max-line-length */
       expect(documentAsString).toMatch(/<office:font-face-decls><style:font-face style:name="Springfield" svg:font-family="Springfield" style:font-pitch="variable"\/><\/office:font-face-decls>/);
     });
 
@@ -43,7 +41,6 @@ describe(FontFaceDeclarationsWriter.name, () => {
       fontFaceDeclarationsWriter.write(fontFaceDeclarations, testDocument, testRoot);
       const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-      /* tslint:disable-next-line:max-line-length */
       expect(documentAsString).toMatch(/<office:font-face-decls><style:font-face style:name="Homer Simpson" svg:font-family="'Homer Simpson'" style:font-pitch="fixed"\/><\/office:font-face-decls>/);
     });
   });

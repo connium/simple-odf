@@ -64,7 +64,7 @@ describe(TabStop.name, () => {
   });
 
   describe('leader color', () => {
-    const testLeaderColor = Color.fromRgb(1,2,3);
+    const testLeaderColor = Color.fromRgb(1, 2, 3);
 
     it('return undefined by default', () => {
       expect(tabStop.getLeaderColor()).toBeUndefined();

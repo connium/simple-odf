@@ -1,4 +1,4 @@
-// tslint:disable:no-duplicate-imports
+/* eslint-disable import/no-duplicates */
 import { DOMImplementation, XMLSerializer } from 'xmldom';
 import { CommonStyles, AutomaticStyles } from '../../api/office';
 import { BorderStyle, Color, FontVariant, HorizontalAlignment, HorizontalAlignmentLastLine } from '../../api/style';
@@ -6,6 +6,7 @@ import { PageBreak, ParagraphStyle, TabStop, TabStopLeaderStyle, TabStopType } f
 import { TextTransformation, Typeface, VerticalAlignment } from '../../api/style';
 import { OdfElementName } from '../OdfElementName';
 import { StylesWriter } from './StylesWriter';
+/* eslint-enable import/no-duplicates */
 
 describe(StylesWriter.name, () => {
   describe('#write', () => {
@@ -35,7 +36,6 @@ describe(StylesWriter.name, () => {
       stylesWriter.write(commonStyles, testDocument, testRoot);
       const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-      // tslint:disable-next-line:max-line-length
       expect(documentAsString).toMatch(/<office:styles><style:style style:name="Summary" style:display-name="Summary" style:family="paragraph">.*<\/style:style><\/office:styles>/);
     });
 
@@ -46,7 +46,6 @@ describe(StylesWriter.name, () => {
       stylesWriter.write(automaticStyles, testDocument, testRoot);
       const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-      // tslint:disable-next-line:max-line-length
       expect(documentAsString).toMatch(/<office:automatic-styles><style:style style:name="P1" style:family="paragraph">.*<\/style:style><\/office:automatic-styles>/);
     });
 
@@ -57,7 +56,6 @@ describe(StylesWriter.name, () => {
       stylesWriter.write(commonStyles, testDocument, testRoot);
       const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-      // tslint:disable-next-line:max-line-length
       expect(documentAsString).toMatch(/<office:styles><style:style style:name="Summary" style:display-name="Summary" style:family="paragraph" style:class="someClass">.*<\/style:style><\/office:styles>/);
     });
 
@@ -67,7 +65,6 @@ describe(StylesWriter.name, () => {
       stylesWriter.write(commonStyles, testDocument, testRoot);
       const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-      // tslint:disable-next-line:max-line-length
       expect(documentAsString).toMatch(/<office:styles><style:style style:name="Summary" style:display-name="Summary" style:family="paragraph"><style:paragraph-properties\/><style:text-properties\/><\/style:style><\/office:styles>/);
     });
 
@@ -146,7 +143,6 @@ describe(StylesWriter.name, () => {
         stylesWriter.write(commonStyles, testDocument, testRoot);
         documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-        // tslint:disable-next-line:max-line-length
         expect(documentAsString).toMatch(/<style:paragraph-properties fo:text-align="justify" fo:text-align-last="center"\/>/);
       });
 
@@ -337,7 +333,6 @@ describe(StylesWriter.name, () => {
           stylesWriter.write(commonStyles, testDocument, testRoot);
           const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-          // tslint:disable-next-line:max-line-length
           expect(documentAsString).toMatch(/<style:paragraph-properties><style:tab-stops><style:tab-stop style:position="2mm"\/><\/style:tab-stops><\/style:paragraph-properties>/);
         });
 
@@ -363,7 +358,6 @@ describe(StylesWriter.name, () => {
           stylesWriter.write(commonStyles, testDocument, testRoot);
           const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-          // tslint:disable-next-line:max-line-length
           expect(documentAsString).toMatch(/<style:tab-stop style:position="2mm" style:type="center" style:leader-style="dotted"\/>/);
         });
 
@@ -373,7 +367,6 @@ describe(StylesWriter.name, () => {
           stylesWriter.write(commonStyles, testDocument, testRoot);
           const documentAsString = new XMLSerializer().serializeToString(testDocument);
 
-          // tslint:disable-next-line:max-line-length
           expect(documentAsString).toMatch(/<style:tab-stop style:position="2mm" style:type="center" style:leader-color="#010203"\/>/);
         });
       });

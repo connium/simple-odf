@@ -9,7 +9,7 @@ test/
 tools/
 
 .bettercodehub.yml
+.eslintrc.json
 .travis.yml
 TODO.md
 tsconfig.json
-tslint.json
