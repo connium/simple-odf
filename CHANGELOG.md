@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - **list:** text content of a list item cannot be styled, closes [#67](https://github.com/connium/simple-odf/issues/67)
 - **chore(lint):** replace tslint with eslint
+- **chore(travis):** add Node.js v12 to travis configuration
 
 ## [0.10.1] (2019-07-11)
 ### Changed
