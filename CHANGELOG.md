@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] (2019-??-??)
+## [Unreleased] (2020-??-??)
 ### Added
 - **list:** implement sublists
 
@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **list:** text content of a list item cannot be styled, closes [#67](https://github.com/connium/simple-odf/issues/67)
 - **chore(lint):** replace tslint with eslint
 - **chore(travis):** add Node.js v12 to travis configuration
+- **chore:** drop support for Node.js 8
 
 ## [0.10.1] (2019-07-11)
 ### Changed
