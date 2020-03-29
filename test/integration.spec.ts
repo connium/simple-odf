@@ -1,13 +1,23 @@
-/* eslint-disable import/no-duplicates */
 import { unlink } from 'fs';
 import { join } from 'path';
 import { promisify } from 'util';
 import { AnchorType } from '../src/api/draw';
 import { TextBody, TextDocument } from '../src/api/office';
-import { BorderStyle, Color, FontPitch, FontVariant, HorizontalAlignment } from '../src/api/style';
-import { HorizontalAlignmentLastLine, PageBreak, ParagraphStyle, TabStop, TabStopType } from '../src/api/style';
-import { TextTransformation, Typeface, VerticalAlignment } from '../src/api/style';
-/* eslint-enable import/no-duplicates */
+import {
+  BorderStyle,
+  Color,
+  FontPitch,
+  FontVariant,
+  HorizontalAlignment,
+  HorizontalAlignmentLastLine,
+  PageBreak,
+  ParagraphStyle,
+  TabStop,
+  TabStopType,
+  TextTransformation,
+  Typeface,
+  VerticalAlignment,
+} from '../src/api/style';
 
 const FILEPATH = './integration.fodt';
 
@@ -29,14 +39,18 @@ xdescribe('integration', () => {
   });
 
   it('metadata', () => {
-    document.getMeta()
+    document
+      .getMeta()
       .setInitialCreator('Marge Simpson')
       .setCreator('Homer Simpson')
       .setLanguage('en-US')
       .setTitle('simple-odf')
       .setSubject('ODF document creation')
-      .setDescription('ODF text document created with Node.js powered by simple-odf')
-      .addKeyword('Simpson').addKeyword('Springfield');
+      .setDescription(
+        'ODF text document created with Node.js powered by simple-odf'
+      )
+      .addKeyword('Simpson')
+      .addKeyword('Springfield');
   });
 
   it('image', () => {
@@ -55,7 +69,9 @@ xdescribe('integration', () => {
     body.addHeading('First heading');
     body.addHeading('Second heading', 2);
 
-    const para = body.addParagraph('The quick, brown fox jumps over a lazy dog.');
+    const para = body.addParagraph(
+      'The quick, brown fox jumps over a lazy dog.'
+    );
     para.addText('\nSome more text');
   });
 
@@ -72,7 +88,9 @@ xdescribe('integration', () => {
       const style = new ParagraphStyle();
       style.setBackgroundColor(Color.fromRgb(0, 255, 0));
 
-      const paragraph = body.addParagraph('Some text with green colored background');
+      const paragraph = body.addParagraph(
+        'Some text with green colored background'
+      );
       paragraph.setStyle(style);
     });
 
@@ -83,7 +101,9 @@ xdescribe('integration', () => {
       style.setBorderLeft(3, BorderStyle.Double, Color.fromRgb(0, 255, 0));
       style.setBorderRight(4, BorderStyle.Solid, Color.fromRgb(0, 0, 255));
 
-      const paragraph = body.addParagraph('Some text with different borders on all sides');
+      const paragraph = body.addParagraph(
+        'Some text with different borders on all sides'
+      );
       paragraph.setStyle(style);
     });
 
@@ -100,8 +120,10 @@ xdescribe('integration', () => {
       style.setHorizontalAlignment(HorizontalAlignment.Justify);
       style.setHorizontalAlignmentLastLine(HorizontalAlignmentLastLine.Center);
 
-      const paragraph = body.addParagraph('Some justified text' +
-        ' (with a lot of text to make sure it does not fit into a single line) with a centered last line');
+      const paragraph = body.addParagraph(
+        'Some justified text' +
+          ' (with a lot of text to make sure it does not fit into a single line) with a centered last line'
+      );
       paragraph.setStyle(style);
     });
 
@@ -133,7 +155,9 @@ xdescribe('integration', () => {
       const style = new ParagraphStyle();
       style.setLineHeightAtLeast(40);
 
-      const paragraph = body.addParagraph('Some text with minimum line height of 40 mm');
+      const paragraph = body.addParagraph(
+        'Some text with minimum line height of 40 mm'
+      );
       paragraph.setStyle(style);
     });
 
@@ -141,7 +165,9 @@ xdescribe('integration', () => {
       const style = new ParagraphStyle();
       style.setLineSpacing(20);
 
-      const paragraph = body.addParagraph('Some text with line spacinh of 20 mm');
+      const paragraph = body.addParagraph(
+        'Some text with line spacinh of 20 mm'
+      );
       paragraph.setStyle(style);
     });
 
@@ -152,13 +178,17 @@ xdescribe('integration', () => {
       style1.setMarginTop(30);
       style1.setMarginBottom(40);
 
-      const paragraph1 = body.addParagraph('Some text with margins on all four sides');
+      const paragraph1 = body.addParagraph(
+        'Some text with margins on all four sides'
+      );
       paragraph1.setStyle(style1);
 
       const style2 = new ParagraphStyle();
       style2.setMargin(10, 20, 30, 40);
 
-      const paragraph2 = body.addParagraph('Some other text with margins on all four sides but set at the same time');
+      const paragraph2 = body.addParagraph(
+        'Some other text with margins on all four sides but set at the same time'
+      );
       paragraph2.setStyle(style2);
     });
 
@@ -166,7 +196,9 @@ xdescribe('integration', () => {
       const style = new ParagraphStyle();
       style.setOrphans(2);
 
-      const paragraph = body.addParagraph('Break paragraph after 2 lines of text at the earliest');
+      const paragraph = body.addParagraph(
+        'Break paragraph after 2 lines of text at the earliest'
+      );
       paragraph.setStyle(style);
     });
 
@@ -177,13 +209,17 @@ xdescribe('integration', () => {
       style1.setPaddingTop(30);
       style1.setPaddingBottom(40);
 
-      const paragraph1 = body.addParagraph('Some text with padding on all four sides');
+      const paragraph1 = body.addParagraph(
+        'Some text with padding on all four sides'
+      );
       paragraph1.setStyle(style1);
 
       const style2 = new ParagraphStyle();
       style2.setPadding(10, 20, 30, 40);
 
-      const paragraph2 = body.addParagraph('Some other text with padding on all four sides but set at the same time');
+      const paragraph2 = body.addParagraph(
+        'Some other text with padding on all four sides but set at the same time'
+      );
       paragraph2.setStyle(style2);
     });
 
@@ -191,7 +227,9 @@ xdescribe('integration', () => {
       const style = new ParagraphStyle();
       style.setTextIndent(23);
 
-      const paragraph = body.addParagraph('First line is indented\nwhile the others are not');
+      const paragraph = body.addParagraph(
+        'First line is indented\nwhile the others are not'
+      );
       paragraph.setStyle(style);
     });
 
@@ -207,7 +245,9 @@ xdescribe('integration', () => {
       const style = new ParagraphStyle();
       style.setWidows(2);
 
-      const paragraph = body.addParagraph('Write at least 2 lines of text after a break of the paragraph');
+      const paragraph = body.addParagraph(
+        'Write at least 2 lines of text after a break of the paragraph'
+      );
       paragraph.setStyle(style);
     });
 
@@ -239,7 +279,9 @@ xdescribe('integration', () => {
     });
 
     it('font name', () => {
-      document.getFontFaceDeclarations().create('Open Sans', 'Open Sans', FontPitch.Variable);
+      document
+        .getFontFaceDeclarations()
+        .create('Open Sans', 'Open Sans', FontPitch.Variable);
 
       const style = new ParagraphStyle();
       style.setFontName('Open Sans');
