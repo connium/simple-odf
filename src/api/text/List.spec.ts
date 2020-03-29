@@ -53,28 +53,48 @@ describe(List.name, () => {
       const insertedItem = list.insertItem(2, itemToAdd);
 
       expect(insertedItem).toEqual(itemToAdd);
-      expect(list.getItems()).toEqual([testItem1, testItem2, itemToAdd, testItem3]);
+      expect(list.getItems()).toEqual([
+        testItem1,
+        testItem2,
+        itemToAdd,
+        testItem3,
+      ]);
     });
 
     it('add new items to the specified position and return the added item', () => {
       const insertedItem = list.insertItem(2, itemToAdd);
 
       expect(insertedItem).toBe(itemToAdd);
-      expect(list.getItems()).toEqual([testItem1, testItem2, itemToAdd, testItem3]);
+      expect(list.getItems()).toEqual([
+        testItem1,
+        testItem2,
+        itemToAdd,
+        testItem3,
+      ]);
     });
 
     it('insert item at the front of the list if position is negative', () => {
       const insertedItem = list.insertItem(-2, itemToAdd);
 
       expect(insertedItem).toBe(itemToAdd);
-      expect(list.getItems()).toEqual([itemToAdd, testItem1, testItem2, testItem3]);
+      expect(list.getItems()).toEqual([
+        itemToAdd,
+        testItem1,
+        testItem2,
+        testItem3,
+      ]);
     });
 
     it('insert item at the end of the list if position is larger than the size of the list', () => {
       const insertedItem = list.insertItem(10, itemToAdd);
 
       expect(insertedItem).toBe(itemToAdd);
-      expect(list.getItems()).toEqual([testItem1, testItem2, testItem3, itemToAdd]);
+      expect(list.getItems()).toEqual([
+        testItem1,
+        testItem2,
+        testItem3,
+        itemToAdd,
+      ]);
     });
   });
 

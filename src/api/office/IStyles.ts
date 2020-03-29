@@ -13,5 +13,5 @@ export interface IStyles {
    * @returns {Style[]} A new `Array` object that contains the named or automatic styles of a document
    * @since 0.9.0
    */
-  getAll (): Style[];
+  getAll(): Style[];
 }

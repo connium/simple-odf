@@ -37,7 +37,7 @@ describe(ParagraphProperties.name, () => {
     const expectedBorder: Border = {
       width: testBorderWidth,
       style: testBorderStyle,
-      color: testBorderColor
+      color: testBorderColor,
     };
 
     it('return undefined by default', () => {
@@ -48,10 +48,26 @@ describe(ParagraphProperties.name, () => {
     });
 
     it('return previously set border', () => {
-      const expectedBorderBottom: Border = { width: 0.23, style: BorderStyle.Dashed, color: testBorderColor };
-      const expectedBorderLeft: Border = { width: 13.37, style: BorderStyle.Dotted, color: testBorderColor };
-      const expectedBorderRight: Border = { width: 42.24, style: BorderStyle.Double, color: testBorderColor };
-      const expectedBorderTop: Border = { width: 12.34, style: BorderStyle.Solid, color: testBorderColor };
+      const expectedBorderBottom: Border = {
+        width: 0.23,
+        style: BorderStyle.Dashed,
+        color: testBorderColor,
+      };
+      const expectedBorderLeft: Border = {
+        width: 13.37,
+        style: BorderStyle.Dotted,
+        color: testBorderColor,
+      };
+      const expectedBorderRight: Border = {
+        width: 42.24,
+        style: BorderStyle.Double,
+        color: testBorderColor,
+      };
+      const expectedBorderTop: Border = {
+        width: 12.34,
+        style: BorderStyle.Solid,
+        color: testBorderColor,
+      };
 
       properties.setBorderBottom(0.23, BorderStyle.Dashed, testBorderColor);
       properties.setBorderLeft(13.37, BorderStyle.Dotted, testBorderColor);
@@ -74,10 +90,26 @@ describe(ParagraphProperties.name, () => {
     });
 
     it('ignore invalid value', () => {
-      properties.setBorderBottom(testBorderWidth, testBorderStyle, testBorderColor);
-      properties.setBorderLeft(testBorderWidth, testBorderStyle, testBorderColor);
-      properties.setBorderRight(testBorderWidth, testBorderStyle, testBorderColor);
-      properties.setBorderTop(testBorderWidth, testBorderStyle, testBorderColor);
+      properties.setBorderBottom(
+        testBorderWidth,
+        testBorderStyle,
+        testBorderColor
+      );
+      properties.setBorderLeft(
+        testBorderWidth,
+        testBorderStyle,
+        testBorderColor
+      );
+      properties.setBorderRight(
+        testBorderWidth,
+        testBorderStyle,
+        testBorderColor
+      );
+      properties.setBorderTop(
+        testBorderWidth,
+        testBorderStyle,
+        testBorderColor
+      );
 
       properties.setBorderBottom(-0.1, testBorderStyle, testBorderColor);
       properties.setBorderLeft(-0.1, testBorderStyle, testBorderColor);
@@ -118,25 +150,35 @@ describe(ParagraphProperties.name, () => {
 
   describe('horizontal alignment', () => {
     it('return `Default` by default', () => {
-      expect(properties.getHorizontalAlignment()).toBe(HorizontalAlignment.Default);
+      expect(properties.getHorizontalAlignment()).toBe(
+        HorizontalAlignment.Default
+      );
     });
 
     it('return previously set alignment', () => {
       properties.setHorizontalAlignment(HorizontalAlignment.Center);
 
-      expect(properties.getHorizontalAlignment()).toBe(HorizontalAlignment.Center);
+      expect(properties.getHorizontalAlignment()).toBe(
+        HorizontalAlignment.Center
+      );
     });
   });
 
   describe('horizontal alignment last line', () => {
     it('return `Default` by default', () => {
-      expect(properties.getHorizontalAlignmentLastLine()).toBe(HorizontalAlignment.Default);
+      expect(properties.getHorizontalAlignmentLastLine()).toBe(
+        HorizontalAlignment.Default
+      );
     });
 
     it('return previously set alignment', () => {
-      properties.setHorizontalAlignmentLastLine(HorizontalAlignmentLastLine.Center);
+      properties.setHorizontalAlignmentLastLine(
+        HorizontalAlignmentLastLine.Center
+      );
 
-      expect(properties.getHorizontalAlignmentLastLine()).toBe(HorizontalAlignmentLastLine.Center);
+      expect(properties.getHorizontalAlignmentLastLine()).toBe(
+        HorizontalAlignmentLastLine.Center
+      );
     });
   });
 
@@ -277,7 +319,12 @@ describe(ParagraphProperties.name, () => {
     });
 
     it('return previously set margin (set once)', () => {
-      properties.setMargin(testMarginLeft, testMarginRight, testMarginTop, testMarginBottom);
+      properties.setMargin(
+        testMarginLeft,
+        testMarginRight,
+        testMarginTop,
+        testMarginBottom
+      );
 
       expect(properties.getMarginBottom()).toBe(testMarginBottom);
       expect(properties.getMarginLeft()).toBe(testMarginLeft);
@@ -355,7 +402,12 @@ describe(ParagraphProperties.name, () => {
     });
 
     it('return previously set padding (set once)', () => {
-      properties.setPadding(testPaddingLeft, testPaddingRight, testPaddingTop, testPaddingBottom);
+      properties.setPadding(
+        testPaddingLeft,
+        testPaddingRight,
+        testPaddingTop,
+        testPaddingBottom
+      );
 
       expect(properties.getPaddingBottom()).toBe(testPaddingBottom);
       expect(properties.getPaddingLeft()).toBe(testPaddingLeft);

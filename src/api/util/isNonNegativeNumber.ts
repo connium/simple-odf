@@ -7,6 +7,6 @@
  * @returns {boolean} `true` if the given value is a non-negative number, `false` otherwise
  * @private
  */
-export function isNonNegativeNumber (value: any): boolean {
+export function isNonNegativeNumber(value: any): boolean {
   return typeof value === 'number' && value > 0;
 }

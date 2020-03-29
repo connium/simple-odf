@@ -1,4 +1,4 @@
 export enum FontVariant {
   Normal = 'normal',
-  SmallCaps = 'small-caps'
+  SmallCaps = 'small-caps',
 }

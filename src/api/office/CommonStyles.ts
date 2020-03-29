@@ -23,7 +23,7 @@ export class CommonStyles implements IStyles {
    *
    * @since 0.9.0
    */
-  public constructor () {
+  public constructor() {
     this.styles = new Map();
   }
 
@@ -40,7 +40,7 @@ export class CommonStyles implements IStyles {
    * or an existing style, if one with the specified name exists
    * @since 0.9.0
    */
-  public createParagraphStyle (name: string): ParagraphStyle {
+  public createParagraphStyle(name: string): ParagraphStyle {
     let style = this.styles.get(name);
 
     if (style !== undefined) {
@@ -67,14 +67,14 @@ export class CommonStyles implements IStyles {
    * or `undefined` if there is no style with this display name
    * @since 0.9.0
    */
-  public getName (displayName: string): string | undefined {
+  public getName(displayName: string): string | undefined {
     const style = this.styles.get(displayName);
 
     return style !== undefined ? style.getName() : undefined;
   }
 
   /** @inheritdoc */
-  public getAll (): Style[] {
+  public getAll(): Style[] {
     return [...this.styles.values()];
   }
 }

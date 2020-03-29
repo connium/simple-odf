@@ -3,5 +3,5 @@ export enum VerticalAlignment {
   Top = 'top',
   Middle = 'middle',
   Bottom = 'bottom',
-  Baseline = 'baseline'
+  Baseline = 'baseline',
 }

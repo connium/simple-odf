@@ -20,7 +20,11 @@ describe(FontFaceDeclarations.name, () => {
     });
 
     it('create and return new font', () => {
-      const font = fontFaceDeclarations.create(testFontName, testFontFamily, testFontPitch);
+      const font = fontFaceDeclarations.create(
+        testFontName,
+        testFontFamily,
+        testFontPitch
+      );
 
       expect(font).toBeInstanceOf(FontFace);
       expect(font.getFontFamily()).toBe(testFontFamily);

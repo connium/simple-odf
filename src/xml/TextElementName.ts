@@ -6,5 +6,5 @@ export enum TextElementName {
   TextListItem = 'text:list-item',
   TextParagraph = 'text:p',
   TextSpace = 'text:s',
-  TextTabulation = 'text:tab'
+  TextTabulation = 'text:tab',
 }

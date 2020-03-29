@@ -37,7 +37,7 @@
     "test": "jest",
     "watch-test": "jest --watch",
     "coverage": "jest --coverage",
-    "lint": "eslint './{examples,test}/**/*.{ts,tsx}'",
+    "lint": "eslint './{examples,src,test}/**/*.{ts,tsx}'",
     "format": "prettier --write './{examples,src,test}/**/*.{ts,js,json,md}'",
     "docs": "rm -r ./lib && tsc && jsdoc2md --name-format --param-list-format list --separators --partial ./tools/jsdoc2md/body.hbs ./tools/jsdoc2md/params-list.hbs ./tools/jsdoc2md/returns.hbs ./tools/jsdoc2md/scope.hbs --files ./lib/api/**/*.js > ./docs/API.md"
   },

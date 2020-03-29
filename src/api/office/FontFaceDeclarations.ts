@@ -29,7 +29,11 @@ export class FontFaceDeclarations {
    * or an existing font face, if one with the specified name exists
    * @since 0.8.0
    */
-  public create (name: string, fontFamily?: string, fontPitch?: FontPitch): FontFace {
+  public create(
+    name: string,
+    fontFamily?: string,
+    fontPitch?: FontPitch
+  ): FontFace {
     let fontFace = this.fontFaces.get(name);
 
     if (fontFace !== undefined) {
@@ -56,7 +60,7 @@ export class FontFaceDeclarations {
    * or `undefined` if there is no font with this name
    * @since 0.8.0
    */
-  public get (name: string): FontFace | undefined {
+  public get(name: string): FontFace | undefined {
     return this.fontFaces.get(name);
   }
 
@@ -72,7 +76,7 @@ export class FontFaceDeclarations {
    * @returns {FontFace[]} A new `Array` object that contains the fonts of the document
    * @since 0.8.0
    */
-  public getAll (): FontFace[] {
+  public getAll(): FontFace[] {
     return [...this.fontFaces.values()];
   }
 
@@ -91,7 +95,7 @@ export class FontFaceDeclarations {
    * @returns {Meta} The `Meta` object
    * @since 0.8.0
    */
-  public delete (name: string): FontFaceDeclarations {
+  public delete(name: string): FontFaceDeclarations {
     this.fontFaces.delete(name);
 
     return this;

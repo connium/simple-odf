@@ -3,5 +3,5 @@ export enum AnchorType {
   Char = 'char',
   Frame = 'frame',
   Page = 'page',
-  Paragraph = 'paragraph'
+  Paragraph = 'paragraph',
 }

@@ -34,7 +34,7 @@ export class FontFace {
    *
    * @since 0.8.0
    */
-  public constructor (name: string, fontFamily?: string, fontPitch?: FontPitch) {
+  public constructor(name: string, fontFamily?: string, fontPitch?: FontPitch) {
     this.name = name;
     this.fontFamily = fontFamily;
     this.fontPitch = fontPitch;
@@ -57,8 +57,11 @@ export class FontFace {
    * @returns {FontFace} The `FontFace` object
    * @since 0.8.0
    */
-  public setCharset (fontCharset: string | undefined): FontFace {
-    if (fontCharset === undefined || /^[A-Za-z][A-Za-z0-9._-]*$/.test(fontCharset) === true) {
+  public setCharset(fontCharset: string | undefined): FontFace {
+    if (
+      fontCharset === undefined ||
+      /^[A-Za-z][A-Za-z0-9._-]*$/.test(fontCharset) === true
+    ) {
       this.fontCharset = fontCharset;
     }
 
@@ -77,7 +80,7 @@ export class FontFace {
    * @returns {string | undefined} The charset of the font or `undefined` if the charset is not set
    * @since 0.8.0
    */
-  public getCharset (): string | undefined {
+  public getCharset(): string | undefined {
     return this.fontCharset;
   }
 
@@ -93,7 +96,7 @@ export class FontFace {
    * @returns {FontFace} The `FontFace` object
    * @since 0.8.0
    */
-  public setFontFamily (fontFamily: string | undefined): FontFace {
+  public setFontFamily(fontFamily: string | undefined): FontFace {
     if (fontFamily === undefined || typeof fontFamily === 'string') {
       this.fontFamily = fontFamily;
     }
@@ -112,7 +115,7 @@ export class FontFace {
    * @returns {string | undefined} The font family of the font or `undefined` if the font family is not set
    * @since 0.8.0
    */
-  public getFontFamily (): string | undefined {
+  public getFontFamily(): string | undefined {
     return this.fontFamily;
   }
 
@@ -129,8 +132,13 @@ export class FontFace {
    * @returns {FontFace} The `FontFace` object
    * @since 0.8.0
    */
-  public setFontFamilyGeneric (fontFamilyGeneric: FontFamilyGeneric | undefined): FontFace {
-    if (fontFamilyGeneric === undefined || typeof fontFamilyGeneric === 'string') {
+  public setFontFamilyGeneric(
+    fontFamilyGeneric: FontFamilyGeneric | undefined
+  ): FontFace {
+    if (
+      fontFamilyGeneric === undefined ||
+      typeof fontFamilyGeneric === 'string'
+    ) {
       this.fontFamilyGeneric = fontFamilyGeneric;
     }
 
@@ -150,7 +158,7 @@ export class FontFace {
    *                               or `undefined` if the generic font family name is not set
    * @since 0.8.0
    */
-  public getFontFamilyGeneric (): FontFamilyGeneric | undefined {
+  public getFontFamilyGeneric(): FontFamilyGeneric | undefined {
     return this.fontFamilyGeneric;
   }
 
@@ -166,7 +174,7 @@ export class FontFace {
    * @returns {FontFace} The `FontFace` object
    * @since 0.8.0
    */
-  public setFontPitch (fontPitch: FontPitch | undefined): FontFace {
+  public setFontPitch(fontPitch: FontPitch | undefined): FontFace {
     this.fontPitch = fontPitch;
 
     return this;
@@ -184,7 +192,7 @@ export class FontFace {
    * @returns {string | undefined} The pitch of the font or `undefined` if the font pitch is not set
    * @since 0.8.0
    */
-  public getFontPitch (): FontPitch | undefined {
+  public getFontPitch(): FontPitch | undefined {
     return this.fontPitch;
   }
 
@@ -198,7 +206,7 @@ export class FontFace {
    * @returns {string} A string that identifies the font in this document
    * @since 0.8.0
    */
-  public getName (): string {
+  public getName(): string {
     return this.name;
   }
 }

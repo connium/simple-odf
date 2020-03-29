@@ -23,7 +23,7 @@ export class ListItem extends OdfElement {
    *
    * @since 0.2.0
    */
-  public constructor () {
+  public constructor() {
     super();
   }
 
@@ -36,7 +36,7 @@ export class ListItem extends OdfElement {
    * @returns {Heading} The newly added heading
    * @since 0.11.0
    */
-  public addHeading (text?: string, level = 1): Heading {
+  public addHeading(text?: string, level = 1): Heading {
     const heading = new Heading(text, level);
     this.append(heading);
 
@@ -53,7 +53,7 @@ export class ListItem extends OdfElement {
    * @returns {List} The newly added list
    * @since 0.11.0
    */
-  public addList (): List {
+  public addList(): List {
     const list = new List();
     this.append(list);
 
@@ -68,7 +68,7 @@ export class ListItem extends OdfElement {
    * @returns {Paragraph} The newly added paragraph
    * @since 0.11.0
    */
-  public addParagraph (text?: string): Paragraph {
+  public addParagraph(text?: string): Paragraph {
     const paragraph = new Paragraph(text);
     this.append(paragraph);
 

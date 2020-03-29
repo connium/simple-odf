@@ -12,7 +12,9 @@ describe(Meta.name, () => {
 
   describe('creation date', () => {
     it('return current date', () => {
-      expect(meta.getCreationDate().getTime()).toBeGreaterThan(Date.now() - timeOffset);
+      expect(meta.getCreationDate().getTime()).toBeGreaterThan(
+        Date.now() - timeOffset
+      );
     });
   });
 
@@ -186,7 +188,11 @@ describe(Meta.name, () => {
       meta.addKeyword(testKeyword2);
       meta.addKeyword(testKeyword1);
 
-      expect(meta.getKeywords()).toEqual([testKeyword1, testKeyword2, testKeyword1]);
+      expect(meta.getKeywords()).toEqual([
+        testKeyword1,
+        testKeyword2,
+        testKeyword1,
+      ]);
 
       meta.removeKeyword(testKeyword1);
 
@@ -202,7 +208,11 @@ describe(Meta.name, () => {
       meta.addKeyword(testKeyword2);
       meta.addKeyword(testKeyword1);
 
-      expect(meta.getKeywords()).toEqual([testKeyword1, testKeyword2, testKeyword1]);
+      expect(meta.getKeywords()).toEqual([
+        testKeyword1,
+        testKeyword2,
+        testKeyword1,
+      ]);
 
       meta.clearKeywords();
 

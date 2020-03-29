@@ -28,7 +28,7 @@ export class Paragraph extends OdfElement {
    * @param {string} [text] The text content of the paragraph; defaults to an empty string if omitted
    * @since 0.1.0
    */
-  public constructor (text?: string) {
+  public constructor(text?: string) {
     super();
 
     this.addText(text || '');
@@ -45,10 +45,13 @@ export class Paragraph extends OdfElement {
    * @returns {Paragraph} The `Paragraph` object
    * @since 0.1.0
    */
-  public addText (text: string): Paragraph {
+  public addText(text: string): Paragraph {
     const elements = this.getAll();
 
-    if (elements.length > 0 && elements[elements.length - 1].constructor.name === OdfTextElement.name) {
+    if (
+      elements.length > 0 &&
+      elements[elements.length - 1].constructor.name === OdfTextElement.name
+    ) {
       const lastElement = elements[elements.length - 1] as OdfTextElement;
       lastElement.setText(lastElement.getText() + text);
       return this;
@@ -72,7 +75,7 @@ export class Paragraph extends OdfElement {
    * @returns {string} The text content of the paragraph
    * @since 0.1.0
    */
-  public getText (): string {
+  public getText(): string {
     return this.getAll()
       .map((value: OdfElement) => {
         return value instanceof OdfTextElement ? value.getText() : '';
@@ -92,7 +95,7 @@ export class Paragraph extends OdfElement {
    * @returns {Paragraph} The `Paragraph` object
    * @since 0.1.0
    */
-  public setText (text: string): Paragraph {
+  public setText(text: string): Paragraph {
     this.removeText();
     this.addText(text || '');
 
@@ -111,7 +114,7 @@ export class Paragraph extends OdfElement {
    * @returns {Hyperlink} The added `Hyperlink` object
    * @since 0.3.0
    */
-  public addHyperlink (text: string, uri: string): Hyperlink {
+  public addHyperlink(text: string, uri: string): Hyperlink {
     const hyperlink = new Hyperlink(text, uri);
     this.append(hyperlink);
 
@@ -130,7 +133,7 @@ export class Paragraph extends OdfElement {
    * @returns {Image} The added `Image` object
    * @since 0.3.0
    */
-  public addImage (path: string): Image {
+  public addImage(path: string): Image {
     const image = new Image(path);
     this.append(image);
 
@@ -151,7 +154,7 @@ export class Paragraph extends OdfElement {
    * @returns {Paragraph} The `Paragraph` object
    * @since 0.3.0
    */
-  public setStyle (style: ParagraphStyle | undefined): Paragraph {
+  public setStyle(style: ParagraphStyle | undefined): Paragraph {
     this.style = style;
 
     return this;
@@ -169,7 +172,7 @@ export class Paragraph extends OdfElement {
    * @returns {ParagraphStyle | undefined} The style of the paragraph or `undefined` if no style was set
    * @since 0.3.0
    */
-  public getStyle (): ParagraphStyle | undefined {
+  public getStyle(): ParagraphStyle | undefined {
     return this.style;
   }
 
@@ -187,7 +190,7 @@ export class Paragraph extends OdfElement {
    * @returns {Paragraph} The `Paragraph` object
    * @since 0.9.0
    */
-  public setStyleName (styleName: string | undefined): Paragraph {
+  public setStyleName(styleName: string | undefined): Paragraph {
     this.styleName = styleName;
 
     return this;
@@ -205,7 +208,7 @@ export class Paragraph extends OdfElement {
    * @returns {string | undefined} The name of the common style or `undefined` if no common style was set
    * @since 0.3.0
    */
-  public getStyleName (): string | undefined {
+  public getStyleName(): string | undefined {
     return this.styleName;
   }
 
@@ -219,7 +222,7 @@ export class Paragraph extends OdfElement {
    * @returns {Paragraph} The `Paragraph` object
    * @private
    */
-  private removeText (): Paragraph {
+  private removeText(): Paragraph {
     const elements = this.getAll();
 
     for (let index = elements.length - 1; index >= 0; index--) {

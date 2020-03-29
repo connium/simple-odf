@@ -9,5 +9,5 @@ export enum StyleFamily {
   TableCell = 'table-cell',
   TableColumn = 'table-column',
   TableRow = 'table-row',
-  Text = 'text'
+  Text = 'text',
 }

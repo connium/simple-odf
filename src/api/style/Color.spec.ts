@@ -40,19 +40,25 @@ describe(Color.name, () => {
     it('return undefined if red is out of range', () => {
       expect(() => Color.fromRgb(-1, 0x66, 0x99)).toThrowError('color channel');
 
-      expect(() => Color.fromRgb(256, 0x66, 0x99)).toThrowError('color channel');
+      expect(() => Color.fromRgb(256, 0x66, 0x99)).toThrowError(
+        'color channel'
+      );
     });
 
     it('return undefined if green is out of range', () => {
       expect(() => Color.fromRgb(0x33, -1, 0x99)).toThrowError('color channel');
 
-      expect(() => Color.fromRgb(0x33, 256, 0x99)).toThrowError('color channel');
+      expect(() => Color.fromRgb(0x33, 256, 0x99)).toThrowError(
+        'color channel'
+      );
     });
 
     it('return undefined if blue is out of range', () => {
       expect(() => Color.fromRgb(0x33, 0x66, -1)).toThrowError('color channel');
 
-      expect(() => Color.fromRgb(0x33, 0x66, 256)).toThrowError('color channel');
+      expect(() => Color.fromRgb(0x33, 0x66, 256)).toThrowError(
+        'color channel'
+      );
     });
   });
 

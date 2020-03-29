@@ -36,7 +36,10 @@ export class TabStop {
    * @param {TabStopType} [type=TabStopType.Left] The type of the tab stop
    * @since 0.3.0
    */
-  public constructor (private position: number, private type = TabStopType.Left) {
+  public constructor(
+    private position: number,
+    private type = TabStopType.Left
+  ) {
     this.setPosition(position);
     this.leaderStyle = TabStopLeaderStyle.None;
   }
@@ -53,7 +56,7 @@ export class TabStop {
    * @returns {string | undefined} The delimiter character or `undefined` if the delimiter character is not set
    * @since 0.10.0
    */
-  public getChar (): string | undefined {
+  public getChar(): string | undefined {
     return this.char;
   }
 
@@ -72,7 +75,7 @@ export class TabStop {
    * @returns {TabStop} The `TabStop` object
    * @since 0.10.0
    */
-  public setChar (char: string | undefined): TabStop {
+  public setChar(char: string | undefined): TabStop {
     if (char === undefined || char.length === 1) {
       this.char = char;
     }
@@ -92,7 +95,7 @@ export class TabStop {
    * @returns {Color | undefined} The color of a leader line or `undefined` if the current text color will be used
    * @since 0.10.0
    */
-  public getLeaderColor (): Color | undefined {
+  public getLeaderColor(): Color | undefined {
     return this.leaderColor;
   }
 
@@ -108,7 +111,7 @@ export class TabStop {
    * @returns {TabStop} The `TabStop` object
    * @since 0.10.0
    */
-  public setLeaderColor (color: Color | undefined): TabStop {
+  public setLeaderColor(color: Color | undefined): TabStop {
     this.leaderColor = color;
 
     return this;
@@ -126,7 +129,7 @@ export class TabStop {
    * @returns {TabStopLeaderStyle} The style for a leader line
    * @since 0.10.0
    */
-  public getLeaderStyle (): TabStopLeaderStyle {
+  public getLeaderStyle(): TabStopLeaderStyle {
     return this.leaderStyle;
   }
 
@@ -141,7 +144,7 @@ export class TabStop {
    * @returns {TabStop} The `TabStop` object
    * @since 0.10.0
    */
-  public setLeaderStyle (leaderStyle: TabStopLeaderStyle): TabStop {
+  public setLeaderStyle(leaderStyle: TabStopLeaderStyle): TabStop {
     this.leaderStyle = leaderStyle;
 
     return this;
@@ -160,7 +163,7 @@ export class TabStop {
    * @returns {number} The position of the tab stop in millimeters
    * @since 0.3.0
    */
-  public getPosition (): number {
+  public getPosition(): number {
     return this.position;
   }
 
@@ -178,7 +181,7 @@ export class TabStop {
    * @returns {TabStop} The `TabStop` object
    * @since 0.3.0
    */
-  public setPosition (position: number): TabStop {
+  public setPosition(position: number): TabStop {
     this.position = Math.max(position, 0);
 
     return this;
@@ -196,7 +199,7 @@ export class TabStop {
    * @returns {TabStopType} The type of the tab stop
    * @since 0.3.0
    */
-  public getType (): TabStopType {
+  public getType(): TabStopType {
     return this.type;
   }
 
@@ -211,7 +214,7 @@ export class TabStop {
    * @returns {TabStop} The `TabStop` object
    * @since 0.3.0
    */
-  public setType (type: TabStopType): TabStop {
+  public setType(type: TabStopType): TabStop {
     this.type = type;
 
     return this;

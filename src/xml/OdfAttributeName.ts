@@ -52,5 +52,5 @@ export enum OdfAttributeName {
   TextStyleName = 'text:style-name',
 
   XlinkHref = 'xlink:href',
-  XlinkType = 'xlink:type'
+  XlinkType = 'xlink:type',
 }

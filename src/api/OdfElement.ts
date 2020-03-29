@@ -10,7 +10,7 @@ export class OdfElement {
    * Constructor.
    * @since 0.1.0
    */
-  public constructor () {
+  public constructor() {
     this.children = [];
   }
 
@@ -20,7 +20,7 @@ export class OdfElement {
    * @returns {OdfElement[]} A copy of the list of child elements
    * @since 0.2.0
    */
-  public getAll (): OdfElement[] {
+  public getAll(): OdfElement[] {
     return Array.from(this.children);
   }
 
@@ -30,7 +30,7 @@ export class OdfElement {
    * @param {OdfElement} element The element to append
    * @since 0.1.0
    */
-  protected append (element: OdfElement): void {
+  protected append(element: OdfElement): void {
     this.children.push(element);
   }
 
@@ -43,7 +43,7 @@ export class OdfElement {
    * @param {OdfElement} element The element to insert
    * @since 0.2.0
    */
-  protected insert (position: number, element: OdfElement): void {
+  protected insert(position: number, element: OdfElement): void {
     let index = position;
 
     if (position < 0) {
@@ -63,7 +63,7 @@ export class OdfElement {
    * or undefined if there is no element at the specified position
    * @since 0.2.0
    */
-  protected get (position: number): OdfElement | undefined {
+  protected get(position: number): OdfElement | undefined {
     if (position < 0) {
       return undefined;
     }
@@ -82,7 +82,7 @@ export class OdfElement {
    * or undefined if there is no element at the specified position
    * @since 0.2.0
    */
-  protected removeAt (position: number): OdfElement | undefined {
+  protected removeAt(position: number): OdfElement | undefined {
     const oldElement = this.get(position);
 
     if (oldElement !== undefined) {
@@ -98,7 +98,7 @@ export class OdfElement {
    * @returns {boolean} TRUE if the there is any child element, FALSE otherwise
    * @since 0.2.0
    */
-  protected hasChildren (): boolean {
+  protected hasChildren(): boolean {
     return this.children.length > 0;
   }
 }

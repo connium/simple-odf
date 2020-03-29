@@ -32,7 +32,7 @@ export class Heading extends Paragraph {
    * @param {number} [level=1] The level of the heading, starting with `1`; defaults to `1` if omitted
    * @since 0.1.0
    */
-  public constructor (text?: string, private level = Heading.DEFAULT_LEVEL) {
+  public constructor(text?: string, private level = Heading.DEFAULT_LEVEL) {
     super(text);
 
     this.setLevel(level);
@@ -46,7 +46,7 @@ export class Heading extends Paragraph {
    * @returns {Heading} The `Heading` object
    * @since 0.1.0
    */
-  public setLevel (level: number): Heading {
+  public setLevel(level: number): Heading {
     this.level = level > Heading.DEFAULT_LEVEL ? level : Heading.DEFAULT_LEVEL;
 
     return this;
@@ -58,7 +58,7 @@ export class Heading extends Paragraph {
    * @returns {number} The level of the heading
    * @since 0.1.0
    */
-  public getLevel (): number {
+  public getLevel(): number {
     return this.level;
   }
 }

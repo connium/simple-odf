@@ -7,6 +7,6 @@
  * @returns {boolean} `true` if the given value is a positive number, `false` otherwise
  * @private
  */
-export function isPositiveLength (value: any): boolean {
+export function isPositiveLength(value: any): boolean {
   return typeof value === 'number' && value >= 0;
 }

@@ -14,5 +14,5 @@ export enum TabStopLeaderStyle {
   /** tab stop has a solid leader line */
   Solid = 'solid',
   /** tab stop has a wavy leader line */
-  Wave = 'wave'
+  Wave = 'wave',
 }

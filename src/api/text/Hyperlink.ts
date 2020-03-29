@@ -21,7 +21,7 @@ export class Hyperlink extends OdfTextElement {
    * @param {string} uri The target URI of the hyperlink
    * @since 0.3.0
    */
-  public constructor (text: string, private uri: string) {
+  public constructor(text: string, private uri: string) {
     super(text);
   }
 
@@ -38,7 +38,7 @@ export class Hyperlink extends OdfTextElement {
    * @returns {Hyperlink} The `Hyperlink` object
    * @since 0.3.0
    */
-  public setURI (uri: string): Hyperlink {
+  public setURI(uri: string): Hyperlink {
     if (typeof uri === 'string' && uri.trim().length > 0) {
       this.uri = uri;
     }
@@ -58,7 +58,7 @@ export class Hyperlink extends OdfTextElement {
    * @returns {string} The target URI of this hyperlink
    * @since 0.3.0
    */
-  public getURI (): string {
+  public getURI(): string {
     return this.uri;
   }
 }
