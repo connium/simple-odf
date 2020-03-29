@@ -1,4 +1,3 @@
-/* eslint-disable no-dupe-class-members */
 import { Border } from './Border';
 import { BorderStyle } from './BorderStyle';
 import { Color } from './Color';
@@ -18,11 +17,12 @@ import { TextTransformation } from './TextTransformation';
 import { Typeface } from './Typeface';
 import { VerticalAlignment } from './VerticalAlignment';
 
-export class ParagraphStyle extends Style implements IParagraphProperties, ITextProperties {
+export class ParagraphStyle extends Style
+  implements IParagraphProperties, ITextProperties {
   private paragraphProperties: ParagraphProperties;
   private textProperties: TextProperties;
 
-  public constructor (name: string = Style.UNNAMED) {
+  public constructor(name: string = Style.UNNAMED) {
     super(name, StyleFamily.Paragraph);
 
     this.paragraphProperties = new ParagraphProperties();
@@ -32,381 +32,432 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
   // paragraph properties
 
   /** @inheritdoc */
-  public setBackgroundColor (color: Color | undefined): ParagraphStyle {
+  public setBackgroundColor(color: Color | undefined): ParagraphStyle {
     this.paragraphProperties.setBackgroundColor(color);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getBackgroundColor (): Color | undefined {
+  public getBackgroundColor(): Color | undefined {
     return this.paragraphProperties.getBackgroundColor();
   }
 
   /** @inheritdoc */
-  public setBorder (width: number, style: BorderStyle, color: Color): ParagraphStyle {
+  public setBorder(
+    width: number,
+    style: BorderStyle,
+    color: Color
+  ): ParagraphStyle {
     this.paragraphProperties.setBorder(width, style, color);
 
     return this;
   }
 
   /** @inheritdoc */
-  public removeBorder (): ParagraphStyle {
+  public removeBorder(): ParagraphStyle {
     this.paragraphProperties.removeBorder();
 
     return this;
   }
 
   /** @inheritdoc */
-  public setBorderBottom (width: number, style: BorderStyle, color: Color): ParagraphStyle {
+  public setBorderBottom(
+    width: number,
+    style: BorderStyle,
+    color: Color
+  ): ParagraphStyle {
     this.paragraphProperties.setBorderBottom(width, style, color);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getBorderBottom (): Border | undefined {
+  public getBorderBottom(): Border | undefined {
     return this.paragraphProperties.getBorderBottom();
   }
 
   /** @inheritdoc */
-  public removeBorderBottom (): ParagraphStyle {
+  public removeBorderBottom(): ParagraphStyle {
     this.paragraphProperties.removeBorderBottom();
 
     return this;
   }
 
   /** @inheritdoc */
-  public setBorderLeft (width: number, style: BorderStyle, color: Color): ParagraphStyle {
+  public setBorderLeft(
+    width: number,
+    style: BorderStyle,
+    color: Color
+  ): ParagraphStyle {
     this.paragraphProperties.setBorderLeft(width, style, color);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getBorderLeft (): Border | undefined {
+  public getBorderLeft(): Border | undefined {
     return this.paragraphProperties.getBorderLeft();
   }
 
   /** @inheritdoc */
-  public removeBorderLeft (): ParagraphStyle {
+  public removeBorderLeft(): ParagraphStyle {
     this.paragraphProperties.removeBorderLeft();
 
     return this;
   }
 
   /** @inheritdoc */
-  public setBorderRight (width: number, style: BorderStyle, color: Color): ParagraphStyle {
+  public setBorderRight(
+    width: number,
+    style: BorderStyle,
+    color: Color
+  ): ParagraphStyle {
     this.paragraphProperties.setBorderRight(width, style, color);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getBorderRight (): Border | undefined {
+  public getBorderRight(): Border | undefined {
     return this.paragraphProperties.getBorderRight();
   }
 
   /** @inheritdoc */
-  public removeBorderRight (): ParagraphStyle {
+  public removeBorderRight(): ParagraphStyle {
     this.paragraphProperties.removeBorderRight();
 
     return this;
   }
 
   /** @inheritdoc */
-  public setBorderTop (width: number, style: BorderStyle, color: Color): ParagraphStyle {
+  public setBorderTop(
+    width: number,
+    style: BorderStyle,
+    color: Color
+  ): ParagraphStyle {
     this.paragraphProperties.setBorderTop(width, style, color);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getBorderTop (): Border | undefined {
+  public getBorderTop(): Border | undefined {
     return this.paragraphProperties.getBorderTop();
   }
 
   /** @inheritdoc */
-  public removeBorderTop (): ParagraphStyle {
+  public removeBorderTop(): ParagraphStyle {
     this.paragraphProperties.removeBorderTop();
 
     return this;
   }
 
   /** @inheritdoc */
-  public setHorizontalAlignment (horizontalAlignment: HorizontalAlignment): ParagraphStyle {
+  public setHorizontalAlignment(
+    horizontalAlignment: HorizontalAlignment
+  ): ParagraphStyle {
     this.paragraphProperties.setHorizontalAlignment(horizontalAlignment);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getHorizontalAlignment (): HorizontalAlignment {
+  public getHorizontalAlignment(): HorizontalAlignment {
     return this.paragraphProperties.getHorizontalAlignment();
   }
 
   /** @inheritdoc */
-  public setHorizontalAlignmentLastLine (horizontalAlignment: HorizontalAlignmentLastLine): ParagraphStyle {
-    this.paragraphProperties.setHorizontalAlignmentLastLine(horizontalAlignment);
+  public setHorizontalAlignmentLastLine(
+    horizontalAlignment: HorizontalAlignmentLastLine
+  ): ParagraphStyle {
+    this.paragraphProperties.setHorizontalAlignmentLastLine(
+      horizontalAlignment
+    );
 
     return this;
   }
 
   /** @inheritdoc */
-  public getHorizontalAlignmentLastLine (): HorizontalAlignmentLastLine {
+  public getHorizontalAlignmentLastLine(): HorizontalAlignmentLastLine {
     return this.paragraphProperties.getHorizontalAlignmentLastLine();
   }
 
   /** @inheritdoc */
-  public setKeepTogether (keepTogether = true): ParagraphStyle {
+  public setKeepTogether(keepTogether = true): ParagraphStyle {
     this.paragraphProperties.setKeepTogether(keepTogether);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getKeepTogether (): boolean {
+  public getKeepTogether(): boolean {
     return this.paragraphProperties.getKeepTogether();
   }
 
   /** @inheritdoc */
-  public setKeepWithNext (keepWithNext = true): ParagraphStyle {
+  public setKeepWithNext(keepWithNext = true): ParagraphStyle {
     this.paragraphProperties.setKeepWithNext(keepWithNext);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getKeepWithNext (): boolean {
+  public getKeepWithNext(): boolean {
     return this.paragraphProperties.getKeepWithNext();
   }
 
   /** @inheritdoc */
-  public setLineHeight (lineHeight: number | string | undefined): ParagraphStyle {
+  public setLineHeight(
+    lineHeight: number | string | undefined
+  ): ParagraphStyle {
     this.paragraphProperties.setLineHeight(lineHeight);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getLineHeight (): number | string | undefined {
+  public getLineHeight(): number | string | undefined {
     return this.paragraphProperties.getLineHeight();
   }
 
   /** @inheritdoc */
-  public setLineHeightAtLeast (minimumLineHeight: number | undefined): ParagraphStyle {
+  public setLineHeightAtLeast(
+    minimumLineHeight: number | undefined
+  ): ParagraphStyle {
     this.paragraphProperties.setLineHeightAtLeast(minimumLineHeight);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getLineHeightAtLeast (): number | undefined {
+  public getLineHeightAtLeast(): number | undefined {
     return this.paragraphProperties.getLineHeightAtLeast();
   }
 
   /** @inheritdoc */
-  public setLineSpacing (lineSpacing: number | undefined): ParagraphStyle {
+  public setLineSpacing(lineSpacing: number | undefined): ParagraphStyle {
     this.paragraphProperties.setLineSpacing(lineSpacing);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getLineSpacing (): number | undefined {
+  public getLineSpacing(): number | undefined {
     return this.paragraphProperties.getLineSpacing();
   }
 
   /** @inheritdoc */
-  public setMarginBottom (margin: number): ParagraphStyle {
+  public setMarginBottom(margin: number): ParagraphStyle {
     this.paragraphProperties.setMarginBottom(margin);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getMarginBottom (): number {
+  public getMarginBottom(): number {
     return this.paragraphProperties.getMarginBottom();
   }
 
   /** @inheritdoc */
-  public setMarginLeft (margin: number): ParagraphStyle {
+  public setMarginLeft(margin: number): ParagraphStyle {
     this.paragraphProperties.setMarginLeft(margin);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getMarginLeft (): number {
+  public getMarginLeft(): number {
     return this.paragraphProperties.getMarginLeft();
   }
 
   /** @inheritdoc */
-  public setMarginRight (margin: number): ParagraphStyle {
+  public setMarginRight(margin: number): ParagraphStyle {
     this.paragraphProperties.setMarginRight(margin);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getMarginRight (): number {
+  public getMarginRight(): number {
     return this.paragraphProperties.getMarginRight();
   }
 
   /** @inheritdoc */
-  public setMarginTop (margin: number): ParagraphStyle {
+  public setMarginTop(margin: number): ParagraphStyle {
     this.paragraphProperties.setMarginTop(margin);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getMarginTop (): number {
+  public getMarginTop(): number {
     return this.paragraphProperties.getMarginTop();
   }
 
   /** @inheritdoc */
-  public setMargin (marginLeft: number, marginRight: number, marginTop: number, marginBottom: number): ParagraphStyle {
-    this.paragraphProperties.setMargin(marginLeft, marginRight, marginTop, marginBottom);
+  public setMargin(
+    marginLeft: number,
+    marginRight: number,
+    marginTop: number,
+    marginBottom: number
+  ): ParagraphStyle {
+    this.paragraphProperties.setMargin(
+      marginLeft,
+      marginRight,
+      marginTop,
+      marginBottom
+    );
 
     return this;
   }
 
   /** @inheritdoc */
-  public setOrphans (orphans: number | undefined): ParagraphStyle {
+  public setOrphans(orphans: number | undefined): ParagraphStyle {
     this.paragraphProperties.setOrphans(orphans);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getOrphans (): number | undefined {
+  public getOrphans(): number | undefined {
     return this.paragraphProperties.getOrphans();
   }
 
   /** @inheritdoc */
-  public setPaddingBottom (padding: number): ParagraphStyle {
+  public setPaddingBottom(padding: number): ParagraphStyle {
     this.paragraphProperties.setPaddingBottom(padding);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getPaddingBottom (): number {
+  public getPaddingBottom(): number {
     return this.paragraphProperties.getPaddingBottom();
   }
 
   /** @inheritdoc */
-  public setPaddingLeft (padding: number): ParagraphStyle {
+  public setPaddingLeft(padding: number): ParagraphStyle {
     this.paragraphProperties.setPaddingLeft(padding);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getPaddingLeft (): number {
+  public getPaddingLeft(): number {
     return this.paragraphProperties.getPaddingLeft();
   }
 
   /** @inheritdoc */
-  public setPaddingRight (padding: number): ParagraphStyle {
+  public setPaddingRight(padding: number): ParagraphStyle {
     this.paragraphProperties.setPaddingRight(padding);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getPaddingRight (): number {
+  public getPaddingRight(): number {
     return this.paragraphProperties.getPaddingRight();
   }
 
   /** @inheritdoc */
-  public setPaddingTop (padding: number): ParagraphStyle {
+  public setPaddingTop(padding: number): ParagraphStyle {
     this.paragraphProperties.setPaddingTop(padding);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getPaddingTop (): number {
+  public getPaddingTop(): number {
     return this.paragraphProperties.getPaddingTop();
   }
 
   /** @inheritdoc */
-  public setPadding (
+  public setPadding(
     paddingLeft: number,
     paddingRight: number,
     paddingTop: number,
-    paddingBottom: number): ParagraphStyle {
-    this.paragraphProperties.setPadding(paddingLeft, paddingRight, paddingTop, paddingBottom);
+    paddingBottom: number
+  ): ParagraphStyle {
+    this.paragraphProperties.setPadding(
+      paddingLeft,
+      paddingRight,
+      paddingTop,
+      paddingBottom
+    );
 
     return this;
   }
 
   /** @inheritdoc */
-  public setPageBreak (pageBreak: PageBreak): ParagraphStyle {
+  public setPageBreak(pageBreak: PageBreak): ParagraphStyle {
     this.paragraphProperties.setPageBreak(pageBreak);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getPageBreak (): PageBreak {
+  public getPageBreak(): PageBreak {
     return this.paragraphProperties.getPageBreak();
   }
 
   /** @inheritdoc */
-  public setTextIndent (textIndent: number): ParagraphStyle {
+  public setTextIndent(textIndent: number): ParagraphStyle {
     this.paragraphProperties.setTextIndent(textIndent);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getTextIndent (): number {
+  public getTextIndent(): number {
     return this.paragraphProperties.getTextIndent();
   }
 
   /** @inheritdoc */
-  public setVerticalAlignment (verticalAlignment: VerticalAlignment): ParagraphStyle {
+  public setVerticalAlignment(
+    verticalAlignment: VerticalAlignment
+  ): ParagraphStyle {
     this.paragraphProperties.setVerticalAlignment(verticalAlignment);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getVerticalAlignment (): VerticalAlignment {
+  public getVerticalAlignment(): VerticalAlignment {
     return this.paragraphProperties.getVerticalAlignment();
   }
 
   /** @inheritdoc */
-  public setWidows (widows: number | undefined): ParagraphStyle {
+  public setWidows(widows: number | undefined): ParagraphStyle {
     this.paragraphProperties.setWidows(widows);
 
     return this;
   }
 
   /** @inheritdoc */
-  public getWidows (): number | undefined {
+  public getWidows(): number | undefined {
     return this.paragraphProperties.getWidows();
   }
 
   /** @inheritdoc */
-  public addTabStop (position: number, type: TabStopType): TabStop | undefined;
+  public addTabStop(position: number, type: TabStopType): TabStop | undefined;
 
   /** @inheritDoc */
-  public addTabStop (tabStop: TabStop): TabStop | undefined;
-  public addTabStop (arg1: number | TabStop, type = TabStopType.Left): TabStop | undefined {
+  public addTabStop(tabStop: TabStop): TabStop | undefined;
+  public addTabStop(
+    arg1: number | TabStop,
+    type = TabStopType.Left
+  ): TabStop | undefined {
     return this.paragraphProperties.addTabStop(arg1 as any, type);
   }
 
   /** @inheritdoc */
-  public getTabStops (): TabStop[] {
+  public getTabStops(): TabStop[] {
     return this.paragraphProperties.getTabStops();
   }
 
   /** @inheritdoc */
-  public clearTabStops (): ParagraphStyle {
+  public clearTabStops(): ParagraphStyle {
     this.paragraphProperties.clearTabStops();
 
     return this;
@@ -415,74 +466,76 @@ export class ParagraphStyle extends Style implements IParagraphProperties, IText
   // text properties
 
   /** @inheritDoc */
-  public setColor (color: Color | undefined): ParagraphStyle {
+  public setColor(color: Color | undefined): ParagraphStyle {
     this.textProperties.setColor(color);
 
     return this;
   }
 
   /** @inheritDoc */
-  public getColor (): Color | undefined {
+  public getColor(): Color | undefined {
     return this.textProperties.getColor();
   }
 
   /** @inheritDoc */
-  public setFontName (name: string): ParagraphStyle {
+  public setFontName(name: string): ParagraphStyle {
     this.textProperties.setFontName(name);
 
     return this;
   }
 
   /** @inheritDoc */
-  public getFontName (): string | undefined {
+  public getFontName(): string | undefined {
     return this.textProperties.getFontName();
   }
 
   /** @inheritDoc */
-  public setFontSize (size: number): ParagraphStyle {
+  public setFontSize(size: number): ParagraphStyle {
     this.textProperties.setFontSize(size);
 
     return this;
   }
 
   /** @inheritDoc */
-  public getFontSize (): number {
+  public getFontSize(): number {
     return this.textProperties.getFontSize();
   }
 
   /** @inheritDoc */
-  public setTextTransformation (transformation: TextTransformation): ParagraphStyle {
+  public setTextTransformation(
+    transformation: TextTransformation
+  ): ParagraphStyle {
     this.textProperties.setTextTransformation(transformation);
 
     return this;
   }
 
   /** @inheritDoc */
-  public setFontVariant (fontVariant: FontVariant): ParagraphStyle {
+  public setFontVariant(fontVariant: FontVariant): ParagraphStyle {
     this.textProperties.setFontVariant(fontVariant);
 
     return this;
   }
 
   /** @inheritDoc */
-  public getFontVariant (): FontVariant {
+  public getFontVariant(): FontVariant {
     return this.textProperties.getFontVariant();
   }
 
   /** @inheritDoc */
-  public getTextTransformation (): TextTransformation {
+  public getTextTransformation(): TextTransformation {
     return this.textProperties.getTextTransformation();
   }
 
   /** @inheritDoc */
-  public setTypeface (typeface: Typeface): ParagraphStyle {
+  public setTypeface(typeface: Typeface): ParagraphStyle {
     this.textProperties.setTypeface(typeface);
 
     return this;
   }
 
   /** @inheritDoc */
-  public getTypeface (): Typeface {
+  public getTypeface(): Typeface {
     return this.textProperties.getTypeface();
   }
 }

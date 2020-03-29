@@ -33,7 +33,7 @@ export class AutomaticStyles implements IStyles {
    *
    * @since 0.9.0
    */
-  public constructor () {
+  public constructor() {
     this.styles = new Map();
     this.paragraphStyleCounter = 0;
   }
@@ -54,14 +54,17 @@ export class AutomaticStyles implements IStyles {
    * @param {Style} style The style which should be added to the list of automatic styles
    * @since 0.9.0
    */
-  public add (style: Style): void {
+  public add(style: Style): void {
     const hash = this.getHash(style);
 
     if (this.styles.has(hash)) {
       return;
     }
 
-    this.styles.set(hash, { style: style, name: `P${++this.paragraphStyleCounter}` });
+    this.styles.set(hash, {
+      style: style,
+      name: `P${++this.paragraphStyleCounter}`,
+    });
   }
 
   /**
@@ -80,7 +83,7 @@ export class AutomaticStyles implements IStyles {
    * @throws {Error} If the style has not been added to the list of automatic styles
    * @since 0.9.0
    */
-  public getName (style: Style): string | never {
+  public getName(style: Style): string | never {
     const hash = this.getHash(style);
     const styleInformation = this.styles.get(hash);
 
@@ -92,7 +95,7 @@ export class AutomaticStyles implements IStyles {
   }
 
   /** @inheritdoc */
-  public getAll (): Style[] {
+  public getAll(): Style[] {
     return Array.from(this.styles.values())
       .sort((a, b) => a.name.localeCompare(b.name))
       .map((styleInformation) => styleInformation.style);
@@ -104,7 +107,7 @@ export class AutomaticStyles implements IStyles {
    * @param {Style} style The style for which a representative hash is being requested
    * @returns {string} The hash representing the given style
    */
-  private getHash (style: Style): string {
+  private getHash(style: Style): string {
     const hash = createHash('md5');
 
     hash.update(style.getClass() || '');
@@ -140,7 +143,9 @@ export class AutomaticStyles implements IStyles {
       hash.update(paragraphStyle.getVerticalAlignment());
       hash.update('widows' + paragraphStyle.getWidows());
       paragraphStyle.getTabStops().forEach((tabStop) => {
-        hash.update(`tab${tabStop.getChar()}${tabStop.getLeaderColor()}${tabStop.getLeaderStyle()}${tabStop.getPosition()}${tabStop.getType()}`); // eslint-disable-line max-len
+        hash.update(
+          `tab${tabStop.getChar()}${tabStop.getLeaderColor()}${tabStop.getLeaderStyle()}${tabStop.getPosition()}${tabStop.getType()}`
+        ); // eslint-disable-line max-len
       });
 
       // text properties

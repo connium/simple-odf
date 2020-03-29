@@ -32,7 +32,7 @@ export class Image extends OdfElement {
    * @param {string} path Path to the image file that should be embedded
    * @since 0.3.0
    */
-  public constructor (private path: string) {
+  public constructor(private path: string) {
     super();
 
     this.anchorType = DEFAULT_ANCHOR_TYPE;
@@ -49,7 +49,7 @@ export class Image extends OdfElement {
    * @returns {Image} The `Image` object
    * @since 0.9.0
    */
-  public setAnchorType (anchorType: AnchorType): Image {
+  public setAnchorType(anchorType: AnchorType): Image {
     this.anchorType = anchorType;
 
     return this;
@@ -67,7 +67,7 @@ export class Image extends OdfElement {
    * @returns {AnchorType} The anchor type setting
    * @since 0.9.0
    */
-  public getAnchorType (): AnchorType {
+  public getAnchorType(): AnchorType {
     return this.anchorType;
   }
 
@@ -85,7 +85,7 @@ export class Image extends OdfElement {
    * @returns {Image} The `Image` object
    * @since 0.9.0
    */
-  public setHeight (height: number): Image {
+  public setHeight(height: number): Image {
     this.height = Math.max(height, MINIMAL_SIZE);
 
     return this;
@@ -103,7 +103,7 @@ export class Image extends OdfElement {
    * @returns {number | undefined} The target height of the image in millimeter or `undefined` if no height was set
    * @since 0.9.0
    */
-  public getHeight (): number | undefined {
+  public getHeight(): number | undefined {
     return this.height;
   }
 
@@ -117,7 +117,7 @@ export class Image extends OdfElement {
    * @returns {string} The path to the image file
    * @since 0.7.0
    */
-  public getPath (): string {
+  public getPath(): string {
     return this.path;
   }
 
@@ -136,7 +136,7 @@ export class Image extends OdfElement {
    * @returns {Image} The `Image` object
    * @since 0.9.0
    */
-  public setSize (width: number, height: number): Image {
+  public setSize(width: number, height: number): Image {
     this.setWidth(width);
     this.setHeight(height);
 
@@ -157,7 +157,7 @@ export class Image extends OdfElement {
    * @returns {Image} The `Image` object
    * @since 0.9.0
    */
-  public setWidth (width: number): Image {
+  public setWidth(width: number): Image {
     this.width = Math.max(width, MINIMAL_SIZE);
 
     return this;
@@ -175,7 +175,7 @@ export class Image extends OdfElement {
    * @returns {number | undefined} The target width of the image in millimeter or `undefined` if no width was set
    * @since 0.9.0
    */
-  public getWidth (): number | undefined {
+  public getWidth(): number | undefined {
     return this.width;
   }
 }

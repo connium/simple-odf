@@ -33,9 +33,12 @@ export class Style {
    *
    * @since 0.9.0
    */
-  public constructor (displayName: string, family: StyleFamily) {
+  public constructor(displayName: string, family: StyleFamily) {
     this.displayName = displayName;
-    this.name = displayName.replace(/[^a-zA-Z0-9]/g, (match) => `_${match.charCodeAt(0).toString(16)}_`);
+    this.name = displayName.replace(
+      /[^a-zA-Z0-9]/g,
+      (match) => `_${match.charCodeAt(0).toString(16)}_`
+    );
     this.family = family;
   }
 
@@ -51,7 +54,7 @@ export class Style {
    * @returns {Style} The `Style` object
    * @since 0.9.0
    */
-  public setClass (clazz: string | undefined): Style {
+  public setClass(clazz: string | undefined): Style {
     if (clazz === undefined || typeof clazz === 'string') {
       this.clazz = clazz;
     }
@@ -71,7 +74,7 @@ export class Style {
    * @returns {string | undefined} The name of the style class of the style or `undefined` if the style class is not set
    * @since 0.9.0
    */
-  public getClass (): string | undefined {
+  public getClass(): string | undefined {
     return this.clazz;
   }
 
@@ -85,7 +88,7 @@ export class Style {
    * @returns {string} The pretty and user-friendly name of a style
    * @since 0.9.0
    */
-  public getDisplayName (): string {
+  public getDisplayName(): string {
     return this.displayName;
   }
 
@@ -99,7 +102,7 @@ export class Style {
    * @returns {string} The family of the style
    * @since 0.9.0
    */
-  public getFamily (): string {
+  public getFamily(): string {
     return this.family;
   }
 
@@ -116,7 +119,7 @@ export class Style {
    * @returns {string} A string that identifies the style in this document
    * @since 0.9.0
    */
-  public getName (): string {
+  public getName(): string {
     return this.name;
   }
 }

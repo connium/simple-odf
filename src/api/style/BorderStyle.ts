@@ -7,5 +7,5 @@ export enum BorderStyle {
   // Inset = 'inset',
   // Outset = 'outset',
   // Ridge = 'ridge',
-  Solid = 'solid'
+  Solid = 'solid',
 }

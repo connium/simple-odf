@@ -1,4 +1,11 @@
-import { TextDocument, FontPitch, Color, ParagraphStyle, Typeface, TabStopType } from '../../';
+import {
+  TextDocument,
+  FontPitch,
+  Color,
+  ParagraphStyle,
+  Typeface,
+  TabStopType,
+} from '../../';
 
 const FILEPATH = './homer-resume.fodt';
 
@@ -55,18 +62,19 @@ meta.setTitle('Resume of Homer Simpson');
 meta.setLanguage('en-US');
 meta.addKeyword('Simpson,Springfield,Resume');
 
-document.getFontFaceDeclarations().create('FreeSans', 'FreeSans', FontPitch.Variable);
+document
+  .getFontFaceDeclarations()
+  .create('FreeSans', 'FreeSans', FontPitch.Variable);
 
 // twitter: @HomerJSimpson
 const body = document.getBody();
-body.addHeading('Homer Simpson')
-  .setStyle(titleStyle);
-body.addParagraph('Nuclear Safety Inspector')
-  .setStyle(subTitleStyle);
+body.addHeading('Homer Simpson').setStyle(titleStyle);
+body.addParagraph('Nuclear Safety Inspector').setStyle(subTitleStyle);
 
 body.addParagraph();
 
-body.addParagraph('Address: 742 Evergreen Terrace')
+body
+  .addParagraph('Address: 742 Evergreen Terrace')
   .setStyle(contactStyle)
   .addText('\n')
   .addText('Phone: 939-555-0113')
@@ -76,56 +84,67 @@ body.addParagraph('Address: 742 Evergreen Terrace')
 
 body.addParagraph();
 
-body.addParagraph('Award-winning nuclear safety inspector with 20 years experience')
+body
+  .addParagraph(
+    'Award-winning nuclear safety inspector with 20 years experience'
+  )
   .addText(', plus additional skills as snowplow driver.')
   .setStyle(defaultStyle);
 
 body.addParagraph();
 
 // experience
-body.addHeading('Experience', 2)
-  .setStyle(sectionTitleStyle);
+body.addHeading('Experience', 2).setStyle(sectionTitleStyle);
 
-body.addParagraph('1989 - present')
-  .setStyle(datesStyle);
-body.addHeading('Nuclear Safety Inspector', 3)
-  .setStyle(jobTitleStyle);
-body.addParagraph('Springfield Nuclear Power Plant, Springfield, USA')
+body.addParagraph('1989 - present').setStyle(datesStyle);
+body.addHeading('Nuclear Safety Inspector', 3).setStyle(jobTitleStyle);
+body
+  .addParagraph('Springfield Nuclear Power Plant, Springfield, USA')
   .setStyle(companyNameStyle);
 const list1 = body.addList();
-list1.addItem().addParagraph('Strengthened safety procedures that resulted in 75% fewer accidents on days I was absent');
-list1.addItem().addParagraph('Pioneered workplace stress-reduction methods that worked for at least one employee');
+list1
+  .addItem()
+  .addParagraph(
+    'Strengthened safety procedures that resulted in 75% fewer accidents on days I was absent'
+  );
+list1
+  .addItem()
+  .addParagraph(
+    'Pioneered workplace stress-reduction methods that worked for at least one employee'
+  );
 
 body.addParagraph();
 
-body.addParagraph('1992 - 1993')
-  .setStyle(datesStyle);
-body.addHeading('Owner and Chief Driver for Snow-Plowing Business', 3)
+body.addParagraph('1992 - 1993').setStyle(datesStyle);
+body
+  .addHeading('Owner and Chief Driver for Snow-Plowing Business', 3)
   .setStyle(jobTitleStyle);
-body.addParagraph('Mr. Plow, Springfield, USA')
-  .setStyle(companyNameStyle);
+body.addParagraph('Mr. Plow, Springfield, USA').setStyle(companyNameStyle);
 const list2 = body.addList();
-list2.addItem().addParagraph('Boosted business 15% by executing late-night TV marketing campaign');
-list2.addItem().addParagraph('Received key to the city in recognition of the achievements');
+list2
+  .addItem()
+  .addParagraph(
+    'Boosted business 15% by executing late-night TV marketing campaign'
+  );
+list2
+  .addItem()
+  .addParagraph('Received key to the city in recognition of the achievements');
 
 body.addParagraph();
 body.addParagraph();
 
 // education
-body.addHeading('Education', 2)
-  .setStyle(sectionTitleStyle);
+body.addHeading('Education', 2).setStyle(sectionTitleStyle);
 
-body.addParagraph('1993-10 - present')
-  .setStyle(datesStyle);
-body.addHeading('Degree in Nuclear Physics, Springfield University', 3)
+body.addParagraph('1993-10 - present').setStyle(datesStyle);
+body
+  .addHeading('Degree in Nuclear Physics, Springfield University', 3)
   .setStyle(jobTitleStyle);
 
 body.addParagraph();
 
-body.addParagraph('1969-10 - 1973-06')
-  .setStyle(datesStyle);
-body.addHeading('Springfield High School', 3)
-  .setStyle(jobTitleStyle);
+body.addParagraph('1969-10 - 1973-06').setStyle(datesStyle);
+body.addHeading('Springfield High School', 3).setStyle(jobTitleStyle);
 const list3 = body.addList();
 list3.addItem().addParagraph('Graduated 4-');
 
@@ -133,22 +152,24 @@ body.addParagraph();
 body.addParagraph();
 
 // skills
-body.addHeading('Skills', 2)
-  .setStyle(sectionTitleStyle);
+body.addHeading('Skills', 2).setStyle(sectionTitleStyle);
 
-body.addParagraph('Songwriting - invented golden record-winning GRUNGE music style')
+body
+  .addParagraph(
+    'Songwriting - invented golden record-winning GRUNGE music style'
+  )
   .setStyle(defaultStyle);
 
 body.addParagraph();
 body.addParagraph();
 
 // awards
-body.addHeading('Awards', 2)
-  .setStyle(sectionTitleStyle);
+body.addHeading('Awards', 2).setStyle(sectionTitleStyle);
 
-body.addParagraph('Montgomery Burns Award for Outstanding Service in the Field Excellence')
+body
+  .addParagraph(
+    'Montgomery Burns Award for Outstanding Service in the Field Excellence'
+  )
   .setStyle(defaultStyle);
 
-document.saveFlat(FILEPATH)
-  .then()
-  .catch();
+document.saveFlat(FILEPATH).then().catch();

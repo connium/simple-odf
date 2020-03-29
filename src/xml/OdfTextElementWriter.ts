@@ -8,7 +8,11 @@ export class OdfTextElementWriter {
    * @inheritdoc
    * @since 0.7.0
    */
-  public write (odfText: OdfTextElement, document: Document, parent: Element): void {
+  public write(
+    odfText: OdfTextElement,
+    document: Document,
+    parent: Element
+  ): void {
     const text = odfText.getText();
     if (text === undefined || text === '') {
       return;
@@ -58,7 +62,11 @@ export class OdfTextElementWriter {
    * @param {string} text The text value of the text node
    * @since 0.3.0
    */
-  private appendTextNode (document: Document, parent: Element, text: string): void {
+  private appendTextNode(
+    document: Document,
+    parent: Element,
+    text: string
+  ): void {
     if (text.length === 0) {
       return;
     }
@@ -76,7 +84,11 @@ export class OdfTextElementWriter {
    * @param {number} count The number of space characters the node should represent
    * @since 0.3.0
    */
-  private appendSpaceNode (document: Document, parent: Element, count: number): void {
+  private appendSpaceNode(
+    document: Document,
+    parent: Element,
+    count: number
+  ): void {
     const space = document.createElement(TextElementName.TextSpace);
     parent.appendChild(space);
 
@@ -92,7 +104,7 @@ export class OdfTextElementWriter {
    * @param {Element} parent The parent node
    * @since 0.3.0
    */
-  private appendTabNode (document: Document, parent: Element): void {
+  private appendTabNode(document: Document, parent: Element): void {
     const tabulation = document.createElement(TextElementName.TextTabulation);
     parent.appendChild(tabulation);
   }
@@ -104,7 +116,7 @@ export class OdfTextElementWriter {
    * @param {Element} parent The parent node
    * @since 0.3.0
    */
-  private appendLineBreakNode (document: Document, parent: Element): void {
+  private appendLineBreakNode(document: Document, parent: Element): void {
     const lineBreak = document.createElement(TextElementName.TextLineBreak);
     parent.appendChild(lineBreak);
   }
@@ -117,7 +129,7 @@ export class OdfTextElementWriter {
    * @returns {number} The number of space characters before the next non-space character
    * @since 0.3.0
    */
-  private findNextNonSpaceCharacter (text: string, offset: number): number {
+  private findNextNonSpaceCharacter(text: string, offset: number): number {
     for (let index = offset; index < text.length; index++) {
       if (text.charAt(index) !== SPACE) {
         return index - offset;

@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **chore(lint):** replace tslint with eslint
 - **chore(travis):** add Node.js v12 to travis configuration
 - **chore:** drop support for Node.js 8
+- **chore(lint):** replace standard with prettier
 
 ## [0.10.1] (2019-07-11)
 ### Changed

@@ -8,13 +8,13 @@ import { AutomaticStyles, CommonStyles } from '../api/office';
 import { ParagraphStyle } from '../api/style';
 
 class AutomaticStylesMock extends AutomaticStyles {
-  public getName (): string {
+  public getName(): string {
     return 'P23';
   }
 }
 
 class CommonStylesMock extends CommonStyles {
-  public getName (): string {
+  public getName(): string {
     return 'encodedTestStyleName';
   }
 }
@@ -30,7 +30,11 @@ describe(DomVisitor.name, () => {
     let automaticStyles: AutomaticStylesMock;
 
     beforeEach(() => {
-      testDocument = new DOMImplementation().createDocument('someNameSpace', OdfElementName.OfficeDocument, null);
+      testDocument = new DOMImplementation().createDocument(
+        'someNameSpace',
+        OdfElementName.OfficeDocument,
+        null
+      );
       testRoot = testDocument.firstChild as Element;
 
       commonStyles = new CommonStylesMock();
@@ -49,8 +53,12 @@ describe(DomVisitor.name, () => {
       it('add a heading with level 2 and the text', () => {
         domVisitor.visit(heading, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<text:h text:outline-level="2">some text<\/text:h>/);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<text:h text:outline-level="2">some text<\/text:h>/
+        );
       });
 
       it('add a heading with a common style', () => {
@@ -58,8 +66,12 @@ describe(DomVisitor.name, () => {
 
         domVisitor.visit(heading, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<text:h text:outline-level="2" text:style-name="encodedTestStyleName">some text<\/text:h>/);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<text:h text:outline-level="2" text:style-name="encodedTestStyleName">some text<\/text:h>/
+        );
       });
 
       it('add a heading with an automatic style', () => {
@@ -67,8 +79,12 @@ describe(DomVisitor.name, () => {
 
         domVisitor.visit(heading, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<text:h text:outline-level="2" text:style-name="P23">some text<\/text:h>/);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<text:h text:outline-level="2" text:style-name="P23">some text<\/text:h>/
+        );
       });
     });
 
@@ -82,8 +98,12 @@ describe(DomVisitor.name, () => {
       it('add a linked text', () => {
         domVisitor.visit(hyperlink, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<text:a xlink:type="simple" xlink:href="http:\/\/example.org\/">some text<\/text:a>/);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<text:a xlink:type="simple" xlink:href="http:\/\/example.org\/">some text<\/text:a>/
+        );
       });
     });
 
@@ -91,15 +111,20 @@ describe(DomVisitor.name, () => {
       let image: Image;
 
       beforeEach(() => {
-        image = new Image(join(__dirname, '..', '..', 'test', 'data', 'ODF.png'))
-          .setAnchorType(AnchorType.AsChar);
+        image = new Image(
+          join(__dirname, '..', '..', 'test', 'data', 'ODF.png')
+        ).setAnchorType(AnchorType.AsChar);
       });
 
       it('add a draw frame with image and base64 encoded image', () => {
         domVisitor.visit(image, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<draw:frame text:anchor-type="as-char"><draw:image><office:binary-data>.*<\/office:binary-data><\/draw:image><\/draw:frame>/);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<draw:frame text:anchor-type="as-char"><draw:image><office:binary-data>.*<\/office:binary-data><\/draw:image><\/draw:frame>/
+        );
       });
 
       it('add a draw frame with image and set height', () => {
@@ -107,8 +132,12 @@ describe(DomVisitor.name, () => {
 
         domVisitor.visit(image, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<draw:frame text:anchor-type="as-char" svg:height="23mm"><draw:image><office:binary-data>.*<\/office:binary-data><\/draw:image><\/draw:frame>/);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<draw:frame text:anchor-type="as-char" svg:height="23mm"><draw:image><office:binary-data>.*<\/office:binary-data><\/draw:image><\/draw:frame>/
+        );
       });
 
       it('add a draw frame with image and set width', () => {
@@ -116,8 +145,12 @@ describe(DomVisitor.name, () => {
 
         domVisitor.visit(image, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<draw:frame text:anchor-type="as-char" svg:width="42mm"><draw:image><office:binary-data>.*<\/office:binary-data><\/draw:image><\/draw:frame>/);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<draw:frame text:anchor-type="as-char" svg:width="42mm"><draw:image><office:binary-data>.*<\/office:binary-data><\/draw:image><\/draw:frame>/
+        );
       });
     });
 
@@ -131,7 +164,9 @@ describe(DomVisitor.name, () => {
       it('NOT insert an empty list', () => {
         domVisitor.visit(list, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
         expect(documentAsString).not.toMatch(/<text:list/);
       });
 
@@ -140,8 +175,12 @@ describe(DomVisitor.name, () => {
 
         domVisitor.visit(list, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<text:list><text:list-item><text:h text:outline-level="2">some text<\/text:h><\/text:list-item><\/text:list>/);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<text:list><text:list-item><text:h text:outline-level="2">some text<\/text:h><\/text:list-item><\/text:list>/
+        );
       });
 
       it('insert a list with a list item and a nested paragraph', () => {
@@ -149,8 +188,12 @@ describe(DomVisitor.name, () => {
 
         domVisitor.visit(list, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<text:list><text:list-item><text:p>some text<\/text:p><\/text:list-item><\/text:list>/);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<text:list><text:list-item><text:p>some text<\/text:p><\/text:list-item><\/text:list>/
+        );
       });
     });
 
@@ -166,8 +209,12 @@ describe(DomVisitor.name, () => {
 
         domVisitor.visit(paragraph, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<text:p>some text<text:line-break\/>some more text<\/text:p>/);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<text:p>some text<text:line-break\/>some more text<\/text:p>/
+        );
       });
 
       it('replace tab with tabulation', () => {
@@ -175,8 +222,12 @@ describe(DomVisitor.name, () => {
 
         domVisitor.visit(paragraph, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<text:p>some<text:tab\/>tabbed<text:tab\/><text:tab\/>text<\/text:p>/);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<text:p>some<text:tab\/>tabbed<text:tab\/><text:tab\/>text<\/text:p>/
+        );
       });
 
       it('replace sequence of spaces with space node', () => {
@@ -184,8 +235,12 @@ describe(DomVisitor.name, () => {
 
         domVisitor.visit(paragraph, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<text:p> some <text:s\/>spacey <text:s c="2"\/>text <text:s c="3"\/><\/text:p>/);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<text:p> some <text:s\/>spacey <text:s c="2"\/>text <text:s c="3"\/><\/text:p>/
+        );
       });
 
       it('ignore carriage return character', () => {
@@ -193,8 +248,12 @@ describe(DomVisitor.name, () => {
 
         domVisitor.visit(paragraph, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<text:p>some text<text:line-break\/>some more text<\/text:p>/);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<text:p>some text<text:line-break\/>some more text<\/text:p>/
+        );
       });
     });
 
@@ -210,14 +269,18 @@ describe(DomVisitor.name, () => {
 
         domVisitor.visit(paragraph, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
         expect(documentAsString).toMatch(/<text:p\/>/);
       });
 
       it('add a paragraph with specified text', () => {
         domVisitor.visit(paragraph, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
         expect(documentAsString).toMatch(/<text:p>some text<\/text:p>/);
       });
 
@@ -226,8 +289,12 @@ describe(DomVisitor.name, () => {
 
         domVisitor.visit(paragraph, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<text:p text:style-name="encodedTestStyleName">some text<\/text:p>/);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<text:p text:style-name="encodedTestStyleName">some text<\/text:p>/
+        );
       });
 
       it('add a paragraph with an automatic style', () => {
@@ -235,8 +302,12 @@ describe(DomVisitor.name, () => {
 
         domVisitor.visit(paragraph, testDocument, testRoot);
 
-        const documentAsString = new XMLSerializer().serializeToString(testDocument);
-        expect(documentAsString).toMatch(/<text:p text:style-name="P23">some text<\/text:p>/);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<text:p text:style-name="P23">some text<\/text:p>/
+        );
       });
     });
   });

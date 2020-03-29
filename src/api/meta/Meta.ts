@@ -49,7 +49,8 @@ export class Meta {
    *
    * @since 0.6.0
    */
-  public constructor () {
+  public constructor() {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const packageJson = require('../../../package.json');
 
     this.generator = `${packageJson.name}/${packageJson.version}`;
@@ -72,7 +73,7 @@ export class Meta {
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
-  public setCreator (creator: string | undefined): Meta {
+  public setCreator(creator: string | undefined): Meta {
     if (creator === undefined || typeof creator === 'string') {
       this.creator = creator;
     }
@@ -93,7 +94,7 @@ export class Meta {
    *                               or `undefined` if the creator is not set
    * @since 0.6.0
    */
-  public getCreator (): string | undefined {
+  public getCreator(): string | undefined {
     return this.creator;
   }
 
@@ -109,7 +110,7 @@ export class Meta {
    * @returns {Date} A `Date` instance specifying the date and time when a document was created
    * @since 0.6.0
    */
-  public getCreationDate (): Date {
+  public getCreationDate(): Date {
     return this.creationDate;
   }
 
@@ -125,8 +126,11 @@ export class Meta {
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
-  public setDate (date: Date | undefined): Meta {
-    if (date === undefined || (date instanceof Date && date.getTime() >= Date.now())) {
+  public setDate(date: Date | undefined): Meta {
+    if (
+      date === undefined ||
+      (date instanceof Date && date.getTime() >= Date.now())
+    ) {
       this.date = date;
     }
 
@@ -146,7 +150,7 @@ export class Meta {
    *                             or `undefined` if the date is not set
    * @since 0.6.0
    */
-  public getDate (): Date | undefined {
+  public getDate(): Date | undefined {
     return this.date;
   }
 
@@ -161,7 +165,7 @@ export class Meta {
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
-  public setDescription (description: string | undefined): Meta {
+  public setDescription(description: string | undefined): Meta {
     if (description === undefined || typeof description === 'string') {
       this.description = description;
     }
@@ -181,7 +185,7 @@ export class Meta {
    * @returns {string | undefined} The description of the document or `undefined` if the description is not set
    * @since 0.6.0
    */
-  public getDescription (): string | undefined {
+  public getDescription(): string | undefined {
     return this.description;
   }
 
@@ -197,7 +201,7 @@ export class Meta {
    * @returns {number} The number of times a document has been edited
    * @since 0.6.0
    */
-  public getEditingCycles (): number {
+  public getEditingCycles(): number {
     return this.editingCycles;
   }
 
@@ -213,7 +217,7 @@ export class Meta {
    * @returns {string} A string that identifies **simple-odf** as the OpenDocument producer of this document
    * @since 0.6.0
    */
-  public getGenerator (): string {
+  public getGenerator(): string {
     return this.generator;
   }
 
@@ -232,7 +236,7 @@ export class Meta {
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
-  public setInitialCreator (initialCreator: string | undefined): Meta {
+  public setInitialCreator(initialCreator: string | undefined): Meta {
     if (initialCreator === undefined || typeof initialCreator === 'string') {
       this.initialCreator = initialCreator;
     }
@@ -253,7 +257,7 @@ export class Meta {
    *                               or `undefined` if the initial creator is not set
    * @since 0.6.0
    */
-  public getInitialCreator (): string | undefined {
+  public getInitialCreator(): string | undefined {
     return this.initialCreator;
   }
 
@@ -270,7 +274,7 @@ export class Meta {
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
-  public addKeyword (keyword: string): Meta {
+  public addKeyword(keyword: string): Meta {
     if (typeof keyword === 'string') {
       this.keywords.push(...keyword.split(','));
     }
@@ -290,7 +294,7 @@ export class Meta {
    * @returns {string[]} A new `Array` object that contains the keywords of the document
    * @since 0.6.0
    */
-  public getKeywords (): string[] {
+  public getKeywords(): string[] {
     return Array.from(this.keywords);
   }
 
@@ -306,8 +310,10 @@ export class Meta {
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
-  public removeKeyword (keyword: string): Meta {
-    this.keywords = this.keywords.filter((existingKeyword: string) => existingKeyword !== keyword);
+  public removeKeyword(keyword: string): Meta {
+    this.keywords = this.keywords.filter(
+      (existingKeyword: string) => existingKeyword !== keyword
+    );
 
     return this;
   }
@@ -323,7 +329,7 @@ export class Meta {
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
-  public clearKeywords (): Meta {
+  public clearKeywords(): Meta {
     this.keywords = [];
 
     return this;
@@ -344,8 +350,11 @@ export class Meta {
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
-  public setLanguage (language: string | undefined): Meta {
-    if (language === undefined || /^[a-z]{2}(-[A-Z]{2})?$/.test(language) === true) {
+  public setLanguage(language: string | undefined): Meta {
+    if (
+      language === undefined ||
+      /^[a-z]{2}(-[A-Z]{2})?$/.test(language) === true
+    ) {
       this.language = language;
     }
 
@@ -365,7 +374,7 @@ export class Meta {
    *                               or `undefined` if the default language is not set
    * @since 0.6.0
    */
-  public getLanguage (): string | undefined {
+  public getLanguage(): string | undefined {
     return this.language;
   }
 
@@ -381,8 +390,11 @@ export class Meta {
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
-  public setPrintDate (printDate: Date | undefined): Meta {
-    if (printDate === undefined || (printDate instanceof Date && printDate.getTime() >= Date.now())) {
+  public setPrintDate(printDate: Date | undefined): Meta {
+    if (
+      printDate === undefined ||
+      (printDate instanceof Date && printDate.getTime() >= Date.now())
+    ) {
       this.printDate = printDate;
     }
 
@@ -402,7 +414,7 @@ export class Meta {
    *                             or `undefined` if the print date is not set
    * @since 0.6.0
    */
-  public getPrintDate (): Date | undefined {
+  public getPrintDate(): Date | undefined {
     return this.printDate;
   }
 
@@ -419,7 +431,7 @@ export class Meta {
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
-  public setPrintedBy (printedBy: string | undefined): Meta {
+  public setPrintedBy(printedBy: string | undefined): Meta {
     if (printedBy === undefined || typeof printedBy === 'string') {
       this.printedBy = printedBy;
     }
@@ -440,7 +452,7 @@ export class Meta {
    *                               or `undefined` if the name of the person is not set
    * @since 0.6.0
    */
-  public getPrintedBy (): string | undefined {
+  public getPrintedBy(): string | undefined {
     return this.printedBy;
   }
 
@@ -456,7 +468,7 @@ export class Meta {
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
-  public setSubject (subject: string | undefined): Meta {
+  public setSubject(subject: string | undefined): Meta {
     if (subject === undefined || typeof subject === 'string') {
       this.subject = subject;
     }
@@ -476,7 +488,7 @@ export class Meta {
    * @returns {string | undefined} The subject of the document or `undefined` if the subject is not set
    * @since 0.6.0
    */
-  public getSubject (): string | undefined {
+  public getSubject(): string | undefined {
     return this.subject;
   }
 
@@ -492,7 +504,7 @@ export class Meta {
    * @returns {Meta} The `Meta` object
    * @since 0.6.0
    */
-  public setTitle (title: string | undefined): Meta {
+  public setTitle(title: string | undefined): Meta {
     if (title === undefined || typeof title === 'string') {
       this.title = title;
     }
@@ -512,7 +524,7 @@ export class Meta {
    * @returns {string | undefined} The title of the document or `undefined` if the title is not set
    * @since 0.6.0
    */
-  public getTitle (): string | undefined {
+  public getTitle(): string | undefined {
     return this.title;
   }
 }

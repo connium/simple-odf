@@ -37,7 +37,8 @@
     "test": "jest",
     "watch-test": "jest --watch",
     "coverage": "jest --coverage",
-    "lint": "standardx \"src/**/*.ts\"  \"test/**/*.ts\"",
+    "lint": "eslint './{examples,src,test}/**/*.{ts,tsx}'",
+    "format": "prettier --write './{examples,src,test}/**/*.{ts,js,json,md}'",
     "docs": "rm -r ./lib && tsc && jsdoc2md --name-format --param-list-format list --separators --partial ./tools/jsdoc2md/body.hbs ./tools/jsdoc2md/params-list.hbs ./tools/jsdoc2md/returns.hbs ./tools/jsdoc2md/scope.hbs --files ./lib/api/**/*.js > ./docs/API.md"
   },
   "dependencies": {
@@ -47,11 +48,14 @@
     "@types/jest": "^25.1.0",
     "@types/node": "^10.17.17",
     "@types/xmldom": "^0.1.29",
-    "@typescript-eslint/eslint-plugin": "^2.3.3",
-    "@typescript-eslint/parser": "^2.3.3",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-prettier": "^3.1.2",
     "jest": "^25.1.0",
     "jsdoc-to-markdown": "^5.0.0",
-    "standardx": "^5.0.0",
+    "prettier": "2.0.2",
     "ts-jest": "^25.0.0",
     "typescript": "^3.3.3"
   },
@@ -68,11 +72,5 @@
       "js"
     ],
     "collectCoverage": true
-  },
-  "standardx": {
-    "parser": "@typescript-eslint/parser",
-    "plugins": [
-      "@typescript-eslint/eslint-plugin"
-    ]
   }
 }

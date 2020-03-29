@@ -41,13 +41,18 @@ describe(Paragraph.name, () => {
       paragraph.addHyperlink(' link', 'http://example.org/');
       paragraph.addText(' even more text');
 
-      expect(paragraph.getText()).toEqual('some text some\nmore   text link even more text');
+      expect(paragraph.getText()).toEqual(
+        'some text some\nmore   text link even more text'
+      );
     });
   });
 
   describe('hyperlink', () => {
     it('return a hyperlink', () => {
-      const hyperlink = paragraph.addHyperlink('some linked text', 'http://example.org/');
+      const hyperlink = paragraph.addHyperlink(
+        'some linked text',
+        'http://example.org/'
+      );
 
       expect(hyperlink).toBeInstanceOf(Hyperlink);
       expect(hyperlink.getText()).toEqual('some linked text');

@@ -33,12 +33,12 @@ export interface ITextProperties {
   /**
    * @since 0.9.0
    */
-  setBackgroundColor (color: Color | undefined): void;
+  setBackgroundColor(color: Color | undefined): void;
 
   /**
    * @since 0.9.0
    */
-  getBackgroundColor (): Color | undefined;
+  getBackgroundColor(): Color | undefined;
 
   /**
    * Sets the font color that will be applied to the text.
@@ -47,7 +47,7 @@ export interface ITextProperties {
    * @param {Color | undefined} color The font color to apply or `undefined` if the default color should be used
    * @since 0.4.0
    */
-  setColor (color: Color | undefined): void;
+  setColor(color: Color | undefined): void;
 
   /**
    * Returns the font color that will be applied to the text or `undefined` if the default color will be used.
@@ -55,7 +55,7 @@ export interface ITextProperties {
    * @returns {Color | undefined} The font color to apply or `undefined` if the default color will be used
    * @since 0.4.0
    */
-  getColor (): Color | undefined;
+  getColor(): Color | undefined;
 
   /**
    * Sets the name of the font that will be applied to the text.
@@ -64,7 +64,7 @@ export interface ITextProperties {
    * @param {string} name The name of the font to apply or `undefined` if the default font should be used
    * @since 0.4.0
    */
-  setFontName (name: string): void;
+  setFontName(name: string): void;
 
   /**
    * Returns the name of the font that will be applied to the text or `undefined` if the default font will be used.
@@ -72,7 +72,7 @@ export interface ITextProperties {
    * @returns {string | undefined} The name of the font to apply or `undefined` if the default font will be used
    * @since 0.4.0
    */
-  getFontName (): string | undefined;
+  getFontName(): string | undefined;
 
   /**
    * Sets the font size that will be applied to the text.
@@ -80,7 +80,7 @@ export interface ITextProperties {
    * @param {number} size The font size to apply as point value (pt)
    * @since 0.4.0
    */
-  setFontSize (size: number): void;
+  setFontSize(size: number): void;
 
   /**
    * Returns the font size that will be applied to the text.
@@ -88,17 +88,17 @@ export interface ITextProperties {
    * @returns {number} The font size to apply as point value (pt)
    * @since 0.4.0
    */
-  getFontSize (): number;
+  getFontSize(): number;
 
   /**
    * @since 0.9.0
    */
-  setFontVariant (fontVariant: FontVariant): void;
+  setFontVariant(fontVariant: FontVariant): void;
 
   /**
    * @since 0.9.0
    */
-  getFontVariant (): FontVariant;
+  getFontVariant(): FontVariant;
 
   /**
    * Sets the transformation that will be applied to the text.
@@ -106,7 +106,7 @@ export interface ITextProperties {
    * @param {TextTransformation} transformation The transformation to apply
    * @since 0.4.0
    */
-  setTextTransformation (transformation: TextTransformation): void;
+  setTextTransformation(transformation: TextTransformation): void;
 
   /**
    * Returns the transformation that will be applied to the text.
@@ -114,7 +114,7 @@ export interface ITextProperties {
    * @returns {TextTransformation} The transformation to apply
    * @since 0.4.0
    */
-  getTextTransformation (): TextTransformation;
+  getTextTransformation(): TextTransformation;
 
   /**
    * Sets the typeface that will be applied to the text.
@@ -122,7 +122,7 @@ export interface ITextProperties {
    * @param {Typeface} typeface The typeface to apply
    * @since 0.4.0
    */
-  setTypeface (typeface: Typeface): void;
+  setTypeface(typeface: Typeface): void;
 
   /**
    * Returns the typeface that will be applied to the text.
@@ -130,5 +130,5 @@ export interface ITextProperties {
    * @returns {Typeface} The typeface to apply
    * @since 0.4.0
    */
-  getTypeface (): Typeface;
+  getTypeface(): Typeface;
 }

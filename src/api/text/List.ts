@@ -22,7 +22,7 @@ export class List extends OdfElement {
    *
    * @since 0.2.0
    */
-  public constructor () {
+  public constructor() {
     super();
   }
 
@@ -38,7 +38,7 @@ export class List extends OdfElement {
    * @returns {ListItem} The added `ListItem` object
    * @since 0.2.0
    */
-  public addItem (item?: ListItem): ListItem {
+  public addItem(item?: ListItem): ListItem {
     const listItem = item || new ListItem();
     this.append(listItem);
 
@@ -62,7 +62,7 @@ export class List extends OdfElement {
    * @returns {ListItem} The inserted `ListItem` object
    * @since 0.2.0
    */
-  public insertItem (position: number, item: ListItem): ListItem {
+  public insertItem(position: number, item: ListItem): ListItem {
     this.insert(position, item);
     return item;
   }
@@ -83,7 +83,7 @@ export class List extends OdfElement {
    * or `undefined` if there is no list item at the specified position
    * @since 0.2.0
    */
-  public getItem (position: number): ListItem | undefined {
+  public getItem(position: number): ListItem | undefined {
     return this.get(position) as ListItem;
   }
 
@@ -100,7 +100,7 @@ export class List extends OdfElement {
    * @returns {ListItem[]} A copy of the list of `ListItem` objects
    * @since 0.2.0
    */
-  public getItems (): ListItem[] {
+  public getItems(): ListItem[] {
     return this.getAll() as ListItem[];
   }
 
@@ -120,7 +120,7 @@ export class List extends OdfElement {
    * or undefined if there is no list item at the specified position
    * @since 0.2.0
    */
-  public removeItemAt (position: number): ListItem | undefined {
+  public removeItemAt(position: number): ListItem | undefined {
     return this.removeAt(position) as ListItem;
   }
 
@@ -137,7 +137,7 @@ export class List extends OdfElement {
    * @returns {List} The `List` object
    * @since 0.2.0
    */
-  public clear (): List {
+  public clear(): List {
     let removedElement;
 
     do {
@@ -160,7 +160,7 @@ export class List extends OdfElement {
    * @returns {number} The number of items in this list
    * @since 0.2.0
    */
-  public size (): number {
+  public size(): number {
     return this.getAll().length;
   }
 }

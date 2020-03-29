@@ -10,5 +10,5 @@ export enum FontFamilyGeneric {
   /** the family roman fonts (without serifs) */
   Swiss = 'swiss',
   /** the family system fonts */
-  System = 'system'
+  System = 'system',
 }

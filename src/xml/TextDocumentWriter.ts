@@ -20,7 +20,7 @@ export class TextDocumentWriter {
   private metaWriter: MetaWriter;
   private stylesWriter: StylesWriter;
 
-  public constructor () {
+  public constructor() {
     this.fontFaceDeclarationsWriter = new FontFaceDeclarationsWriter();
     this.metaWriter = new MetaWriter();
     this.stylesWriter = new StylesWriter();
@@ -33,11 +33,12 @@ export class TextDocumentWriter {
    * @returns {Document} The XML document
    * @since 0.7.0
    */
-  public write (textDocument: TextDocument): Document {
+  public write(textDocument: TextDocument): Document {
     const document = new DOMImplementation().createDocument(
       'urn:oasis:names:tc:opendocument:xmlns:office:1.0',
       OdfElementName.OfficeDocument,
-      null);
+      null
+    );
     const root = document.firstChild as Element;
 
     this.setXmlNamespaces(root);
@@ -59,14 +60,32 @@ export class TextDocumentWriter {
    * @param {Element} root The root element of the document which will be used as parent
    * @private
    */
-  private setXmlNamespaces (root: Element): void {
+  private setXmlNamespaces(root: Element): void {
     root.setAttribute('xmlns:dc', 'http://purl.org/dc/elements/1.1/');
-    root.setAttribute('xmlns:draw', 'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0');
-    root.setAttribute('xmlns:fo', 'urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0');
-    root.setAttribute('xmlns:meta', 'urn:oasis:names:tc:opendocument:xmlns:meta:1.0');
-    root.setAttribute('xmlns:style', 'urn:oasis:names:tc:opendocument:xmlns:style:1.0');
-    root.setAttribute('xmlns:svg', 'urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0');
-    root.setAttribute('xmlns:text', 'urn:oasis:names:tc:opendocument:xmlns:text:1.0');
+    root.setAttribute(
+      'xmlns:draw',
+      'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0'
+    );
+    root.setAttribute(
+      'xmlns:fo',
+      'urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0'
+    );
+    root.setAttribute(
+      'xmlns:meta',
+      'urn:oasis:names:tc:opendocument:xmlns:meta:1.0'
+    );
+    root.setAttribute(
+      'xmlns:style',
+      'urn:oasis:names:tc:opendocument:xmlns:style:1.0'
+    );
+    root.setAttribute(
+      'xmlns:svg',
+      'urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0'
+    );
+    root.setAttribute(
+      'xmlns:text',
+      'urn:oasis:names:tc:opendocument:xmlns:text:1.0'
+    );
     root.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
   }
 
@@ -76,8 +95,11 @@ export class TextDocumentWriter {
    * @param {Element} root The root element of the document which will be used as parent
    * @private
    */
-  private setOfficeAttributes (root: Element): void {
-    root.setAttribute(OdfAttributeName.OfficeMimetype, 'application/vnd.oasis.opendocument.text');
+  private setOfficeAttributes(root: Element): void {
+    root.setAttribute(
+      OdfAttributeName.OfficeMimetype,
+      'application/vnd.oasis.opendocument.text'
+    );
     root.setAttribute(OdfAttributeName.OfficeVersion, OFFICE_VERSION);
   }
 
@@ -89,7 +111,11 @@ export class TextDocumentWriter {
    * @param {Element} root The root element of the document which will be used as parent
    * @private
    */
-  private writeMeta (textDocument: TextDocument, document: Document, root: Element): void {
+  private writeMeta(
+    textDocument: TextDocument,
+    document: Document,
+    root: Element
+  ): void {
     this.metaWriter.write(document, root, textDocument.getMeta());
   }
 
@@ -101,8 +127,16 @@ export class TextDocumentWriter {
    * @param {Element} root The root element of the document which will be used as parent
    * @private
    */
-  private writeFontFaceDeclarations (textDocument: TextDocument, document: Document, root: Element): void {
-    this.fontFaceDeclarationsWriter.write(textDocument.getFontFaceDeclarations(), document, root);
+  private writeFontFaceDeclarations(
+    textDocument: TextDocument,
+    document: Document,
+    root: Element
+  ): void {
+    this.fontFaceDeclarationsWriter.write(
+      textDocument.getFontFaceDeclarations(),
+      document,
+      root
+    );
   }
 
   /**
@@ -114,11 +148,12 @@ export class TextDocumentWriter {
    * @param {Element} root The root element of the document which will be used as parent
    * @private
    */
-  private writeStyles (
+  private writeStyles(
     textDocument: TextDocument,
     automaticStyles: AutomaticStyles,
     document: Document,
-    root: Element): void {
+    root: Element
+  ): void {
     new AutomaticStyleVisitor(automaticStyles).visit(textDocument.getBody());
 
     this.stylesWriter.write(textDocument.getCommonStyles(), document, root);
@@ -134,12 +169,16 @@ export class TextDocumentWriter {
    * @param {Element} root The root element of the document which will be used as parent
    * @private
    */
-  private writeBody (
+  private writeBody(
     textDocument: TextDocument,
     automaticStyles: AutomaticStyles,
     document: Document,
-    root: Element): void {
-    new DomVisitor(textDocument.getCommonStyles(), automaticStyles)
-      .visit(textDocument.getBody(), document, root);
+    root: Element
+  ): void {
+    new DomVisitor(textDocument.getCommonStyles(), automaticStyles).visit(
+      textDocument.getBody(),
+      document,
+      root
+    );
   }
 }

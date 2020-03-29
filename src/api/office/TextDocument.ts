@@ -36,7 +36,7 @@ export class TextDocument {
    *
    * @since 0.1.0
    */
-  public constructor () {
+  public constructor() {
     this.meta = new Meta();
     this.fontFaceDeclarations = new FontFaceDeclarations();
     this.commonStyles = new CommonStyles();
@@ -54,7 +54,7 @@ export class TextDocument {
    * @returns {TextBody} A `TextBody` object that holds the content of the document
    * @since 0.7.0
    */
-  public getBody (): TextBody {
+  public getBody(): TextBody {
     return this.body;
   }
 
@@ -69,7 +69,7 @@ export class TextDocument {
    * @returns {CommonStyles} A `CommonStyles` object that holds the named styles of the document
    * @since 0.9.0
    */
-  public getCommonStyles (): CommonStyles {
+  public getCommonStyles(): CommonStyles {
     return this.commonStyles;
   }
 
@@ -84,7 +84,7 @@ export class TextDocument {
    * @returns {FontFaceDeclarations} An object holding the font faces of the document
    * @since 0.8.0
    */
-  public getFontFaceDeclarations (): FontFaceDeclarations {
+  public getFontFaceDeclarations(): FontFaceDeclarations {
     return this.fontFaceDeclarations;
   }
 
@@ -99,7 +99,7 @@ export class TextDocument {
    * @returns {Meta} An object holding the metadata of the document
    * @since 0.6.0
    */
-  public getMeta (): Meta {
+  public getMeta(): Meta {
     return this.meta;
   }
 
@@ -114,7 +114,7 @@ export class TextDocument {
    * @returns {Promise<void>}
    * @since 0.1.0
    */
-  public saveFlat (filePath: string): Promise<void> {
+  public saveFlat(filePath: string): Promise<void> {
     const writeFileAsync = promisify(writeFile);
     const xml = this.toString();
 
@@ -127,7 +127,7 @@ export class TextDocument {
    * @returns {string} The string representation of this document
    * @since 0.1.0
    */
-  public toString (): string {
+  public toString(): string {
     const document = new TextDocumentWriter().write(this);
 
     return XML_DECLARATION + new XMLSerializer().serializeToString(document);

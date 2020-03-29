@@ -19,82 +19,82 @@ export interface IParagraphProperties {
   /**
    * @since 0.9.0
    */
-  setBackgroundColor (color: Color | undefined): void;
+  setBackgroundColor(color: Color | undefined): void;
 
   /**
    * @since 0.9.0
    */
-  getBackgroundColor (): Color | undefined;
+  getBackgroundColor(): Color | undefined;
 
   /**
    * @since 0.9.0
    */
-  setBorder (width: number, style: BorderStyle, color: Color): void;
+  setBorder(width: number, style: BorderStyle, color: Color): void;
 
   /**
    * @since 0.9.0
    */
-  removeBorder (): void;
+  removeBorder(): void;
 
   /**
    * @since 0.9.0
    */
-  setBorderBottom (width: number, style: BorderStyle, color: Color): void;
+  setBorderBottom(width: number, style: BorderStyle, color: Color): void;
 
   /**
    * @since 0.9.0
    */
-  getBorderBottom (): Border | undefined;
+  getBorderBottom(): Border | undefined;
 
   /**
    * @since 0.9.0
    */
-  removeBorderBottom (): void;
+  removeBorderBottom(): void;
 
   /**
    * @since 0.9.0
    */
-  setBorderLeft (width: number, style: BorderStyle, color: Color): void;
+  setBorderLeft(width: number, style: BorderStyle, color: Color): void;
 
   /**
    * @since 0.9.0
    */
-  getBorderLeft (): Border | undefined;
+  getBorderLeft(): Border | undefined;
 
   /**
    * @since 0.9.0
    */
-  removeBorderLeft (): void;
+  removeBorderLeft(): void;
 
   /**
    * @since 0.9.0
    */
-  setBorderRight (width: number, style: BorderStyle, color: Color): void;
+  setBorderRight(width: number, style: BorderStyle, color: Color): void;
 
   /**
    * @since 0.9.0
    */
-  getBorderRight (): Border | undefined;
+  getBorderRight(): Border | undefined;
 
   /**
    * @since 0.9.0
    */
-  removeBorderRight (): void;
+  removeBorderRight(): void;
 
   /**
    * @since 0.9.0
    */
-  setBorderTop (width: number, style: BorderStyle, color: Color): void;
+  setBorderTop(width: number, style: BorderStyle, color: Color): void;
 
   /**
    * @since 0.9.0
    */
-  getBorderTop (): Border | undefined;
+  getBorderTop(): Border | undefined;
 
   /**
    * @since 0.9.0
    */
-  removeBorderTop (): void;
+  removeBorderTop(): void;
 
   /**
    * Sets the horizontal alignment setting of this paragraph.
@@ -102,7 +102,7 @@ export interface IParagraphProperties {
    * @param {HorizontalAlignment} horizontalAlignment The horizontal alignment setting
    * @since 0.1.0
    */
-  setHorizontalAlignment (horizontalAlignment: HorizontalAlignment): void;
+  setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): void;
 
   /**
    * Returns the horizontal alignment setting of this paragraph.
@@ -110,24 +110,26 @@ export interface IParagraphProperties {
    * @returns {HorizontalAlignment} The horizontal alignment setting
    * @since 0.2.0
    */
-  getHorizontalAlignment (): HorizontalAlignment;
+  getHorizontalAlignment(): HorizontalAlignment;
 
   /**
    * @since 0.9.0
    */
-  setHorizontalAlignmentLastLine (horizontalAlignment: HorizontalAlignmentLastLine): void;
+  setHorizontalAlignmentLastLine(
+    horizontalAlignment: HorizontalAlignmentLastLine
+  ): void;
 
   /**
    * @since 0.9.0
    */
-  getHorizontalAlignmentLastLine (): HorizontalAlignmentLastLine;
+  getHorizontalAlignmentLastLine(): HorizontalAlignmentLastLine;
 
   /**
    * Keeps paragraph lines on the same page (page break before paragraph if necessary).
    *
    * @since 0.6.0
    */
-  setKeepTogether (keepTogether?: boolean): void;
+  setKeepTogether(keepTogether?: boolean): void;
 
   /**
    * Returns whether the lines of the paragraph should be kept together.
@@ -135,147 +137,157 @@ export interface IParagraphProperties {
    * @returns {boolean} `true` if the paragraph lines should be kept together, `false` otherwise
    * @since 0.9.0
    */
-  getKeepTogether (): boolean;
+  getKeepTogether(): boolean;
 
   /**
    * @since 0.9.0
    */
-  setKeepWithNext (keepWithNext?: boolean): void;
+  setKeepWithNext(keepWithNext?: boolean): void;
 
   /**
    * @since 0.9.0
    */
-  getKeepWithNext (): boolean;
+  getKeepWithNext(): boolean;
 
   /**
    * @since 0.9.0
    */
-  setLineHeight (lineHeight: number | string | undefined): void;
+  setLineHeight(lineHeight: number | string | undefined): void;
 
   /**
    * @since 0.9.0
    */
-  getLineHeight (): number | string | undefined;
+  getLineHeight(): number | string | undefined;
 
   /**
    * @since 0.9.0
    */
-  setLineHeightAtLeast (minimumLineHeight: number | undefined): void;
+  setLineHeightAtLeast(minimumLineHeight: number | undefined): void;
 
   /**
    * @since 0.9.0
    */
-  getLineHeightAtLeast (): number | undefined;
+  getLineHeightAtLeast(): number | undefined;
 
   /**
    * @since 0.9.0
    */
-  setLineSpacing (lineSpacing: number | undefined): void;
+  setLineSpacing(lineSpacing: number | undefined): void;
 
   /**
    * @since 0.9.0
    */
-  getLineSpacing (): number | undefined;
+  getLineSpacing(): number | undefined;
 
   /**
    * @since 0.9.0
    */
-  setMargin (marginLeft: number, marginRight: number, marginTop: number, marginBottom: number): void;
+  setMargin(
+    marginLeft: number,
+    marginRight: number,
+    marginTop: number,
+    marginBottom: number
+  ): void;
 
   /**
    * @since 0.9.0
    */
-  setMarginBottom (margin: number): void;
+  setMarginBottom(margin: number): void;
 
   /**
    * @since 0.9.0
    */
-  getMarginBottom (): number;
+  getMarginBottom(): number;
 
   /**
    * @since 0.9.0
    */
-  setMarginLeft (margin: number): void;
+  setMarginLeft(margin: number): void;
 
   /**
    * @since 0.9.0
    */
-  getMarginLeft (): number;
+  getMarginLeft(): number;
 
   /**
    * @since 0.9.0
    */
-  setMarginRight (margin: number): void;
+  setMarginRight(margin: number): void;
 
   /**
    * @since 0.9.0
    */
-  getMarginRight (): number;
+  getMarginRight(): number;
 
   /**
    * @since 0.9.0
    */
-  setMarginTop (margin: number): void;
+  setMarginTop(margin: number): void;
 
   /**
    * @since 0.9.0
    */
-  getMarginTop (): number;
+  getMarginTop(): number;
 
   /**
    * @since 0.9.0
    */
-  setOrphans (orphans: number | undefined): void;
+  setOrphans(orphans: number | undefined): void;
 
   /**
    * @since 0.9.0
    */
-  getOrphans (): number | undefined;
+  getOrphans(): number | undefined;
 
   /**
    * @since 0.9.0
    */
-  setPadding (paddingLeft: number, paddingRight: number, paddingTop: number, paddingBottom: number): void;
+  setPadding(
+    paddingLeft: number,
+    paddingRight: number,
+    paddingTop: number,
+    paddingBottom: number
+  ): void;
 
   /**
    * @since 0.9.0
    */
-  setPaddingBottom (padding: number): void;
+  setPaddingBottom(padding: number): void;
 
   /**
    * @since 0.9.0
    */
-  getPaddingBottom (): number;
+  getPaddingBottom(): number;
 
   /**
    * @since 0.9.0
    */
-  setPaddingLeft (padding: number): void;
+  setPaddingLeft(padding: number): void;
 
   /**
    * @since 0.9.0
    */
-  getPaddingLeft (): number;
+  getPaddingLeft(): number;
 
   /**
    * @since 0.9.0
    */
-  setPaddingRight (padding: number): void;
+  setPaddingRight(padding: number): void;
 
   /**
    * @since 0.9.0
    */
-  getPaddingRight (): number;
+  getPaddingRight(): number;
 
   /**
    * @since 0.9.0
    */
-  setPaddingTop (padding: number): void;
+  setPaddingTop(padding: number): void;
 
   /**
    * @since 0.9.0
    */
-  getPaddingTop (): number;
+  getPaddingTop(): number;
 
   /**
    * Sets the page break setting of the paragraph.
@@ -283,7 +295,7 @@ export interface IParagraphProperties {
    * @param {PageBreak} pageBreak The page break setting
    * @since 0.9.0
    */
-  setPageBreak (pageBreak: PageBreak): void;
+  setPageBreak(pageBreak: PageBreak): void;
 
   /**
    * Returns the page break setting of the paragraph.
@@ -291,37 +303,37 @@ export interface IParagraphProperties {
    * @returns {PageBreak} The page break setting
    * @since 0.9.0
    */
-  getPageBreak (): PageBreak;
+  getPageBreak(): PageBreak;
 
   /**
    * @since 0.9.0
    */
-  setTextIndent (textIndent: number): void;
+  setTextIndent(textIndent: number): void;
 
   /**
    * @since 0.9.0
    */
-  getTextIndent (): number;
+  getTextIndent(): number;
 
   /**
    * @since 0.9.0
    */
-  setVerticalAlignment (verticalAlignment: VerticalAlignment): void;
+  setVerticalAlignment(verticalAlignment: VerticalAlignment): void;
 
   /**
    * @since 0.9.0
    */
-  getVerticalAlignment (): VerticalAlignment;
+  getVerticalAlignment(): VerticalAlignment;
 
   /**
    * @since 0.9.0
    */
-  setWidows (widows: number | undefined): void;
+  setWidows(widows: number | undefined): void;
 
   /**
    * @since 0.9.0
    */
-  getWidows (): number | undefined;
+  getWidows(): number | undefined;
 
   /**
    * Adds a new tab stop to this style.
@@ -334,7 +346,7 @@ export interface IParagraphProperties {
    * or `undefined` if a tab stop at the same position already exists
    * @since 0.3.0
    */
-  addTabStop (position: number, type: TabStopType): TabStop | undefined;
+  addTabStop(position: number, type: TabStopType): TabStop | undefined;
 
   /**
    * Adds a new tab stop to this style.
@@ -346,7 +358,7 @@ export interface IParagraphProperties {
    * or `undefined` if a tab stop at the same position already exists
    * @since 0.3.0
    */
-  addTabStop (tabStop: TabStop): TabStop | undefined;
+  addTabStop(tabStop: TabStop): TabStop | undefined;
 
   /**
    * Returns all tab stops.
@@ -354,12 +366,12 @@ export interface IParagraphProperties {
    * @returns {TabStop[]} A copy of the list of tab stops
    * @since 0.3.0
    */
-  getTabStops (): TabStop[];
+  getTabStops(): TabStop[];
 
   /**
    * Removes all tab stops.
    *
    * @since 0.3.0
    */
-  clearTabStops (): void;
+  clearTabStops(): void;
 }

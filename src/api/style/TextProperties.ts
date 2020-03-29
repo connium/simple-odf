@@ -26,7 +26,7 @@ export class TextProperties implements ITextProperties {
    *
    * @since 0.4.0
    */
-  public constructor () {
+  public constructor() {
     this.fontSize = 12;
     this.fontVariant = FontVariant.Normal;
     this.transformation = TextTransformation.None;
@@ -34,74 +34,74 @@ export class TextProperties implements ITextProperties {
   }
 
   /** @inheritDoc */
-  public setBackgroundColor (color: Color | undefined): void {
+  public setBackgroundColor(color: Color | undefined): void {
     this.backgroundColor = color;
   }
 
   /** @inheritDoc */
-  public getBackgroundColor (): Color | undefined {
+  public getBackgroundColor(): Color | undefined {
     return this.backgroundColor;
   }
 
   /** @inheritDoc */
-  public setColor (color: Color | undefined): void {
+  public setColor(color: Color | undefined): void {
     this.color = color;
   }
 
   /** @inheritDoc */
-  public getColor (): Color | undefined {
+  public getColor(): Color | undefined {
     return this.color;
   }
 
   /** @inheritDoc */
-  public setFontName (name: string): void {
+  public setFontName(name: string): void {
     this.fontName = name;
   }
 
   /** @inheritDoc */
-  public getFontName (): string | undefined {
+  public getFontName(): string | undefined {
     return this.fontName;
   }
 
   /** @inheritDoc */
-  public setFontSize (size: number): void {
+  public setFontSize(size: number): void {
     if (isPositiveLength(size)) {
       this.fontSize = size;
     }
   }
 
   /** @inheritDoc */
-  public getFontSize (): number {
+  public getFontSize(): number {
     return this.fontSize;
   }
 
   /** @inheritDoc */
-  public setFontVariant (fontVariant: FontVariant): void {
+  public setFontVariant(fontVariant: FontVariant): void {
     this.fontVariant = fontVariant;
   }
 
   /** @inheritDoc */
-  public getFontVariant (): FontVariant {
+  public getFontVariant(): FontVariant {
     return this.fontVariant;
   }
 
   /** @inheritDoc */
-  public setTextTransformation (transformation: TextTransformation): void {
+  public setTextTransformation(transformation: TextTransformation): void {
     this.transformation = transformation;
   }
 
   /** @inheritDoc */
-  public getTextTransformation (): TextTransformation {
+  public getTextTransformation(): TextTransformation {
     return this.transformation;
   }
 
   /** @inheritDoc */
-  public setTypeface (typeface: Typeface): void {
+  public setTypeface(typeface: Typeface): void {
     this.typeface = typeface;
   }
 
   /** @inheritDoc */
-  public getTypeface (): Typeface {
+  public getTypeface(): Typeface {
     return this.typeface;
   }
 }

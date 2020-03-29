@@ -13,5 +13,5 @@ export enum OdfElementName {
   StyleStyle = 'style:style',
   StyleTabStop = 'style:tab-stop',
   StyleTabStops = 'style:tab-stops',
-  StyleTextProperties = 'style:text-properties'
+  StyleTextProperties = 'style:text-properties',
 }
