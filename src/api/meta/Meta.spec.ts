@@ -47,13 +47,18 @@ describe(Meta.name, () => {
   });
 
   describe('date', () => {
-    const testDate = new Date(2020, 3, 1, 12);
+    let testDate: Date;
+
+    beforeEach(() => {
+      testDate = new Date(2020, 3, 1, 12);
+    });
 
     it('return undefined by default', () => {
       expect(meta.getDate()).toBeUndefined();
     });
 
     it('return previous set date', () => {
+      console.log({ testDate });
       meta.setDate(testDate);
 
       expect(meta.getDate()).toBe(testDate);
@@ -69,13 +74,6 @@ describe(Meta.name, () => {
     it('ignore invalid input', () => {
       meta.setDate(testDate);
       meta.setDate(null as any);
-
-      expect(meta.getDate()).toBe(testDate);
-    });
-
-    it('ignore dates earlier than now', () => {
-      meta.setDate(testDate);
-      meta.setDate(new Date(2000, 11, 24, 13, 37, 23, 42));
 
       expect(meta.getDate()).toBe(testDate);
     });
@@ -271,13 +269,6 @@ describe(Meta.name, () => {
     it('ignore invalid input', () => {
       meta.setPrintDate(testDate);
       meta.setPrintDate(null as any);
-
-      expect(meta.getPrintDate()).toBe(testDate);
-    });
-
-    it('ignore dates earlier than now', () => {
-      meta.setPrintDate(testDate);
-      meta.setPrintDate(new Date(2000, 11, 24, 13, 37, 23, 42));
 
       expect(meta.getPrintDate()).toBe(testDate);
     });

@@ -127,10 +127,7 @@ export class Meta {
    * @since 0.6.0
    */
   public setDate(date: Date | undefined): Meta {
-    if (
-      date === undefined ||
-      (date instanceof Date && date.getTime() >= Date.now())
-    ) {
+    if (date === undefined || date instanceof Date) {
       this.date = date;
     }
 
@@ -391,10 +388,7 @@ export class Meta {
    * @since 0.6.0
    */
   public setPrintDate(printDate: Date | undefined): Meta {
-    if (
-      printDate === undefined ||
-      (printDate instanceof Date && printDate.getTime() >= Date.now())
-    ) {
+    if (printDate === undefined || printDate instanceof Date) {
       this.printDate = printDate;
     }
 
