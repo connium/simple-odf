@@ -25,6 +25,13 @@
     "Koen Verheyen",
     "Cain Watson"
   ],
+  "files": [
+    "lib",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
@@ -35,7 +42,8 @@
     "pretest": "npm run build",
     "posttest": "npm run lint",
     "test": "jest",
-    "watch-test": "jest --watch",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "coverage": "jest --coverage",
     "lint": "eslint './{examples,src,test}/**/*.{ts,tsx}'",
     "format": "prettier --write './{examples,src,test}/**/*.{ts,js,json,md}'",
@@ -61,16 +69,5 @@
   },
   "engines": {
     "node": "^10.x"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(src|test)/.*\\.spec\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "collectCoverage": true
   }
 }
