@@ -81,7 +81,9 @@
   - ❌ span
   - ❌ hyperlink
   - ❌ number
-- ❌ List
+- ✔️ List
+  - ❌ List header
+  - ✔️ List item
 - ❌ Section
 - ❌ Change Tracking
 - ❌ Bookmark & Reference
@@ -98,4 +100,5 @@
 <!--
 ❌
 ✔️
+⏳
 -->
