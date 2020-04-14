@@ -1,6 +1,6 @@
 .vscode/
 coverage/
-lib/
+dist/
 node_modules/
 example.spec.ts
 
