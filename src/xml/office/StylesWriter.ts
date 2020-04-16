@@ -1,9 +1,9 @@
 import { AutomaticStyles, CommonStyles, IStyles } from '../../api/office';
 import { ListStyle, ParagraphStyle, Style } from '../../api/style';
 import { OdfElementName } from '../OdfElementName';
+import { ListStyleVisitor } from './ListStyleVisitor';
 import { ParagraphPropertiesVisitor } from './ParagraphPropertiesVisitor';
 import { TextPropertiesVisitor } from './TextPropertiesVisitor';
-import { OdfAttributeName } from '../OdfAttributeName';
 
 /**
  * Transforms a {@link StyleManager} object into ODF conform XML
@@ -54,13 +54,7 @@ export class StylesWriter {
     this.setClass(styleElement, style);
 
     if (style instanceof ListStyle) {
-      const consecutiveNumbering = style.getConsecutiveNumbering();
-      if (consecutiveNumbering === true) {
-        styleElement.setAttribute(
-          OdfAttributeName.TextConsecutiveNumbering,
-          consecutiveNumbering.toString()
-        );
-      }
+      new ListStyleVisitor().visit(style, styleElement);
     } else if (style instanceof ParagraphStyle) {
       new ParagraphPropertiesVisitor().visit(style, document, styleElement);
       new TextPropertiesVisitor().visit(style, document, styleElement);
