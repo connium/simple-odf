@@ -130,6 +130,8 @@ export class DomVisitor {
     const listElement = document.createElement(TextElementName.TextList);
     parent.appendChild(listElement);
 
+    this.setStyleName(list, listElement);
+
     return listElement;
   }
 
@@ -177,7 +179,7 @@ export class DomVisitor {
   }
 
   private setStyleName(
-    odfElement: Heading | Paragraph,
+    odfElement: Heading | List | Paragraph,
     domElement: Element
   ): void {
     let styleName = this.getAutomaticStyleName(odfElement);
@@ -192,7 +194,7 @@ export class DomVisitor {
   }
 
   private getAutomaticStyleName(
-    odfElement: Heading | Paragraph
+    odfElement: Heading | List | Paragraph
   ): string | undefined {
     const style = odfElement.getStyle();
 
@@ -202,7 +204,7 @@ export class DomVisitor {
   }
 
   private getCommonStyleName(
-    odfElement: Heading | Paragraph
+    odfElement: Heading | List | Paragraph
   ): string | undefined {
     const styleName = odfElement.getStyleName();
 

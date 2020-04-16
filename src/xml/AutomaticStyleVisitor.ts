@@ -1,6 +1,7 @@
 import { OdfElement } from '../api/OdfElement';
 import { AutomaticStyles } from '../api/office';
-import { Heading, Paragraph } from '../api/text';
+import { Style } from '../api/style';
+import { Heading, Paragraph, List } from '../api/text';
 
 export class AutomaticStyleVisitor {
   public constructor(private automaticStyles: AutomaticStyles) {}
@@ -8,6 +9,8 @@ export class AutomaticStyleVisitor {
   public visit(odfElement: OdfElement): void {
     if (odfElement instanceof Heading) {
       this.visitHeading(odfElement, this.automaticStyles);
+    } else if (odfElement instanceof List) {
+      this.visitList(odfElement, this.automaticStyles);
     } else if (odfElement instanceof Paragraph) {
       this.visitParagraph(odfElement, this.automaticStyles);
     }
@@ -21,21 +24,24 @@ export class AutomaticStyleVisitor {
     heading: Heading,
     automaticStyles: AutomaticStyles
   ): void {
-    const style = heading.getStyle();
+    this.addStyle(heading.getStyle(), automaticStyles);
+  }
 
-    if (style === undefined) {
-      return;
-    }
-
-    automaticStyles.add(style);
+  private visitList(list: List, automaticStyles: AutomaticStyles): void {
+    this.addStyle(list.getStyle(), automaticStyles);
   }
 
   private visitParagraph(
     paragraph: Paragraph,
     automaticStyles: AutomaticStyles
   ): void {
-    const style = paragraph.getStyle();
+    this.addStyle(paragraph.getStyle(), automaticStyles);
+  }
 
+  private addStyle(
+    style: Style | undefined,
+    automaticStyles: AutomaticStyles
+  ): void {
     if (style === undefined) {
       return;
     }

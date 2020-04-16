@@ -5,7 +5,7 @@ import { Heading, Hyperlink, List, Paragraph } from '../api/text';
 import { DomVisitor } from './DomVisitor';
 import { OdfElementName } from './OdfElementName';
 import { AutomaticStyles, CommonStyles } from '../api/office';
-import { ParagraphStyle } from '../api/style';
+import { ParagraphStyle, ListStyle } from '../api/style';
 
 class AutomaticStylesMock extends AutomaticStyles {
   public getName(): string {
@@ -193,6 +193,34 @@ describe(DomVisitor.name, () => {
         );
         expect(documentAsString).toMatch(
           /<text:list><text:list-item><text:p>some text<\/text:p><\/text:list-item><\/text:list>/
+        );
+      });
+
+      it('add a list with a common style', () => {
+        list.setStyleName('testStyleName');
+        list.addItem().addParagraph(testText);
+
+        domVisitor.visit(list, testDocument, testRoot);
+
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<text:list text:style-name="encodedTestStyleName"><text:list-item><text:p>some text<\/text:p><\/text:list-item><\/text:list>/
+        );
+      });
+
+      it('add a list with an automatic style', () => {
+        list.setStyle(new ListStyle());
+        list.addItem().addParagraph(testText);
+
+        domVisitor.visit(list, testDocument, testRoot);
+
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+        expect(documentAsString).toMatch(
+          /<text:list text:style-name="P23"><text:list-item><text:p>some text<\/text:p><\/text:list-item><\/text:list>/
         );
       });
     });

@@ -48,6 +48,7 @@ export enum OdfAttributeName {
   SvgWidth = 'svg:width',
 
   TextAnchorType = 'text:anchor-type',
+  TextConsecutiveNumbering = 'text:consecutive-numbering',
   TextOutlineLevel = 'text:outline-level',
   TextStyleName = 'text:style-name',
 
