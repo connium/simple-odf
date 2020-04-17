@@ -1,5 +1,6 @@
 export { Border } from './Border';
 export { BorderStyle } from './BorderStyle';
+export { BulletListLevelStyle } from './BulletListLevelStyle';
 export { Color } from './Color';
 export { FontFace } from './FontFace';
 export { FontFamilyGeneric } from './FontFamilyGeneric';

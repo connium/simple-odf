@@ -1,3 +1,4 @@
+import { BulletListLevelStyle } from './BulletListLevelStyle';
 import { Style } from './Style';
 import { StyleFamily } from './StyleFamily';
 
@@ -18,6 +19,7 @@ import { StyleFamily } from './StyleFamily';
  */
 export class ListStyle extends Style {
   private isConsecutiveNumbering: boolean;
+  private listLevelStyles: BulletListLevelStyle[];
 
   /**
    * Creates a `ListStyle` instance that represents the formatting of a list.
@@ -30,9 +32,11 @@ export class ListStyle extends Style {
    * @since 0.11.0
    */
   public constructor(displayName: string = Style.UNNAMED) {
+    // TODO: ListStyle has no style family
     super(displayName, StyleFamily.Text);
 
     this.isConsecutiveNumbering = false;
+    this.listLevelStyles = [];
   }
 
   /**
@@ -68,38 +72,90 @@ export class ListStyle extends Style {
     return this;
   }
 
-  // public setListLevelStyle(/*style: any*/): ListStyle {
-  //   return this;
-  // }
+  /**
+   * The `createBulletListLevelStyle()` method creates a new `BulletListLevelStyle` instance for the given list level.
+   * If a list level style for this level already exists, the existing style will be overwritten.
+   *
+   * @example
+   * const style = new ListStyle('Contents');
+   * style.createBulletListLevelStyle(3);
+   *
+   * @param {number} level The level of the list style, starting with `1`
+   * @returns {BulletListLevelStyle} A new `BulletListLevelStyle` instance with the specified level
+   * @since 0.11.0
+   */
+  public createBulletListLevelStyle(level: number): BulletListLevelStyle {
+    const bulletListLevelStyle = new BulletListLevelStyle(level);
+    this.removeListLevelStyle(level);
+    this.listLevelStyles.push(bulletListLevelStyle);
+
+    return bulletListLevelStyle;
+  }
+
+  /**
+   * The `getListLevelStyle()` method returns the list level style for the given list level.
+   * If a list level style for this level already exists, the existing style will be overwritten.
+   *
+   * @example
+   * const style = new ListStyle('Contents');
+   * style.getListLevelStyle(3);
+   *
+   * @param {number} level The level of the list style, starting with `1`
+   * @returns {BulletListLevelStyle | undefined} The list level style for the specified level or `undefined` if no list level style is defined for the specified level
+   * @since 0.11.0
+   */
+  public getListLevelStyle(level: number): BulletListLevelStyle | undefined {
+    return this.listLevelStyles.find((listLevelStyle) => {
+      return listLevelStyle.getLevel() === level;
+    });
+  }
+
+  /**
+   * The `getListLevelStyles()` method returns a new `Array` object that contains all list level styles of a list style.
+   *
+   * @example
+   * const style = new ListStyle('Contents');
+   * style.createBulletListLevelStyle(1);
+   * style.createBulletListLevelStyle(2);
+   * styles.getListLevelStyles();
+   *
+   * @returns {BulletListLevelStyle[]} A new `Array` object that contains the list level styles of a list style
+   * @since 0.11.0
+   */
+  public getListLevelStyles(): BulletListLevelStyle[] {
+    return [...this.listLevelStyles];
+  }
+
+  /**
+   * The `removeListLevelStyle()` method removes the list level style for the given list level.
+   *
+   * @example
+   * const style = new ListStyle('Contents');
+   * style.createBulletListLevelStyle(3);
+   * style.removeListLevelStyle(3);
+   * styles.getListLevelStyles();             // []
+   *
+   * @param {number} level The level of the list style, starting with `1`
+   * @returns {ListStyle} The `ListStyle` object
+   * @since 0.11.0
+   */
+  public removeListLevelStyle(level: number): ListStyle {
+    this.listLevelStyles = this.listLevelStyles.filter((listLevelStyle) => {
+      return listLevelStyle.getLevel() !== level;
+    });
+
+    return this;
+  }
 }
 
 /*
 <define name="text-list-style">
 	<element name="text:list-style">
-		<ref name="text-list-style-attr"/>
+		<ref name="text-list-style-attr"/><!-- DONE -->
 		<zeroOrMore>
 			<ref name="text-list-style-content"/>
 		</zeroOrMore>
 	</element>
-</define>
-
-
-<define name="text-list-style-attr">
-	<interleave>
-		<attribute name="style:name">
-			<ref name="styleName"/>
-		</attribute>
-		<optional>
-			<attribute name="style:display-name">
-				<ref name="string"/>
-			</attribute>
-		</optional>
-		<optional>
-			<attribute name="text:consecutive-numbering">
-				<ref name="boolean"/>
-			</attribute>
-		</optional>
-	</interleave>
 </define>
 
 
@@ -133,115 +189,5 @@ export class ListStyle extends Style {
 			</optional>
 		</element>
 	</choice>
-</define>
-
-
-<define name="text-list-level-style-attr">
-  <attribute name="text:level">
-    <ref name="positiveInteger"/>
-  </attribute>
-</define>
-
-
-<define name="style-list-level-properties">
-  <element name="style:list-level-properties">
-    <ref name="style-list-level-properties-content-strict"/>
-  </element>
-</define>
-
-
-<define name="style-list-level-properties-content-strict">
-  <ref name="style-list-level-properties-attlist"/>
-  <ref name="style-list-level-properties-elements"/>
-</define>
-
-
-<define name="style-list-level-properties-attlist">
-  <interleave>
-    <ref name="common-text-align"/>
-    <optional>
-      <attribute name="text:space-before">
-        <ref name="length"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="text:min-label-width">
-        <ref name="nonNegativeLength"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="text:min-label-distance">
-        <ref name="nonNegativeLength"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="style:font-name">
-        <ref name="string"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="fo:width">
-        <ref name="positiveLength"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="fo:height">
-        <ref name="positiveLength"/>
-      </attribute>
-    </optional>
-    <ref name="common-vertical-rel-attlist"/>
-    <ref name="common-vertical-pos-attlist"/>
-    <optional>
-      <attribute name="text:list-level-position-and-space-mode">
-        <choice>
-          <value>label-width-and-position</value>
-          <value>label-alignment</value>
-        </choice>
-      </attribute>
-    </optional>
-  </interleave>
-</define>
-
-
-<define name="style-list-level-properties-elements">
-  <ref name="style-list-level-label-alignment"/>
-</define>
-
-
-<define name="style-list-level-label-alignment">
-  <optional>
-    <element name="style:list-level-label-alignment">
-      <ref name="style-list-level-label-alignment-attlist"/>
-      <empty/>
-    </element>
-  </optional>
-</define>
-
-
-<define name="style-list-level-label-alignment-attlist">
-  <interleave>
-    <attribute name="text:label-followed-by">
-      <choice>
-        <value>listtab</value>
-        <value>space</value>
-        <value>nothing</value>
-      </choice>
-    </attribute>
-    <optional>
-      <attribute name="text:list-tab-stop-position">
-        <ref name="length"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="fo:text-indent">
-        <ref name="length"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="fo:margin-left">
-        <ref name="length"/>
-      </attribute>
-    </optional>
-  </interleave>
 </define>
 */

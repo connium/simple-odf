@@ -116,6 +116,19 @@ describe(StylesWriter.name, () => {
         /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text" text:consecutive-numbering="true"\/><\/office:styles>/
       );
     });
+
+    it('should add a bullet list level style', () => {
+      testStyle.createBulletListLevelStyle(3);
+
+      stylesWriter.write(commonStyles, testDocument, testRoot);
+      const documentAsString = new XMLSerializer().serializeToString(
+        testDocument
+      );
+
+      expect(documentAsString).toMatch(
+        /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3"\/><\/text:list-style><\/office:styles>/
+      );
+    });
   });
 
   it('add paragraph style', () => {

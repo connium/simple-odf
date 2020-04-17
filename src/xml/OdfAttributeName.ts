@@ -49,6 +49,7 @@ export enum OdfAttributeName {
 
   TextAnchorType = 'text:anchor-type',
   TextConsecutiveNumbering = 'text:consecutive-numbering',
+  TextLevel = 'text:level',
   TextOutlineLevel = 'text:outline-level',
   TextStyleName = 'text:style-name',
 

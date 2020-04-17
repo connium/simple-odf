@@ -16,4 +16,5 @@ export enum OdfElementName {
   StyleTextProperties = 'style:text-properties',
 
   TextListStyle = 'text:list-style',
+  TextListLevelStyleBullet = 'text:list-level-style-bullet',
 }

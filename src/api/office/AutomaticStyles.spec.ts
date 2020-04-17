@@ -3,14 +3,12 @@ import { AutomaticStyles } from './AutomaticStyles';
 
 describe(AutomaticStyles.name, () => {
   let automaticStyles: AutomaticStyles;
-  let listStyle1: ListStyle;
-  let listStyle2: ListStyle;
+  let listStyle: ListStyle;
   let paragraphStyle1: ParagraphStyle;
   let paragraphStyle2: ParagraphStyle;
 
   beforeEach(() => {
-    listStyle1 = new ListStyle();
-    listStyle2 = new ListStyle().setConsecutiveNumbering(true);
+    listStyle = new ListStyle();
     paragraphStyle1 = new ParagraphStyle();
     paragraphStyle2 = new ParagraphStyle().setFontSize(23);
     paragraphStyle2.addTabStop(42, TabStopType.Right);
@@ -19,20 +17,23 @@ describe(AutomaticStyles.name, () => {
   });
 
   it('should add a list style and name it L1', () => {
-    automaticStyles.add(listStyle1);
+    automaticStyles.add(listStyle);
 
     const styles = automaticStyles.getAll();
     expect(styles.length).toBe(1);
-    expect(automaticStyles.getName(listStyle1)).toBe('L1');
+    expect(automaticStyles.getName(listStyle)).toBe('L1');
   });
 
   it('should add different list styles', () => {
-    automaticStyles.add(listStyle1);
+    const listStyle2 = new ListStyle();
+    listStyle2.setConsecutiveNumbering(true).createBulletListLevelStyle(1);
+
+    automaticStyles.add(listStyle);
     automaticStyles.add(listStyle2);
 
     const styles = automaticStyles.getAll();
     expect(styles.length).toBe(2);
-    expect(automaticStyles.getName(listStyle1)).toBe('L1');
+    expect(automaticStyles.getName(listStyle)).toBe('L1');
     expect(automaticStyles.getName(listStyle2)).toBe('L2');
   });
 

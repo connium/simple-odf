@@ -1,6 +1,7 @@
 import { AutomaticStyles, CommonStyles, IStyles } from '../../api/office';
 import { ListStyle, ParagraphStyle, Style } from '../../api/style';
 import { OdfElementName } from '../OdfElementName';
+import { ListLevelStyleVisitor } from './ListLevelStyleVisitor';
 import { ListStyleVisitor } from './ListStyleVisitor';
 import { ParagraphPropertiesVisitor } from './ParagraphPropertiesVisitor';
 import { TextPropertiesVisitor } from './TextPropertiesVisitor';
@@ -55,6 +56,13 @@ export class StylesWriter {
 
     if (style instanceof ListStyle) {
       new ListStyleVisitor().visit(style, styleElement);
+      style.getListLevelStyles().forEach((listLevelStyle) => {
+        new ListLevelStyleVisitor().visit(
+          listLevelStyle,
+          document,
+          styleElement
+        );
+      });
     } else if (style instanceof ParagraphStyle) {
       new ParagraphPropertiesVisitor().visit(style, document, styleElement);
       new TextPropertiesVisitor().visit(style, document, styleElement);

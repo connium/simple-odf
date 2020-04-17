@@ -1,5 +1,10 @@
 import { createHash, Hash } from 'crypto';
-import { ListStyle, ParagraphStyle, Style } from '../style';
+import {
+  BulletListLevelStyle,
+  ListStyle,
+  ParagraphStyle,
+  Style,
+} from '../style';
 import { IParagraphProperties } from '../style/IParagraphProperties';
 import { ITextProperties } from '../style/ITextProperties';
 import { IStyles } from './IStyles';
@@ -136,12 +141,30 @@ export class AutomaticStyles implements IStyles {
 
     if (style instanceof ListStyle) {
       hash.update('consecutive-numbering' + style.getConsecutiveNumbering());
+      style.getListLevelStyles().forEach((listLevelStyle) => {
+        this.updateHashWithListLevelStyle(hash, listLevelStyle);
+      });
     } else if (style instanceof ParagraphStyle) {
       this.updateHashWithParagraphProperties(hash, style);
       this.updateHashWithTextProperties(hash, style);
     }
 
     return hash.digest('hex');
+  }
+
+  /**
+   * Updates the hash with the list level style.
+   *
+   * @param {Hash} hash The hash to update
+   * @param {BulletListLevelStyle} listLevelStyle The list level style to evaluate
+   */
+  private updateHashWithListLevelStyle(
+    hash: Hash,
+    listLevelStyle: BulletListLevelStyle
+  ): void {
+    const level = listLevelStyle.getLevel();
+
+    hash.update(`${level}`);
   }
 
   /**
