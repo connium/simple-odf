@@ -163,8 +163,18 @@ export class AutomaticStyles implements IStyles {
     listLevelStyle: BulletListLevelStyle
   ): void {
     const level = listLevelStyle.getLevel();
+    const properties = [
+      'bullet-char',
+      listLevelStyle.getBulletChar(),
+      'bullet-relative-size',
+      listLevelStyle.getRelativeBulletSize(),
+      'num-prefix',
+      listLevelStyle.getNumberPrefix(),
+      'num-suffix',
+      listLevelStyle.getNumberSuffix(),
+    ];
 
-    hash.update(`${level}`);
+    hash.update(`${level}${properties.join('')}`);
   }
 
   /**

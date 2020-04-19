@@ -40,6 +40,8 @@ export enum OdfAttributeName {
   StyleLineHeightAtLeast = 'style:line-height-at-least',
   StyleLineSpacing = 'style:line-spacing',
   StyleName = 'style:name',
+  StyleNumPrefix = 'style:num-prefix',
+  StyleNumSuffix = 'style:num-suffix',
   StylePosition = 'style:position',
   StyleType = 'style:type',
   StyleVerticalAlign = 'style:vertical-align',
@@ -48,6 +50,8 @@ export enum OdfAttributeName {
   SvgWidth = 'svg:width',
 
   TextAnchorType = 'text:anchor-type',
+  TextBulletChar = 'text:bullet-char',
+  TextBulletRelativeSize = 'text:bullet-relative-size',
   TextConsecutiveNumbering = 'text:consecutive-numbering',
   TextLevel = 'text:level',
   TextOutlineLevel = 'text:outline-level',

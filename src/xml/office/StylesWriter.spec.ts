@@ -15,6 +15,7 @@ import {
   TextTransformation,
   Typeface,
   VerticalAlignment,
+  BulletListLevelStyle,
 } from '../../api/style';
 import { OdfElementName } from '../OdfElementName';
 import { StylesWriter } from './StylesWriter';
@@ -117,17 +118,75 @@ describe(StylesWriter.name, () => {
       );
     });
 
-    it('should add a bullet list level style', () => {
-      testStyle.createBulletListLevelStyle(3);
+    describe('bullet list', () => {
+      let bulletListLevelStyle: BulletListLevelStyle;
 
-      stylesWriter.write(commonStyles, testDocument, testRoot);
-      const documentAsString = new XMLSerializer().serializeToString(
-        testDocument
-      );
+      beforeEach(() => {
+        bulletListLevelStyle = testStyle.createBulletListLevelStyle(3);
+      });
 
-      expect(documentAsString).toMatch(
-        /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3"\/><\/text:list-style><\/office:styles>/
-      );
+      it('should add a bullet list level style with level', () => {
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+
+        expect(documentAsString).toMatch(
+          /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•"\/><\/text:list-style><\/office:styles>/
+        );
+      });
+
+      it('should set bullet character', () => {
+        bulletListLevelStyle.setBulletChar('§');
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+
+        expect(documentAsString).toMatch(
+          /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="§"\/><\/text:list-style><\/office:styles>/
+        );
+      });
+
+      it('should set number prefix', () => {
+        bulletListLevelStyle.setNumberPrefix('#');
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+
+        expect(documentAsString).toMatch(
+          /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•" style:num-prefix="#"\/><\/text:list-style><\/office:styles>/
+        );
+      });
+
+      it('should set number suffix', () => {
+        bulletListLevelStyle.setNumberSuffix(':');
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+
+        expect(documentAsString).toMatch(
+          /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•" style:num-suffix=":"\/><\/text:list-style><\/office:styles>/
+        );
+      });
+
+      it('should set relative bullet size', () => {
+        bulletListLevelStyle.setRelativeBulletSize('23%');
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+
+        expect(documentAsString).toMatch(
+          /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•" text:bullet-relative-size="23%"\/><\/text:list-style><\/office:styles>/
+        );
+      });
     });
   });
 
