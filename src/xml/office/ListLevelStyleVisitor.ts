@@ -47,6 +47,62 @@ export class ListLevelStyleVisitor {
       );
     }
 
+    this.setListLevelProperties(
+      listLevelStyle,
+      document,
+      listLevelStyleElement
+    );
+
     return listLevelStyleElement;
+  }
+
+  private setListLevelProperties(
+    listLevelStyle: BulletListLevelStyle,
+    document: Document,
+    parent: Element
+  ): void {
+    const listLevelPropertiesElement = document.createElement(
+      OdfElementName.StyleListLevelProperties
+    );
+    parent.appendChild(listLevelPropertiesElement);
+
+    listLevelPropertiesElement.setAttribute(
+      OdfAttributeName.TextListLevelPositionAndSpaceMode,
+      listLevelStyle.getListLevelPositionAndSpaceMode()
+    );
+
+    const listLevelLabelAlignmentElement = document.createElement(
+      OdfElementName.StyleListLevelLabelAlignment
+    );
+    listLevelPropertiesElement.appendChild(listLevelLabelAlignmentElement);
+
+    listLevelLabelAlignmentElement.setAttribute(
+      OdfAttributeName.TextLabelFollowedBy,
+      listLevelStyle.getLabelFollwedBy()
+    );
+
+    const tabStopPosition = listLevelStyle.getListTabStopPosition();
+    if (tabStopPosition !== undefined) {
+      listLevelLabelAlignmentElement.setAttribute(
+        OdfAttributeName.TextListTabStopPosition,
+        `${tabStopPosition}mm`
+      );
+    }
+
+    const textIndent = listLevelStyle.getTextIndent();
+    if (textIndent !== undefined) {
+      listLevelLabelAlignmentElement.setAttribute(
+        OdfAttributeName.FormatTextIndent,
+        `${textIndent}mm`
+      );
+    }
+
+    const marginLeft = listLevelStyle.getMarginLeft();
+    if (marginLeft !== undefined) {
+      listLevelLabelAlignmentElement.setAttribute(
+        OdfAttributeName.FormatMarginLeft,
+        `${marginLeft}mm`
+      );
+    }
   }
 }

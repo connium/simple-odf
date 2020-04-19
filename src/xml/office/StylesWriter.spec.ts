@@ -132,7 +132,7 @@ describe(StylesWriter.name, () => {
         );
 
         expect(documentAsString).toMatch(
-          /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•"\/><\/text:list-style><\/office:styles>/
+          /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•"><style:list-level-properties text:list-level-position-and-space-mode="label-alignment"><style:list-level-label-alignment text:label-followed-by="listtab"\/><\/style:list-level-properties><\/text:list-level-style-bullet><\/text:list-style><\/office:styles>/
         );
       });
 
@@ -145,7 +145,7 @@ describe(StylesWriter.name, () => {
         );
 
         expect(documentAsString).toMatch(
-          /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="§"\/><\/text:list-style><\/office:styles>/
+          /<text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="§">/
         );
       });
 
@@ -158,7 +158,7 @@ describe(StylesWriter.name, () => {
         );
 
         expect(documentAsString).toMatch(
-          /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•" style:num-prefix="#"\/><\/text:list-style><\/office:styles>/
+          /<text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•" style:num-prefix="#">/
         );
       });
 
@@ -171,7 +171,7 @@ describe(StylesWriter.name, () => {
         );
 
         expect(documentAsString).toMatch(
-          /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•" style:num-suffix=":"\/><\/text:list-style><\/office:styles>/
+          /<text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•" style:num-suffix=":">/
         );
       });
 
@@ -184,7 +184,60 @@ describe(StylesWriter.name, () => {
         );
 
         expect(documentAsString).toMatch(
-          /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•" text:bullet-relative-size="23%"\/><\/text:list-style><\/office:styles>/
+          /<text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•" text:bullet-relative-size="23%">/
+        );
+      });
+
+      // list-level-properties
+      it('should set label followed by', () => {
+        bulletListLevelStyle.setLabelFollwedBy('space');
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+
+        expect(documentAsString).toMatch(
+          /<style:list-level-properties text:list-level-position-and-space-mode="label-alignment"><style:list-level-label-alignment text:label-followed-by="space"\/><\/style:list-level-properties>/
+        );
+      });
+
+      it('should set list tab stop position', () => {
+        bulletListLevelStyle.setListTabStopPosition(23);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+
+        expect(documentAsString).toMatch(
+          /<style:list-level-properties text:list-level-position-and-space-mode="label-alignment"><style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="23mm"\/><\/style:list-level-properties>/
+        );
+      });
+
+      it('should set text indent', () => {
+        bulletListLevelStyle.setTextIndent(23);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+
+        expect(documentAsString).toMatch(
+          /<style:list-level-properties text:list-level-position-and-space-mode="label-alignment"><style:list-level-label-alignment text:label-followed-by="listtab" fo:text-indent="23mm"\/><\/style:list-level-properties>/
+        );
+      });
+
+      it('should set left margin', () => {
+        bulletListLevelStyle.setMarginLeft(23);
+
+        stylesWriter.write(commonStyles, testDocument, testRoot);
+        const documentAsString = new XMLSerializer().serializeToString(
+          testDocument
+        );
+
+        expect(documentAsString).toMatch(
+          /<style:list-level-properties text:list-level-position-and-space-mode="label-alignment"><style:list-level-label-alignment text:label-followed-by="listtab" fo:margin-left="23mm"\/><\/style:list-level-properties>/
         );
       });
     });

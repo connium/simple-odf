@@ -173,8 +173,22 @@ export class AutomaticStyles implements IStyles {
       'num-suffix',
       listLevelStyle.getNumberSuffix(),
     ];
+    const listLevelProperties = [
+      'list-level-position-and-space-mode',
+      listLevelStyle.getListLevelPositionAndSpaceMode(),
+      'label-followed-by',
+      listLevelStyle.getLabelFollwedBy(),
+      'list-tab-stop-position',
+      listLevelStyle.getListTabStopPosition(),
+      'text-indent',
+      listLevelStyle.getTextIndent(),
+      'margin-left',
+      listLevelStyle.getMarginLeft(),
+    ];
 
-    hash.update(`${level}${properties.join('')}`);
+    hash.update(
+      `${level}${properties.join('')}${listLevelProperties.join('')}`
+    );
   }
 
   /**

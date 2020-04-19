@@ -9,6 +9,8 @@ export enum OdfElementName {
   OfficeText = 'office:text',
 
   StyleFontFace = 'style:font-face',
+  StyleListLevelLabelAlignment = 'style:list-level-label-alignment',
+  StyleListLevelProperties = 'style:list-level-properties',
   StyleParagraphProperties = 'style:paragraph-properties',
   StyleStyle = 'style:style',
   StyleTabStop = 'style:tab-stop',

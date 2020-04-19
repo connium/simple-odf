@@ -53,7 +53,10 @@ export enum OdfAttributeName {
   TextBulletChar = 'text:bullet-char',
   TextBulletRelativeSize = 'text:bullet-relative-size',
   TextConsecutiveNumbering = 'text:consecutive-numbering',
+  TextLabelFollowedBy = 'text:label-followed-by',
   TextLevel = 'text:level',
+  TextListLevelPositionAndSpaceMode = 'text:list-level-position-and-space-mode',
+  TextListTabStopPosition = 'text:list-tab-stop-position',
   TextOutlineLevel = 'text:outline-level',
   TextStyleName = 'text:style-name',
 
