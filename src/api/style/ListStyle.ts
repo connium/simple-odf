@@ -32,8 +32,7 @@ export class ListStyle extends Style {
    * @since 0.11.0
    */
   public constructor(displayName: string = Style.UNNAMED) {
-    // TODO: ListStyle has no style family
-    super(displayName, StyleFamily.Text);
+    super(displayName, StyleFamily.None);
 
     this.isConsecutiveNumbering = false;
     this.listLevelStyles = [];
@@ -82,9 +81,14 @@ export class ListStyle extends Style {
    *
    * @param {number} level The level of the list style, starting with `1`
    * @returns {BulletListLevelStyle} A new `BulletListLevelStyle` instance with the specified level
+   * @throws {Error} if the given list level is invalid
    * @since 0.11.0
    */
   public createBulletListLevelStyle(level: number): BulletListLevelStyle {
+    if (Number.isInteger(level) === false || level < 1 || level > 10) {
+      throw new Error('Level must be an integer between 1 and 10');
+    }
+
     const bulletListLevelStyle = new BulletListLevelStyle(level);
     this.removeListLevelStyle(level);
     this.listLevelStyles.push(bulletListLevelStyle);

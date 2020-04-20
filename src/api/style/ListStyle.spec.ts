@@ -43,6 +43,18 @@ describe(ListStyle.name, () => {
     expect(listStyle.getListLevelStyle(level)).toBe(listLevelStylesAfter);
   });
 
+  it('should throw an error if the level is not an integer', () => {
+    expect(() => listStyle.createBulletListLevelStyle(1.23)).toThrowError();
+  });
+
+  it('should throw an error if the level is smaller than 1', () => {
+    expect(() => listStyle.createBulletListLevelStyle(0)).toThrowError();
+  });
+
+  it('should throw an error if the level is greater then 10', () => {
+    expect(() => listStyle.createBulletListLevelStyle(11)).toThrowError();
+  });
+
   it('should return list level style for requested level', () => {
     listStyle.createBulletListLevelStyle(level);
 

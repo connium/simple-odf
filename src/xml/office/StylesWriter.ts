@@ -1,5 +1,5 @@
 import { AutomaticStyles, CommonStyles, IStyles } from '../../api/office';
-import { ListStyle, ParagraphStyle, Style } from '../../api/style';
+import { ListStyle, ParagraphStyle, Style, StyleFamily } from '../../api/style';
 import { OdfElementName } from '../OdfElementName';
 import { ListLevelStyleVisitor } from './ListLevelStyleVisitor';
 import { ListStyleVisitor } from './ListStyleVisitor';
@@ -85,8 +85,11 @@ export class StylesWriter {
       styleElement.setAttribute('style:class', clazz);
     }
   }
+
   private setFamily(styleElement: Element, style: Style): void {
-    styleElement.setAttribute('style:family', style.getFamily());
+    if (style.getFamily() !== StyleFamily.None) {
+      styleElement.setAttribute('style:family', style.getFamily());
+    }
   }
 
   private setName(styleElement: Element, style: Style, styles: IStyles): void {

@@ -101,7 +101,7 @@ describe(StylesWriter.name, () => {
       );
 
       expect(documentAsString).toMatch(
-        /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text"\/><\/office:styles>/
+        /<office:styles><text:list-style style:name="Contents" style:display-name="Contents"\/><\/office:styles>/
       );
     });
 
@@ -114,7 +114,7 @@ describe(StylesWriter.name, () => {
       );
 
       expect(documentAsString).toMatch(
-        /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text" text:consecutive-numbering="true"\/><\/office:styles>/
+        /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" text:consecutive-numbering="true"\/><\/office:styles>/
       );
     });
 
@@ -132,7 +132,7 @@ describe(StylesWriter.name, () => {
         );
 
         expect(documentAsString).toMatch(
-          /<office:styles><text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•"><style:list-level-properties text:list-level-position-and-space-mode="label-alignment"><style:list-level-label-alignment text:label-followed-by="listtab"\/><\/style:list-level-properties><\/text:list-level-style-bullet><\/text:list-style><\/office:styles>/
+          /<office:styles><text:list-style style:name="Contents" style:display-name="Contents"><text:list-level-style-bullet text:level="3" text:bullet-char="•"><style:list-level-properties text:list-level-position-and-space-mode="label-alignment"><style:list-level-label-alignment text:label-followed-by="listtab"\/><\/style:list-level-properties><\/text:list-level-style-bullet><\/text:list-style><\/office:styles>/
         );
       });
 
@@ -145,7 +145,7 @@ describe(StylesWriter.name, () => {
         );
 
         expect(documentAsString).toMatch(
-          /<text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="§">/
+          /<text:list-style style:name="Contents" style:display-name="Contents"><text:list-level-style-bullet text:level="3" text:bullet-char="§">/
         );
       });
 
@@ -158,7 +158,7 @@ describe(StylesWriter.name, () => {
         );
 
         expect(documentAsString).toMatch(
-          /<text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•" style:num-prefix="#">/
+          /<text:list-style style:name="Contents" style:display-name="Contents"><text:list-level-style-bullet text:level="3" text:bullet-char="•" style:num-prefix="#">/
         );
       });
 
@@ -171,7 +171,7 @@ describe(StylesWriter.name, () => {
         );
 
         expect(documentAsString).toMatch(
-          /<text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•" style:num-suffix=":">/
+          /<text:list-style style:name="Contents" style:display-name="Contents"><text:list-level-style-bullet text:level="3" text:bullet-char="•" style:num-suffix=":">/
         );
       });
 
@@ -184,7 +184,7 @@ describe(StylesWriter.name, () => {
         );
 
         expect(documentAsString).toMatch(
-          /<text:list-style style:name="Contents" style:display-name="Contents" style:family="text"><text:list-level-style-bullet text:level="3" text:bullet-char="•" text:bullet-relative-size="23%">/
+          /<text:list-style style:name="Contents" style:display-name="Contents"><text:list-level-style-bullet text:level="3" text:bullet-char="•" text:bullet-relative-size="23%">/
         );
       });
 
