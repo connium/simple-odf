@@ -7,6 +7,7 @@
  * @returns {boolean} `true` if the given value is a percentage, `false` otherwise
  * @private
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isPercent(value: any): boolean {
   return (
     typeof value === 'string' && /^-?([0-9]+(\.[0-9]*)?|\.[0-9]+)%$/.test(value)
