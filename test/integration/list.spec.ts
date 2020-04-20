@@ -36,42 +36,42 @@ xdescribe('list', () => {
     listStyle
       .createBulletListLevelStyle(1)
       .setBulletChar('\u2660')
-      .setLabelFollwedBy('listtab')
+      .setLabelFollowedBy('listtab')
       .setListTabStopPosition(10)
       .setMarginLeft(10)
       .setTextIndent(-5);
     listStyle
       .createBulletListLevelStyle(2)
       .setBulletChar('\u2663')
-      .setLabelFollwedBy('listtab')
+      .setLabelFollowedBy('listtab')
       .setListTabStopPosition(15)
       .setMarginLeft(15)
       .setTextIndent(-5);
     listStyle
       .createBulletListLevelStyle(3)
       .setBulletChar('\u2665')
-      .setLabelFollwedBy('listtab')
+      .setLabelFollowedBy('listtab')
       .setListTabStopPosition(20)
       .setMarginLeft(20)
       .setTextIndent(-5);
     listStyle
       .createBulletListLevelStyle(4)
       .setBulletChar('\u2666')
-      .setLabelFollwedBy('listtab')
+      .setLabelFollowedBy('listtab')
       .setListTabStopPosition(25)
       .setMarginLeft(25)
       .setTextIndent(-5);
     listStyle
       .createBulletListLevelStyle(5)
       .setBulletChar('\u2605')
-      .setLabelFollwedBy('listtab')
+      .setLabelFollowedBy('listtab')
       .setListTabStopPosition(30)
       .setMarginLeft(30)
       .setTextIndent(-5);
     listStyle
       .createBulletListLevelStyle(6)
       .setBulletChar('\u2605')
-      .setLabelFollwedBy('listtab')
+      .setLabelFollowedBy('listtab')
       .setListTabStopPosition(35)
       .setMarginLeft(35)
       .setRelativeBulletSize('50%')
@@ -79,7 +79,7 @@ xdescribe('list', () => {
     listStyle
       .createBulletListLevelStyle(7)
       .setBulletChar('\u2714')
-      .setLabelFollwedBy('listtab')
+      .setLabelFollowedBy('listtab')
       .setListTabStopPosition(40)
       .setMarginLeft(40)
       .setNumberPrefix('§')
@@ -87,7 +87,7 @@ xdescribe('list', () => {
     listStyle
       .createBulletListLevelStyle(8)
       .setBulletChar('\u2717')
-      .setLabelFollwedBy('listtab')
+      .setLabelFollowedBy('listtab')
       .setListTabStopPosition(45)
       .setMarginLeft(45)
       .setNumberSuffix('~')
@@ -95,14 +95,14 @@ xdescribe('list', () => {
     listStyle
       .createBulletListLevelStyle(9)
       .setBulletChar('\u2022')
-      .setLabelFollwedBy('listtab')
+      .setLabelFollowedBy('listtab')
       .setListTabStopPosition(50)
       .setMarginLeft(50)
       .setTextIndent(-5);
     listStyle
       .createBulletListLevelStyle(10)
       .setBulletChar('\u2023')
-      .setLabelFollwedBy('listtab')
+      .setLabelFollowedBy('listtab')
       .setListTabStopPosition(55)
       .setMarginLeft(55)
       .setTextIndent(-5);

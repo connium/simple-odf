@@ -177,7 +177,7 @@ export class AutomaticStyles implements IStyles {
       'list-level-position-and-space-mode',
       listLevelStyle.getListLevelPositionAndSpaceMode(),
       'label-followed-by',
-      listLevelStyle.getLabelFollwedBy(),
+      listLevelStyle.getLabelFollowedBy(),
       'list-tab-stop-position',
       listLevelStyle.getListTabStopPosition(),
       'text-indent',

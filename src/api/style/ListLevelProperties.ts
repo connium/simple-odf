@@ -3,9 +3,10 @@ import { IListLevelProperties } from './IListLevelProperties';
 /**
  * @todo document
  * @since 0.11.0
+ * @private
  */
 export class ListLevelProperties implements IListLevelProperties {
-  private labelFollwedBy: 'listtab' | 'space' | 'nothing';
+  private labelFollowedBy: 'listtab' | 'space' | 'nothing';
   private listTabStopPosition: number | undefined;
   private marginLeft: number | undefined;
   private textIndent: number | undefined;
@@ -15,7 +16,7 @@ export class ListLevelProperties implements IListLevelProperties {
    * @since 0.11.0
    */
   public constructor() {
-    this.labelFollwedBy = 'listtab';
+    this.labelFollowedBy = 'listtab';
   }
 
   /** @inheritdoc */
@@ -24,13 +25,13 @@ export class ListLevelProperties implements IListLevelProperties {
   }
 
   /** @inheritdoc */
-  public getLabelFollwedBy(): string {
-    return this.labelFollwedBy;
+  public getLabelFollowedBy(): string {
+    return this.labelFollowedBy;
   }
 
   /** @inheritdoc */
-  public setLabelFollwedBy(value: 'listtab' | 'space' | 'nothing'): this {
-    this.labelFollwedBy = value;
+  public setLabelFollowedBy(value: 'listtab' | 'space' | 'nothing'): this {
+    this.labelFollowedBy = value;
 
     return this;
   }

@@ -208,14 +208,14 @@ export class BulletListLevelStyle implements IListLevelProperties {
 
   /** @inheritdoc */
   /* istanbul ignore next */
-  public getLabelFollwedBy(): string {
-    return this.listLevelProperties.getLabelFollwedBy();
+  public getLabelFollowedBy(): string {
+    return this.listLevelProperties.getLabelFollowedBy();
   }
 
   /** @inheritdoc */
   /* istanbul ignore next */
-  public setLabelFollwedBy(value: 'listtab' | 'space' | 'nothing'): this {
-    this.listLevelProperties.setLabelFollwedBy(value);
+  public setLabelFollowedBy(value: 'listtab' | 'space' | 'nothing'): this {
+    this.listLevelProperties.setLabelFollowedBy(value);
 
     return this;
   }

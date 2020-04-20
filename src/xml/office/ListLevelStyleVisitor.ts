@@ -78,7 +78,7 @@ export class ListLevelStyleVisitor {
 
     listLevelLabelAlignmentElement.setAttribute(
       OdfAttributeName.TextLabelFollowedBy,
-      listLevelStyle.getLabelFollwedBy()
+      listLevelStyle.getLabelFollowedBy()
     );
 
     const tabStopPosition = listLevelStyle.getListTabStopPosition();

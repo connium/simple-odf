@@ -190,7 +190,7 @@ describe(StylesWriter.name, () => {
 
       // list-level-properties
       it('should set label followed by', () => {
-        bulletListLevelStyle.setLabelFollwedBy('space');
+        bulletListLevelStyle.setLabelFollowedBy('space');
 
         stylesWriter.write(commonStyles, testDocument, testRoot);
         const documentAsString = new XMLSerializer().serializeToString(
