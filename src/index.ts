@@ -21,6 +21,7 @@ export { FontPitch } from './api/style/FontPitch';
 export { FontVariant } from './api/style/FontVariant';
 export { HorizontalAlignment } from './api/style/HorizontalAlignment';
 export { HorizontalAlignmentLastLine } from './api/style/HorizontalAlignmentLastLine';
+export { ListStyle } from './api/style/ListStyle';
 export { PageBreak } from './api/style/PageBreak';
 export { ParagraphStyle } from './api/style/ParagraphStyle';
 export { Style } from './api/style/Style';
