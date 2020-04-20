@@ -23,10 +23,19 @@
 <dt><a href="#TextDocument">TextDocument</a></dt>
 <dd><p>This class represents a text document in OpenDocument format.</p>
 </dd>
+<dt><a href="#BulletListLevelStyle">BulletListLevelStyle</a></dt>
+<dd><p>This class represents a list style where list items are preceded by bullets.</p>
+</dd>
 <dt><a href="#FontFace">FontFace</a></dt>
 <dd><p>This class represents a font face declaration.</p>
 <p>It is used to describe the characteristics of a font which is used in the document.
 The unique name of a font can be used inside styles to select a font face declaration.</p>
+</dd>
+<dt><a href="#ListStyle">ListStyle</a></dt>
+<dd><p>This class represents a list style.</p>
+<p>List styles are used to specify the formatting of a list and its items.
+A list style contains a set of style elements for each list level (@see ListLevelStyle).
+If a list style is applied to a list but does not contain a list level specification for a specific level, the list level style of the next lower level is used.</p>
 </dd>
 <dt><a href="#Style">Style</a></dt>
 <dd><p>This class represents a style.</p>
@@ -852,6 +861,7 @@ It is used to manage the named styles that are used in the document.
 
 * [CommonStyles](#CommonStyles)
     * [`new CommonStyles()`](#new_CommonStyles_new)
+    * [`.createListStyle(name)`](#CommonStyles+createListStyle) ⇒ [<code>ListStyle</code>](#ListStyle)
     * [`.createParagraphStyle(name)`](#CommonStyles+createParagraphStyle) ⇒ <code>ParagraphStyle</code>
     * [`.getName(displayName)`](#CommonStyles+getName) ⇒ <code>string</code> \| <code>undefined</code>
     * [`.getAll()`](#CommonStyles+getAll)
@@ -868,6 +878,28 @@ Creates a `CommonStyles` instance that represents the common styles of a documen
 ```js
 const commonStyles = new CommonStyles();
 ```
+
+* * *
+
+<a name="CommonStyles+createListStyle"></a>
+
+### `commonStyles.createListStyle(name)` ⇒ [<code>ListStyle</code>](#ListStyle)
+The `createListStyle()` method creates a new `ListStyle` instance with the given name.
+If a style with this name already exists, the existing style will be returned.
+
+#### Parameters
+- name <code>string</code>  
+The unique name for the style
+
+**Return value**  
+[<code>ListStyle</code>](#ListStyle) - A new `ListStyle` instance with the specified name or an existing style, if one with the specified name exists
+
+**Example**  
+```js
+const commonStyles = new CommonStyles();
+commonStyles.createListStyle('Contents');
+```
+**Since**: 0.11.0  
 
 * * *
 
@@ -1079,6 +1111,11 @@ Adds an empty list at the end of the document.
 **Return value**  
 [<code>List</code>](#List) - The newly added list
 
+**Example**  
+```js
+new TextBody()
+  .addList();
+```
 **Since**: 0.7.0  
 
 * * *
@@ -1230,6 +1267,230 @@ Returns the string representation of this document in flat open document xml for
 <code>string</code> - The string representation of this document
 
 **Since**: 0.1.0  
+
+* * *
+
+<a name="BulletListLevelStyle"></a>
+
+## BulletListLevelStyle
+This class represents a list style where list items are preceded by bullets.
+
+**Since**: 0.11.0  
+
+* [BulletListLevelStyle](#BulletListLevelStyle)
+    * [`new BulletListLevelStyle(level)`](#new_BulletListLevelStyle_new)
+    * [`.getBulletChar()`](#BulletListLevelStyle+getBulletChar) ⇒ <code>string</code>
+    * [`.setBulletChar(bulletChar)`](#BulletListLevelStyle+setBulletChar) ⇒ [<code>BulletListLevelStyle</code>](#BulletListLevelStyle)
+    * [`.getLevel()`](#BulletListLevelStyle+getLevel) ⇒ <code>number</code>
+    * [`.getNumberPrefix()`](#BulletListLevelStyle+getNumberPrefix) ⇒ <code>string</code> \| <code>undefined</code>
+    * [`.setNumberPrefix(prefix)`](#BulletListLevelStyle+setNumberPrefix) ⇒ [<code>BulletListLevelStyle</code>](#BulletListLevelStyle)
+    * [`.getNumberSuffix()`](#BulletListLevelStyle+getNumberSuffix) ⇒ <code>string</code> \| <code>undefined</code>
+    * [`.setNumberSuffix(suffix)`](#BulletListLevelStyle+setNumberSuffix) ⇒ [<code>BulletListLevelStyle</code>](#BulletListLevelStyle)
+    * [`.getRelativeBulletSize()`](#BulletListLevelStyle+getRelativeBulletSize) ⇒ <code>string</code> \| <code>undefined</code>
+    * [`.setRelativeBulletSize(relativeSize)`](#BulletListLevelStyle+setRelativeBulletSize) ⇒ [<code>BulletListLevelStyle</code>](#BulletListLevelStyle)
+
+
+* * *
+
+<a name="new_BulletListLevelStyle_new"></a>
+
+### `new BulletListLevelStyle(level)`
+Creates a `BulletListLevelStyle` instance that represents a list style where list items are preceded by bullets.
+
+#### Parameters
+- level <code>number</code>  
+The level of the list style, starting with `1`
+
+**Example**  
+```js
+const style = new BulletListLevelStyle(3);
+```
+
+* * *
+
+<a name="BulletListLevelStyle+getBulletChar"></a>
+
+### `bulletListLevelStyle.getBulletChar()` ⇒ <code>string</code>
+The `getBulletChar()` method returns the character to use as the bullet.
+
+**Return value**  
+<code>string</code> - The character to use as the bullet
+
+**Example**  
+```js
+const style = new BulletListLevelStyle(3);
+style.getBulletChar();    // '\u2022'
+style.setBulletChar('~');
+style.getBulletChar();    // '~'
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="BulletListLevelStyle+setBulletChar"></a>
+
+### `bulletListLevelStyle.setBulletChar(bulletChar)` ⇒ [<code>BulletListLevelStyle</code>](#BulletListLevelStyle)
+The `setBulletChar()` method sets the character to use as the bullet.
+
+If an illegal value is provided, the value will be ignored.
+
+#### Parameters
+- bulletChar <code>string</code>  
+The character to use as the bullet
+
+**Return value**  
+[<code>BulletListLevelStyle</code>](#BulletListLevelStyle) - The `BulletListLevelStyle` object
+
+**Example**  
+```js
+const style = new BulletListLevelStyle(3);
+style.setBulletChar('~'); // '~'
+style.setBulletChar('');  // '~'
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="BulletListLevelStyle+getLevel"></a>
+
+### `bulletListLevelStyle.getLevel()` ⇒ <code>number</code>
+The `getLevel()` method returns the level of the list style.
+
+**Return value**  
+<code>number</code> - The level of the list style, starting with `1`
+
+**Example**  
+```js
+const style = new BulletListLevelStyle(3);
+style.getLevel(); // 3
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="BulletListLevelStyle+getNumberPrefix"></a>
+
+### `bulletListLevelStyle.getNumberPrefix()` ⇒ <code>string</code> \| <code>undefined</code>
+The `getNumberPrefix()` method returns the character to display before a bullet.
+
+**Return value**  
+<code>string</code> \| <code>undefined</code> - The character to display before a bullet or `undefined` if no prefix is set
+
+**Example**  
+```js
+const style = new BulletListLevelStyle(3);
+style.getNumberPrefix();    // undefined
+style.setNumberPrefix('~');
+style.getNumberPrefix();    // '~'
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="BulletListLevelStyle+setNumberPrefix"></a>
+
+### `bulletListLevelStyle.setNumberPrefix(prefix)` ⇒ [<code>BulletListLevelStyle</code>](#BulletListLevelStyle)
+The `setNumberPrefix()` method sets the character to display before a bullet.
+
+#### Parameters
+- prefix <code>string</code> | <code>undefined</code>  
+The character to display before a bullet or `undefined` to unset the prefix
+
+**Return value**  
+[<code>BulletListLevelStyle</code>](#BulletListLevelStyle) - The `BulletListLevelStyle` object
+
+**Example**  
+```js
+const style = new BulletListLevelStyle(3);
+style.setNumberPrefix('~');       // '~'
+style.setNumberPrefix(undefined); // undefined
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="BulletListLevelStyle+getNumberSuffix"></a>
+
+### `bulletListLevelStyle.getNumberSuffix()` ⇒ <code>string</code> \| <code>undefined</code>
+The `getNumberSuffix()` method returns the character to display after a bullet.
+
+**Return value**  
+<code>string</code> \| <code>undefined</code> - The character to display after a bullet or `undefined` if no suffix is set
+
+**Example**  
+```js
+const style = new BulletListLevelStyle(3);
+style.getNumberSuffix();    // undefined
+style.setNumberSuffix('~');
+style.getNumberSuffix();    // '~'
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="BulletListLevelStyle+setNumberSuffix"></a>
+
+### `bulletListLevelStyle.setNumberSuffix(suffix)` ⇒ [<code>BulletListLevelStyle</code>](#BulletListLevelStyle)
+The `setNumberSuffix()` method sets the character to display after a bullet.
+
+#### Parameters
+- suffix <code>string</code> | <code>undefined</code>  
+The character to display after a bullet or `undefined` to unset the suffix
+
+**Return value**  
+[<code>BulletListLevelStyle</code>](#BulletListLevelStyle) - The `BulletListLevelStyle` object
+
+**Example**  
+```js
+const style = new BulletListLevelStyle(3);
+style.setNumberSuffix('~');       // '~'
+style.setNumberSuffix(undefined); // undefined
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="BulletListLevelStyle+getRelativeBulletSize"></a>
+
+### `bulletListLevelStyle.getRelativeBulletSize()` ⇒ <code>string</code> \| <code>undefined</code>
+The `getRelativeBulletSize()` method returns the percentage value for the bullet size relative to the font size of the paragraphs in the bullet list.
+
+**Return value**  
+<code>string</code> \| <code>undefined</code> - The percentage value for the bullet size or `undefined` if no relative bullet size is set
+
+**Example**  
+```js
+const style = new BulletListLevelStyle(3);
+style.getRelativeBulletSize();      // undefined
+style.setRelativeBulletSize('23%');
+style.getRelativeBulletSize();      // '23%'
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="BulletListLevelStyle+setRelativeBulletSize"></a>
+
+### `bulletListLevelStyle.setRelativeBulletSize(relativeSize)` ⇒ [<code>BulletListLevelStyle</code>](#BulletListLevelStyle)
+The `setNumberSuffix()` method sets the percentage value for the bullet size relative to the font size of the paragraphs in the bullet list.
+
+If an illegal value is provided, the value will be ignored.
+
+#### Parameters
+- relativeSize <code>string</code> | <code>undefined</code>  
+The percentage value for the bullet size or `undefined` to unset the bullet size
+
+**Return value**  
+[<code>BulletListLevelStyle</code>](#BulletListLevelStyle) - The `BulletListLevelStyle` object
+
+**Example**  
+```js
+const style = new BulletListLevelStyle(3);
+style.setRelativeBulletSize('23%');     // '23%'
+style.setRelativeBulletSize('42px');    // '23%'
+style.setRelativeBulletSize(undefined); // undefined
+```
+**Since**: 0.11.0  
 
 * * *
 
@@ -1464,6 +1725,175 @@ const font = new FontFace('FreeSans');
 font.getName(); // 'FreeSans'
 ```
 **Since**: 0.8.0  
+
+* * *
+
+<a name="ListStyle"></a>
+
+## ListStyle
+This class represents a list style.
+
+List styles are used to specify the formatting of a list and its items.
+A list style contains a set of style elements for each list level (@see ListLevelStyle).
+If a list style is applied to a list but does not contain a list level specification for a specific level, the list level style of the next lower level is used.
+
+**Since**: 0.11.0  
+
+* [ListStyle](#ListStyle)
+    * [`new ListStyle(displayName)`](#new_ListStyle_new)
+    * [`.getConsecutiveNumbering()`](#ListStyle+getConsecutiveNumbering) ⇒ <code>boolean</code>
+    * [`.setConsecutiveNumbering(consecutiveNumbering)`](#ListStyle+setConsecutiveNumbering) ⇒ [<code>ListStyle</code>](#ListStyle)
+    * [`.createBulletListLevelStyle(level)`](#ListStyle+createBulletListLevelStyle) ⇒ [<code>BulletListLevelStyle</code>](#BulletListLevelStyle)
+    * [`.getListLevelStyle(level)`](#ListStyle+getListLevelStyle) ⇒ [<code>BulletListLevelStyle</code>](#BulletListLevelStyle) \| <code>undefined</code>
+    * [`.getListLevelStyles()`](#ListStyle+getListLevelStyles) ⇒ [<code>Array.&lt;BulletListLevelStyle&gt;</code>](#BulletListLevelStyle)
+    * [`.removeListLevelStyle(level)`](#ListStyle+removeListLevelStyle) ⇒ [<code>ListStyle</code>](#ListStyle)
+
+
+* * *
+
+<a name="new_ListStyle_new"></a>
+
+### `new ListStyle(displayName)`
+Creates a `ListStyle` instance that represents the formatting of a list.
+
+#### Parameters
+- displayName <code>string</code>  
+The unique display name for the style
+
+**Example**  
+```js
+const style = new ListStyle('Contents');
+```
+
+* * *
+
+<a name="ListStyle+getConsecutiveNumbering"></a>
+
+### `listStyle.getConsecutiveNumbering()` ⇒ <code>boolean</code>
+The `getConsecutiveNumbering()` method returns whether the style uses consecutive numbering for all list levels or whether each list level restarts the numbering.
+
+**Return value**  
+<code>boolean</code> - `true` if consecutive numbering is used for all list levels or `false` if each list level restarts numbering
+
+**Example**  
+```js
+const style = new ListStyle('Contents');
+style.getConsecutiveNumbering();     // false
+style.setConsecutiveNumbering(true);
+style.getConsecutiveNumbering();     // true
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="ListStyle+setConsecutiveNumbering"></a>
+
+### `listStyle.setConsecutiveNumbering(consecutiveNumbering)` ⇒ [<code>ListStyle</code>](#ListStyle)
+The `setConsecutiveNumbering()` method sets returns whether the style uses consecutive numbering for all list levels or whether each list level restarts the numbering.
+
+#### Parameters
+- consecutiveNumbering <code>boolean</code>  
+`true` if consecutive numbering is used for all list levels or `false` if each list level restarts numbering
+
+**Return value**  
+[<code>ListStyle</code>](#ListStyle) - The `ListStyle` object
+
+**Example**  
+```js
+const style = new ListStyle('Contents');
+style.setConsecutiveNumbering(true); // true
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="ListStyle+createBulletListLevelStyle"></a>
+
+### `listStyle.createBulletListLevelStyle(level)` ⇒ [<code>BulletListLevelStyle</code>](#BulletListLevelStyle)
+The `createBulletListLevelStyle()` method creates a new `BulletListLevelStyle` instance for the given list level.
+If a list level style for this level already exists, the existing style will be overwritten.
+
+#### Parameters
+- level <code>number</code>  
+The level of the list style, starting with `1`
+
+**Return value**  
+[<code>BulletListLevelStyle</code>](#BulletListLevelStyle) - A new `BulletListLevelStyle` instance with the specified level
+
+**Throws**:
+
+- <code>Error</code> if the given list level is invalid
+
+**Example**  
+```js
+const style = new ListStyle('Contents');
+style.createBulletListLevelStyle(3);
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="ListStyle+getListLevelStyle"></a>
+
+### `listStyle.getListLevelStyle(level)` ⇒ [<code>BulletListLevelStyle</code>](#BulletListLevelStyle) \| <code>undefined</code>
+The `getListLevelStyle()` method returns the list level style for the given list level.
+If a list level style for this level already exists, the existing style will be overwritten.
+
+#### Parameters
+- level <code>number</code>  
+The level of the list style, starting with `1`
+
+**Return value**  
+[<code>BulletListLevelStyle</code>](#BulletListLevelStyle) \| <code>undefined</code> - The list level style for the specified level or `undefined` if no list level style is defined for the specified level
+
+**Example**  
+```js
+const style = new ListStyle('Contents');
+style.getListLevelStyle(3);
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="ListStyle+getListLevelStyles"></a>
+
+### `listStyle.getListLevelStyles()` ⇒ [<code>Array.&lt;BulletListLevelStyle&gt;</code>](#BulletListLevelStyle)
+The `getListLevelStyles()` method returns a new `Array` object that contains all list level styles of a list style.
+
+**Return value**  
+[<code>Array.&lt;BulletListLevelStyle&gt;</code>](#BulletListLevelStyle) - A new `Array` object that contains the list level styles of a list style
+
+**Example**  
+```js
+const style = new ListStyle('Contents');
+style.createBulletListLevelStyle(1);
+style.createBulletListLevelStyle(2);
+styles.getListLevelStyles();
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="ListStyle+removeListLevelStyle"></a>
+
+### `listStyle.removeListLevelStyle(level)` ⇒ [<code>ListStyle</code>](#ListStyle)
+The `removeListLevelStyle()` method removes the list level style for the given list level.
+
+#### Parameters
+- level <code>number</code>  
+The level of the list style, starting with `1`
+
+**Return value**  
+[<code>ListStyle</code>](#ListStyle) - The `ListStyle` object
+
+**Example**  
+```js
+const style = new ListStyle('Contents');
+style.createBulletListLevelStyle(3);
+style.removeListLevelStyle(3);
+styles.getListLevelStyles();             // []
+```
+**Since**: 0.11.0  
 
 * * *
 
@@ -2221,10 +2651,14 @@ This class represents a list and may contain any number list items.
 * [List](#List)
     * [`new List()`](#new_List_new)
     * [`.addItem([item])`](#List+addItem) ⇒ [<code>ListItem</code>](#ListItem)
-    * [`.insertItem(position, item)`](#List+insertItem) ⇒ [<code>ListItem</code>](#ListItem)
     * [`.getItem(position)`](#List+getItem) ⇒ [<code>ListItem</code>](#ListItem) \| <code>undefined</code>
     * [`.getItems()`](#List+getItems) ⇒ [<code>Array.&lt;ListItem&gt;</code>](#ListItem)
+    * [`.insertItem(position, item)`](#List+insertItem) ⇒ [<code>ListItem</code>](#ListItem)
     * [`.removeItemAt(position)`](#List+removeItemAt) ⇒ [<code>ListItem</code>](#ListItem) \| <code>undefined</code>
+    * [`.getStyle()`](#List+getStyle) ⇒ [<code>ListStyle</code>](#ListStyle) \| <code>undefined</code>
+    * [`.setStyle(style)`](#List+setStyle) ⇒ [<code>List</code>](#List)
+    * [`.getStyleName()`](#List+getStyleName) ⇒ <code>string</code> \| <code>undefined</code>
+    * [`.setStyleName(styleName)`](#List+setStyleName) ⇒ [<code>List</code>](#List)
     * [`.clear()`](#List+clear) ⇒ [<code>List</code>](#List)
     * [`.size()`](#List+size) ⇒ <code>number</code>
 
@@ -2246,11 +2680,11 @@ new List();
 <a name="List+addItem"></a>
 
 ### `list.addItem([item])` ⇒ [<code>ListItem</code>](#ListItem)
-The `addItem()` method adds a new list item with the specified text or adds the specified item to the list.
+The `addItem()` method adds a new list item or adds the specified item to the list.
 
 #### Parameters
-- [item] <code>string</code> | [<code>ListItem</code>](#ListItem)  
-The text content of the new item or the item to add
+- [item] [<code>ListItem</code>](#ListItem)  
+The item to add
 
 **Return value**  
 [<code>ListItem</code>](#ListItem) - The added `ListItem` object
@@ -2258,38 +2692,8 @@ The text content of the new item or the item to add
 **Example**  
 ```js
 const list = new List();
-list.addItem('First item');
-list.addItem(new ListItem('Second item'));
-```
-**Since**: 0.2.0  
-
-* * *
-
-<a name="List+insertItem"></a>
-
-### `list.insertItem(position, item)` ⇒ [<code>ListItem</code>](#ListItem)
-The `insertItem` method inserts a new list item with the specified text
-or inserts the specified item at the specified position.
-The item is inserted before the item at the specified position.
-
-If the position is greater than the current number items, the new item is appended at the end of the list.
-If the position is negative, the new item is inserted as first element.
-
-#### Parameters
-- position <code>number</code>  
-The index at which to insert the list item (starting from 0).
-- item <code>string</code> | [<code>ListItem</code>](#ListItem)  
-The text content of the new item or the item to insert
-
-**Return value**  
-[<code>ListItem</code>](#ListItem) - The inserted `ListItem` object
-
-**Example**  
-```js
-const list = new List();
-list.addItem('First item');             // 'First item'
-list.addItem('Second item');            // 'First item', 'Second item'
-list.insertItem(1, 'After first item'); // 'First item', 'After first item', 'Second item'
+list.addItem();
+list.addItem(new ListItem());
 ```
 **Since**: 0.2.0  
 
@@ -2312,10 +2716,10 @@ or `undefined` if there is no list item at the specified position
 **Example**  
 ```js
 const list = new List();
-list.addItem('First item');
-list.addItem('Second item');
-list.getItem(1);             // 'Second item'
-list.getItem(2);             // undefined
+list.addItem();
+list.addItem();
+list.getItem(1); // second item
+list.getItem(2); // undefined
 ```
 **Since**: 0.2.0  
 
@@ -2332,10 +2736,38 @@ The `getItems()` method returns all list items.
 **Example**  
 ```js
 const list = new List();
-list.getItems();             // []
-list.addItem('First item');
-list.addItem('Second item');
-list.getItems();             // ['First item', 'Second item']
+list.getItems(); // []
+list.addItem();
+list.addItem();
+list.getItems(); // [first item, second item]
+```
+**Since**: 0.2.0  
+
+* * *
+
+<a name="List+insertItem"></a>
+
+### `list.insertItem(position, item)` ⇒ [<code>ListItem</code>](#ListItem)
+The `insertItem` method inserts the specified item at the specified position.
+The item is inserted before the item at the specified position.
+
+If the position is greater than the current number of items, the new item is appended at the end of the list.
+If the position is negative, the new item is inserted as first element.
+
+#### Parameters
+- position <code>number</code>  
+The index at which to insert the list item (starting from 0).
+- item [<code>ListItem</code>](#ListItem)  
+The item to insert
+
+**Return value**  
+[<code>ListItem</code>](#ListItem) - The inserted `ListItem` object
+
+**Example**  
+```js
+const list = new List();
+list.addItem();
+list.insertItem(0, new ListItem()); // insert before existing item
 ```
 **Since**: 0.2.0  
 
@@ -2357,13 +2789,99 @@ or undefined if there is no list item at the specified position
 **Example**  
 ```js
 const list = new List();
-list.addItem('First item');
-list.addItem('Second item');
-list.removeItemAt(0);        // 'First item'
-list.getItems();             // ['Second item']
-list.removeItemAt(2);        // undefined
+list.addItem();
+list.addItem();
+list.removeItemAt(0); // first item
+list.getItems();      // [second item]
+list.removeItemAt(2); // undefined
 ```
 **Since**: 0.2.0  
+
+* * *
+
+<a name="List+getStyle"></a>
+
+### `list.getStyle()` ⇒ [<code>ListStyle</code>](#ListStyle) \| <code>undefined</code>
+Returns the style of the list.
+
+**Return value**  
+[<code>ListStyle</code>](#ListStyle) \| <code>undefined</code> - The style of the list or `undefined` if no style was set
+
+**Example**  
+```js
+const list = new List();
+list.getStyle();                // undefined
+list.setStyle(new ListStyle());
+list.getStyle();                // previously set style
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="List+setStyle"></a>
+
+### `list.setStyle(style)` ⇒ [<code>List</code>](#List)
+Sets the new style of the list.
+To reset the style, `undefined` must be given.
+
+If style and style name are both set, the custom style will be set and the common style will be ignored.
+
+#### Parameters
+- style [<code>ListStyle</code>](#ListStyle) | <code>undefined</code>  
+The new style or `undefined` to reset the style
+
+**Return value**  
+[<code>List</code>](#List) - The `List` object
+
+**Example**  
+```js
+new List()
+  .setStyle(new ListStyle());
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="List+getStyleName"></a>
+
+### `list.getStyleName()` ⇒ <code>string</code> \| <code>undefined</code>
+Returns the name of the common style of the list.
+
+**Return value**  
+<code>string</code> \| <code>undefined</code> - The name of the common style or `undefined` if no common style was set
+
+**Example**  
+```js
+const list = new List();
+list.getStyleName();         // undefined
+list.setStyleName('Summary');
+list.getStyleName();         // 'Summary'
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="List+setStyleName"></a>
+
+### `list.setStyleName(styleName)` ⇒ [<code>List</code>](#List)
+Sets the name of the common style that should be applied to the list.
+To reset the common style, `undefined` must be given.
+
+If style and style name are both set, the custom style will be set and the common style will be ignored.
+
+#### Parameters
+- styleName <code>string</code> | <code>undefined</code>  
+The name of the common style or `undefined` to reset the common style
+
+**Return value**  
+[<code>List</code>](#List) - The `List` object
+
+**Example**  
+```js
+new List()
+  .setStyleName('Summary');
+```
+**Since**: 0.11.0  
 
 * * *
 
@@ -2378,9 +2896,10 @@ The `clear()` method removes all items from the list.
 **Example**  
 ```js
 const list = new List();
-list.addItem('First item');  // 'First item'
-list.addItem('Second item'); // 'First item', 'Second item'
-list.clear();                // -
+list.addItem();
+list.addItem();
+list.clear();
+list.getItems(); // []
 ```
 **Since**: 0.2.0  
 
@@ -2397,10 +2916,10 @@ The `size()` method returns the number of items in the list.
 **Example**  
 ```js
 const list = new List();
-list.size();                 // 0
-list.addItem('First item');
-list.addItem('Second item');
-list.size();                 // 2
+list.size();    // 0
+list.addItem();
+list.addItem();
+list.size();    // 2
 ```
 **Since**: 0.2.0  
 
@@ -2413,21 +2932,77 @@ This class represents an item in a list.
 
 **Since**: 0.2.0  
 
+* [ListItem](#ListItem)
+    * [`new ListItem()`](#new_ListItem_new)
+    * [`.addHeading([text], [level])`](#ListItem+addHeading) ⇒ [<code>Heading</code>](#Heading)
+    * [`.addList()`](#ListItem+addList) ⇒ [<code>List</code>](#List)
+    * [`.addParagraph([text])`](#ListItem+addParagraph) ⇒ [<code>Paragraph</code>](#Paragraph)
+
+
 * * *
 
 <a name="new_ListItem_new"></a>
 
-### `new ListItem([text])`
+### `new ListItem()`
 Creates a `ListItem` instance that represents an item in a list.
-
-#### Parameters
-- [text] <code>string</code> <code> = &quot;&#x27;&#x27;&quot;</code>  
-The text content of the list item; defaults to an empty string if omitted
 
 **Example**  
 ```js
-new ListItem('First item');
+new ListItem();
 ```
+
+* * *
+
+<a name="ListItem+addHeading"></a>
+
+### `listItem.addHeading([text], [level])` ⇒ [<code>Heading</code>](#Heading)
+Adds a heading at the end of the list item.
+If a text is given, this will be set as text content of the heading.
+
+#### Parameters
+- [text] <code>string</code>  
+The text content of the heading
+- [level] <code>number</code> <code> = 1</code>  
+The heading level; defaults to 1 if omitted
+
+**Return value**  
+[<code>Heading</code>](#Heading) - The newly added heading
+
+**Since**: 0.11.0  
+
+* * *
+
+<a name="ListItem+addList"></a>
+
+### `listItem.addList()` ⇒ [<code>List</code>](#List)
+Adds an empty list at the end of the list item.
+
+**Return value**  
+[<code>List</code>](#List) - The newly added list
+
+**Example**  
+```js
+new ListItem()
+  .addList();
+```
+**Since**: 0.11.0  
+
+* * *
+
+<a name="ListItem+addParagraph"></a>
+
+### `listItem.addParagraph([text])` ⇒ [<code>Paragraph</code>](#Paragraph)
+Adds a paragraph at the end of the list item.
+If a text is given, this will be set as text content of the paragraph.
+
+#### Parameters
+- [text] <code>string</code>  
+The text content of the paragraph
+
+**Return value**  
+[<code>Paragraph</code>](#Paragraph) - The newly added paragraph
+
+**Since**: 0.11.0  
 
 * * *
 
