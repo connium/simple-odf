@@ -58,7 +58,6 @@ describe(Meta.name, () => {
     });
 
     it('return previous set date', () => {
-      console.log({ testDate });
       meta.setDate(testDate);
 
       expect(meta.getDate()).toBe(testDate);

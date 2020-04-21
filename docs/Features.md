@@ -10,91 +10,95 @@
 ## Style
 
 ### Character
+
 - Font
-  - :heavy_check_mark: Family
-  - :heavy_check_mark: Style
-  - :heavy_check_mark: Size
-  - :x: Language
+  - ✔️ Family
+  - ✔️ Style
+  - ✔️ Size
+  - ❌ Language
 - Font effects
-  - :heavy_check_mark: Font color
-  - :heavy_check_mark: Effects
-  - :x: Relief
-  - :x: Overlining
-  - :x: Strikethrough
-  - :x: Underlining
+  - ✔️ Font color
+  - ✔️ Effects
+  - ❌ Relief
+  - ❌ Overlining
+  - ❌ Strikethrough
+  - ❌ Underlining
 - Position
-  - :x: Position
-  - :x: Rotation & scaling
-  - :x: Spacing
+  - ❌ Position
+  - ❌ Rotation & scaling
+  - ❌ Spacing
 - Hyperlink
-  - :x: Hyperlink
-  - :x: Events
-  - :x: Character Styles
+  - ❌ Hyperlink
+  - ❌ Events
+  - ❌ Character Styles
 - Highlighting
-  - :x: Color
+  - ❌ Color
 - Borders
-  - :x: Line arrangement
-  - :x: Line
-  - :x: Spacing to contents
-  - :x: Shadow style
+  - ❌ Line arrangement
+  - ❌ Line
+  - ❌ Spacing to contents
+  - ❌ Shadow style
 
 ### Paragraph
+
 - Indents & spacing
-  - :heavy_check_mark: Indent
-  - :heavy_check_mark: Spacing
-  - :heavy_check_mark: Line spacing
+  - ✔️ Indent
+  - ✔️ Spacing
+  - ✔️ Line spacing
 - Alignment
-  - :heavy_check_mark: horizontal
-  - :heavy_check_mark: vertical
+  - ✔️ horizontal
+  - ✔️ vertical
 - Text flow
-  - :x: Hyphenation
-  - :heavy_check_mark: Breaks
-  - :heavy_check_mark: Break control
+  - ❌ Hyphenation
+  - ✔️ Breaks
+  - ✔️ Break control
 - Outline & numbering
-  - :x: Outline
-  - :x: Numbering
-  - :x: Line numbering
+  - ❌ Outline
+  - ❌ Numbering
+  - ❌ Line numbering
 - Tabs
-  - :heavy_check_mark: Type
-  - :construction: Fill character
+  - ✔️ Type
+  - ❌ Fill character
 - Drop caps
 - Borders
-  - :construction: Line arrangement
-  - :construction: Line
-  - :heavy_check_mark: Padding
-  - :x: Shadow style
+  - ❌ Line arrangement
+  - ❌ Line
+  - ✔️ Padding
+  - ❌ Shadow style
 - Background
-  - :heavy_check_mark: Color
-  - :x: Gradient
-  - :x: Hatching
-  - :x: Bitmap
+  - ✔️ Color
+  - ❌ Gradient
+  - ❌ Hatching
+  - ❌ Bitmap
 
 ## Text content
 
-- :heavy_check_mark: Heading
-- :heavy_check_mark: Paragraph
-  - :heavy_check_mark: tab
-  - :heavy_check_mark: line break
-  - :x: hyphen
-  - :x: span
-  - :construction: hyperlink
-  - :x: number
-- :construction: List
-- :x: Section
-- :x: Change Tracking
-- :x: Bookmark & Reference
-- :x: Note
-- :x: Text field
-- :x: Table
-- :x: Graphic content
-  - :x: Drawing shape
-  - :x: Frame
-  - :x: 3D Shape
-- :x: Chart
-- :x: Form
+- ✔️ Heading
+- ✔️ Paragraph
+  - ✔️ tab
+  - ✔️ line break
+  - ❌ hyphen
+  - ❌ span
+  - ❌ hyperlink
+  - ❌ number
+- ✔️ List
+  - ❌ List header
+  - ✔️ List item
+- ❌ Section
+- ❌ Change Tracking
+- ❌ Bookmark & Reference
+- ❌ Note
+- ❌ Text field
+- ❌ Table
+- ❌ Graphic content
+  - ❌ Drawing shape
+  - ❌ Frame
+  - ❌ 3D Shape
+- ❌ Chart
+- ❌ Form
 
 <!--
-:x:
-:construction:
-:heavy_check_mark:
+❌
+✔️
+⏳
 -->
