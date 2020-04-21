@@ -1,5 +1,12 @@
-import { createHash } from 'crypto';
-import { ParagraphStyle, Style, StyleFamily } from '../style';
+import { createHash, Hash } from 'crypto';
+import {
+  BulletListLevelStyle,
+  ListStyle,
+  ParagraphStyle,
+  Style,
+} from '../style';
+import { IParagraphProperties } from '../style/IParagraphProperties';
+import { ITextProperties } from '../style/ITextProperties';
 import { IStyles } from './IStyles';
 
 type IStyleInformation = {
@@ -23,6 +30,7 @@ type IStyleInformation = {
  */
 export class AutomaticStyles implements IStyles {
   private styles: Map<string, IStyleInformation>;
+  private listStyleCounter: number;
   private paragraphStyleCounter: number;
 
   /**
@@ -35,6 +43,7 @@ export class AutomaticStyles implements IStyles {
    */
   public constructor() {
     this.styles = new Map();
+    this.listStyleCounter = 0;
     this.paragraphStyleCounter = 0;
   }
 
@@ -63,7 +72,7 @@ export class AutomaticStyles implements IStyles {
 
     this.styles.set(hash, {
       style: style,
-      name: `P${++this.paragraphStyleCounter}`,
+      name: this.createUniqueName(style),
     });
   }
 
@@ -85,13 +94,13 @@ export class AutomaticStyles implements IStyles {
    */
   public getName(style: Style): string | never {
     const hash = this.getHash(style);
-    const styleInformation = this.styles.get(hash);
+    const existingStyle = this.styles.get(hash);
 
-    if (styleInformation === undefined) {
+    if (existingStyle === undefined) {
       throw new Error(`Unknown style [${style}}]`);
     }
 
-    return styleInformation.name;
+    return existingStyle.name;
   }
 
   /** @inheritdoc */
@@ -99,6 +108,23 @@ export class AutomaticStyles implements IStyles {
     return Array.from(this.styles.values())
       .sort((a, b) => a.name.localeCompare(b.name))
       .map((styleInformation) => styleInformation.style);
+  }
+
+  /**
+   * Creates the unique name for the given style.
+   * The name follows the pattern <type><count> (e.g. P2 for the second paragraph style).
+   *
+   * @param {Style} style The style for which a unique name is being requested
+   * @returns {string} The unique name representing the given style
+   */
+  private createUniqueName(style: Style): string {
+    if (style instanceof ListStyle) {
+      return `L${++this.listStyleCounter}`;
+    } else if (style instanceof ParagraphStyle) {
+      return `P${++this.paragraphStyleCounter}`;
+    }
+
+    throw new Error(`Unknown style type [${style}}]`);
   }
 
   /**
@@ -113,50 +139,115 @@ export class AutomaticStyles implements IStyles {
     hash.update(style.getClass() || '');
     hash.update(style.getFamily());
 
-    if (style.getFamily() === StyleFamily.Paragraph) {
-      const paragraphStyle = style as ParagraphStyle;
-
-      // paragraph properties
-      hash.update('background-color' + paragraphStyle.getBackgroundColor());
-      hash.update('border-bottom' + paragraphStyle.getBorderBottom());
-      hash.update('border-left' + paragraphStyle.getBorderLeft());
-      hash.update('border-right' + paragraphStyle.getBorderRight());
-      hash.update('border-top' + paragraphStyle.getBorderTop());
-      hash.update(paragraphStyle.getHorizontalAlignment());
-      hash.update(paragraphStyle.getHorizontalAlignmentLastLine());
-      hash.update(paragraphStyle.getKeepTogether() ? 'kt' : '');
-      hash.update(paragraphStyle.getKeepWithNext() ? 'kwn' : '');
-      hash.update('lh' + paragraphStyle.getLineHeight());
-      hash.update('lhal' + paragraphStyle.getLineHeightAtLeast());
-      hash.update('ls' + paragraphStyle.getLineSpacing());
-      hash.update('margin-bottom' + paragraphStyle.getMarginBottom());
-      hash.update('margin-left' + paragraphStyle.getMarginLeft());
-      hash.update('margin-right' + paragraphStyle.getMarginRight());
-      hash.update('margin-top' + paragraphStyle.getMarginTop());
-      hash.update('orphans' + paragraphStyle.getOrphans());
-      hash.update('padding-bottom' + paragraphStyle.getPaddingBottom());
-      hash.update('padding-left' + paragraphStyle.getPaddingLeft());
-      hash.update('padding-right' + paragraphStyle.getPaddingRight());
-      hash.update('padding-top' + paragraphStyle.getPaddingTop());
-      hash.update(paragraphStyle.getPageBreak().toString());
-      hash.update('text-indent' + paragraphStyle.getTextIndent());
-      hash.update(paragraphStyle.getVerticalAlignment());
-      hash.update('widows' + paragraphStyle.getWidows());
-      paragraphStyle.getTabStops().forEach((tabStop) => {
-        hash.update(
-          `tab${tabStop.getChar()}${tabStop.getLeaderColor()}${tabStop.getLeaderStyle()}${tabStop.getPosition()}${tabStop.getType()}`
-        ); // eslint-disable-line max-len
+    if (style instanceof ListStyle) {
+      hash.update('consecutive-numbering' + style.getConsecutiveNumbering());
+      style.getListLevelStyles().forEach((listLevelStyle) => {
+        this.updateHashWithListLevelStyle(hash, listLevelStyle);
       });
-
-      // text properties
-      hash.update('color' + paragraphStyle.getColor());
-      hash.update(paragraphStyle.getFontName() || '');
-      hash.update(paragraphStyle.getFontSize().toString());
-      hash.update(paragraphStyle.getFontVariant());
-      hash.update(paragraphStyle.getTextTransformation());
-      hash.update(paragraphStyle.getTypeface().toString());
+    } else if (style instanceof ParagraphStyle) {
+      this.updateHashWithParagraphProperties(hash, style);
+      this.updateHashWithTextProperties(hash, style);
     }
 
     return hash.digest('hex');
+  }
+
+  /**
+   * Updates the hash with the list level style.
+   *
+   * @param {Hash} hash The hash to update
+   * @param {BulletListLevelStyle} listLevelStyle The list level style to evaluate
+   */
+  private updateHashWithListLevelStyle(
+    hash: Hash,
+    listLevelStyle: BulletListLevelStyle
+  ): void {
+    const level = listLevelStyle.getLevel();
+    const properties = [
+      'bullet-char',
+      listLevelStyle.getBulletChar(),
+      'bullet-relative-size',
+      listLevelStyle.getRelativeBulletSize(),
+      'num-prefix',
+      listLevelStyle.getNumberPrefix(),
+      'num-suffix',
+      listLevelStyle.getNumberSuffix(),
+    ];
+    const listLevelProperties = [
+      'list-level-position-and-space-mode',
+      listLevelStyle.getListLevelPositionAndSpaceMode(),
+      'label-followed-by',
+      listLevelStyle.getLabelFollowedBy(),
+      'list-tab-stop-position',
+      listLevelStyle.getListTabStopPosition(),
+      'text-indent',
+      listLevelStyle.getTextIndent(),
+      'margin-left',
+      listLevelStyle.getMarginLeft(),
+    ];
+
+    hash.update(
+      `${level}${properties.join('')}${listLevelProperties.join('')}`
+    );
+  }
+
+  /**
+   * Updates the hash with the paragraph properties.
+   *
+   * @param {Hash} hash The hash to update
+   * @param {IParagraphProperties} paragraphProperties The paragraph properties to evaluate
+   */
+  private updateHashWithParagraphProperties(
+    hash: Hash,
+    paragraphProperties: IParagraphProperties
+  ): void {
+    hash.update('background-color' + paragraphProperties.getBackgroundColor());
+    hash.update('border-bottom' + paragraphProperties.getBorderBottom());
+    hash.update('border-left' + paragraphProperties.getBorderLeft());
+    hash.update('border-right' + paragraphProperties.getBorderRight());
+    hash.update('border-top' + paragraphProperties.getBorderTop());
+    hash.update(paragraphProperties.getHorizontalAlignment());
+    hash.update(paragraphProperties.getHorizontalAlignmentLastLine());
+    hash.update(paragraphProperties.getKeepTogether() ? 'kt' : '');
+    hash.update(paragraphProperties.getKeepWithNext() ? 'kwn' : '');
+    hash.update('lh' + paragraphProperties.getLineHeight());
+    hash.update('lhal' + paragraphProperties.getLineHeightAtLeast());
+    hash.update('ls' + paragraphProperties.getLineSpacing());
+    hash.update('margin-bottom' + paragraphProperties.getMarginBottom());
+    hash.update('margin-left' + paragraphProperties.getMarginLeft());
+    hash.update('margin-right' + paragraphProperties.getMarginRight());
+    hash.update('margin-top' + paragraphProperties.getMarginTop());
+    hash.update('orphans' + paragraphProperties.getOrphans());
+    hash.update('padding-bottom' + paragraphProperties.getPaddingBottom());
+    hash.update('padding-left' + paragraphProperties.getPaddingLeft());
+    hash.update('padding-right' + paragraphProperties.getPaddingRight());
+    hash.update('padding-top' + paragraphProperties.getPaddingTop());
+    hash.update(paragraphProperties.getPageBreak().toString());
+    hash.update('text-indent' + paragraphProperties.getTextIndent());
+    hash.update(paragraphProperties.getVerticalAlignment());
+    hash.update('widows' + paragraphProperties.getWidows());
+    paragraphProperties.getTabStops().forEach((tabStop) => {
+      hash.update(
+        `tab${tabStop.getChar()}${tabStop.getLeaderColor()}${tabStop.getLeaderStyle()}${tabStop.getPosition()}${tabStop.getType()}`
+      );
+    });
+  }
+
+  /**
+   * Updates the hash with the text properties.
+   *
+   * @param {Hash} hash The hash to update
+   * @param {ITextProperties} textProperties The text properties to evaluate
+   */
+  private updateHashWithTextProperties(
+    hash: Hash,
+    textProperties: ITextProperties
+  ): void {
+    hash.update('color' + textProperties.getColor());
+    hash.update(textProperties.getFontName() || '');
+    hash.update(textProperties.getFontSize().toString());
+    hash.update(textProperties.getFontVariant());
+    hash.update(textProperties.getTextTransformation());
+    hash.update(textProperties.getTypeface().toString());
   }
 }

@@ -22,8 +22,8 @@ export class ParagraphStyle extends Style
   private paragraphProperties: ParagraphProperties;
   private textProperties: TextProperties;
 
-  public constructor(name: string = Style.UNNAMED) {
-    super(name, StyleFamily.Paragraph);
+  public constructor(displayName: string = Style.UNNAMED) {
+    super(displayName, StyleFamily.Paragraph);
 
     this.paragraphProperties = new ParagraphProperties();
     this.textProperties = new TextProperties();

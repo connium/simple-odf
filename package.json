@@ -41,10 +41,9 @@
     "prepublishOnly": "npm run build",
     "pretest": "npm run build",
     "posttest": "npm run lint",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest --clearCache && jest",
+    "test:watch": "jest --clearCache && jest --watch",
     "test:coverage": "jest --coverage",
-    "coverage": "jest --coverage",
     "lint": "eslint './{examples,src,test}/**/*.{ts,tsx}'",
     "format": "prettier --write './{examples,src,test}/**/*.{ts,js,json,md}'",
     "docs": "rm -r ./dist && tsc && jsdoc2md --name-format --param-list-format list --separators --partial ./tools/jsdoc2md/body.hbs ./tools/jsdoc2md/params-list.hbs ./tools/jsdoc2md/returns.hbs ./tools/jsdoc2md/scope.hbs --files ./dist/api/**/*.js > ./docs/API.md"

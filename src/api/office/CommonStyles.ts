@@ -1,4 +1,4 @@
-import { ParagraphStyle, Style } from '../style';
+import { ListStyle, ParagraphStyle, Style } from '../style';
 import { IStyles } from './IStyles';
 
 /**
@@ -28,6 +28,31 @@ export class CommonStyles implements IStyles {
   }
 
   /**
+   * The `createListStyle()` method creates a new `ListStyle` instance with the given name.
+   * If a style with this name already exists, the existing style will be returned.
+   *
+   * @example
+   * const commonStyles = new CommonStyles();
+   * commonStyles.createListStyle('Contents');
+   *
+   * @param {string} name The unique name for the style
+   * @returns {ListStyle} A new `ListStyle` instance with the specified name or an existing style, if one with the specified name exists
+   * @since 0.11.0
+   */
+  public createListStyle(name: string): ListStyle {
+    const existingStyle = this.styles.get(name);
+
+    if (existingStyle !== undefined) {
+      return existingStyle as ListStyle;
+    }
+
+    const newStyle = new ListStyle(name);
+    this.styles.set(name, newStyle);
+
+    return newStyle;
+  }
+
+  /**
    * The `createParagraphStyle()` method creates a new `ParagraphStyle` instance with the given name.
    * If a style with this name already exists, the existing style will be returned.
    *
@@ -41,16 +66,16 @@ export class CommonStyles implements IStyles {
    * @since 0.9.0
    */
   public createParagraphStyle(name: string): ParagraphStyle {
-    let style = this.styles.get(name);
+    const existingStyle = this.styles.get(name);
 
-    if (style !== undefined) {
-      return style as ParagraphStyle;
+    if (existingStyle !== undefined) {
+      return existingStyle as ParagraphStyle;
     }
 
-    style = new ParagraphStyle(name);
-    this.styles.set(name, style);
+    const newStyle = new ParagraphStyle(name);
+    this.styles.set(name, newStyle);
 
-    return style as ParagraphStyle;
+    return newStyle;
   }
 
   /**
