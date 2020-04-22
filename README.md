@@ -2,9 +2,9 @@
 
 simple-odf is a library for creating Open Document Format text files using Typescript/JavaScript and Node.js.
 
-[![Build Status](https://travis-ci.com/connium/simple-odf.svg?branch=master)](https://travis-ci.com/connium/simple-odf)
-![](https://github.com/actions/connium/simple-odf/Continuous%20Integration/badge.svg)
 [![Version](https://img.shields.io/npm/v/simple-odf.svg)](https://www.npmjs.com/package/simple-odf)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+![Continuous Integration](https://github.com/connium/simple-odf/workflows/Continuous%20Integration/badge.svg)
 [![codecov](https://codecov.io/gh/connium/simple-odf/branch/master/graph/badge.svg)](https://codecov.io/gh/connium/simple-odf)
 [![Dependencies](https://david-dm.org/connium/simple-odf.svg)](https://david-dm.org/connium/simple-odf)
 [![Known Vulnerabilities](https://snyk.io/test/github/connium/simple-odf/badge.svg)](https://snyk.io/test/github/connium/simple-odf)

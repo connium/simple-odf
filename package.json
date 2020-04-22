@@ -52,6 +52,7 @@
     "xmldom": "^0.3.0"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^5.0.1",
     "@types/jest": "^25.1.0",
     "@types/node": "^10.17.17",
     "@types/xmldom": "^0.1.29",
@@ -63,6 +64,7 @@
     "jest": "^25.1.0",
     "jsdoc-to-markdown": "^5.0.0",
     "prettier": "2.0.4",
+    "semantic-release": "^17.0.7",
     "ts-jest": "^25.0.0",
     "typescript": "^3.3.3"
   },
