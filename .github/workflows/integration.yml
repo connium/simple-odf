@@ -7,30 +7,31 @@ on: [push]
 
 jobs:
   build:
+    name: Build and Test
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [10.x, 12.x]
 
-    name: Build and Test
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install
+      - name: Install dependencies
         run: npm ci
       - name: Test
         run: npm test
         env:
           CI: true
       - name: Collect test coverage
+        if: matrix.node-version == '10.x'
         run: npm run test:coverage
         env:
           CI: true
       - name: Upload test coverage
+        if: matrix.node-version == '10.x'
         uses: codecov/codecov-action@v1.0.6
