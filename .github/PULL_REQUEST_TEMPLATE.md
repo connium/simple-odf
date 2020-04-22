@@ -11,7 +11,7 @@ If this is your first contribution, don't forget to add your name to the contrib
 
 <!--
 Bug fix, feature, docs update, ...
-see https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commits
+see https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit
 -->
 
 **What is the current behavior?**
@@ -28,6 +28,5 @@ see https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commits
 
 **Please check if the PR fulfills these requirements**
 
-- [ ] Changelog has been updated
 - [ ] Fix/Feature: JSDocs have been added/updated
 - [ ] Fix/Feature: Tests have been added; existing tests pass
