@@ -5,38 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](2020-??-??)
+## [1.0.0](https://github.com/connium/simple-odf/compare/v0.10.1...v1.0.0) (2020-04-22)
 
-### Added
+### Bug Fixes
 
-- **list:** allow styling of bullet lists
-- **list:** implement sublists
+- **list:** text content of a list item cannot be styled ([#120](https://github.com/connium/simple-odf/issues/120)) ([453a96b](https://github.com/connium/simple-odf/commit/453a96b57cc232ab2f64fb549c84ceb92b4d4d03)), closes [#67](https://github.com/connium/simple-odf/issues/67)
+- **meta:** do not forbid dates older than now ([77790c8](https://github.com/connium/simple-odf/commit/77790c8cb8d3c8786c8d827ab59480924222ec77))
 
-### Changed
+### Features
 
-- **list:** text content of a list item cannot be styled, closes [#67](https://github.com/connium/simple-odf/issues/67)
-- **chore(lint):** replace tslint with eslint
-- **chore(travis):** add Node.js 12 to travis configuration
-- **chore:** drop support for Node.js 8
-- **chore(lint):** replace standard with prettier
+- **list:** implement bullet list style ([#239](https://github.com/connium/simple-odf/issues/239)) ([c9f6d4d](https://github.com/connium/simple-odf/commit/c9f6d4dd146412eedee7e9edb4554ea9bb8cad6d))
+- **list:** implement sublists ([#121](https://github.com/connium/simple-odf/issues/121)) ([ae60c56](https://github.com/connium/simple-odf/commit/ae60c56561451420bc4c8cc606afce065386d77d))
 
-### Fixed
+### BREAKING CHANGES
 
-- **meta:** do not forbid dates older than now
+- **list:** The `addListItem` method on a `List` no longer accepts a string and it doesn't automagically create a "hidden" paragraph. Instead an empty `ListItem` is being created. On the `ListItem` instance it is now possible to add headings or paragraphs.
 
-## [0.10.1](2019-07-11)
+## [0.10.1](https://github.com/connium/simple-odf/compare/v0.10.0...v0.10.1) (2019-07-11)
 
-### Changed
+### Bug Fixes
 
 - **chore:** update dev dependencies
 
-## [0.10.0](2019-06-05)
+## [0.10.0](https://github.com/connium/simple-odf/compare/v0.9.0...v0.10.0) (2019-06-05)
 
-### Added
+### Features
 
 - **style:** add tab stop character and leader settings to paragraph style
 
-## [0.9.0](2019-05-30)
+## [0.9.0](https://github.com/connium/simple-odf/compare/v0.8.0...v0.9.0) (2019-05-30)
 
 ### Added
 
@@ -60,7 +57,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - **style:** tab stop is added as child of style:style element
 
-## [0.8.0](2019-02-26)
+## [0.8.0](https://github.com/connium/simple-odf/compare/v0.7.0...v0.8.0) (2019-02-26)
 
 ### Added
 
@@ -70,7 +67,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - **document:** Document title is not recognized by LibreOffice, closes [#68](https://github.com/connium/simple-odf/issues/68)
 
-## [0.7.0](2019-02-19)
+## [0.7.0](https://github.com/connium/simple-odf/compare/v0.6.0...v0.7.0) (2019-02-19)
 
 ### Added
 
@@ -85,7 +82,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **chore:** Update dev dependencies, place test code next to production code, mention contributors in package.json
 - **chore:** Add pull request template
 
-## [0.6.0](2018-10-12)
+## [0.6.0](https://github.com/connium/simple-odf/compare/v0.5.0...v0.6.0) (2018-10-12)
 
 ### Added
 
@@ -97,7 +94,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **document:** Declare all namespaces on creation of the text document, closes [#30](https://github.com/connium/simple-odf/issues/30)
 - **chore:** Update dev dependencies
 
-## [0.5.0](2018-06-01)
+## [0.5.0](https://github.com/connium/simple-odf/compare/v0.4.0...v0.5.0) (2018-06-01)
 
 ### Added
 
@@ -108,7 +105,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - **image:** Move size configuration of an image to the image style, closes [#41](https://github.com/connium/simple-odf/issues/41)
 
-## [0.4.0](2018-05-19)
+## [0.4.0](https://github.com/connium/simple-odf/compare/v0.3.1...v0.4.0) (2018-05-19)
 
 ### Added
 
@@ -123,13 +120,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **chore:** Run TSLint on production and test code
 - **paragraph:** Style now is of type `IParagraphStyle`
 
-## [0.3.1](2018-05-10)
+## [0.3.1](https://github.com/connium/simple-odf/compare/v0.3.0...v0.3.1) (2018-05-10)
 
 ### Fixed
 
 - **paragraph:** Types for `Image`, `TabStop` and `TabStopType` are not exported, closes [#24](https://github.com/connium/simple-odf/issues/24)
 
-## [0.3.0](2018-05-10)
+## [0.3.0](https://github.com/connium/simple-odf/compare/v0.2.0...v0.3.0) (2018-05-10)
 
 ### Added
 
@@ -149,7 +146,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - **paragraph:** Text breaks if `\r\n` is entered as text of a paragraph, closes [#15](https://github.com/connium/simple-odf/issues/15)
 
-## [0.2.0](2018-01-12)
+## [0.2.0](https://github.com/connium/simple-odf/compare/v0.1.0...v0.2.0) (2018-01-12)
 
 ### Added
 
@@ -176,16 +173,3 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **paragraph:** Set page break before paragraph
 - **paragraph:** Set horizontal alignment
 - **text-document:** Create text documents and save them as flat XML ODF document
-
-[unreleased]: https://github.com/connium/simple-odf/compare/v0.10.1...HEAD
-[0.10.1]: https://github.com/connium/simple-odf/compare/v0.10.0...v0.10.1
-[0.10.0]: https://github.com/connium/simple-odf/compare/v0.9.0...v0.10.0
-[0.9.0]: https://github.com/connium/simple-odf/compare/v0.8.0...v0.9.0
-[0.8.0]: https://github.com/connium/simple-odf/compare/v0.7.0...v0.8.0
-[0.7.0]: https://github.com/connium/simple-odf/compare/v0.6.0...v0.7.0
-[0.6.0]: https://github.com/connium/simple-odf/compare/v0.5.0...v0.6.0
-[0.5.0]: https://github.com/connium/simple-odf/compare/v0.4.0...v0.5.0
-[0.4.0]: https://github.com/connium/simple-odf/compare/v0.3.1...v0.4.0
-[0.3.1]: https://github.com/connium/simple-odf/compare/v0.3.0...v0.3.1
-[0.3.0]: https://github.com/connium/simple-odf/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/connium/simple-odf/compare/v0.1.0...v0.2.0
