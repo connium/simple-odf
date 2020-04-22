@@ -1,8 +1,9 @@
-# simple-odf 
+# simple-odf
 
 simple-odf is a library for creating Open Document Format text files using Typescript/JavaScript and Node.js.
 
 [![Build Status](https://travis-ci.com/connium/simple-odf.svg?branch=master)](https://travis-ci.com/connium/simple-odf)
+![](https://github.com/actions/connium/simple-odf/Continuous%20Integration/badge.svg)
 [![Version](https://img.shields.io/npm/v/simple-odf.svg)](https://www.npmjs.com/package/simple-odf)
 [![codecov](https://codecov.io/gh/connium/simple-odf/branch/master/graph/badge.svg)](https://codecov.io/gh/connium/simple-odf)
 [![Dependencies](https://david-dm.org/connium/simple-odf.svg)](https://david-dm.org/connium/simple-odf)
@@ -64,10 +65,12 @@ style1.setPageBreak(simpleOdf.PageBreak.Before);
 style1.setKeepTogether();
 p1.setStyle(style1);
 // font usage
-document.getFontFaceDeclarations().create('Open Sans', 'Open Sans', simpleOdf.FontPitch.Variable);
+document
+  .getFontFaceDeclarations()
+  .create('Open Sans', 'Open Sans', simpleOdf.FontPitch.Variable);
 const style2 = new simpleOdf.ParagraphStyle();
 style2.setFontName('Open Sans');
-const p2 = body.addParagraph('It always seems impossible until it\'s done.');
+const p2 = body.addParagraph("It always seems impossible until it's done.");
 p2.setStyle(style2);
 
 body.addHeading('Credits', 2);
@@ -76,7 +79,9 @@ body.addParagraph('This was quite easy. Do you want to know why?');
 
 const list = body.addList();
 list.addItem().addParagraph('one-liner setup');
-list.addItem().addParagraph('just write like you would do in a full-blown editor');
+list
+  .addItem()
+  .addParagraph('just write like you would do in a full-blown editor');
 
 document.saveFlat('/home/homer/My_first_document.fodf');
 ```
@@ -100,7 +105,7 @@ Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of cond
 
 ### Pull Requests
 
-*Before* submitting a pull request, please make sure the following is done...
+_Before_ submitting a pull request, please make sure the following is done...
 
 1. Fork the repo and create your branch from `master`. A guide on how to fork a
    repository: https://help.github.com/articles/fork-a-repo/
