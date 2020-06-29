@@ -31,7 +31,7 @@ export class Paragraph extends OdfElement {
   public constructor(text?: string) {
     super();
 
-    this.addText(text || '');
+    this.addText(text ?? '');
   }
 
   /**
@@ -97,7 +97,7 @@ export class Paragraph extends OdfElement {
    */
   public setText(text: string): Paragraph {
     this.removeText();
-    this.addText(text || '');
+    this.addText(text ?? '');
 
     return this;
   }
