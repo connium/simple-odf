@@ -136,7 +136,7 @@ export class AutomaticStyles implements IStyles {
   private getHash(style: Style): string {
     const hash = createHash('md5');
 
-    hash.update(style.getClass() || '');
+    hash.update(style.getClass() ?? '');
     hash.update(style.getFamily());
 
     if (style instanceof ListStyle) {
@@ -244,7 +244,7 @@ export class AutomaticStyles implements IStyles {
     textProperties: ITextProperties
   ): void {
     hash.update('color' + textProperties.getColor());
-    hash.update(textProperties.getFontName() || '');
+    hash.update(textProperties.getFontName() ?? '');
     hash.update(textProperties.getFontSize().toString());
     hash.update(textProperties.getFontVariant());
     hash.update(textProperties.getTextTransformation());

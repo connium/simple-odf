@@ -43,7 +43,7 @@ export class List extends OdfElement {
    * @since 0.2.0
    */
   public addItem(item?: ListItem): ListItem {
-    const listItem = item || new ListItem();
+    const listItem = item ?? new ListItem();
     this.append(listItem);
 
     return listItem;

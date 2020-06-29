@@ -93,9 +93,7 @@ export class CommonStyles implements IStyles {
    * @since 0.9.0
    */
   public getName(displayName: string): string | undefined {
-    const style = this.styles.get(displayName);
-
-    return style !== undefined ? style.getName() : undefined;
+    return this.styles.get(displayName)?.getName();
   }
 
   /** @inheritdoc */
