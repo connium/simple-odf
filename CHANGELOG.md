@@ -1,3 +1,17 @@
+# [2.0.0](https://github.com/connium/simple-odf/compare/v1.0.0...v2.0.0) (2020-06-29)
+
+
+### chore
+
+* **deps:** upgrade to typescript 3.9 ([#275](https://github.com/connium/simple-odf/issues/275)) ([f2cc1d7](https://github.com/connium/simple-odf/commit/f2cc1d7b2f4d26714bee001c86a90e0c2f145391))
+* **deps:** upgrade to typescript 3.9 ([#275](https://github.com/connium/simple-odf/issues/275)) ([8fa816d](https://github.com/connium/simple-odf/commit/8fa816db515493dd5f755bb368da35bbbe08063c))
+
+
+### BREAKING CHANGES
+
+* **deps:** The compile target of the library changed from ES2015 to ES2018.
+* **deps:** The compile target of the library changed from ES2015 to ES2018.
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
