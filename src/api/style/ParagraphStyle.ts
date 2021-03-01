@@ -17,7 +17,8 @@ import { TextTransformation } from './TextTransformation';
 import { Typeface } from './Typeface';
 import { VerticalAlignment } from './VerticalAlignment';
 
-export class ParagraphStyle extends Style
+export class ParagraphStyle
+  extends Style
   implements IParagraphProperties, ITextProperties {
   private paragraphProperties: ParagraphProperties;
   private textProperties: TextProperties;
