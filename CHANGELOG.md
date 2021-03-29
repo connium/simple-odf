@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/connium/simple-odf/compare/v2.0.0...v2.0.1) (2021-03-29)
+
+
+### Bug Fixes
+
+* **deps:** [security] bump xmldom and y18n ([#442](https://github.com/connium/simple-odf/issues/442)) ([5163a1e](https://github.com/connium/simple-odf/commit/5163a1e8aed0a1f9b7dcae7592a7514ffb06c799))
+
 # [2.0.0](https://github.com/connium/simple-odf/compare/v1.0.0...v2.0.0) (2020-06-29)
 
 
