@@ -47,6 +47,18 @@ describe(TextDocument.name, () => {
     });
   });
 
+  describe('mime type', () => {
+    it('return the mime type', () => {
+      expect(document.getMimeType()).toContain('opendocument.text');
+    });
+  });
+
+  describe('office version', () => {
+    it('return version 1.2', () => {
+      expect(document.getOfficeVersion()).toBe('1.2');
+    });
+  });
+
   describe('#saveFlat', () => {
     afterEach(async (done) => {
       const unlinkAsync = promisify(unlink);

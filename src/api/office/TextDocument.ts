@@ -8,6 +8,8 @@ import { FontFaceDeclarations } from './FontFaceDeclarations';
 import { TextBody } from './TextBody';
 
 export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
+const MIME_TYPE = 'application/vnd.oasis.opendocument.text';
+const OFFICE_VERSION = '1.2';
 
 /**
  * This class represents a text document in OpenDocument format.
@@ -101,6 +103,34 @@ export class TextDocument {
    */
   public getMeta(): Meta {
     return this.meta;
+  }
+
+  /**
+   * The `getMimeType()` method returns the document type of the document.
+   *
+   * @example
+   * new TextDocument()
+   *   .getMimeType(); // application/vnd.oasis.opendocument.text
+   *
+   * @returns {string} The document type of the document
+   * @since 2.1.0
+   */
+  public getMimeType(): string {
+    return MIME_TYPE;
+  }
+
+  /**
+   * The `getOfficeVersion()` method returns the version of the OpenDocument specification to which this document comprises.
+   *
+   * @example
+   * new TextDocument()
+   *   .getOfficeVersion(); // 1.2
+   *
+   * @returns {string} The version of the OpenDocument specification
+   * @since 2.1.0
+   */
+  public getOfficeVersion(): string {
+    return OFFICE_VERSION;
   }
 
   /**

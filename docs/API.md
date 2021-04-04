@@ -1150,6 +1150,8 @@ This class represents a text document in OpenDocument format.
     * [`.getCommonStyles()`](#TextDocument+getCommonStyles) ⇒ [<code>CommonStyles</code>](#CommonStyles)
     * [`.getFontFaceDeclarations()`](#TextDocument+getFontFaceDeclarations) ⇒ [<code>FontFaceDeclarations</code>](#FontFaceDeclarations)
     * [`.getMeta()`](#TextDocument+getMeta) ⇒ [<code>Meta</code>](#Meta)
+    * [`.getMimeType()`](#TextDocument+getMimeType) ⇒ <code>string</code>
+    * [`.getOfficeVersion()`](#TextDocument+getOfficeVersion) ⇒ <code>string</code>
     * [`.saveFlat(filePath)`](#TextDocument+saveFlat) ⇒ <code>Promise.&lt;void&gt;</code>
     * [`.toString()`](#TextDocument+toString) ⇒ <code>string</code>
 
@@ -1237,6 +1239,40 @@ new TextDocument()
   .setCreator('Homer Simpson');
 ```
 **Since**: 0.6.0  
+
+* * *
+
+<a name="TextDocument+getMimeType"></a>
+
+### `textDocument.getMimeType()` ⇒ <code>string</code>
+The `getMimeType()` method returns the document type of the document.
+
+**Return value**  
+<code>string</code> - The document type of the document
+
+**Example**  
+```js
+new TextDocument()
+  .getMimeType(); // application/vnd.oasis.opendocument.text
+```
+**Since**: 2.1.0  
+
+* * *
+
+<a name="TextDocument+getOfficeVersion"></a>
+
+### `textDocument.getOfficeVersion()` ⇒ <code>string</code>
+The `getOfficeVersion()` method returns the version of the OpenDocument specification to which this document comprises.
+
+**Return value**  
+<code>string</code> - The version of the OpenDocument specification
+
+**Example**  
+```js
+new TextDocument()
+  .getOfficeVersion(); // 1.2
+```
+**Since**: 2.1.0  
 
 * * *
 
