@@ -67,7 +67,7 @@
     "prettier": "2.2.1",
     "semantic-release": "^17.0.7",
     "ts-jest": "^26.1.1",
-    "typescript": "^3.9.9"
+    "typescript": "^4.2.4"
   },
   "engines": {
     "node": "^10.x"
