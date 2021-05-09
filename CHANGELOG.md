@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/connium/simple-odf/compare/v2.0.1...v2.0.2) (2021-05-09)
+
+
+### Bug Fixes
+
+* **deps:** [security] bump version ([813ecab](https://github.com/connium/simple-odf/commit/813ecab39f77be8ceea0a9418d16319251c86137))
+
 ## [2.0.1](https://github.com/connium/simple-odf/compare/v2.0.0...v2.0.1) (2021-03-29)
 
 
