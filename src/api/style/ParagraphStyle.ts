@@ -19,7 +19,8 @@ import { VerticalAlignment } from './VerticalAlignment';
 
 export class ParagraphStyle
   extends Style
-  implements IParagraphProperties, ITextProperties {
+  implements IParagraphProperties, ITextProperties
+{
   private paragraphProperties: ParagraphProperties;
   private textProperties: TextProperties;
 
