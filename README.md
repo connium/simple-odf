@@ -119,7 +119,7 @@ See the [examples](./examples/README.md) for more details on how to use the libr
 
 ## Built With
 
-- [xmldom](https://github.com/xmldom/xmldom) - Used to serialize the XML
+- [@xmldom/xmldom](https://github.com/xmldom/xmldom) - Used to serialize the XML
 
 ## Contributing
 

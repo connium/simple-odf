@@ -1,4 +1,4 @@
-import { DOMImplementation, XMLSerializer } from 'xmldom';
+import { DOMImplementation, XMLSerializer } from '@xmldom/xmldom';
 import { FontFaceDeclarations } from '../../api/office';
 import { FontPitch } from '../../api/style';
 import { OdfElementName } from '../OdfElementName';

@@ -1,4 +1,4 @@
-import { XMLSerializer } from 'xmldom';
+import { XMLSerializer } from '@xmldom/xmldom';
 import { TextDocument } from '../api/office';
 import { TextDocumentWriter } from './TextDocumentWriter';
 

@@ -1,4 +1,4 @@
-import { DOMImplementation, XMLSerializer } from 'xmldom';
+import { DOMImplementation, XMLSerializer } from '@xmldom/xmldom';
 import { CommonStyles, AutomaticStyles } from '../../api/office';
 import {
   BorderStyle,

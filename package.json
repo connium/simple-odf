@@ -49,14 +49,13 @@
     "docs": "rm -r ./dist && tsc && jsdoc2md --name-format --param-list-format list --separators --partial ./tools/jsdoc2md/body.hbs ./tools/jsdoc2md/params-list.hbs ./tools/jsdoc2md/returns.hbs ./tools/jsdoc2md/scope.hbs --files ./dist/api/**/*.js > ./docs/API.md"
   },
   "dependencies": {
-    "xmldom": "^0.6.0"
+    "@xmldom/xmldom": "^0.7.2"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
     "@types/jest": "^26.0.23",
     "@types/node": "^10.17.59",
-    "@types/xmldom": "^0.1.29",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
     "eslint": "^7.26.0",

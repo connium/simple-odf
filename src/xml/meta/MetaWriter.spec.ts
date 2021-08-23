@@ -1,5 +1,5 @@
 import { userInfo } from 'os';
-import { DOMImplementation, XMLSerializer } from 'xmldom';
+import { DOMImplementation, XMLSerializer } from '@xmldom/xmldom';
 import { Meta } from '../../api/meta';
 import { OdfElementName } from '../OdfElementName';
 import { MetaWriter } from './MetaWriter';

@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { DOMImplementation, XMLSerializer } from 'xmldom';
+import { DOMImplementation, XMLSerializer } from '@xmldom/xmldom';
 import { Image, AnchorType } from '../api/draw';
 import { Heading, Hyperlink, List, Paragraph } from '../api/text';
 import { DomVisitor } from './DomVisitor';

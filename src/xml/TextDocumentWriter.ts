@@ -1,4 +1,4 @@
-import { DOMImplementation } from 'xmldom';
+import { DOMImplementation } from '@xmldom/xmldom';
 import { AutomaticStyles, TextDocument } from '../api/office';
 import { MetaWriter } from './meta/MetaWriter';
 import { FontFaceDeclarationsWriter } from './office/FontFaceDeclarationsWriter';

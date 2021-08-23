@@ -1,6 +1,6 @@
 import { writeFile } from 'fs';
 import { promisify } from 'util';
-import { XMLSerializer } from 'xmldom';
+import { XMLSerializer } from '@xmldom/xmldom';
 import { TextDocumentWriter } from '../../xml/TextDocumentWriter';
 import { Meta } from '../meta';
 import { CommonStyles } from './CommonStyles';
