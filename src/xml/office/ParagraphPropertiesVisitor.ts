@@ -64,7 +64,8 @@ export class ParagraphPropertiesVisitor {
       );
     }
 
-    const horizontalAlignmentLastLine = paragraphProperties.getHorizontalAlignmentLastLine();
+    const horizontalAlignmentLastLine =
+      paragraphProperties.getHorizontalAlignmentLastLine();
     if (
       horizontalAlignment === HorizontalAlignment.Justify &&
       horizontalAlignmentLastLine !== HorizontalAlignmentLastLine.Default
