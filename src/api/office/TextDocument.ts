@@ -19,8 +19,8 @@ const OFFICE_VERSION = '1.2';
  * document.getMeta().setCreator('Homer Simpson');
  * document.getFontFaceDeclarations().create('FreeSans', 'FreeSans', FontPitch.Variable);
  * document.getCommonStyles().createParagraphStyle('Summary');
- * document.getBody().addHeading('My first document');
- * document.saveFlat('/home/homer/document.fodt');
+ * document.getBody().addHeading('The Story of My Life');
+ * document.saveFlat('/home/homer/my-story.fodt');
  *
  * @since 0.1.0
  */
@@ -51,7 +51,7 @@ export class TextDocument {
    * @example
    * new TextDocument()
    *   .getBody()
-   *   .addHeading('My first document');
+   *   .addHeading('The Story of My Life');
    *
    * @returns {TextBody} A `TextBody` object that holds the content of the document
    * @since 0.7.0
@@ -138,7 +138,7 @@ export class TextDocument {
    *
    * @example
    * new TextDocument()
-   *   .saveFlat('/home/homer/document.fodt');
+   *   .saveFlat('/home/homer/my-story.fodt');
    *
    * @param {string} filePath The file path to write to
    * @returns {Promise<void>}

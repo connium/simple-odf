@@ -6,16 +6,29 @@ import { Heading, List, Paragraph } from '../text';
  *
  * @example
  * const body = document.getBody();
- * body.addHeading('My document');
- * body.addParagraph('This is the first paragraph');
- * body.addHeading('Subheadline', 2);
+ * body.addHeading('The Story of My Life');
+ * body.addParagraph('This is the story of a yellow man.');
+ * body.addHeading('The Beginning', 2);
  *
  * @since 0.7.0
  */
 export class TextBody extends OdfElement {
   /**
-   * Adds a heading at the end of the document.
+   * The `addHeading()` method adds a heading at the end of the document.
    * If a text is given, this will be set as text content of the heading.
+   *
+   * @example
+   * // empty 1st level heading
+   * new TextBody()
+   *   .addHeading();
+   *
+   * // 1st level heading with text
+   * new TextBody()
+   *   .addHeading('The Story of My Life');
+   *
+   * // 2nd level heading with text
+   * new TextBody()
+   *   .addHeading('The Beginning', 2);
    *
    * @param {string} [text] The text content of the heading
    * @param {number} [level=1] The heading level; defaults to 1 if omitted
@@ -30,7 +43,7 @@ export class TextBody extends OdfElement {
   }
 
   /**
-   * Adds an empty list at the end of the document.
+   * The `addList()` method adds an empty list at the end of the document.
    *
    * @example
    * new TextBody()
@@ -47,8 +60,17 @@ export class TextBody extends OdfElement {
   }
 
   /**
-   * Adds a paragraph at the end of the document.
+   * The `addParagraph()` method adds a paragraph at the end of the document.
    * If a text is given, this will be set as text content of the paragraph.
+   *
+   * @example
+   * // empty paragraph
+   * new TextBody()
+   *   .addParagraph();
+   *
+   * // paragraph with text
+   * new TextBody()
+   *   .addParagraph('This is the story of a yellow man.');
    *
    * @param {string} [text] The text content of the paragraph
    * @returns {Paragraph} The newly added paragraph
