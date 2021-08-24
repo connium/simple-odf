@@ -48,15 +48,13 @@ describe(TextDocument.name, () => {
   });
 
   describe('#saveFlat', () => {
-    afterEach(async (done) => {
+    afterEach(async () => {
       const unlinkAsync = promisify(unlink);
 
       await unlinkAsync(FILEPATH);
-
-      done();
     });
 
-    it('write a flat document', async (done) => {
+    it('write a flat document', async () => {
       const readFileAsync = promisify(readFile);
 
       await document.saveFlat(FILEPATH);
@@ -64,7 +62,6 @@ describe(TextDocument.name, () => {
       const fileContents = await readFileAsync(FILEPATH, 'utf8');
 
       expect(fileContents).toEqual(XML_DECLARATION + '??');
-      done();
     });
   });
 

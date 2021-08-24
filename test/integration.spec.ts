@@ -30,12 +30,10 @@ xdescribe('integration', () => {
     body = document.getBody();
   });
 
-  afterAll(async (done) => {
+  afterAll(async () => {
     const unlinkAsync = promisify(unlink);
 
     await unlinkAsync(FILEPATH);
-
-    done();
   });
 
   it('metadata', () => {
@@ -353,11 +351,9 @@ xdescribe('integration', () => {
     sublist.addItem().addParagraph('second subitem');
   });
 
-  it('save document', async (done) => {
+  it('save document', async () => {
     await document.saveFlat(FILEPATH);
 
     // TODO use snapshot testing
-
-    done();
   });
 });
