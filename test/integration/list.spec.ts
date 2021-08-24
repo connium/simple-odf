@@ -21,17 +21,15 @@ xdescribe('list', () => {
       .setFontName('FreeSans');
   });
 
-  afterEach(async (done) => {
+  afterEach(async () => {
     const unlinkAsync = promisify(unlink);
 
     // if (Date.now() < 1) {
     await unlinkAsync(FILEPATH);
     // }
-
-    done();
   });
 
-  it('should create a document with a 10 level bullet list', async (done) => {
+  it('should create a document with a 10 level bullet list', async () => {
     const listStyle = new ListStyle();
     listStyle
       .createBulletListLevelStyle(1)
@@ -140,7 +138,5 @@ xdescribe('list', () => {
     await document.saveFlat(FILEPATH);
 
     // TODO use snapshot testing
-
-    done();
   });
 });
