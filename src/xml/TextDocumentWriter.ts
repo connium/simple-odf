@@ -8,8 +8,6 @@ import { DomVisitor } from './DomVisitor';
 import { OdfAttributeName } from './OdfAttributeName';
 import { OdfElementName } from './OdfElementName';
 
-const OFFICE_VERSION = '1.2';
-
 /**
  * Transforms a {@link TextDocument} object into ODF conform XML
  *
@@ -42,7 +40,7 @@ export class TextDocumentWriter {
     const root = document.firstChild as Element;
 
     this.setXmlNamespaces(root);
-    this.setOfficeAttributes(root);
+    this.setOfficeAttributes(textDocument, root);
 
     const automaticStyles = new AutomaticStyles();
 
@@ -92,15 +90,19 @@ export class TextDocumentWriter {
   /**
    * Sets the mime type and the version attributes.
    *
+   * @param {TextDocument} textDocument The text document to serialize
    * @param {Element} root The root element of the document which will be used as parent
    * @private
    */
-  private setOfficeAttributes(root: Element): void {
+  private setOfficeAttributes(textDocument: TextDocument, root: Element): void {
     root.setAttribute(
       OdfAttributeName.OfficeMimetype,
-      'application/vnd.oasis.opendocument.text'
+      textDocument.getMimeType()
     );
-    root.setAttribute(OdfAttributeName.OfficeVersion, OFFICE_VERSION);
+    root.setAttribute(
+      OdfAttributeName.OfficeVersion,
+      textDocument.getOfficeVersion()
+    );
   }
 
   /**

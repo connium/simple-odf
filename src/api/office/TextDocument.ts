@@ -8,6 +8,8 @@ import { FontFaceDeclarations } from './FontFaceDeclarations';
 import { TextBody } from './TextBody';
 
 export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
+const MIME_TYPE = 'application/vnd.oasis.opendocument.text';
+const OFFICE_VERSION = '1.2';
 
 /**
  * This class represents a text document in OpenDocument format.
@@ -17,8 +19,8 @@ export const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>\n';
  * document.getMeta().setCreator('Homer Simpson');
  * document.getFontFaceDeclarations().create('FreeSans', 'FreeSans', FontPitch.Variable);
  * document.getCommonStyles().createParagraphStyle('Summary');
- * document.getBody().addHeading('My first document');
- * document.saveFlat('/home/homer/document.fodt');
+ * document.getBody().addHeading('The Story of My Life');
+ * document.saveFlat('/home/homer/my-story.fodt');
  *
  * @since 0.1.0
  */
@@ -49,7 +51,7 @@ export class TextDocument {
    * @example
    * new TextDocument()
    *   .getBody()
-   *   .addHeading('My first document');
+   *   .addHeading('The Story of My Life');
    *
    * @returns {TextBody} A `TextBody` object that holds the content of the document
    * @since 0.7.0
@@ -104,11 +106,39 @@ export class TextDocument {
   }
 
   /**
+   * The `getMimeType()` method returns the document type of the document.
+   *
+   * @example
+   * new TextDocument()
+   *   .getMimeType(); // application/vnd.oasis.opendocument.text
+   *
+   * @returns {string} The document type of the document
+   * @since 2.1.0
+   */
+  public getMimeType(): string {
+    return MIME_TYPE;
+  }
+
+  /**
+   * The `getOfficeVersion()` method returns the version of the OpenDocument specification to which this document comprises.
+   *
+   * @example
+   * new TextDocument()
+   *   .getOfficeVersion(); // 1.2
+   *
+   * @returns {string} The version of the OpenDocument specification
+   * @since 2.1.0
+   */
+  public getOfficeVersion(): string {
+    return OFFICE_VERSION;
+  }
+
+  /**
    * The `saveFlat()` method converts the document into an XML string and stores it in flat open document xml format.
    *
    * @example
    * new TextDocument()
-   *   .saveFlat('/home/homer/document.fodt');
+   *   .saveFlat('/home/homer/my-story.fodt');
    *
    * @param {string} filePath The file path to write to
    * @returns {Promise<void>}

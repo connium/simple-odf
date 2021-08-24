@@ -1,7 +1,10 @@
 import { OdfTextElement } from '../api/text';
 import { TextElementName } from './TextElementName';
 
+const CARRIAGE_RETURN = '\r';
+const LINE_FEED = '\n';
 const SPACE = ' ';
+const TAB = '\t';
 
 export class OdfTextElementWriter {
   /**
@@ -33,17 +36,17 @@ export class OdfTextElementWriter {
             index += count;
           }
           break;
-        case '\n':
+        case LINE_FEED:
           this.appendTextNode(document, parent, str);
           this.appendLineBreakNode(document, parent);
           str = '';
           break;
-        case '\t':
+        case TAB:
           this.appendTextNode(document, parent, str);
           this.appendTabNode(document, parent);
           str = '';
           break;
-        case '\r':
+        case CARRIAGE_RETURN:
           break;
         default:
           str += currentChar;
