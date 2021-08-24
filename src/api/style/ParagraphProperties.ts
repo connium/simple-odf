@@ -1,4 +1,3 @@
-/* eslint-disable no-dupe-class-members */
 import { isNonNegativeNumber, isPercent } from '../util';
 import { Border } from './Border';
 import { BorderStyle } from './BorderStyle';
