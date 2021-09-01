@@ -16,6 +16,9 @@ import {
   Typeface,
   VerticalAlignment,
   BulletListLevelStyle,
+  LineStyle,
+  LineType,
+  LineMode,
 } from '../../api/style';
 import { OdfElementName } from '../OdfElementName';
 import { StylesWriter } from './StylesWriter';
@@ -848,6 +851,25 @@ describe(StylesWriter.name, () => {
 
       expect(documentAsString).toMatch(
         /<style:text-properties fo:font-style="oblique" fo:font-weight="bold"\/>/
+      );
+    });
+
+    it('set underline', () => {
+      testStyle.setUnderline(
+        Color.fromRgb(1, 2, 3),
+        23,
+        LineStyle.DotDotDash,
+        LineType.Double,
+        LineMode.SkipWhiteSpace
+      );
+
+      stylesWriter.write(commonStyles, testDocument, testRoot);
+      const documentAsString = new XMLSerializer().serializeToString(
+        testDocument
+      );
+
+      expect(documentAsString).toMatch(
+        /<style:text-properties style:text-underline-type="double" style:text-underline-style="dot-dot-dash" style:text-underline-width="23pt" style:text-underline-color="#010203" style:text-underline-mode="skip-white-space"\/>/
       );
     });
   });

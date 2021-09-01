@@ -6,12 +6,17 @@ import { HorizontalAlignment } from './HorizontalAlignment';
 import { HorizontalAlignmentLastLine } from './HorizontalAlignmentLastLine';
 import { IParagraphProperties } from './IParagraphProperties';
 import { ITextProperties } from './ITextProperties';
+import { LineMode } from './LineMode';
+import { LineStyle } from './LineStyle';
+import { LineType } from './LineType';
+import { LineWidth } from './LineWidth';
 import { PageBreak } from './PageBreak';
 import { ParagraphProperties } from './ParagraphProperties';
 import { Style } from './Style';
 import { StyleFamily } from './StyleFamily';
 import { TabStop } from './TabStop';
 import { TabStopType } from './TabStopType';
+import { TextLine } from './TextLine';
 import { TextProperties } from './TextProperties';
 import { TextTransformation } from './TextTransformation';
 import { Typeface } from './Typeface';
@@ -539,5 +544,30 @@ export class ParagraphStyle
   /** @inheritDoc */
   public getTypeface(): Typeface {
     return this.textProperties.getTypeface();
+  }
+
+  /** @inheritDoc */
+  public setUnderline(
+    color: 'font-color' | Color,
+    width: LineWidth | number,
+    style: LineStyle,
+    type: LineType,
+    mode: LineMode
+  ): this {
+    this.textProperties.setUnderline(color, width, style, type, mode);
+
+    return this;
+  }
+
+  /** @inheritDoc */
+  public getUnderline(): TextLine | undefined {
+    return this.textProperties.getUnderline();
+  }
+
+  /** @inheritDoc */
+  public removeUnderline(): this {
+    this.textProperties.removeUnderline();
+
+    return this;
   }
 }

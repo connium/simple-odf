@@ -10,6 +10,10 @@ import {
   FontVariant,
   HorizontalAlignment,
   HorizontalAlignmentLastLine,
+  LineMode,
+  LineStyle,
+  LineType,
+  LineWidth,
   PageBreak,
   ParagraphStyle,
   TabStop,
@@ -317,6 +321,20 @@ xdescribe('integration', () => {
       style.setTypeface(Typeface.Bold);
 
       const paragraph = body.addParagraph('Some bold text');
+      paragraph.setStyle(style);
+    });
+
+    it('underline', () => {
+      const style = new ParagraphStyle();
+      style.setUnderline(
+        Color.fromRgb(62, 180, 137),
+        LineWidth.Bold,
+        LineStyle.Dash,
+        LineType.Double,
+        LineMode.SkipWhiteSpace
+      );
+
+      const paragraph = body.addParagraph('Some underlined text');
       paragraph.setStyle(style);
     });
   });
