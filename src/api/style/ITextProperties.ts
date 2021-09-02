@@ -106,6 +106,27 @@ export interface ITextProperties {
   getFontVariant(): FontVariant;
 
   /**
+   * @since 2.2.0
+   */
+  setOverline(
+    color: 'font-color' | Color,
+    width: LineWidth | number,
+    style: LineStyle,
+    type: LineType,
+    mode: LineMode
+  ): void;
+
+  /**
+   * @since 2.2.0
+   */
+  getOverline(): TextLine | undefined;
+
+  /**
+   * @since 2.2.0
+   */
+  removeOverline(): void;
+
+  /**
    * Sets the transformation that will be applied to the text.
    *
    * @param {TextTransformation} transformation The transformation to apply

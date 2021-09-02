@@ -19,6 +19,7 @@ import {
   LineStyle,
   LineType,
   LineMode,
+  LineWidth,
 } from '../../api/style';
 import { OdfElementName } from '../OdfElementName';
 import { StylesWriter } from './StylesWriter';
@@ -851,6 +852,25 @@ describe(StylesWriter.name, () => {
 
       expect(documentAsString).toMatch(
         /<style:text-properties fo:font-style="oblique" fo:font-weight="bold"\/>/
+      );
+    });
+
+    it('set overline', () => {
+      testStyle.setOverline(
+        'font-color',
+        LineWidth.Bold,
+        LineStyle.LongDash,
+        LineType.Single,
+        LineMode.Continuous
+      );
+
+      stylesWriter.write(commonStyles, testDocument, testRoot);
+      const documentAsString = new XMLSerializer().serializeToString(
+        testDocument
+      );
+
+      expect(documentAsString).toMatch(
+        /<style:text-properties style:text-overline-type="single" style:text-overline-style="long-dash" style:text-overline-width="bold" style:text-overline-color="font-color" style:text-overline-mode="continuous"\/>/
       );
     });
 

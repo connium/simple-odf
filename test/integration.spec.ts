@@ -308,6 +308,20 @@ xdescribe('integration', () => {
       paragraph.setStyle(style);
     });
 
+    it('overline', () => {
+      const style = new ParagraphStyle();
+      style.setOverline(
+        Color.fromRgb(62, 180, 137),
+        LineWidth.Bold,
+        LineStyle.Wave,
+        LineType.Single,
+        LineMode.Continuous
+      );
+
+      const paragraph = body.addParagraph('Some overlined text');
+      paragraph.setStyle(style);
+    });
+
     it('text transformation', () => {
       const style = new ParagraphStyle();
       style.setTextTransformation(TextTransformation.Uppercase);

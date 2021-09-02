@@ -249,6 +249,16 @@ export class AutomaticStyles implements IStyles {
     hash.update(textProperties.getFontVariant());
     hash.update(textProperties.getTextTransformation());
     hash.update(textProperties.getTypeface().toString());
+
+    const overline = textProperties.getOverline();
+    if (overline) {
+      hash.update('overline-color' + overline.color);
+      hash.update('overline-mode' + overline.mode);
+      hash.update('overline-style' + overline.style);
+      hash.update('overline-type' + overline.type);
+      hash.update('overline-width' + overline.width);
+    }
+
     const underline = textProperties.getUnderline();
     if (underline) {
       hash.update('underline-color' + underline.color);

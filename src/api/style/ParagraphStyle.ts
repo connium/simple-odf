@@ -530,6 +530,31 @@ export class ParagraphStyle
   }
 
   /** @inheritDoc */
+  public setOverline(
+    color: 'font-color' | Color,
+    width: LineWidth | number,
+    style: LineStyle,
+    type: LineType,
+    mode: LineMode
+  ): this {
+    this.textProperties.setOverline(color, width, style, type, mode);
+
+    return this;
+  }
+
+  /** @inheritDoc */
+  public getOverline(): TextLine | undefined {
+    return this.textProperties.getOverline();
+  }
+
+  /** @inheritDoc */
+  public removeOverline(): this {
+    this.textProperties.removeOverline();
+
+    return this;
+  }
+
+  /** @inheritDoc */
   public getTextTransformation(): TextTransformation {
     return this.textProperties.getTextTransformation();
   }

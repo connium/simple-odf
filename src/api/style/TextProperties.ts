@@ -24,7 +24,7 @@ export class TextProperties implements ITextProperties {
   private fontSize: number;
   private fontVariant: FontVariant;
   // private lineThrough: TextLine | undefined;
-  // private overline: TextLine | undefined;
+  private overline: TextLine | undefined;
   private transformation: TextTransformation;
   private typeface: Typeface;
   private underline: TextLine | undefined;
@@ -91,6 +91,35 @@ export class TextProperties implements ITextProperties {
   /** @inheritDoc */
   public getFontVariant(): FontVariant {
     return this.fontVariant;
+  }
+
+  /** @inheritDoc */
+  public setOverline(
+    color: 'font-color' | Color = 'font-color',
+    width: LineWidth | number = LineWidth.Auto,
+    style: LineStyle = LineStyle.Solid,
+    type: LineType = LineType.Single,
+    mode: LineMode = LineMode.Continuous
+  ): void {
+    if (typeof width !== 'number' || isPositiveLength(width)) {
+      this.overline = {
+        color,
+        mode,
+        style,
+        type,
+        width,
+      };
+    }
+  }
+
+  /** @inheritDoc */
+  public getOverline(): TextLine | undefined {
+    return this.overline;
+  }
+
+  /** @inheritDoc */
+  public removeOverline(): void {
+    this.overline = undefined;
   }
 
   /** @inheritDoc */
