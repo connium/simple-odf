@@ -94,6 +94,91 @@ describe(TextProperties.name, () => {
     });
   });
 
+  describe('overline', () => {
+    const testLineColor = Color.fromRgb(1, 2, 3);
+    const testLineMode = LineMode.SkipWhiteSpace;
+    const testLineStyle = LineStyle.Wave;
+    const testLineType = LineType.Double;
+    const testLineWidth = 13.37;
+    const expectedLine: Readonly<TextLine> = {
+      color: testLineColor,
+      mode: testLineMode,
+      style: testLineStyle,
+      type: testLineType,
+      width: testLineWidth,
+    };
+
+    it('return undefined by default', () => {
+      // Assert
+      expect(properties.getOverline()).toBeUndefined();
+    });
+
+    it('return line with defaults if no parameters are passed', () => {
+      // Arrange
+      const expectedDefaultLine: TextLine = {
+        color: 'font-color',
+        mode: LineMode.Continuous,
+        style: LineStyle.Solid,
+        type: LineType.Single,
+        width: LineWidth.Auto,
+      };
+
+      // Act
+      properties.setOverline();
+
+      // Assert
+      expect(properties.getOverline()).toEqual(expectedDefaultLine);
+    });
+
+    it('return previously set line', () => {
+      // Act
+      properties.setOverline(
+        testLineColor,
+        testLineWidth,
+        testLineStyle,
+        testLineType,
+        testLineMode
+      );
+
+      // Assert
+      expect(properties.getOverline()).toEqual(expectedLine);
+    });
+
+    it('ignore invalid value', () => {
+      // Arrange
+      properties.setOverline(
+        testLineColor,
+        testLineWidth,
+        testLineStyle,
+        testLineType,
+        testLineMode
+      );
+
+      // Act
+      properties.setOverline(testLineColor, -0.1);
+
+      // Assert
+      expect(properties.getOverline()).toEqual(expectedLine);
+    });
+
+    it('remove previously set border', () => {
+      // Arrange
+      properties.setOverline(
+        testLineColor,
+        testLineWidth,
+        testLineStyle,
+        testLineType,
+        testLineMode
+      );
+
+      // Act
+      properties.removeOverline();
+
+      // Assert
+      expect(properties.getOverline()).toBeUndefined();
+    });
+  });
+
   describe('text transformation', () => {
     it('return `None` by default', () => {
       expect(properties.getTextTransformation()).toBe(TextTransformation.None);

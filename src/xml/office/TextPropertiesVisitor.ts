@@ -106,6 +106,38 @@ export class TextPropertiesVisitor {
       );
     }
 
+    const overline = textProperties.getOverline();
+    if (overline) {
+      textPropertiesElement.setAttribute(
+        'style:text-overline-type',
+        overline.type
+      );
+
+      textPropertiesElement.setAttribute(
+        'style:text-overline-style',
+        overline.style
+      );
+
+      textPropertiesElement.setAttribute(
+        'style:text-overline-width',
+        typeof overline.width === 'number'
+          ? `${overline.width}pt`
+          : overline.width
+      );
+
+      textPropertiesElement.setAttribute(
+        'style:text-overline-color',
+        overline.color === 'font-color'
+          ? overline.color
+          : overline.color.toHex()
+      );
+
+      textPropertiesElement.setAttribute(
+        'style:text-overline-mode',
+        overline.mode
+      );
+    }
+
     if (
       typeface === Typeface.Bold ||
       typeface === Typeface.BoldItalic ||
