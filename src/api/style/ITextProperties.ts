@@ -1,5 +1,10 @@
 import { Color } from './Color';
 import { FontVariant } from './FontVariant';
+import { LineMode } from './LineMode';
+import { LineStyle } from './LineStyle';
+import { LineType } from './LineType';
+import { LineWidth } from './LineWidth';
+import { TextLine } from './TextLine';
 import { TextTransformation } from './TextTransformation';
 import { Typeface } from './Typeface';
 
@@ -131,4 +136,25 @@ export interface ITextProperties {
    * @since 0.4.0
    */
   getTypeface(): Typeface;
+
+  /**
+   * @since 2.1.0
+   */
+  setUnderline(
+    color: 'font-color' | Color,
+    width: LineWidth | number,
+    style: LineStyle,
+    type: LineType,
+    mode: LineMode
+  ): void;
+
+  /**
+   * @since 2.1.0
+   */
+  getUnderline(): TextLine | undefined;
+
+  /**
+   * @since 2.1.0
+   */
+  removeUnderline(): void;
 }

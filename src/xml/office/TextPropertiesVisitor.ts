@@ -74,6 +74,38 @@ export class TextPropertiesVisitor {
       );
     }
 
+    const underline = textProperties.getUnderline();
+    if (underline) {
+      textPropertiesElement.setAttribute(
+        'style:text-underline-type',
+        underline.type
+      );
+
+      textPropertiesElement.setAttribute(
+        'style:text-underline-style',
+        underline.style
+      );
+
+      textPropertiesElement.setAttribute(
+        'style:text-underline-width',
+        typeof underline.width === 'number'
+          ? `${underline.width}pt`
+          : underline.width
+      );
+
+      textPropertiesElement.setAttribute(
+        'style:text-underline-color',
+        underline.color === 'font-color'
+          ? underline.color
+          : underline.color.toHex()
+      );
+
+      textPropertiesElement.setAttribute(
+        'style:text-underline-mode',
+        underline.mode
+      );
+    }
+
     if (
       typeface === Typeface.Bold ||
       typeface === Typeface.BoldItalic ||

@@ -1,5 +1,10 @@
 import { Color } from './Color';
 import { FontVariant } from './FontVariant';
+import { LineMode } from './LineMode';
+import { LineStyle } from './LineStyle';
+import { LineType } from './LineType';
+import { LineWidth } from './LineWidth';
+import { TextLine } from './TextLine';
 import { TextProperties } from './TextProperties';
 import { TextTransformation } from './TextTransformation';
 import { Typeface } from './Typeface';
@@ -114,6 +119,91 @@ describe(TextProperties.name, () => {
       properties.setTypeface(testTypeface);
 
       expect(properties.getTypeface()).toBe(testTypeface);
+    });
+  });
+
+  describe('underline', () => {
+    const testLineColor = Color.fromRgb(1, 2, 3);
+    const testLineMode = LineMode.SkipWhiteSpace;
+    const testLineStyle = LineStyle.Wave;
+    const testLineType = LineType.Double;
+    const testLineWidth = 13.37;
+    const expectedLine: Readonly<TextLine> = {
+      color: testLineColor,
+      mode: testLineMode,
+      style: testLineStyle,
+      type: testLineType,
+      width: testLineWidth,
+    };
+
+    it('return undefined by default', () => {
+      // Assert
+      expect(properties.getUnderline()).toBeUndefined();
+    });
+
+    it('return line with defaults if no parameters are passed', () => {
+      // Arrange
+      const expectedDefaultLine: TextLine = {
+        color: 'font-color',
+        mode: LineMode.Continuous,
+        style: LineStyle.Solid,
+        type: LineType.Single,
+        width: LineWidth.Auto,
+      };
+
+      // Act
+      properties.setUnderline();
+
+      // Assert
+      expect(properties.getUnderline()).toEqual(expectedDefaultLine);
+    });
+
+    it('return previously set line', () => {
+      // Act
+      properties.setUnderline(
+        testLineColor,
+        testLineWidth,
+        testLineStyle,
+        testLineType,
+        testLineMode
+      );
+
+      // Assert
+      expect(properties.getUnderline()).toEqual(expectedLine);
+    });
+
+    it('ignore invalid value', () => {
+      // Arrange
+      properties.setUnderline(
+        testLineColor,
+        testLineWidth,
+        testLineStyle,
+        testLineType,
+        testLineMode
+      );
+
+      // Act
+      properties.setUnderline(testLineColor, -0.1);
+
+      // Assert
+      expect(properties.getUnderline()).toEqual(expectedLine);
+    });
+
+    it('remove previously set border', () => {
+      // Arrange
+      properties.setUnderline(
+        testLineColor,
+        testLineWidth,
+        testLineStyle,
+        testLineType,
+        testLineMode
+      );
+
+      // Act
+      properties.removeUnderline();
+
+      // Assert
+      expect(properties.getUnderline()).toBeUndefined();
     });
   });
 });

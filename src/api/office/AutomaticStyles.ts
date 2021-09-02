@@ -249,5 +249,13 @@ export class AutomaticStyles implements IStyles {
     hash.update(textProperties.getFontVariant());
     hash.update(textProperties.getTextTransformation());
     hash.update(textProperties.getTypeface().toString());
+    const underline = textProperties.getUnderline();
+    if (underline) {
+      hash.update('underline-color' + underline.color);
+      hash.update('underline-mode' + underline.mode);
+      hash.update('underline-style' + underline.style);
+      hash.update('underline-type' + underline.type);
+      hash.update('underline-width' + underline.width);
+    }
   }
 }

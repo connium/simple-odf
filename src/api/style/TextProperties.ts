@@ -2,6 +2,11 @@ import { isPositiveLength } from '../util';
 import { Color } from './Color';
 import { FontVariant } from './FontVariant';
 import { ITextProperties } from './ITextProperties';
+import { LineMode } from './LineMode';
+import { LineStyle } from './LineStyle';
+import { LineType } from './LineType';
+import { LineWidth } from './LineWidth';
+import { TextLine } from './TextLine';
 import { TextTransformation } from './TextTransformation';
 import { Typeface } from './Typeface';
 
@@ -18,8 +23,11 @@ export class TextProperties implements ITextProperties {
   private fontName: string | undefined;
   private fontSize: number;
   private fontVariant: FontVariant;
+  // private lineThrough: TextLine | undefined;
+  // private overline: TextLine | undefined;
   private transformation: TextTransformation;
   private typeface: Typeface;
+  private underline: TextLine | undefined;
 
   /**
    * Constructor.
@@ -103,5 +111,34 @@ export class TextProperties implements ITextProperties {
   /** @inheritDoc */
   public getTypeface(): Typeface {
     return this.typeface;
+  }
+
+  /** @inheritDoc */
+  public setUnderline(
+    color: 'font-color' | Color = 'font-color',
+    width: LineWidth | number = LineWidth.Auto,
+    style: LineStyle = LineStyle.Solid,
+    type: LineType = LineType.Single,
+    mode: LineMode = LineMode.Continuous
+  ): void {
+    if (typeof width !== 'number' || isPositiveLength(width)) {
+      this.underline = {
+        color,
+        mode,
+        style,
+        type,
+        width,
+      };
+    }
+  }
+
+  /** @inheritDoc */
+  public getUnderline(): TextLine | undefined {
+    return this.underline;
+  }
+
+  /** @inheritDoc */
+  public removeUnderline(): void {
+    this.underline = undefined;
   }
 }
