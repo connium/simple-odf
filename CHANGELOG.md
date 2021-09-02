@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/connium/simple-odf/compare/v2.1.0...v2.2.0) (2021-09-02)
+
+
+### Features
+
+* **style:** implement text overline ([#545](https://github.com/connium/simple-odf/issues/545)) ([0aced85](https://github.com/connium/simple-odf/commit/0aced85b3784ffc9d24d679c2e07e8b2c0681b15))
+
 # [2.1.0](https://github.com/connium/simple-odf/compare/v2.0.2...v2.1.0) (2021-09-02)
 
 
