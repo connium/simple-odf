@@ -49,7 +49,7 @@
     "docs": "rm -r ./dist && tsc && jsdoc2md --name-format --param-list-format list --separators --partial ./tools/jsdoc2md/body.hbs ./tools/jsdoc2md/params-list.hbs ./tools/jsdoc2md/returns.hbs ./tools/jsdoc2md/scope.hbs --files ./dist/api/**/*.js > ./docs/API.md"
   },
   "dependencies": {
-    "@xmldom/xmldom": "^0.7.2"
+    "@xmldom/xmldom": "^0.8.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^5.0.1",
