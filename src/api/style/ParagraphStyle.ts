@@ -455,7 +455,7 @@ export class ParagraphStyle
     arg1: number | TabStop,
     type = TabStopType.Left
   ): TabStop | undefined {
-    return this.paragraphProperties.addTabStop(arg1 as any, type);
+    return this.paragraphProperties.addTabStop(arg1 as unknown as number, type);
   }
 
   /** @inheritdoc */

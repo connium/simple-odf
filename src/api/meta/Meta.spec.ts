@@ -40,7 +40,7 @@ describe(Meta.name, () => {
 
     it('ignore invalid input', () => {
       meta.setCreator(testCreator);
-      meta.setCreator(null as any);
+      meta.setCreator(null as unknown as string);
 
       expect(meta.getCreator()).toBe(testCreator);
     });
@@ -72,7 +72,7 @@ describe(Meta.name, () => {
 
     it('ignore invalid input', () => {
       meta.setDate(testDate);
-      meta.setDate(null as any);
+      meta.setDate(null as unknown as Date);
 
       expect(meta.getDate()).toBe(testDate);
     });
@@ -100,7 +100,7 @@ describe(Meta.name, () => {
 
     it('ignore invalid input', () => {
       meta.setDescription(testDescription);
-      meta.setDescription(null as any);
+      meta.setDescription(null as unknown as string);
 
       expect(meta.getDescription()).toBe(testDescription);
     });
@@ -140,7 +140,7 @@ describe(Meta.name, () => {
 
     it('ignore invalid input', () => {
       meta.setInitialCreator(testCreator);
-      meta.setInitialCreator(null as any);
+      meta.setInitialCreator(null as unknown as string);
 
       expect(meta.getInitialCreator()).toBe(testCreator);
     });
@@ -171,11 +171,11 @@ describe(Meta.name, () => {
     });
 
     it('ignore invalid input', () => {
-      meta.addKeyword(undefined as any);
+      meta.addKeyword(undefined as unknown as string);
 
       expect(meta.getKeywords()).toEqual([]);
 
-      meta.addKeyword(null as any);
+      meta.addKeyword(null as unknown as string);
 
       expect(meta.getKeywords()).toEqual([]);
     });
@@ -267,7 +267,7 @@ describe(Meta.name, () => {
 
     it('ignore invalid input', () => {
       meta.setPrintDate(testDate);
-      meta.setPrintDate(null as any);
+      meta.setPrintDate(null as unknown as Date);
 
       expect(meta.getPrintDate()).toBe(testDate);
     });
@@ -295,7 +295,7 @@ describe(Meta.name, () => {
 
     it('return undefined if empty printed by is set', () => {
       meta.setPrintedBy(testUsername);
-      meta.setPrintedBy(null as any);
+      meta.setPrintedBy(null as unknown as string);
 
       expect(meta.getPrintedBy()).toBe(testUsername);
     });
@@ -323,7 +323,7 @@ describe(Meta.name, () => {
 
     it('ignore invalid input', () => {
       meta.setSubject(testSubject);
-      meta.setSubject(null as any);
+      meta.setSubject(null as unknown as string);
 
       expect(meta.getSubject()).toBe(testSubject);
     });
@@ -351,7 +351,7 @@ describe(Meta.name, () => {
 
     it('ignore invalid input', () => {
       meta.setTitle(testTitle);
-      meta.setTitle(null as any);
+      meta.setTitle(null as unknown as string);
 
       expect(meta.getTitle()).toBe(testTitle);
     });

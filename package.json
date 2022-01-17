@@ -52,23 +52,23 @@
     "@xmldom/xmldom": "^0.8.0"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^5.0.1",
-    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@types/jest": "^27.0.1",
-    "@types/node": "^10.17.59",
-    "@typescript-eslint/eslint-plugin": "^4.22.1",
-    "@typescript-eslint/parser": "^4.22.1",
-    "eslint": "^7.26.0",
+    "@types/node": "^14.18.7",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
+    "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.0.6",
-    "jsdoc-to-markdown": "^6.0.1",
+    "jsdoc-to-markdown": "^7.1.0",
     "prettier": "2.5.1",
-    "semantic-release": "^17.0.7",
+    "semantic-release": "^18.0.1",
     "ts-jest": "^27.0.5",
     "typescript": "^4.3.5"
   },
   "engines": {
-    "node": "^10.x"
+    "node": ">=16 || ^14.17"
   }
 }

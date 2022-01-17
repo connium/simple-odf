@@ -32,7 +32,7 @@ describe(Heading.name, () => {
 
       expect(heading.getLevel()).toBe(Heading.DEFAULT_LEVEL);
 
-      heading.setLevel(null as any);
+      heading.setLevel(null as unknown as number);
 
       expect(heading.getLevel()).toBe(Heading.DEFAULT_LEVEL);
     });
