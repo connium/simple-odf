@@ -1,3 +1,16 @@
+# [3.0.0](https://github.com/connium/simple-odf/compare/v2.2.0...v3.0.0) (2022-01-17)
+
+
+### Bug Fixes
+
+* **deps:** upgrade node to resolve vulnerabilities ([#615](https://github.com/connium/simple-odf/issues/615)) ([46d6959](https://github.com/connium/simple-odf/commit/46d6959cb3823facb5fd063ebe1e153fd8762d9f))
+
+
+### BREAKING CHANGES
+
+* **deps:** Dropped support for Node.js versions less than v14.17
+and v15 to upgrade dev dependencies to their latest versions.
+
 # [2.2.0](https://github.com/connium/simple-odf/compare/v2.1.0...v2.2.0) (2021-09-02)
 
 
