@@ -32,7 +32,7 @@ describe(Hyperlink.name, () => {
 
       expect(hyperlink.getURI()).toBe(testUri);
 
-      hyperlink.setURI(null as any);
+      hyperlink.setURI(null as unknown as string);
 
       expect(hyperlink.getURI()).toBe(testUri);
     });

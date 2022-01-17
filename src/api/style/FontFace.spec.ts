@@ -73,7 +73,7 @@ describe(FontFace.name, () => {
     });
 
     it('ignore invalid input', () => {
-      fontFace.setFontFamily(null as any);
+      fontFace.setFontFamily(null as unknown as string);
 
       expect(fontFace.getFontFamily()).toBe(testFamily);
     });
@@ -101,7 +101,7 @@ describe(FontFace.name, () => {
 
     it('ignore invalid input', () => {
       fontFace.setFontFamilyGeneric(testFamilyGeneric);
-      fontFace.setFontFamilyGeneric(null as any);
+      fontFace.setFontFamilyGeneric(null as unknown as FontFamilyGeneric);
 
       expect(fontFace.getFontFamilyGeneric()).toBe(testFamilyGeneric);
     });

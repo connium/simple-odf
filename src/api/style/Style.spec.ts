@@ -33,7 +33,7 @@ describe(Style.name, () => {
 
     it('ignore invalid input', () => {
       style.setClass(testClass);
-      style.setClass(null as any);
+      style.setClass(null as unknown as string);
 
       expect(style.getClass()).toBe(testClass);
     });
