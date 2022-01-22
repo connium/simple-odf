@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/connium/simple-odf/compare/v3.0.0...v3.0.1) (2022-01-22)
+
+
+### Bug Fixes
+
+* **deps:** bump semantic-release from 18.0.1 to 19.0.2 ([#616](https://github.com/connium/simple-odf/issues/616)) ([ba7950c](https://github.com/connium/simple-odf/commit/ba7950c90127931dd56d0f8f118ff7410e986383))
+
 # [3.0.0](https://github.com/connium/simple-odf/compare/v2.2.0...v3.0.0) (2022-01-17)
 
 
