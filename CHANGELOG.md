@@ -1,3 +1,10 @@
+## [3.0.2](https://github.com/connium/simple-odf/compare/v3.0.1...v3.0.2) (2022-10-22)
+
+
+### Bug Fixes
+
+* **deps:** bump @xmldom/xmldom from 0.8.2 to 0.8.3 ([#786](https://github.com/connium/simple-odf/issues/786)) ([4a8a66c](https://github.com/connium/simple-odf/commit/4a8a66c3c3e937f36251fd91996b28f4eecf992e))
+
 ## [3.0.1](https://github.com/connium/simple-odf/compare/v3.0.0...v3.0.1) (2022-01-22)
 
 
