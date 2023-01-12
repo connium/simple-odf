@@ -1,3 +1,10 @@
+## [3.0.3](https://github.com/connium/simple-odf/compare/v3.0.2...v3.0.3) (2023-01-12)
+
+
+### Bug Fixes
+
+* **deps:** bump json5 from 2.2.1 to 2.2.3 ([#838](https://github.com/connium/simple-odf/issues/838)) ([07e0b8b](https://github.com/connium/simple-odf/commit/07e0b8b854fb4eb1ffe08facb188b022e574283e))
+
 ## [3.0.2](https://github.com/connium/simple-odf/compare/v3.0.1...v3.0.2) (2022-10-22)
 
 
